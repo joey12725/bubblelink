@@ -12,13 +12,13 @@ v1.1 included:
 
 - Dual open-drain comparator (U1: TI TLV1822QDRQ1) for sensor threshold comparison and timer logic
 - 4.38 V supply supervisor (U2: TLV803E) with 200 ms delay for controlled shutdown during brownout
-- Adjustable detection threshold (RV1, 2 kΩ, 10-turn trimmer) tunable to each gun's noise floor
-- Adjustable pump-delay timer (RV2, 100 kΩ, 10-turn trimmer), target 350 ms ±50 ms
+- Adjustable detection threshold (RV1, 2 kΩ, 25-turn 3296W trimmer) tunable to each gun's noise floor
+- Adjustable pump-delay timer (RV2, 100 kΩ, 25-turn 3296W trimmer), target 350 ms ±50 ms
 - 1.5 A polyswitch fuse (F1) on the pump branch, protection against sustained overload
 - Schottky flyback diode (D1) and 100 nF capacitor (C9) at the pump connector
 - Three status LEDs (power, detection, pump)
 - Manual PRIME button for testing and priming the pump
-- Four M3 mounting holes (3.2 mm NPTH) for 30 × 24 mm footprint
+- Four M3 mounting holes (3.2 mm NPTH) on a 43 × 33 mm pattern
 - 50.0 × 40.0 mm board, 1.6 mm FR-4, 2-layer, 1 oz copper, lead-free HASL
 
 ---
@@ -119,7 +119,7 @@ v1.2 was subjected to automated structural release QA:
 1. Wait for PCBWay v1.2 delivery (assembled and bare boards).
 2. Hand-solder the through-hole components (J1, J2, J3, C1, RV1, RV2, SW1, LED1–LED3) following [fabrication-and-assembly.md](fabrication-and-assembly.md).
 3. Perform unpowered inspection, logic-only bring-up, and calibration per [bringup-and-acceptance-test.md](bringup-and-acceptance-test.md).
-4. Integrate into the backpack and connect to the ACS758 sensor, pump, and 5 V buck converter.
+4. Hang it under the cap of the printed stick (component side up, pushed onto the four printed pins through its mounting holes and heat-staked; see [../09-printed-parts.md](../09-printed-parts.md)), then connect to the ACS758 sensor, pump, and 5 V buck converter.
 5. Calibrate RV1 and RV2 to the actual gun and fluid system.
 6. Perform full system acceptance test under load.
 

@@ -4,7 +4,7 @@ Everything electrical outside the PCB: battery, charging, protection, distributi
 
 ## Table of Contents
 
-1. [Battery Cartridge](#battery-cartridge)
+1. [Battery Pack](#battery-pack)
 2. [Charging & Protection](#charging--protection)
 3. [Main Distribution Harness](#main-distribution-harness)
 4. [Current Sensing](#current-sensing)
@@ -17,7 +17,9 @@ Everything electrical outside the PCB: battery, charging, protection, distributi
 
 ---
 
-## Battery Cartridge
+## Battery Pack
+
+The 2S5P block stands on the base of the printed stick's sled, beside the central spine; it is not a separate cartridge. See [09-printed-parts.md](09-printed-parts.md).
 
 **Configuration:** 2S5P (two series × five parallel)  
 **Cells:** 10× Samsung INR18650-25R, 3.6 V nominal, 2500 mAh each  
@@ -26,19 +28,19 @@ Everything electrical outside the PCB: battery, charging, protection, distributi
 **Cutoff voltage:** ~6.0 V under load (protected by BMS)  
 **Total capacity:** 12.5 Ah (2.5 Ah × 5 parallel)  
 **Energy:** 90 Wh nominal (7.2 V × 12.5 Ah)  
-**Dimensions (cells only):** ~92 × 130 × 18.3 mm per cell, ~95 × 133 × 20 mm with spacing and fish paper  
-**Mass:** ~450 g cells alone; ~500–600 g with cartridge enclosure, BMS, and connectors
+**Cell dimensions:** 18.33 ± 0.07 mm × 64.85 ± 0.15 mm per cell; two offset rows of five at 19.9 mm pitch in the printed cell holders  
+**Mass:** ~450 g cells alone; ~500–600 g with cell holders, BMS, and connectors
 
 ### Cell Layout & Interconnect
 
-Arrange as two five-cell parallel groups. Physically organize as 5×2 grid (five cells wide, two rows deep), oriented with ~37–40 mm dimension pointing away from wearer's back. All cells face same direction (positive ends point toward same series-link edge).
+Arrange as two five-cell parallel groups in two offset rows of five. **The two rows face opposite directions**: row A has + toward one end and row B has − toward that end. If every cell faces the same way, it's 10P, not 2S5P. In the stick, the cell axes run front to back and the TERM face (pack + and −) faces the back.
 
 **Cell insulation & spacing:**
 - Fish-paper positive-terminal rings on all ten cell positive ends (prevents shorts)
-- Thin 0.5–1 mm air gap between cell wrappers (thermal management, allows assembly jig)
-- 3D-printed cell spacers (top and bottom) to maintain geometry and parallel bus width
+- ~1.6 mm wrapper gap at the holders' 19.9 mm pitch
+- Printed 5×2 offset cell holders (original design, replacing the Cults3D spacer remix): **MID** caps the series end (every tab on that face is the midpoint); **TERM** carries the separate pack + and − buses. Keep the two rows' strips on the TERM face apart, with fish paper between them. The holders are mirror images; if the A/B letters don't line up, rotate MID 180°
 
-**Interconnect method:** Spot-welded pure-nickel tabs, 0.15 mm minimum thickness, 10 mm width.
+**Interconnect method:** Spot-welded nickel-plated steel tabs, 2.6 cm long (3 × 10 pcs), not pure nickel. The 26 mm tabs reach both cell centres at the 19.9 mm pitch.
 
 **Series path:** Five independent nickel-plated steel bridges connect the two cell groups:
 - Five series links each rated for ~6 A at maximum 30 A pack current
@@ -65,7 +67,9 @@ Arrange as two five-cell parallel groups. Physically organize as 5×2 grid (five
 - **P−:** System negative (to main load)
 - **P+:** System positive (to main load / USB-C charger)
 
-Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads from parallel-series bus to BMS inputs with low-resistance solder joints and mechanical strain relief. Attach JST-XH three-pin balance connector for future cell monitoring (optional).
+**Size (measured 2026-10-14):** 2½ × 1⅞ × ¼ in (mounting holes not used).
+
+Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's TERM face; the TERM-face leads reach it through the channel behind the spine. Solder 12 AWG leads from parallel-series bus to BMS inputs with low-resistance solder joints and mechanical strain relief. Attach JST-XH three-pin balance connector for future cell monitoring (optional).
 
 ---
 
@@ -80,12 +84,14 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 - Charge time: 8–10 hours from full discharge at ≤4 A delivered to cells
 - Wiring: USB-C input to 30 W or greater USB-PD wall charger; BAT− to BMS P−; BAT+ to BMS P+
 
-**Installation:** Mount in dry electronics enclosure separate from fluid path. Connect via short 12 AWG wires to BMS load terminals (P− and P+); do not connect directly to battery slab, which bypasses BMS protection. Do not charge while fluid system is pressurized.
+**Size (measured 2026-10-14):** 1½ in (plug direction) × 11/16 × ⅜ in.
+
+**Installation:** Glued under the CHG window in the stick's cap, receptacle up. Connect its output to the BMS load terminals (P− and P+) through an XT30 pair so the cap stays removable; do not connect directly to battery slab, which bypasses BMS protection. Do not charge while fluid system is pressurized.
 
 **Charging procedure:**
-1. Disconnect pack from backpack if possible
+1. Disconnect pack from backpack if possible. **Take the cap off** until the first enclosed charge has been checked: charger and BMS temperatures inside the closed tube haven't been measured (at 4 A the charger alone may give off around 3–4 W), and pressure relief if a cell fails isn't verified
 2. Place on flat, non-flammable surface
-3. Visually inspect battery cartridge for swelling or damage
+3. Visually inspect battery for swelling or damage
 4. Connect USB-C charger to 30 W+ USB-PD wall supply
 5. Monitor BMS temperature during first 10 minutes (should not exceed 45°C)
 6. Charge overnight (8–10 hours for full cycle)
@@ -99,16 +105,19 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 **Part:** Waterproof DC automotive breaker, 30 A rating, Type B (manual reset only)  
 **Voltage:** 12–48 V DC (suitable for 2S 8.4 V)  
 **Terminals:** M6 threaded studs (6 mm hole), not solder terminals  
-**Dimensions:** ~72 × 48 × 44 mm
+**Dimensions (measured 2026-10-14):** 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick, plate holes 1¼ in apart. The listing's 72 × 48 × 44 mm was wrong: it's longer (102 vs 72 mm) but slimmer.  
+**Form:** Inline type: studs at both ends, and a square plate in the middle carrying a red reset lever and a red push-to-trip button.  
+**Location:** Stands upright behind the sled's cross panel with its controls facing the right wall, 2 mm behind a 34 × 40 mm window covered by a glued TPU membrane, so you can trip or reset it through the wall. It hangs by zip ties through its two plate holes and slots in the spine.  
+**OFF switch:** Pressing the trip button through the membrane turns off the bucks, PCB, voltmeter and guns. For storage, unplug the XT60H loop (the full battery disconnect, outside below the stick). The BMS stays on the battery either way.
 
-**Wiring:**
+**Wiring:** The breaker is in the **+ line only**. No negative wire goes to it.
 - Battery positive from BMS P+ → M6 stud via 12 AWG red silicone wire fitted with M6 closed-ring terminal
-- M6 stud → main positive distribution
+- Other M6 stud → main positive distribution
 - Return path: all negative to BMS P− (shared return)
 
 **Ring terminals:** Use **SC10-6** copper ring lugs (10 mm² barrel, M6 hole, specified for 12 AWG wire). **Solder-fill the barrel** to eliminate crimp-only failures and improve current distribution. **Do NOT** solder wire directly to breaker studs—excessive heat risks damaging breaker internals and causes fatigue failures under load cycling. Procedure: solder 12 AWG wire into the ring barrel (away from the stud connection), allow solder to cool, then bolt the filled ring under breaker nut with strain relief.
 
-**Reset procedure:** Manual push-button or toggle (part dependent). Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
+**Reset procedure:** Work the red reset lever through the TPU membrane in the stick's right wall (no need to open the cap). Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
 
 ---
 
@@ -142,7 +151,7 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 - Bandwidth: >100 kHz (fast enough for pump control switching)
 - Package: DIP-8 module on breakout board
 
-**Placement:** Mount module in electronics enclosure separate from PCB (external high-current sensors prevent PCB layout noise and heat).
+**Placement:** Separate from the PCB (external high-current sensors prevent PCB layout noise and heat). The module (measured 1½ × ~¾ × ⅛ in) drops into a compartment on the front of the sled's cross panel, above Buck A, and is held with a zip tie; its mounting holes aren't used.
 
 **Wiring (high-current path):**
 - **Conductor in:** 12 AWG red from breaker through sensor terminals (both terminals carry full gun current)
@@ -176,9 +185,9 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 - Three additional mechanical elements bundled inside 8–10 mm PET braided sleeve:
   - One 3.5 mm ID × 5.5 mm OD silicone tube (fluid line to gun nozzles)
   - One 4 mm paracord or Dyneema cord (load-bearing tether, rated for gun drop)
-  - Optional printed strain-relief boots (TPU or PETG)
+  - A printed umbilical brick at each end (PETG)
 
-**Strain relief:** XT30 connectors soldered with generous heat-shrink wrap; internal load path transfers mechanical stress to paracord, not wire (wire carries power only). Tether prevents damage if gun is dropped during event.
+**Strain relief:** XT30 connectors soldered with generous heat-shrink wrap, then strapped with a zip tie into the open-top pocket of the umbilical brick at each end. The paracord ties through the brick, so the load path transfers mechanical stress to paracord, not wire (wire carries power only). Tether prevents damage if gun is dropped during event.
 
 **Termination:** Wires soldered to XT30 pins from rear (solder from back of connector, not from pin directly, to avoid cold-solder joints). Verify mechanical fit before final enclosure assembly.
 
@@ -199,9 +208,12 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 - Load: G528 peristaltic pump (~250–300 mA running, 0.3 A nominal) + PCB logic/LEDs (<50 mA)
 - Total: ~350 mA steady-state
 
+**Size (measured 2026-10-14):** 1 in along the port, 5/16 in thick; width not measured (17 mm assumed). Same for Buck B.
+
 **Installation:**
-- Mount inside dry electronics enclosure
-- **Verify output with multimeter before connecting any load.** Target output is 5.0 V; PCB accepts 4.75–5.25 V. Use onboard potentiometer to adjust; do not assume factory default.
+- Drops into a compartment on the front of the sled's cross panel and gets a zip tie
+- **Solder the output directly to the PCB J1 lead.** There's no room for USB plugs inside the stick
+- **Verify output with multimeter before connecting any load.** Bench-test it under load before installing: it must stay below 5.25 V. Target output is 5.0 V; PCB accepts 4.75–5.25 V. Use onboard potentiometer to adjust; do not assume factory default.
 - Do not exceed 1 A total load on module (pump ~0.3 A + PCB <0.05 A)
 - Connect input to 12 AWG main red wire (post-breaker)
 - Output feeds PCB power input (JST-XH J1, 2-pin) and G528 pump (+5V, −GND)
@@ -216,7 +228,7 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 - Output: 5.0 V
 - Load: LED backpack (~500–700 mA peak during animation)
 
-**Installation:** Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
+**Installation:** In its own compartment on the front of the sled's cross panel, with a zip tie. Solder its output directly to a cut USB cable that runs to the backpack (no room for USB plugs inside). Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
 
 **Setting:** Same as Buck A—verify 5.0 V output with multimeter before connecting LED backpack.
 
@@ -228,14 +240,14 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 **Specifications:**
 - Display: Red LED 0.56-inch digits
 - Input: Two wires (positive, negative)
-- Supply current: Minimal (<5 mA)
+- Supply current: Not measured. Small LED meters like this typically draw tens of mA; check it once with a multimeter on the mA range
 - Accuracy: ±1 V typical across range
 - Protection: Reverse-polarity protected
 
 **Wiring:**
-- Positive (red): to BMS P+ (battery positive)
+- Positive (red): to the main positive **after the breaker**, so tripping the breaker turns the voltmeter off
 - Negative (black): to BMS P− (system ground)
-- Voltmeter draws minimal current (<5 mA) continuously; no push-button or standby mode
+- It draws current whenever the breaker is closed; there's no push-button or standby mode. At 20 mA the 12.5 Ah pack would take weeks to drain, so overnight doesn't matter, but unplug the XT60H loop for storage
 
 **Display reference:**
 - 8.4 V: Fully charged, ready for operation
@@ -243,7 +255,7 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 - 6.0 V: Minimum safe voltage (BMS cutoff threshold); if reached, stop operating and recharge
 - Below 6.0 V: Do not fire; BMS is actively protecting cells
 
-**Location:** Face of electronics enclosure, visible during event for quick capacity check without stopping activity.
+**Location:** Top of the stick's cap: the body drops through a 29.2 mm hole and is glued around its bezel. Measured 2026-10-14: bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm above the battery).
 
 ---
 
@@ -297,7 +309,7 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 
 **2S5P advantage:** Parallel configuration distributes current five ways, reducing per-cell heating to ~28% of 2S1P equivalent. Cells should remain comfortable to hold even after 30+ minute sustained firing.
 
-**Packed thermal environment:** Cells inside soft hydration pack with minimal active cooling. Monitor pack surface temperature during testing; if enclosure is too hot to touch, stop operation and allow 10 minutes cool-down before resuming.
+**Packed thermal environment:** Cells inside the stick's closed dry tube, in a soft hydration pack, with no active cooling. The tube only breathes incidentally (grommet slits, cap ring); pressure relief if a cell fails is not verified. Monitor pack surface temperature during testing; if enclosure is too hot to touch, stop operation and allow 10 minutes cool-down before resuming.
 
 ---
 
@@ -312,7 +324,7 @@ Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads f
 
 ### Contact Resistance Risk
 
-The old 2S1P test used hand-soldered connections that developed significant contact resistance (~30–50 mΩ), causing localized heating even at moderate currents (3.2 W per bad connection at 10 A). The 2S5P design uses **spot-welded pure-nickel tabs** to eliminate this; verify welds are solid and distribute current across five series links.
+The old 2S1P test used hand-soldered connections that developed significant contact resistance (~30–50 mΩ), causing localized heating even at moderate currents (3.2 W per bad connection at 10 A). The 2S5P design uses **spot-welded nickel-plated steel tabs** to eliminate this; verify welds are solid and distribute current across five series links.
 
 ### Connector Integrity
 
@@ -322,12 +334,14 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 ### Charging Safety
 
 - Never charge the pack while it is installed in a pressurized fluid system (active pump running). Disconnect fluid lines or vent bladder.
+- Charge with the stick's cap off until the first enclosed charge has been checked (charger and BMS temperatures inside the closed tube are unverified).
 - Charge on flat, non-flammable surface (wood table, concrete, not carpet or paper).
 - If BMS cuts off charging (thermal or voltage cutoff), allow pack to cool to room temperature before resuming. Do not force discharge through parallel load.
 - Damaged or swollen cells: **do not attempt to recharge or discharge**; replace immediately.
 
 ### Storage
 
+- Unplug the XT60H loop for storage (the full battery disconnect). The BMS stays on the battery either way; its quiescent draw hasn't been measured but is typically tiny
 - Store fully charged packs at room temperature (~20°C) in dry location
 - For storage >1 month, discharge to 50% (7.2 V nominal) to reduce stress on BMS balancing circuit
 - Do not store in extreme heat (>35°C) or moisture (>85% RH)
@@ -350,11 +364,11 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 | Ground bus | G528 pump (−) | Small wire | JST-XH (J3) | − | Pump return |
 | Ground bus | PCB GND (J1 pin 2) | Small wire | JST-XH 2-pin | − | Logic ground |
 | Main red | Buck A input (Hi) | 12 AWG red | Solder | + | Pump + controller supply |
-| Buck A output | PCB +5V (J1) | Small wire | JST-XH 2-pin | + | Logic supply, TLV1822 comparator, LEDs |
+| Buck A output | PCB +5V (J1) | Small wire | Soldered at buck; JST-XH 2-pin at PCB | + | Logic supply, TLV1822 comparator, LEDs |
 | Buck A output | G528 pump (+) | Small wire | JST-XH (J3) | + | Pump power @ 5V |
 | Main red | Buck B input (Hi) | 12 AWG red | Solder | + | LED backpack supply |
-| Buck B output | LED backpack +5V | Small wire | Connector | + | Backpack power |
-| BMS P+ | Voltmeter (+) | Small wire | Connector | + | Battery voltage display |
+| Buck B output | LED backpack +5V | Cut USB cable | Soldered at buck; USB plug at backpack | + | Backpack power |
+| Main red (after breaker) | Voltmeter (+) | Small wire | Connector | + | Battery voltage display; off when the breaker is tripped |
 | BMS P− | Voltmeter (−) | Small wire | Connector | − | Voltmeter return |
 | ACS758 (5V out) | PCB Vcc (J2 pin 2) | Small wire | JST-XH 3-pin | + | Sensor supply; low-current |
 | ACS758 signal out | PCB input (J2 pin 3) | Small wire | JST-XH 3-pin | Variable | 2.5V zero, ±40 mV/A |

@@ -8,7 +8,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Pack-fed, two-channel modular system with one shared transfer pump.
 
-**Why:** Joey's existing 2S1P gun proved the concept (a summer festival 2026-08-02, a convention 2026-09-04 to 06): 473.6 mL solution in ~75 min at 37% duty, ~26 W average, ~0.069 Wh/mL. The 2S5P cartridge has five times the baseline's energy (90 Wh vs 18 Wh). At ~0.069 Wh/mL that's roughly 1.2–1.3 L of solution for one EGU-class gun, which matches the 1 L reservoir (1 L budgets 71–74 Wh including pump assistance). Two independent XT30U channels allow flexible head deployment: one gun per channel, or both channels feeding one large wand. A single GROTHEN G528 at 150 mL/min nominal is ~9× one baseline gun's 16.9 mL/min continuous demand (~4.4× for two).
+**Why:** Joey's existing 2S1P gun proved the concept (a summer festival 2026-08-02, a convention 2026-09-04 to 06): 473.6 mL solution in ~75 min at 37% duty, ~26 W average, ~0.069 Wh/mL. The 2S5P pack has five times the baseline's energy (90 Wh vs 18 Wh). At ~0.069 Wh/mL that's roughly 1.2–1.3 L of solution for one EGU-class gun, which matches the 1 L reservoir (1 L budgets 71–74 Wh including pump assistance). Two independent XT30U channels allow flexible head deployment: one gun per channel, or both channels feeding one large wand. A single GROTHEN G528 at 150 mL/min nominal is ~9× one baseline gun's 16.9 mL/min continuous demand (~4.4× for two).
 
 **Implications:** Both channels share supply pressure and response time. Umbilicals are semi-permanent (XT30U remains the disconnect). Donors are test hardware, not a frozen design.
 
@@ -16,13 +16,13 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Existing overvolted three-head gun is the performance reference and first donor conversion candidate, not a completed prototype.
 
-**Why:** The gun taught design lessons (bad spring contacts generate 3–6.4 W heat, drop 0.4–0.8 V). A properly welded 2S5P cartridge will remove that artifact and may increase motor current. The baseline measurements (70 W inferred, ~15 min full-trigger life, ~26 W average sustained) establish the energy budget.
+**Why:** The gun taught design lessons (bad spring contacts generate 3–6.4 W heat, drop 0.4–0.8 V). A properly welded 2S5P pack will remove that artifact and may increase motor current. The baseline measurements (70 W inferred, ~15 min full-trigger life, ~26 W average sustained) establish the energy budget.
 
 **Implications:** No identical prototype exists. First build is the deployment unit. Donors are characterized post-assembly (current draw, flow rate, bubble quality).
 
 ---
 
-**Decision:** One 1 L removable hydration bladder, food-grade silicone tubing, one shared pump, printed pinch clamps per channel (no purchased shutoff valves).
+**Decision:** One 1 L removable hydration bladder, food-grade silicone tubing, one shared pump, printed slide clamps per channel (no purchased shutoff valves).
 
 **Why:** The 1 L capacity provides ~2 h 38 min at 37% duty (heavy dancing) and fits the pack. The G528 at 150 mL/min idles at ~23% capacity with two heads, leaving headroom for thicker solution or future adds. A recirculating bypass with a low-cracking check valve (0.003 MPa opening) prevents siphoning and force-feeding stopped donors. Printed clamps eliminate purchased shutoff hardware.
 
@@ -36,13 +36,13 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** At measured peak ~70 W (inferred from energy budget), the 2S5P pack supports two times the 18 Wh original. Five parallel cells reduce per-cell current: at 26 A total (eight heads + pump), each cell carries only 26 ÷ 5 = 5.2 A. Resistive heating per cell drops to 5.2² × 0.022 Ω ≈ 0.59 W (vs. the original gun's uncomfortable heat from poor contacts). The 90 Wh total is below the FAA 100 Wh threshold for airline carry-on.
 
-**Implications:** Cells must be matched (capacity and internal resistance) before spot-welding. Five parallel series bridges distribute main current (no single tab carries full output). Print spacers accommodate 18.33 ± 0.07 mm diameter, 64.85 ± 0.15 mm height tolerance.
+**Implications:** Cells must be matched (capacity and internal resistance) before spot-welding. Five parallel series bridges distribute main current (no single tab carries full output). The printed cell holders (original 5×2 offset design, MID and TERM, 19.9 mm pitch; they replace the Cults3D spacer remix) accommodate 18.33 ± 0.07 mm diameter, 64.85 ± 0.15 mm height tolerance. The two rows face opposite directions (row A + one way, row B − that way); if every cell faces the same way, it's 10P, not 2S5P.
 
 ---
 
-**Decision:** Spot-welded pure-nickel interconnects (five parallel series bridges, two tabs per bridge for redundancy, total 30 tabs ordered).
+**Decision:** Spot-welded nickel-plated steel interconnects (2.6 cm tabs, not pure nickel; five parallel series bridges, two tabs per bridge for redundancy, total 30 tabs ordered).
 
-**Why:** Eliminates solder joints and spring contacts that dissipate 3–6 W at 10 A and drop 0.4–0.8 V. Spot-welded nickel has ~1/10 the resistance. The five parallel bridges mean no single weld failure disables the pack.
+**Why:** Eliminates solder joints and spring contacts that dissipate 3–6 W at 10 A and drop 0.4–0.8 V. Spot-welded tabs have ~1/10 the resistance. The five parallel bridges mean no single weld failure disables the pack.
 
 **Implications:** Requires access to a spot welder (shared shop equipment). Build sequence: solder four series connections per string, then weld parallel bridges. Inspect every weld visually.
 
@@ -52,7 +52,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The 40 A rating provides startup margin; sustained max is ~26 A. Li-ion (not LiFePO₄) matches cell chemistry. Balance prevents divergence over cycles. Temperature cutoff at 55–60°C discharge, reset at 45°C, prevents thermal runaway under extreme loads.
 
-**Implications:** Confirm delivered board is Li-ion 8.4 V variant on unboxing—the listing offers both types. BMS is permanently attached to cartridge.
+**Implications:** Confirm delivered board is Li-ion 8.4 V variant on unboxing—the listing offers both types. BMS stands on edge in a slot along the stick's back wall, next to the battery's TERM face (measured 2½ × 1⅞ × ¼ in).
 
 ---
 
@@ -68,7 +68,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The 30 A rating equals system continuous max (26 A guns + pump + margin). Manual reset requires deliberate recovery, preventing accidental re-closure into a persistent short. No per-channel fuses; XT30U connectors (15 A rating) and 16 AWG wire (20 A rated) are secondary barriers.
 
-**Implications:** A gun short trips the main breaker immediately. Press reset after fixing the fault. No fuses to carry or replace in field.
+**Implications:** A gun short trips the main breaker immediately. Press reset after fixing the fault. No fuses to carry or replace in field. The breaker is in the + line only. Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong). It's an inline type with a red reset lever and a red push-to-trip button on its square plate. It stands upright behind the sled's cross panel, controls 2 mm behind a 34 × 40 mm window in the right wall covered by a glued TPU membrane, so you can trip or reset it through the wall. The trip button is the stick's OFF switch.
 
 ---
 
@@ -100,7 +100,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Decoupling prevents pump noise or LED transients from resetting the MCU. The YxPC modules have no defensible spec; both are provisional. If Buck A misbehaves, Pololu S13V30F5 is the external replacement (no PCB change).
 
-**Implications:** Measure each buck's output under load (PCB max input 5.25 V). Configure Buck A to ~5.0 V via trim pot before connecting pump.
+**Implications:** Measure each buck's output under load (PCB max input 5.25 V). Configure Buck A to ~5.0 V via trim pot before connecting pump. Solder both outputs directly (Buck A → PCB J1; Buck B → a cut USB cable to the backpack); there's no room for USB plugs inside the stick.
 
 ---
 
@@ -116,7 +116,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Two-wire passive display shows battery state without firmware. No percentage fuel gauge; operator reads voltage and estimates runtime from experience. 4–100 V range covers 2S (2.8 V min to 8.4 V max).
 
-**Implications:** A 7 V reading with full fluid suggests ~5 min firing left; below 5 V, gun loses output. Spares prevent broken display from blocking deployment.
+**Implications:** A 7 V reading with full fluid suggests ~5 min firing left; below 5 V, gun loses output. Spares prevent broken display from blocking deployment. Wire it after the breaker so tripping the breaker turns it off. Its idle draw is unmeasured (small LED meters typically draw tens of mA); measure it once, and unplug the XT60H loop for storage.
 
 ---
 
@@ -124,7 +124,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** XT60 is RC-standard, rated 60 A, provides secure break of main power. A loop key (short XT60 jumper) prevents accidental reconnection and provides pull handle for safe field swaps.
 
-**Implications:** Electrical work requires unplugging battery XT60 and USB-C input. Loop key stays in pack's accessory pocket.
+**Implications:** Electrical work requires unplugging battery XT60 and USB-C input. The XT60H loop runs out through the bulkhead grommet and the cup's floor; open the bag to pull it. It's the full battery disconnect, for storage. Everyday OFF is the breaker's trip button, pressed through the membrane in the stick's right wall. The BMS stays on the battery either way (quiescent draw unmeasured, typically tiny).
 
 ---
 
@@ -142,7 +142,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The 30 A breaker resets in field and protects the entire system. The 1.5 A PTC (F1, 1812L150/16DR) limits pump/PCB current independently if a short occurs on those branches.
 
-**Implications:** In normal operation, internal fuse never opens. If it does, pack is inoperable until cartridge is opened and fuse replaced (multi-minute field repair).
+**Implications:** In normal operation, internal fuse never opens. If it does, pack is inoperable until the stick is opened and fuse replaced (multi-minute field repair).
 
 ---
 
@@ -156,11 +156,11 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ## Connectors & Wiring
 
-**Decision:** XT60H (sheathed) for battery cartridge output, rated 60 A continuous.
+**Decision:** XT60H (sheathed) for battery output, rated 60 A continuous.
 
 **Why:** Battery output (~40 A peak, ~26 A sustained) is highest-current node. XT60H provides secure gold-plated contacts and protective sheath.
 
-**Implications:** Battery cartridge output is XT60 male; pack/main harness is XT60 female. Removable loop key completes master disconnect.
+**Implications:** Battery output is XT60 male; pack/main harness is XT60 female. Removable loop key completes master disconnect.
 
 ---
 
@@ -186,7 +186,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** 1 L provides ~2 h 38 min runtime at 37% duty. Factory hose disconnect is leakproof and can be cut/re-sealed with barbed tee (no purchased shutoff needed). Wide-mouth fill allows easy refill and cleaning.
 
-**Implications:** Fill from cut tube end, cap with printed plug. Drain and dry after every event; never store solution in bladder.
+**Implications:** Fill through the bladder's wide mouth. The bladder feed enters the stick's cup through its floor. Drain and dry after every event; never store solution in bladder.
 
 ---
 
@@ -194,7 +194,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Measured baseline 16.9 mL/min per gun; pump at 150 mL/min provides 2.2× margin. Single pump is half weight and cost vs. two. Peristaltic design eliminates impeller clogging.
 
-**Implications:** Confirm on delivery motor is marked "6 V", not "12 V" (seller artwork differs). Pump is permanent hardware; tube replacement only is user-serviceable.
+**Implications:** Confirm on delivery motor is marked "6 V", not "12 V" (seller artwork differs), and bench-test it at <0.3 A at 5 V. Pump is permanent hardware; tube replacement only is user-serviceable. Measured 2 × 1¾ × 1½ in at its thickest (the earlier 60 × 60 × 50 / 65 × 55 × 50 mm figures were wrong); it sits in a 52 × 46 mm pocket in the stick's cup.
 
 ---
 
@@ -210,7 +210,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** One assortment ([price]) supplies the unions, tees, and reducers. Nylon tolerates bubble solution, glycerin, detergents.
 
-**Implications:** Assortment provides four or more straight unions and three tees. Use #68401 for pump inlet/outlet, #68409 for manifold tees. Save extras for prototyping.
+**Implications:** The pack plumbing uses three tees (inlet tee, outlet tees 1 and 2), so check the assortment has three; each dual-head gun needs one more to feed its two donor pumps. Use #68401 for pump inlet/outlet, #68409 for manifold tees. Save extras for prototyping.
 
 ---
 
@@ -218,21 +218,21 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Low opening pressure (0.44 psi) allows excess flow to recirculate while blocking backward siphoning. Higher-pressure valves create unwanted back-pressure. The 0.003 MPa spec is acceptable (nylon-silicone designs typically open ~0.18 psi).
 
-**Implications:** Install arrow pointing toward pump inlet. The bypass runs: pump outlet → restrictor → check valve → inlet tee. Valve is single-use; if clogged, replace it.
+**Implications:** Install arrow pointing toward pump inlet. The bypass runs: outlet tee 1's side branch → slide clamp → check valve → inlet tee. Valve is single-use; if clogged, replace it.
 
 ---
 
-**Decision:** Printed adjustable pinch restrictor in bypass (no purchased needle valve).
+**Decision:** Printed slide clamp as the bypass restrictor (no purchased needle valve).
 
-**Why:** Hand-adjustable (two parallel bars squeeze hose), easy to print, requires no purchased parts.
+**Why:** One slide-clamp design does all three jobs (bypass restrictor and both channel shutoffs). Slide toward the arrow to close: ~8 mm of coarse travel, then 22 mm of fine adjustment, sealing at 0.6 mm. The shallow ramp self-locks, so there's no screw. Easy to print, requires no purchased parts.
 
-**Implications:** Set during commissioning to achieve ~120–150% donor demand. Check valve + restrictor keep pump pressurized while guns are idle.
+**Implications:** Set during commissioning to achieve ~120–150% donor demand. Check valve + restrictor keep pump pressurized while guns are idle. Wet-test that the ramp holds.
 
 ---
 
-**Decision:** Printed positive-lock pinch clamps (one per channel) instead of purchased shutoff valves.
+**Decision:** Printed slide clamps (one per gun line) instead of purchased shutoff valves.
 
-**Why:** Printed clamps are lighter, simpler, cheaper. When channel unused, clamp pinches hose manually.
+**Why:** Printed clamps are lighter, simpler, cheaper, and the same design as the bypass restrictor. When a channel is unused, slide its clamp closed.
 
 **Implications:** Clamps are passive; operator action required. Not an active pack-side valve.
 
@@ -340,7 +340,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Single momentary button allows manual pump start for priming or failsafe. Pressing PRIME runs pump for full off-delay. No pump-always-on mode.
 
-**Implications:** User-soldered. Mounted on pack exterior, easy reach.
+**Implications:** User-soldered. Pressed through a printed plunger under a TPU boot in the stick's cap (the boot is optional; pulling a trigger also primes).
 
 ---
 
@@ -406,7 +406,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Joey is extracting pump/fan/wetting mechanisms from random toy guns. Each donor may have different motor voltage, current, tubing, bubble pattern. Standardizing one head would require buying many identical toys (hard to find) or redesigning (out of scope for MVP).
 
-**Implications:** First build uses existing three-head gun as initial donor. Post-assembly, converted gun is characterized (current draw, flow rate, runtime, bubble quality) and compared with backup donors. Head selection is data-driven.
+**Implications:** For the target festival, the plan is a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week to strip for heads: pick 4 matched heads and keep spares. Each gun's two head motors run in parallel on its XT30U, and both donor pumps are fed from its umbilical through one assortment tee. Rough estimate (unmeasured): ~12 A with all 4 heads firing (~6 A per channel, well under 30 A), about 2–2.5 h of heavy firing, about 2 h per 1 L. Post-assembly, each gun is characterized (current draw, flow rate, runtime, bubble quality). Head selection is data-driven.
 
 ---
 
@@ -414,7 +414,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Small printed sled holds donor mechanism in standard orientation relative to umbilical. 30 × 20 mm footprint fits most small toy-gun mechanisms.
 
-**Implications:** Each new donor requires custom sled printed from measurements. Sled is part of iterative head design; no pre-printed sleds exist.
+**Implications:** Each new donor requires custom sled printed from measurements. Gun/head mounts are not designed yet; they need the teardown measurements.
 
 ---
 
@@ -430,7 +430,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** XT30U and silicone hose are rated for flow and signal, not sustained mechanical load. 550 paracord (4 mm, ~550 lb breaking strength) takes full weight when held high.
 
-**Implications:** Umbilical assembly includes paracord loop with knot/carabiner anchor. Power XT30U and fluid union mounted rigidly to printed connector brick; paracord separate, not twisted.
+**Implications:** Umbilical assembly includes paracord loop with knot/carabiner anchor. A printed umbilical brick at each end holds the XT30U (strapped in an open pocket), the 16 AWG pair and the tube (in grooves under narrow zip ties), and anchors the paracord; paracord separate, not twisted.
 
 ---
 
@@ -438,17 +438,17 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Carrier bag is MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry unknown until measured).
 
-**Why:** Commercial, waterproof, modular. Rough capacity 10–15 L adequate for battery cartridge (~1.5 L), reservoir (~1 L), pump, PCB, manifold (~2 L total).
+**Why:** Commercial, waterproof, modular. Holds the printed stick (about 99 × 78 × 207 mm, ~1.6 L) beside the 1 L reservoir. The "~34 × 20 × 7 cm" figure that circulated is an AI estimate of the exterior from photos, not an internal measurement.
 
-**Implications:** Geometric survey required post-delivery to plan internal layout. CAD paused until pack dimensions available (2026-10-11 instruction).
+**Implications:** The bag's internal geometry is still unmeasured. The stick is self-contained, with two umbilicals leaving its bottom, so it can move to a different bag easily.
 
 ---
 
-**Decision:** Layout intent: battery high and close to spine; dry electronics above open-bottom draining wet bay; connectors at lower left/right; master key reachable.
+**Decision:** Everything except the bladder is one upright printed "stick" standing beside the bladder (approved combining parts 2026-10-14): a control-head cap over a sealed dry tube (battery and electronics on a slide-out sled) over a draining wet cup (pump and fittings).
 
-**Why:** Balances weight distribution (battery high = lower center gravity for dancing), thermal protection (wet bay low = spills drain), field ergonomics.
+**Why:** The battery rides high (heavy part high, close to the back), the wet cup is lowest so spills drain away from the electronics, and the whole pack except the bladder is one portable unit. An intermediate wide-box design (about 157 × 171 × 52 mm) was dropped the same day because it couldn't sit beside the bladder.
 
-**Implications:** Pack interior partitioned: dry upper (battery, PCB, pump controller, charger), wet lower (reservoir, manifold, umbilicals coiled). Partition has drainage holes; drip tray is not considered spill containment.
+**Implications:** The tube's floor (bulkhead) is the wet/dry divider; cables cross it through a slit TPU grommet that is a splash baffle, not watertight. The cap's TPU ring seal, pressure relief if a cell fails, and enclosed-charging temperatures are not verified: wet-test the cap, and charge with the cap off until the first enclosed charge has been checked. Umbilicals, bladder feed, LED-backpack USB and the XT60H disconnect loop exit through the cup's floor. Hardware: 6 M3 screws + 6 glued-in nuts, zip ties, glue, 1 mm foam, tape. Details in [09-printed-parts.md](09-printed-parts.md).
 
 ---
 
@@ -482,15 +482,15 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** De-risks project. Working single-gun system deployable within deadline. Multi-head and cosplay happen post-event if MVP succeeds.
 
-**Implications:** the target festival 2026-10-30–31 deployment is one gun per channel, 1 L reservoir. Wrist emitter, six/sixteen-head stick, 180 Wh cartridge are future work (roadmap only, not MVP).
+**Implications:** the target festival 2026-10-30–31 deployment is one gun per channel (a pair of dual-head guns), 1 L reservoir. Wrist emitter, six/sixteen-head stick, 180 Wh cartridge are future work (roadmap only, not MVP).
 
 ---
 
-**Decision:** CAD paused until purchase exports and product details available (2026-10-11 instruction).
+**Decision:** CAD paused until purchase exports and product details available (2026-10-11 instruction); lifted 2026-10-14.
 
-**Why:** Pack dimensions and actual pump/reservoir physical sizes unknown from listings alone. Premature CAD would guess and require rework.
+**Why:** Actual part sizes were unknown from listings alone, and several listing figures turned out wrong. Premature CAD would guess and require rework.
 
-**Implications:** Once pack measured, CAD for battery cartridge, pump cradle, manifold tray, umbilical guides can proceed. 6–8 day build estimate assumes CAD prep complete before board arrival.
+**Implications:** Joey measured the breaker, BMS, bucks, ACS758, charger, voltmeter and pump with a tape measure on 2026-10-14, and the printed-part CAD now exists (OpenSCAD in `hardware/printed/src`, STLs in `hardware/printed/stl`, built with `hardware/printed/build.sh`). Nothing has been printed or test-fitted yet. Still unknown: the bucks' width (17 mm assumed). The earlier battery cartridge, pump cradle, divider/tray, brackets, breaker fence, buck pads, faceplates, pump/hose/tether block, Cults3D spacer remix and connector blocks are superseded. 6–8 day build estimate assumes printing is done before board arrival.
 
 ---
 
@@ -534,19 +534,19 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Decision:** 3D-printed parts for battery cartridge, enclosure, strain relief, restrictor, gun adapters, faceplate, dust cap in PETG or ASA.
+**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME plunger) in PETG, with TPU for the cap ring, the two grommet halves, the PRIME boot and the cap-screw washers; plus the fit coupon, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×4 in PETG.
 
-**Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (open-source STL files provided).
+**Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (OpenSCAD sources and STL files provided).
 
-**Implications:** Print time 12–30 hours per enclosure set. Parallel prints recommended. Layer thickness and infill (20–30%) balance strength and weight. Support cleanup required.
+**Implications:** Nothing needs supports. Print the fit coupon first and set the cell-bore and XT30U clearances from it, then the cell holders and slide clamps, then the stick parts and bricks. Use a light-coloured PETG for the cap so the LEDs show through. See [hardware/printed/README.md](../hardware/printed/README.md).
 
 ---
 
 **Decision:** Printers: Creality K2 Plus (350³ mm) and Bambu Lab A1 (256³ mm), both owned by Joey.
 
-**Why:** K2 Plus has larger volume for battery spacers and manifold. A1 is faster for small parts.
+**Why:** Both fit every stick part (the tallest, the tube, is 139 mm). A1 is faster for small parts.
 
-**Implications:** Large parts (battery cartridge, pack tray) on K2 Plus. Small parts (clamps, caps) batched on A1.
+**Implications:** Stick parts on either printer. Small parts (coupon, clamps, bricks, plunger) and all TPU parts on the A1.
 
 ---
 
@@ -574,4 +574,4 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Word count:** ~6,850 words, 70+ final design decisions organized across nine domains. Each decision includes final state (one line), rationale with numbers and sources, and implications for building and field use.
+**Word count:** ~5,300 words, 69 final design decisions organized across nine domains. Each decision includes final state (one line), rationale with numbers and sources, and implications for building and field use.

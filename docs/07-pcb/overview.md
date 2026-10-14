@@ -1,6 +1,6 @@
 # BubbleLink CTRL v1.2 — board overview
 
-The BubbleLink CTRL v1.2 is an automatic transfer-pump controller for bubble guns, mounted in the backpack alongside the battery and power distribution. It detects when a gun is in use by measuring current through an external Hall-effect sensor (ACS758), and automatically activates a peristaltic pump to feed the bubble reservoir through a distributing manifold. The controller cuts pump power after detection ends, with a calibrated delay to allow the last shot to complete.
+The BubbleLink CTRL v1.2 is an automatic transfer-pump controller for bubble guns, hung under the cap of the printed stick in the backpack, above the battery and power distribution on the sled. It detects when a gun is in use by measuring current through an external Hall-effect sensor (ACS758), and automatically activates a peristaltic pump to feed the bubble reservoir through a distributing manifold. The controller cuts pump power after detection ends, with a calibrated delay to allow the last shot to complete.
 
 ## Functional blocks
 

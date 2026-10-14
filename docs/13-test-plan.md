@@ -70,7 +70,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Charge battery to 8.4 V and rest 30 minutes
    - Fill 1L bladder with mixed bubble solution (100 mL JOYFY concentrate + 900 mL water)
    - Connect both XT30U gun channels with donor guns installed
-   - Open both pinch clamps (gun outlet shutoffs fully open)
+   - Open both channel slide clamps (gun outlet shutoffs fully open)
 
 2. **Fire continuously:**
    - Activate PRIME button (or gun triggers held in) for continuous pump operation
@@ -115,11 +115,11 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 **Objective:** Verify charger accepts 5V input and charges 2S pack to 8.4 V within expected time window.
 
 **Procedure:**
-1. **Discharge battery** to ~6.0 V (via Test 1.2 or extended operation)
+1. **Discharge battery** to ~6.0 V (via Test 1.2 or extended operation). **Take the stick's cap off** for this test; enclosed charging is checked separately in Test 2.2
 2. **Prepare charger:**
    - Use a 5V/2A USB-C power supply (wall adapter or lab supply)
    - Connect USB-C input to charger module
-   - Connect charger output spade terminals to BMS P− (black) and P+ (red)
+   - Connect charger output to BMS P− (black) and P+ (red) (in the stick, through the cap's XT30 pair)
    - Verify polarity with multimeter before applying power (should read 0V at start)
 
 3. **Apply 5V input:**
@@ -153,6 +153,29 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ---
 
+### Test 2.2: First Enclosed Charge (Cap On)
+
+**Objective:** Check charger and BMS temperatures when charging inside the closed stick. This hasn't been verified: the tube only breathes incidentally (grommet slits, cap ring), and at 4 A the charger alone may give off around 3–4 W. **Until this test passes, charge with the cap off.**
+
+**Procedure:**
+1. Run Test 2.1 first (cap off) and note the charger and BMS temperatures there
+2. Close the stick (cap on, both cap screws in) and charge from the top USB-C port
+3. Stay with it. Check the charger and BMS temperatures during the first 10 minutes and then periodically (open the cap briefly, or use a thermocouple lead or thermal camera)
+4. If either gets hot, stop charging and take the cap off
+
+**Acceptance criteria:**
+- [ ] BMS stays below the 45 °C first-charge limit in [04-power-system.md](04-power-system.md)
+- [ ] Charger and BMS temperatures are not much higher than in the cap-off charge of Test 2.1
+- [ ] Charge completes normally (8.35–8.45 V)
+
+**Data logged:**
+- Cap-off temperatures (Test 2.1): charger ____ °C, BMS ____ °C
+- Cap-on temperatures: charger ____ °C, BMS ____ °C
+
+**Pass/Fail:** ____
+
+---
+
 ## 3. Circuit Breaker and Main Power Path Test
 
 ### Test 3.1: Breaker Current Rating Verification
@@ -161,7 +184,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 **Procedure:**
 1. **Setup:**
-   - Disable breaker by setting reset lever to UP (OFF position)
+   - Open the breaker by pressing its red push-to-trip button (OFF)
    - Use adjustable lab power supply set to 8.4 V DC with 5A current limit
    - Connect positive to breaker positive terminal (via ring terminal)
    - Connect negative to a 10 Ω load resistor to ground
@@ -172,7 +195,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Breaker should trip cleanly and stop current flow within <100 ms
 
 3. **Test breaker reset:**
-   - Push reset lever DOWN (back to ON position)
+   - Work the red reset lever back to ON
    - Power should return; voltage should reappear across load
    - Breaker should hold at nominal current with no chatter or oscillation
 
@@ -231,6 +254,29 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 - XT60H latch resistance: FIRM / LOOSE / DAMAGED
 - Ring terminal slip: NO / YES (if YES, tighten nuts)
 - Temperature rise: ____ °C
+
+**Pass/Fail:** ____
+
+---
+
+### Test 3.3: OFF Switch Through the Membrane, and Idle Draw
+
+**Objective:** Confirm the breaker's trip button, pressed through the TPU membrane in the stick's right wall, works as the OFF switch, and measure the voltmeter's idle current (not yet measured).
+
+**Procedure:**
+1. With the stick closed and the XT60H loop plugged in, press the trip button through the membrane
+2. Confirm everything downstream goes off: the voltmeter goes dark, the PCB's POWER LED goes out (Buck A off), the LED backpack goes off (Buck B off), and the guns don't fire
+3. Work the reset lever through the membrane and confirm everything comes back
+4. **Voltmeter idle current:** with a multimeter on the mA range in series with the voltmeter's + lead, read its draw. Small LED meters typically draw tens of mA
+5. Unplug the XT60H loop and confirm nothing downstream is live (that's the full battery disconnect for storage; the BMS stays on the battery either way)
+
+**Acceptance criteria:**
+- [ ] Trip button and reset lever both work through the membrane, with the cap on
+- [ ] Tripping turns off the bucks, PCB, voltmeter and guns (the voltmeter is wired after the breaker)
+- [ ] Voltmeter idle current recorded
+
+**Data logged:**
+- Voltmeter idle current: ____ mA
 
 **Pass/Fail:** ____
 
@@ -477,8 +523,8 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 2. **Bench test without guns:**
    - Fill 1L bladder with water (not solution, for safety)
    - Prime pump for 5 seconds via PRIME button
-   - Observe outlet tee; water should flow only to the two gun channels (or be shut off by pinch clamps)
-   - Bypass tee should have quiet recirculation (listen for gurgling; restrictor tuning target is to keep flow steady, not excessive)
+   - Observe outlet tee 2; water should flow only to the two gun channels (or be shut off by their slide clamps)
+   - Outlet tee 1's bypass branch should have quiet recirculation (listen for gurgling; restrictor tuning target is to keep flow steady, not excessive)
 
 3. **Stop pump (release PRIME):**
    - Pump stops after ~350 ms
@@ -486,8 +532,8 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Gun channels should NOT drip significantly (allow <1 mL/min drip due to residual pressure)
 
 4. **Restrict bypass flow:**
-   - If bypass gurgling is loud or splashing (indicating high flow), adjust printed pinch clamp to restrict flow
-   - Tighten clamp screw or pin to reduce bypass gap
+   - If bypass gurgling is loud or splashing (indicating high flow), slide the bypass slide clamp further toward the arrow to restrict flow
+   - The shallow ramp self-locks (no screw); confirm it holds its setting under pump pressure
    - Retest; target is quiet, steady recirculation without splashing or backpressure buildup (system design targets 0.2–0.5 psi exit pressure)
 
 5. **Hold gun outlet high:**
@@ -527,11 +573,11 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Shut off PRIME; allow system to rest for 1 minute
 
 3. **Apply gentle air pressure:**
-   - Connect low-pressure air pump or hand-operated pump to gun outlet (open one pinch clamp)
+   - Connect low-pressure air pump or hand-operated pump to gun outlet (open one channel slide clamp)
    - Apply ~0.5 psi air pressure gradually
    - Observe all connections with eye and ear:
      - Pump inlet/outlet barbs
-     - Tee fittings (three-way inlet tee, splitter tee)
+     - Tee fittings (all three: inlet tee, outlet tee 1, outlet tee 2)
      - Check valve inlet/outlet
      - Gun outlet hoses at barb connections
      - Zip ties (if foam visible on hose, tie is cutting into silicone)
@@ -572,7 +618,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 **Procedure:**
 1. **Setup:**
    - Drain soapy water from previous test; replace with 1L mixed bubble solution (100 mL JOYFY concentrate + 900 mL water)
-   - Connect both donor guns; open pinch clamps fully
+   - Connect both donor guns; open both channel slide clamps fully
 
 2. **Run pump for 30 seconds:**
    - Use PRIME button or gun triggers to keep pump running continuously
@@ -602,6 +648,25 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ---
 
+### Test 7.3: Stick Cap Seal Wet Test and Cup Drain
+
+**Objective:** Check that the stick's dry tube stays dry. The cap's TPU ring is a starting geometry for a seal, not a proven one, and the bulkhead grommet is only a splash baffle.
+
+**Procedure:**
+1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU washers. The RV1/RV2 windows are taped and the PRIME boot is glued down
+2. Splash and spray water over the cap and the outside of the tube, as rain or spilled solution would in use (no submersion)
+3. Pour a little water into the cup and confirm it drains through the cup floor
+4. Open the cap and check the dry side (cap underside, PCB, sled, top of the grommet) for any water
+
+**Acceptance criteria:**
+- [ ] No water inside the dry tube
+- [ ] Cup drains through its floor; no standing water around the fittings
+- [ ] Grommet top face sealed with a thin bead of neutral-cure silicone once the wiring is final; every cable has a drip loop below the cup
+
+**Pass/Fail:** ____
+
+---
+
 ## 8. Shake, Vibration, and Mechanical Stability Test
 
 ### Test 8.1: Component Wiggle Test
@@ -610,9 +675,9 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 **Procedure:**
 1. **Backpack assembly (fully integrated):**
-   - Battery installed in cartridge
-   - PCB mounted on tray
-   - Pump secured in cradle
+   - Battery and electronics on the sled inside the stick's tube, cap screwed on (the cap's foam-padded ribs pin the sled)
+   - PCB hung under the cap on its heat-staked pins
+   - Pump strapped into its pocket in the cup
    - All hoses in place, clipped at ~1 m intervals
    - Both umbilical harnesses connected to pack channels
 
@@ -620,9 +685,9 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Hold backpack at chest level with both hands
    - Shake vigorously side-to-side and up-and-down (simulating dance motion)
    - Listen and feel for:
-     - Rattling or clicking from loose battery tabs
-     - Pump bouncing in cradle
-     - PCB shifting on mounting posts
+     - Rattling or clicking from loose battery tabs, or the sled moving in the tube
+     - Pump bouncing in its pocket
+     - PCB shifting on its pins
      - Connectors becoming loose or partially unlatched
 
 3. **Document findings:**
@@ -636,9 +701,9 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 **Acceptance criteria:**
 - [ ] No rattling or loose component noise
-- [ ] No PCB movement on mounting posts
-- [ ] No battery tab shifting or cracking sounds
-- [ ] No pump bouncing excessively (should contact cradle only)
+- [ ] No PCB movement on its pins
+- [ ] No battery tab shifting or cracking sounds; no sled rattle
+- [ ] No pump bouncing excessively (zip ties hold it in its pocket)
 - [ ] XT30U/XT60H connectors remain latched and secure
 
 **Shake test results:**
@@ -668,14 +733,14 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Reinstall tie with less force (should NOT visibly compress silicone)
 
 3. **Strain relief assessment:**
-   - Examine umbilical harnesses where they exit pack
-   - Printed TPU boots should distribute load smoothly to paracord (not sharp bends)
+   - Examine umbilical harnesses where they leave the cup floor
+   - The printed umbilical bricks at each end should transfer load to the paracord (not sharp bends); XT30U strapped in its pocket, wires and tube held in their grooves
    - Flex hose gently by hand; should not cause pinching at exit points
 
 **Acceptance criteria:**
 - [ ] No foam/deformation visible at any zip tie point
 - [ ] Hose can be slid 5–10 mm with moderate force (not stuck, not loose)
-- [ ] Strain relief boots intact and not cracked
+- [ ] Umbilical bricks intact and not cracked
 - [ ] No sharp kinks in hoses exiting pack
 
 **Zip tie inspection log:**
@@ -706,7 +771,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Record temperature at 2 min, 5 min, and 10 min intervals using thermometer
 
 3. **Measure component temperatures:**
-   - **Battery cartridge:** Contact thermometer on exterior of rigid enclosure (or thermal imaging if available)
+   - **Battery:** Contact thermometer on the cells or cell holders with the cap off, or on the tube wall beside the battery (or thermal imaging if available)
    - **PCB (U1 area and Q2 MOSFET):** Contact thermometer on top of board near components
    - **Pump housing:** Contact on plastic exterior
    - **XT30U connectors:** Contact on connector body
@@ -884,7 +949,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
    **A) Single gun (Left):**
    - Trigger Left gun; GUN and PUMP LEDs on
-   - Bubble production steady; Right gun silent (pinch clamp closed or disconnected)
+   - Bubble production steady; Right gun silent (its slide clamp closed or disconnected)
    - Release Left gun; pump off after 350 ms delay
    - Repeat 3 times; timing consistent
 
@@ -892,7 +957,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - Repeat with Right gun only; timing and behavior identical to Left
 
    **C) Dual-gun simultaneous:**
-   - Both guns connected with pinch clamps fully open
+   - Both guns connected with both channel slide clamps fully open
    - Trigger both simultaneously
    - GUN LED on immediately; PUMP LED on within 25 ms
    - Bubble production from both gun heads (total output roughly doubled vs. single gun)
@@ -913,10 +978,10 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
    - No missed activations or false starts
 
 3. **Crosstalk verification:**
-   - Connect both guns and close Right pinch clamp (block flow to Right channel)
+   - Connect both guns and close the Right slide clamp (block flow to Right channel)
    - Trigger Left gun; solution should flow only to Left
    - Measure pressure in Right hose (by feel or manometer); should be <0.1 psi (open line, no pump pressure)
-   - Right pump channel isolated by pinch clamp; no solution leakage
+   - Right pump channel isolated by its slide clamp; no solution leakage
 
 **Acceptance criteria:**
 - [ ] Left gun fires consistently (3/3 trials successful)
@@ -946,7 +1011,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 ### Electrical Systems
 - [ ] Battery fully charged: 8.40 ± 0.10 V open-circuit
 - [ ] BMS balanced: voltage spread <0.05 V (cells matched)
-- [ ] Breaker tested and reset: lever moves smoothly DOWN (armed)
+- [ ] Breaker tripped and reset through the membrane (Test 3.3); reset lever back to ON (armed)
 - [ ] All connectors (XT60H, XT30U, JST-XH) latched firmly; test by gentle pull
 - [ ] Controller (PCB) powered on; all three LEDs respond to PRIME
 - [ ] RV1 and RV2 calibration locked: dial positions marked
@@ -955,7 +1020,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 - [ ] Bladder filled: 1 L mixed solution (100 mL JOYFY + 900 mL water)
 - [ ] Pump primed: all hoses filled, no air locks; test via PRIME (30 sec run)
 - [ ] Check valve arrow points toward inlet (toward reservoir)
-- [ ] Gun channels: both pinch clamps accessible and responsive
+- [ ] Gun channels: both channel slide clamps accessible, responsive, and holding their setting
 - [ ] No leaks observed at any hose connection during 2-minute bench test
 
 ### Guns & Umbilicals
@@ -963,16 +1028,17 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 - [ ] XT30U connectors latched and secure (intentional unlatching required)
 - [ ] Umbilical harnesses bundled and protected (no kinks, no sharp bends)
 - [ ] Paracord load-bearing tethers intact (no fraying, no cuts)
-- [ ] Strain relief boots present at pack entry (protecting harness from pinch)
+- [ ] Umbilical bricks fitted at both ends of each umbilical (XT30U strapped in, paracord tied through)
 
 ### Backpack Integration
-- [ ] Battery secured in cartridge (no rattle, no movement during shake)
-- [ ] Pump mounted on foam cradle (vibration isolated)
-- [ ] PCB mounted on tray (secure, no flexing)
+- [ ] Sled pinned in the tube by the cap's foam-padded ribs (no rattle, no movement during shake)
+- [ ] Pump strapped into its 52 × 46 mm pocket in the cup
+- [ ] PCB hung under the cap, heat-staked on its pins (secure, no flexing); RV1/RV2 windows taped over
 - [ ] All internal hoses clipped at 1 m intervals (no dangling loops)
 - [ ] Loaded weight felt comfortable (wear for 2 minutes; feedback: ___________)
-- [ ] All external hoses routed through side exits; no interference with arm movement
-- [ ] USB-C charger cable accessible for external charging
+- [ ] Umbilicals leave from the bottom of the stick with drip loops below the cup; no interference with arm movement
+- [ ] USB-C charge port on top of the cap reachable; charge with the cap off until Test 2.2 has passed
+- [ ] XT60H loop and LED-backpack USB plug (in the wet zone below the stick) wrapped
 
 ### Testing & Documentation
 - [ ] All test results logged (Sections 1–13): PASS / FAIL status per test
@@ -984,7 +1050,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ### Venue & Environmental
 - [ ] Backpack size verified against venue bag restrictions (if applicable)
-- [ ] Water/moisture protection: enclosure sealing adequate for outdoor venue (no exposed solder joints, connectors covered when not in use)
+- [ ] Water/moisture protection: cap seal wet-tested (Test 7.3); no exposed solder joints, connectors covered when not in use
 - [ ] Temperature range: system tested or rated for expected venue temperature (if festival is <0°C or >40°C, note any thermal derating)
 - [ ] System readiness: perform final 5-minute test fire at venue (or pre-event location) within 1 hour of performance
 

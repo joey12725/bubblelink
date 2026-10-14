@@ -39,7 +39,7 @@ Connects the external Hall-effect current-sensor module. The sensor board must b
 
 ## J3 — pump motor output (2-pin)
 
-Supplies power and switched negative to the external bubble-transfer pump. The pump sits at a distance of several meters from the controller, connected via the umbilical harness.
+Supplies power and switched negative to the external bubble-transfer pump. In the printed stick, the PCB hangs under the cap and the pump sits in the wet cup at the bottom; the two pump leads cross the bulkhead through the TPU grommet.
 
 | Pin | Signal | Voltage | Notes |
 |-----|--------|---------|-------|
@@ -56,7 +56,7 @@ The pump motor is an inductive load and generates flyback transients when switch
 - One 100 nF ceramic capacitor (X7R, ≥25 V) connected directly across the motor tabs (as close as practicable).
 - One flyback diode across the motor tabs: cathode to motor positive (PUMP+), anode to motor negative (PUMP_SW_NEG). Use a 2–3 A, 20 V or higher Schottky diode with verified polarity.
 - Twisted pair from J3 to the motor to minimize loop area.
-- Strain relief on the umbilical harness that does not load J3 connector pins (load transfer to the enclosure or gaff-tape anchor).
+- Strain relief on the pump harness that does not load J3 connector pins (load transfer to the stick, not the pins). Leave enough slack to lift the cap and set it beside the stick.
 
 Board-side protection (D1, C9) alone is insufficient because cable inductance makes the motor-terminal loop the effective noise source.
 
