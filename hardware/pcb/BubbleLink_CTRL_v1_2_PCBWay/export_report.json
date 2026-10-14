@@ -1,0 +1,40 @@
+{
+  "input": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/source/BubbleLink_CTRL_v1_2_FINAL.circuit.json",
+  "input_sha256": "cefb930d83c3d1503fd2eda358e178ab7c5f5063bffa378bbb6ffb9a54190d6d",
+  "generated_at_utc": "2026-09-09T17:41:58.387Z",
+  "gerber_files": [
+    "B_Cu.gbr",
+    "B_Mask.gbr",
+    "Edge_Cuts.gbr",
+    "F_Cu.gbr",
+    "F_Mask.gbr",
+    "F_Paste.gbr",
+    "F_SilkScreen.gbr",
+    "drill-L1-L2.drl",
+    "drill_npth.drl"
+  ],
+  "gerber_layer_count": 7,
+  "drill_file_count": 2,
+  "assembly_side": "top-only",
+  "top_paste_pad_count": 92,
+  "top_paste_scale_to_copper": 1,
+  "omitted_dnp_paste_pads": 2,
+  "rejected_generator_pth_paste_flashes": 31,
+  "omitted_layers": [
+    "B_Paste.gbr",
+    "B_SilkScreen.gbr"
+  ],
+  "pcb_trace_count": 111,
+  "pcb_via_count": 56,
+  "pcb_copper_pour_count": 1,
+  "kicad_files": [
+    "BubbleLink_CTRL_v1_2.kicad_pcb",
+    "BubbleLink_CTRL_v1_2.kicad_sch",
+    "BubbleLink_CTRL_v1_2.kicad_pro"
+  ],
+  "drawing_files": [
+    "BubbleLink_CTRL_v1_2_PCB.svg",
+    "BubbleLink_CTRL_v1_2_Schematic.svg",
+    "BubbleLink_CTRL_v1_2_Assembly_and_U1_Detail.pdf"
+  ]
+}

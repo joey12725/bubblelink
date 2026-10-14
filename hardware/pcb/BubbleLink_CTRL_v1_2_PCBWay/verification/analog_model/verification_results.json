@@ -1,0 +1,659 @@
+{
+  "analytic_failure_ids": [],
+  "bench_pending_ids": [
+    "START-002",
+    "PWR-000",
+    "PWR-001",
+    "PWR-002",
+    "PWR-003",
+    "PTC-001",
+    "ENV-001",
+    "PWR-004",
+    "EMI-001"
+  ],
+  "design": "BubbleLink CTRL v1.1 frozen supervised fail-off topology",
+  "limitations": [
+    "This is a bounded passive-network/first-order model, not transistor-level SPICE.",
+    "Effective C6/C7 values under assembled bias and temperature require measurement.",
+    "TLV803 behavior below its 0.7 V controlled-output limit is covered by TLV1822 Hi-Z POR plus R15, but still requires hardware observation.",
+    "The real ACS module offset/noise, pump current, PTC heating, flyback, brush noise, buck behavior and PCB parasitics require bench testing.",
+    "A model pass is not authorization to skip any BENCH_REQUIRED traceability row."
+  ],
+  "model_passed": true,
+  "monte_carlo": {
+    "assumptions": {
+      "ACS_sensitivity": "uniform 39.4 to 41.0 mV/A",
+      "C10": "uniform +/-10%",
+      "C5_effective": "uniform +/-20%",
+      "C6_effective": "uniform 13.5 to 30.4 uF engineering envelope; verify assembled value",
+      "C7_effective": "uniform 4.68 to 8.60 uF tolerance/temperature/DC-bias envelope; verify assembled value",
+      "Q3_off_leakage": "uniform 0 to 1 uA",
+      "TLV1822_input_offset": "independent uniform +/-4 mV",
+      "TLV1822_output_low": "independent uniform 0.02 to 0.25 V",
+      "TLV803_assert_delay": "uniform 0 to 50 us",
+      "TLV803_falling_threshold": "nominal 4.38 V with uniform +/-2% accuracy",
+      "TLV803_hysteresis": "uniform 0.9% to 1.5%",
+      "TLV803_open_drain_leakage": "uniform 0 to 350 nA",
+      "TLV803_release_delay": "uniform 130 to 270 ms",
+      "TLV803_reset_low": "uniform 0 to 0.30 V",
+      "resistors": "independent uniform +/-1%"
+    },
+    "failure_counts": {
+      "detector_hysteresis": 0,
+      "q1_drive": 0,
+      "q1_start": 0,
+      "q3_fail_off": 0,
+      "r21_fail_safe": 0,
+      "supervisor_brownout_time": 0,
+      "supervisor_clamp": 0,
+      "supervisor_current": 0,
+      "supervisor_startup_guard": 0,
+      "target_350": 0,
+      "timer_hysteresis": 0,
+      "timer_range": 0
+    },
+    "metrics": {
+      "detector_hysteresis_mv": {
+        "maximum": 4.764115922586409,
+        "median": 4.387375746779387,
+        "minimum": 4.010409465543763,
+        "p01": 4.08947572100963,
+        "p99": 4.684430786614854,
+        "unit": "mV"
+      },
+      "pump_gate_decay_ms": {
+        "maximum": 2.314020724510792,
+        "median": 2.036869538639529,
+        "minimum": 1.7768562101485963,
+        "p01": 1.8127889842639535,
+        "p99": 2.269232682808448,
+        "unit": "ms"
+      },
+      "q1_required_current_ua": {
+        "maximum": 184.5518936037184,
+        "median": 173.07880041209347,
+        "minimum": 162.43856855472353,
+        "p01": 163.94640551322533,
+        "p99": 182.49821671454848,
+        "unit": "uA"
+      },
+      "q1_start_latency_ms": {
+        "maximum": 14.615459155624867,
+        "median": 9.488004986213607,
+        "minimum": 6.146227743842575,
+        "p01": 6.405650913080007,
+        "p99": 13.345310593013789,
+        "unit": "ms"
+      },
+      "q1_vgs_overdrive_v": {
+        "maximum": 1.2907316852475845,
+        "median": 1.0577475068580802,
+        "minimum": 0.8300193120268501,
+        "p01": 0.8671743425536632,
+        "p99": 1.2471863463476636,
+        "unit": "V"
+      },
+      "q2_fail_off_gate_v": {
+        "maximum": 0.010085342502896926,
+        "median": 0.005033929821178951,
+        "minimum": 1.465377359337917e-07,
+        "p01": 9.298483166114203e-05,
+        "p99": 0.00989821436591264,
+        "unit": "V"
+      },
+      "r21_fail_safe_delay_s": {
+        "maximum": 7.830892556838528,
+        "median": 5.325206967302281,
+        "minimum": 3.3505092484706203,
+        "p01": 3.5786481531034764,
+        "p99": 7.3055768729723205,
+        "unit": "s"
+      },
+      "supervisor_brownout_off_ms": {
+        "maximum": 8.20673952308727,
+        "median": 6.5175041298035925,
+        "minimum": 4.941373601335043,
+        "p01": 5.137821717166805,
+        "p99": 7.907259062877874,
+        "unit": "ms"
+      },
+      "supervisor_clamp_margin_v": {
+        "maximum": 0.19640571753295666,
+        "median": 0.18206768786717356,
+        "minimum": 0.16813360069145838,
+        "p01": 0.1717797231072843,
+        "p99": 0.19243242222729595,
+        "unit": "V"
+      },
+      "supervisor_initial_sink_current_ma": {
+        "maximum": 4.551660895943617,
+        "median": 4.2657679421894645,
+        "minimum": 3.984085861304114,
+        "p01": 4.034512657054509,
+        "p99": 4.506758839629567,
+        "unit": "mA"
+      },
+      "supervisor_minimum_release_supply_v": {
+        "maximum": 4.559949470483432,
+        "median": 4.452845168432788,
+        "minimum": 4.345004531699066,
+        "p01": 4.3590284897914,
+        "p99": 4.5456003756714125,
+        "unit": "V"
+      },
+      "supervisor_por_guard_ms": {
+        "maximum": 269.7999318775277,
+        "median": 200.39401745261836,
+        "minimum": 129.80120735901812,
+        "p01": 131.23106861908303,
+        "p99": 268.3895014387396,
+        "unit": "ms"
+      },
+      "target_350_position": {
+        "maximum": 0.9125549006824711,
+        "median": 0.5837822453915782,
+        "minimum": 0.41965418860185566,
+        "p01": 0.43169541212803775,
+        "p99": 0.8733029683958288,
+        "unit": "fraction"
+      },
+      "timer_hysteresis_mv": {
+        "maximum": 8.929964565374204,
+        "median": 8.206636601913896,
+        "minimum": 7.491152413878099,
+        "p01": 7.651829849803277,
+        "p99": 8.77605767072716,
+        "unit": "mV"
+      },
+      "timer_maximum_delay_ms": {
+        "maximum": 736.6452624952199,
+        "median": 555.2330504105018,
+        "minimum": 378.36436374458896,
+        "p01": 392.7492152048964,
+        "p99": 718.5913186275491,
+        "unit": "ms"
+      },
+      "timer_minimum_delay_ms": {
+        "maximum": 45.948782683320715,
+        "median": 34.09964866556429,
+        "minimum": 23.002143768713943,
+        "p01": 24.097511535887115,
+        "p99": 44.39903059783714,
+        "unit": "ms"
+      }
+    },
+    "passed": true,
+    "samples": 20000,
+    "seed": 20260807
+  },
+  "release_disposition": "MODEL_PASS_BENCH_GATES_PENDING",
+  "schema_version": "1.1",
+  "suite_version": "1.1.1",
+  "vector_results": [
+    {
+      "bench_required": false,
+      "id": "DET-001",
+      "measurements": {
+        "det_high_v": 4.994698340142778,
+        "hysteresis_mv": 4.420882071465293,
+        "hysteresis_v": 0.004420882071465293,
+        "release_v": 2.498497325176845,
+        "turn_on_v": 2.5029182072483103
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "detector_hysteresis"
+    },
+    {
+      "bench_required": false,
+      "id": "DET-002",
+      "measurements": {
+        "maximum_turn_on_v": 2.796874433170612,
+        "minimum_turn_on_v": 2.2117564790866537
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "detector_adjustment_span"
+    },
+    {
+      "bench_required": false,
+      "id": "DET-003",
+      "measurements": {
+        "latency_ms": 6.931471805599231
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "sensor_step_latency"
+    },
+    {
+      "bench_required": false,
+      "id": "DET-004",
+      "measurements": {
+        "average_increment_v": 0.004,
+        "detected": false,
+        "high_increment_v": 0.006021799521306201,
+        "low_increment_v": 0.0024482809824035658
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "pwm_detection"
+    },
+    {
+      "bench_required": false,
+      "id": "DET-005",
+      "measurements": {
+        "average_increment_v": 0.012,
+        "detected": true,
+        "high_increment_v": 0.018065398563918603,
+        "low_increment_v": 0.007344842947210696
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "pwm_detection"
+    },
+    {
+      "bench_required": false,
+      "id": "TMR-001",
+      "measurements": {
+        "falling_hold_threshold_v": 1.0188521392344705,
+        "hysteresis_mv": 8.269584097997829,
+        "hysteresis_v": 0.008269584097997829,
+        "rising_hold_threshold_v": 1.0271217233324683,
+        "timer_high_v": 4.991565014274592,
+        "timer_low_v": 0.1
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "timer_true_hysteresis"
+    },
+    {
+      "bench_required": false,
+      "id": "TMR-002",
+      "measurements": {
+        "maximum_delay_ms": 573.8078604094001,
+        "minimum_delay_ms": 34.96697331661758
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "timer_delay_range"
+    },
+    {
+      "bench_required": false,
+      "id": "TMR-003",
+      "measurements": {
+        "achieved_delay_ms": 350.0,
+        "error_ms": 5.551115123125783e-14,
+        "rv2_position": 0.5642445387657415
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "timer_target_solution"
+    },
+    {
+      "bench_required": false,
+      "id": "TMR-004",
+      "measurements": {
+        "fail_safe_delay_s": 5.990422486963192
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "timer_adjustable_branch_open"
+    },
+    {
+      "bench_required": false,
+      "id": "START-001",
+      "measurements": {
+        "final_active_v": 1.6246539343044637,
+        "initial_hold_v": 0.0,
+        "latency_ms": 14.2470538371821,
+        "latency_s": 0.0142470538371821,
+        "rising_threshold_v": 0.9757656371658449
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "q1_start_latency"
+    },
+    {
+      "bench_required": true,
+      "id": "START-002",
+      "measurements": {
+        "active_hold_v": 1.6296085903118143,
+        "final_vgs_magnitude_v": 1.738159941086926,
+        "q1_source_v": 1.988159941086926,
+        "required_drain_current_a": 0.00016461279102684,
+        "required_drain_current_ua": 164.61279102684,
+        "threshold_test_current_a": 0.00025,
+        "vgs_overdrive_v": 0.8381599410869259,
+        "vgs_threshold_max_v": 0.9
+      },
+      "note": "Static low-current proxy passes; production Q1 operation remains temperature bench-gated.",
+      "status": "MODEL_PASS_BENCH_REQUIRED",
+      "test": "q1_drive_corner"
+    },
+    {
+      "bench_required": false,
+      "id": "SAFE-001",
+      "measurements": {
+        "gate_rc_time_constant_s": 0.001,
+        "off_margin_v": 0.64,
+        "q2_gate_v": 0.01,
+        "q2_vgs_threshold_min_v": 0.65
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "q3_fail_off"
+    },
+    {
+      "bench_required": true,
+      "id": "PWR-000",
+      "measurements": {
+        "comparator_guaranteed_operating_from_v": 2.4,
+        "controlled_coverage_margin_v": 1.7,
+        "q2_gate_from_q3_leakage_v": 0.01,
+        "q3_por_vgs_v": 0.0,
+        "supervisor_controlled_output_from_v": 0.7,
+        "tlv1822_por_output_state": "high_impedance"
+      },
+      "note": "Below 0.7 V U2 is undefined, but TLV1822 open-drain POR is Hi-Z and R12/R15 make Q3/Q2 fail off; observe this on hardware.",
+      "status": "MODEL_PASS_BENCH_REQUIRED",
+      "test": "por_fail_off_coverage"
+    },
+    {
+      "bench_required": true,
+      "id": "PWR-001",
+      "measurements": {
+        "cases": [
+          {
+            "ramp_rate_v_per_s": 0.1,
+            "release_supply_v": 4.344031599999999,
+            "release_time_s": 43.440315999999996,
+            "threshold_crossing_s": 43.31031599999999
+          },
+          {
+            "ramp_rate_v_per_s": 1.0,
+            "release_supply_v": 4.461031599999999,
+            "release_time_s": 4.461031599999999,
+            "threshold_crossing_s": 4.331031599999999
+          },
+          {
+            "ramp_rate_v_per_s": 10.0,
+            "release_supply_v": 4.75,
+            "release_time_s": 0.5631031599999999,
+            "threshold_crossing_s": 0.43310315999999993
+          },
+          {
+            "ramp_rate_v_per_s": 100.0,
+            "release_supply_v": 4.75,
+            "release_time_s": 0.173310316,
+            "threshold_crossing_s": 0.043310315999999995
+          },
+          {
+            "ramp_rate_v_per_s": "hard_step",
+            "release_supply_v": 4.75,
+            "release_time_s": 0.13,
+            "threshold_crossing_s": 0.0
+          }
+        ],
+        "comparator_min_supply_v": 2.4,
+        "comparator_por_delay_s": 0.0002,
+        "falling_threshold_v": 4.2924,
+        "hysteresis_v": 0.038631599999999544,
+        "minimum_release_supply_v": 4.344031599999999,
+        "por_guard_margin_s": 0.1298,
+        "release_delay_s": 0.13,
+        "rising_threshold_v": 4.331031599999999
+      },
+      "note": "The supervisor timing envelope passes analytically; zero pump motion still requires scoped hardware ramps.",
+      "status": "MODEL_PASS_BENCH_REQUIRED",
+      "test": "supervisor_startup_ramp"
+    },
+    {
+      "bench_required": true,
+      "id": "PWR-002",
+      "measurements": {
+        "maximum_steady_reset_sink_current_a": 0.00045145329626464106,
+        "minimum_off_margin_v": 0.1803232689023685,
+        "points": [
+          {
+            "clamped_hold_v": 0.41230493497643833,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.6113789067579869,
+            "off_margin_v": 0.19907397178154856,
+            "steady_reset_sink_current_a": 0.00019855893736994048,
+            "supply_v": 3.0
+          },
+          {
+            "clamped_hold_v": 0.4310556378556184,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.6113789067579869,
+            "off_margin_v": 0.1803232689023685,
+            "steady_reset_sink_current_a": 0.00023171081657641162,
+            "supply_v": 3.0
+          },
+          {
+            "clamped_hold_v": 0.42551381865555227,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.6623130608175474,
+            "off_margin_v": 0.2367992421619951,
+            "steady_reset_sink_current_a": 0.00022191269210670487,
+            "supply_v": 3.25
+          },
+          {
+            "clamped_hold_v": 0.4448652319124698,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.6623130608175474,
+            "off_margin_v": 0.21744782890507758,
+            "steady_reset_sink_current_a": 0.00025612664765288154,
+            "supply_v": 3.25
+          },
+          {
+            "clamped_hold_v": 0.4387227023346662,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.7132472148771078,
+            "off_margin_v": 0.27452451254244165,
+            "steady_reset_sink_current_a": 0.00024526644684346924,
+            "supply_v": 3.5
+          },
+          {
+            "clamped_hold_v": 0.4586748259693212,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.7132472148771078,
+            "off_margin_v": 0.25457238890778666,
+            "steady_reset_sink_current_a": 0.00028054247872935146,
+            "supply_v": 3.5
+          },
+          {
+            "clamped_hold_v": 0.45193158601378014,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.7641813689366683,
+            "off_margin_v": 0.3122497829228882,
+            "steady_reset_sink_current_a": 0.00026862020158023364,
+            "supply_v": 3.75
+          },
+          {
+            "clamped_hold_v": 0.4724844200261726,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.7641813689366683,
+            "off_margin_v": 0.29169694891049575,
+            "steady_reset_sink_current_a": 0.0003049583098058214,
+            "supply_v": 3.75
+          },
+          {
+            "clamped_hold_v": 0.4651404696928941,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.8151155229962287,
+            "off_margin_v": 0.3499750533033346,
+            "steady_reset_sink_current_a": 0.00029197395631699803,
+            "supply_v": 4.0
+          },
+          {
+            "clamped_hold_v": 0.486294014083024,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.8151155229962287,
+            "off_margin_v": 0.3288215089132047,
+            "steady_reset_sink_current_a": 0.00032937414088229136,
+            "supply_v": 4.0
+          },
+          {
+            "clamped_hold_v": 0.478349353372008,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.8660496770557892,
+            "off_margin_v": 0.38770032368378116,
+            "steady_reset_sink_current_a": 0.00031532771105376243,
+            "supply_v": 4.25
+          },
+          {
+            "clamped_hold_v": 0.5001036081398754,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.8660496770557892,
+            "off_margin_v": 0.36594606891591375,
+            "steady_reset_sink_current_a": 0.0003537899719587614,
+            "supply_v": 4.25
+          },
+          {
+            "clamped_hold_v": 0.4915582370511219,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.9169838311153496,
+            "off_margin_v": 0.42542559406422775,
+            "steady_reset_sink_current_a": 0.00033868146579052667,
+            "supply_v": 4.5
+          },
+          {
+            "clamped_hold_v": 0.5139132021967268,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.9169838311153496,
+            "off_margin_v": 0.4030706289186229,
+            "steady_reset_sink_current_a": 0.0003782058030352312,
+            "supply_v": 4.5
+          },
+          {
+            "clamped_hold_v": 0.5047671207302358,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 0.9679179851749101,
+            "off_margin_v": 0.46315086444467435,
+            "steady_reset_sink_current_a": 0.00036203522052729095,
+            "supply_v": 4.75
+          },
+          {
+            "clamped_hold_v": 0.5277227962535781,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 0.9679179851749101,
+            "off_margin_v": 0.440195188921332,
+            "steady_reset_sink_current_a": 0.000402621634111701,
+            "supply_v": 4.75
+          },
+          {
+            "clamped_hold_v": 0.5179760044093498,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 1.0188521392344705,
+            "off_margin_v": 0.5008761348251207,
+            "steady_reset_sink_current_a": 0.00038538897526405546,
+            "supply_v": 5.0
+          },
+          {
+            "clamped_hold_v": 0.5415323903104295,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 1.0188521392344705,
+            "off_margin_v": 0.47731974892404094,
+            "steady_reset_sink_current_a": 0.00042703746518817104,
+            "supply_v": 5.0
+          },
+          {
+            "clamped_hold_v": 0.5311848880884638,
+            "delay_position": 0.0,
+            "falling_timer_threshold_v": 1.069786293294031,
+            "off_margin_v": 0.5386014052055672,
+            "steady_reset_sink_current_a": 0.00040874273000081996,
+            "supply_v": 5.25
+          },
+          {
+            "clamped_hold_v": 0.555341984367281,
+            "delay_position": 1.0,
+            "falling_timer_threshold_v": 1.069786293294031,
+            "off_margin_v": 0.51444430892675,
+            "steady_reset_sink_current_a": 0.00045145329626464106,
+            "supply_v": 5.25
+          }
+        ],
+        "worst_delay_position": 1.0,
+        "worst_supply_v": 3.0
+      },
+      "note": "",
+      "status": "MODEL_PASS_BENCH_REQUIRED",
+      "test": "supervisor_clamp_sweep"
+    },
+    {
+      "bench_required": true,
+      "id": "PWR-003",
+      "measurements": {
+        "absolute_reset_current_a": 0.02,
+        "falling_timer_threshold_v": 1.069786293294031,
+        "final_clamped_hold_v": 0.5508596128253205,
+        "gate_decay_s": 0.002301886736550795,
+        "hold_crossing_s": 0.005615447676795337,
+        "initial_hold_v": 2.5101477397180316,
+        "initial_reset_sink_current_a": 0.004527683513199913,
+        "initial_reset_sink_current_ma": 4.527683513199913,
+        "recommended_reset_current_a": 0.005,
+        "timing_reset_low_v": 0.3,
+        "total_pump_off_ms": 7.968234413346131,
+        "total_pump_off_s": 0.007968234413346131
+      },
+      "note": "Bounded RC model passes; shallow brownout propagation and real gate/drain waveforms remain bench-gated.",
+      "status": "MODEL_PASS_BENCH_REQUIRED",
+      "test": "supervisor_brownout_shutdown"
+    },
+    {
+      "bench_required": false,
+      "id": "DISC-001",
+      "measurements": {
+        "detector_release_s": 0.03487106563009311,
+        "timer_delay_s": 0.5738078604094,
+        "total_off_time_s": 0.6086789260394931
+      },
+      "note": "",
+      "status": "PASS",
+      "test": "sensor_disconnect"
+    },
+    {
+      "bench_required": true,
+      "id": "PTC-001",
+      "measurements": {
+        "hold_current_0c_a": 1.68,
+        "hold_current_20c_a": 1.5,
+        "hold_current_40c_a": 1.25,
+        "hold_current_50c_a": 1.1,
+        "post_reflow_resistance_max_ohm": 0.11,
+        "required_measured_pump_current_below_a": 1.1,
+        "trip_current_20c_a": 2.8
+      },
+      "note": "The known 50 C PTC limit is 1.10 A; the real pump current is unknown until measured.",
+      "status": "BENCH_REQUIRED",
+      "test": "ptc_derating"
+    },
+    {
+      "bench_required": true,
+      "id": "ENV-001",
+      "measurements": {},
+      "note": "No component-level analytic model can replace the specified delivered-hardware measurement.",
+      "status": "BENCH_REQUIRED",
+      "test": "sensor_environmental_window"
+    },
+    {
+      "bench_required": true,
+      "id": "PWR-004",
+      "measurements": {},
+      "note": "No component-level analytic model can replace the specified delivered-hardware measurement.",
+      "status": "BENCH_REQUIRED",
+      "test": "physical_power_transients"
+    },
+    {
+      "bench_required": true,
+      "id": "EMI-001",
+      "measurements": {},
+      "note": "No component-level analytic model can replace the specified delivered-hardware measurement.",
+      "status": "BENCH_REQUIRED",
+      "test": "pump_inductive_switching"
+    }
+  ]
+}

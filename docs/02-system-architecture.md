@@ -1,0 +1,549 @@
+# System Architecture
+
+BubbleLink is a modular bubble-gun system for festivals and raves, built around a 2S5P 18650 lithium-ion battery cartridge, a single transfer pump controlled by gun-current detection, dual XT30U gun channels, and a one-liter bubble-solution reservoir. This document describes the complete system architecture, power distribution, fluid paths, control logic, and mechanical layout.
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Power System](#power-system)
+3. [Fluid System](#fluid-system)
+4. [Control System](#control-system)
+5. [Electrical Architecture](#electrical-architecture)
+6. [Umbilicals and Connectors](#umbilicals-and-connectors)
+7. [Physical Layout](#physical-layout)
+8. [Subsystems Reference](#subsystems-reference)
+
+---
+
+## Overview
+
+The BubbleLink system integrates five major subsystems:
+
+- **Battery & Power Distribution:** 2S5P Samsung 25R cells with BMS, 30 A manual breaker, two regulated 5 V rails, and battery voltage display.
+- **Fluid Delivery:** 1 L hydration bladder, GROTHEN G528 6 V pump, low-pressure recirculation loop, two gun channels with four-foot hoses.
+- **Control Electronics:** BubbleLink CTRL v1.2 PCB (50 × 40 mm), ACS758 external current sensor, three status LEDs, adjustable pump delay.
+- **Gun Outputs:** Two XT30U power connectors on independent 16 AWG branches, supporting dual bubble-gun heads simultaneously.
+- **Mechanical Integration:** Internal wet/dry separation and electronics tray inside MAX LED backpack, strain-relief umbilicals.
+
+---
+
+## Power System
+
+### Battery Architecture
+
+**Configuration:** 2S5P (two series × five parallel)
+- **Cells:** 10× Samsung INR18650-25R (3.6 V nominal, 2500 mAh each)
+- **Nominal voltage:** 7.2 V; **Charged:** 8.4 V (4.2 V per cell)
+- **Capacity:** 90 Wh (12.5 Ah)
+- **Current rating:** 40 A BMS (peak); continuous operation <1.1 A total system
+- **Configuration:** Thin 2S5P slab (5 parallel columns × 2 series rows) with distributed nickel-plated-steel bridges (minimum 0.15 mm thick)
+- **Protection:** 2S 40 A Li-ion BMS with balance charging, mounted permanently to cartridge
+- **Thermal observation:** Cells reach 45–55°C during sustained high-current use; within safe Samsung 25R operating range
+
+### Primary Breaker and Distribution
+
+```
+2S5P Battery Cartridge (7.2–8.4 V)
+    │
+    ├─ BMS (40 A, 2S, Li-ion)
+    │
+    └─ XT60H connector (30 A rated, 12 AWG main wire)
+           │
+           ├─ [30 A manual-reset breaker, waterproof car-rated (Type B)]
+           │
+           └─ Distribution point (12 AWG copper bus)
+                  │
+                  ├─ Buck A converter (→ 5 V for pump + PCB logic) [ACS758 supply]
+                  │
+                  └─ Parallel split to two XT30U channels
+                         │
+                         ├─ Gun Channel 1 (XT30U, 16 AWG, 15 A max)
+                         │
+                         └─ Gun Channel 2 (XT30U, 16 AWG, 15 A max)
+```
+
+**Breaker Specifications:**
+- Type: 12V–48V DC manual-reset, waterproof
+- Rating: 30 A (6 mm / M6 threaded studs)
+- Mounting: Accessible on battery cartridge or pack exterior for manual reset
+- Installation: Two M6 ring terminals (12 AWG, tinned copper) soldered to 12 AWG main harness, clamped beneath nuts
+
+### Regulated 5 V Rails
+
+**Buck A (Primary):** Pump supply + PCB logic + ACS758 sensor
+- Input: Unregulated 6.4–8.4 V from battery (through 30 A breaker)
+- Output: 5.0 V ±0.25 V (qualified 4.75–5.25 V)
+- Load: ~0.5 A peak (0.3 A pump + 0.2 A PCB/sensor logic)
+- Module: Adjustable step-down converter (set to 5.0 V before deployment)
+- Filtering: 100 nF input bypass capacitor
+
+**Buck B (Secondary):** LED backpack USB power (isolated)
+- Input: Unregulated 6.4–8.4 V from battery
+- Output: 5.0 V USB-A for LED display backpack
+- Load: ~0.5 A (LED pixel matrix)
+- Module: Separate step-down converter (dedicated, no cross-load coupling)
+- Rationale: Isolates LED and pump load transients from PCB logic supply
+
+**Battery Voltage Display:** External 4–100 V digital voltmeter
+- Input: Direct 2S battery voltage (7.2–8.4 V nominal)
+- Connector: Two-wire (optional momentary push-to-read button prevents standby drain)
+- Display: Panel-mounted on pack exterior; updates when button pressed
+- Accuracy: Sufficient for field battery estimation; accounts for voltage sag under load
+
+---
+
+## Fluid System
+
+### Reservoir and Prime Path
+
+```
+1 L Hydration Bladder (TPU food-grade, removable)
+    │
+    ├─ 101 cm factory detachable outlet hose (cut to ~20 cm inside pack)
+    │
+    └─ [Reducer: bladder hose → 3.5 mm ID]
+           │
+           └─ 3.5 × 5.5 mm silicone tubing (5 m spool available)
+                  │
+                  └─ Pump inlet tee (nylon barb, 3.5 mm side)
+```
+
+**Reservoir Specifications:**
+- Capacity: 1 L (exactly; no oversized bag)
+- Material: TPU, food-grade, BPA-free
+- Removable: Yes; clean after every event
+- Valve: Bite-valve (auto-sealing, leak-proof during transport)
+- Prime time: ~7–12 seconds (GROTHEN G528 at 6 V filling four-foot hose)
+
+### Pump and Transfer Circuit
+
+**GROTHEN G528 Peristaltic Pump:**
+- Rated voltage: 6 V DC (4–6 V operating range)
+- Actual supply: 5.0 V regulated from Buck A (confirmed compatible; flowrate slightly reduced but within design margin)
+- Flow rate: ~150 mL/min on water; ~100–120 mL/min with bubble solution at 5–6 V
+- Current draw: 0.25–0.30 A nominal at 5 V; <0.60 A preferred, <1.10 A worst-case hot limit
+- Pump tubing: 3 × 5 mm BPT (supplied with pump); connects to 3.5 mm barb union via reducer
+- Protection: F1 PPTC 1.5 A fuse on pump positive branch (temperature-derated: 1.10 A hold at 50°C)
+- Operation: Continuous whenever armed and gun current detected; prime time negligible compared to recirculation settling
+
+### Recirculation Loop (Low-Pressure Bypass)
+
+**Purpose:** Maintains four-foot hoses primed and ready; allows pump to run faster than gun demand without overpressurizing
+
+```
+Pump outlet tee
+    │
+    ├─ [1] To gun channels (primary path)
+    │
+    └─ [2] Bypass restrictor (printed pinch clamp, adjustable)
+           │
+           └─ Check valve (0.003 MPa opening pressure; 4 mm barb, plastic PP body)
+                  │
+                  └─ Pump inlet tee (closes circuit)
+```
+
+**Flow Regulation:**
+- Restrictor: Printed screw-type pinch clamp (calibrated during build, then replaced with fixed smaller-ID tube ~1–2 mm for final setting)
+- Check valve: 4 mm plastic one-way valve (BigBigBear model); opening pressure 0.003 MPa (≈0.44 psi), low enough for peristaltic operation
+- Orientation: Check valve arrow points toward pump inlet/reservoir side (critical for direction)
+- Expected bypass flow: 5–15 mL/min at nominal pump output, balancing hydrostatic lift and line friction
+
+### Gun Channel Hoses
+
+**Dual independent channels (symmetrical):**
+
+```
+Outlet tee (pump side)
+    │
+    ├─ Left channel:  3.5 × 5.5 mm silicone hose
+    │                 └─ Four-foot length → XT30U connector → paracord umbilical
+    │                     └─ Donor gun inlet (4 mm barb, donor-pump inlet side)
+    │
+    └─ Right channel: 3.5 × 5.5 mm silicone hose
+                      └─ Four-foot length → XT30U connector → paracord umbilical
+                          └─ Donor gun inlet (4 mm barb, donor-pump inlet side)
+```
+
+**Specifications:**
+- Hose ID: 3.5 mm; OD: 5.5 mm; food-grade silicone
+- Length: Four feet per channel (measured inside pack to gun adapter)
+- Fittings: Nylon barbs from automotive hose assortment (#68409, 5/32-inch ≈4 mm tees; #68401 straight unions for reducers)
+- Pressure rating: Low (<1 psi during normal operation; dynamic hose suitable)
+- Fastening: Narrow (2.5 mm) zip ties at manifold, pump outlet, and bladder reducer only; avoid over-clamping soft silicone
+- Hose volume: Four-foot 3.5 mm-ID hose holds ~25 mL (priming time ~2–3 seconds at pump flow)
+
+---
+
+## Control System
+
+### Current Sensing and Detection
+
+**ACS758LCB-050B Hall-Effect Module (External):**
+- Type: 50 A bidirectional; 40 mV/A sensitivity; 5 V supply
+- Connection: Three-wire JST-XH (GND, +5V, analog OUTPUT)
+- Zero-current output: ~2.5 V nominal
+- Operating range: 0–5 V output (0–50 A primary measurement range)
+- Accuracy: ±4 mV over temperature; noise floor ~±10 mV
+- Location: Mounted beside PCB in pack enclosure; signal wire routed separately to J2 connector
+- Purpose: Detects combined current from both XT30U gun channels; triggers pump-on when threshold exceeded
+
+**Current Sensing Path:**
+- Measured signal: Combined gun current (both XT30U channels in parallel upstream of ACS758)
+- Signal does NOT include pump current or LED backpack current (isolated upstream of sensor)
+- Filtering: R1/C5 (10 ms RC low-pass) removes PWM ripple and brush noise
+- Comparator threshold: RV1 adjustable 2.21–2.80 V (user-tuned during calibration)
+- Hysteresis: ~4.4 mV (typical), preventing false triggers from sensor noise
+
+### BubbleLink CTRL v1.2 PCB
+
+**Function:** Automatic transfer-pump controller with manual override
+
+**Key Components:**
+- **U1 (TLV1822QDRQ1):** Dual comparator (rail-to-rail, 2.4–40 V range, open-drain outputs)
+  - Channel A: Gun-current detector (ACS_FILTER vs. RV1 threshold)
+  - Channel B: Timer for pump off-delay (HOLD vs. VDELAY)
+- **U2 (TLV803EA43DBZR):** 4.38 V / 200 ms brownout supervisor (fail-off safety)
+- **Q2 (AO3400A):** N-channel MOSFET pump driver (logic-level, SOT-23)
+- **D1 (B340A-E3/61T):** 2–3 A Schottky flyback diode (pump back-EMF suppression)
+- **F1 (1812L150/16DR):** 1.5 A PPTC fuse (pump branch protection, temperature-derated)
+- **RV1 (Bourns 3296W-1-202LF):** 2 kΩ 10-turn trimmer (gun-detection sensitivity)
+- **RV2 (Bourns 3296W-1-104LF):** 100 kΩ 10-turn trimmer (pump shutoff delay, ~350 ms nominal)
+- **LEDs:** POWER (always on), GUN ACTIVE (detection), PUMP (pump running)
+- **SW1 (PRIME button):** Momentary switch for manual pump trigger (testing, priming)
+
+**Board Specifications:**
+- Size: 50 × 40 mm, two-layer FR-4, 1 oz copper, lead-free HASL
+- Mounting: Four 3.2 mm NPTH corner holes (43 × 33 mm spacing rectangle)
+- SMT assembly: 41 top-side placements; 10 through-hole positions (user-installed connectors, potentiometers, LEDs)
+- Power input (J1): JST-XH, 5.0 V ±0.25 V regulated from Buck A
+- Sensor input (J2): JST-XH, ACS758 module interface (3-pin)
+- Pump output (J3): JST-XH, pump positive and switched negative
+- Optional force-on (J4): User-installable override (short to force pump ON)
+
+### Detection and Timing Logic
+
+**Pump activation sequence:**
+1. Gun trigger closes; gun motor draws current
+2. ACS758 analog output rises (40 mV per amp of gun current)
+3. Filtered sensor signal (TP5, ACS_FILTER) reaches comparator threshold (RV1 set point, TP6)
+4. U1A comparator pulls DET_N low (open-drain, ~0 V asserted)
+5. DET_N triggers Q1 (P-channel), charging HOLD capacitor from buffered half-supply (VMID, TP8)
+6. While HOLD > timer threshold (VDELAY, TP10), U1B keeps TIMER_N low
+7. Low TIMER_N gates Q3 (P-channel) ON, sourcing Q2 gate voltage
+8. Q2 turns on (gate high), pump negative switch closes → pump runs
+
+**Pump shutdown sequence:**
+1. Gun trigger released; gun current drops below comparator hysteresis
+2. U1A releases DET_N (open-drain, pulled high by R12)
+3. Q1 turns off; C7 (HOLD capacitor) begins discharging through R9/RV2/R21
+4. After adjustable delay (~350 ms nominal, tuned via RV2), HOLD voltage crosses VDELAY threshold
+5. U1B comparator releases TIMER_N (open-drain, pulled high by R12)
+6. Q3 turns off; Q2 gate pulls down through R15 (10 kΩ)
+7. Q2 turns off; pump stops
+8. Residual system pressure maintains hose priming for next trigger
+
+**Manual Prime (PRIME button):**
+- Short DET_N directly to ground via momentary switch
+- Activates same gate-charge path as gun detection
+- Pump runs continuously while button held
+- Used for field priming before first use or system refill
+
+**Force-on Fallback (J4 optional, currently DNP):**
+- Two-pin header (solder lands present, unpopulated by default)
+- If installed and jumpered, directly gates Q2 ON (independent of comparator)
+- Fallback workaround if the ACS758 cannot detect very low-current or internally PWM-slowed gun heads (below sensor noise floor)
+- Override entirely replaces comparator logic (no automatic shutoff; manual control required)
+
+### Sensor Threshold Calibration
+
+**RV1 Adjustment Range:** 2.21–2.80 V (approximately)
+- **Clockwise turn:** Raises threshold, decreases pump sensitivity
+- **Counter-clockwise turn:** Lowers threshold, increases sensitivity
+- **Typical setting:** ~2.4–2.5 V for one three-head gun (gun current ~10–15 mV rise on sensor output)
+- **Calibration procedure:** Set RV1 so pump starts immediately when any gun trigger closes; back off slightly to avoid false triggers from sensor noise
+
+**RV2 (Shutoff Delay) Adjustment:**
+- **Nominal range:** 34–574 ms (worst-case modeled 23–737 ms depending on component tolerances)
+- **Target setting:** ~350 ms (pump stays on ~350 ms after gun trigger released; prevents rapid on-off cycling from brief trigger releases)
+- **Clockwise turn:** Increases delay (slower shutdown)
+- **Counter-clockwise turn:** Decreases delay (faster shutdown)
+- **Field tuning:** If hoses drain too quickly and bubble flow stops between trigger pulses, increase RV2; if pump overstays after gun release, decrease RV2
+
+---
+
+## Electrical Architecture
+
+### High-Current Power Path (Battery to Guns)
+
+```
+2S5P Battery (8.4 V)
+    │
+    ├─ XT60H connector
+    │
+    └─ 30 A manual breaker
+           │
+           └─ 12 AWG silicone wire (main bus)
+                  │
+                  ├─ [ACS758 sensor input; measures combined gun current]
+                  │
+                  └─ 12 AWG star harness splits to two 16 AWG XT30U branches
+                         │
+                         ├─ XT30U Channel 1 → Gun 1 (15 A max per XT30U rating)
+                         │
+                         └─ XT30U Channel 2 → Gun 2 (15 A max per XT30U rating)
+```
+
+**Current Distribution:**
+- Main 12 AWG path: Entire system current (pump + both guns) up to 30 A breaker limit
+- Per-gun branch 16 AWG: Each gun channel carries up to 15 A (XT30U rated limit)
+- Six-head configuration (3 heads per gun): ~17 mA per head at 8.4 V (~3 V per head), combined ~51 mV per gun on ACS758 output (above 10 mV noise floor)
+- Dual-gun simultaneous firing: Both channels active, total system current flows through ACS758 and main 12 AWG
+
+### Low-Current PCB Logic and Signal Paths
+
+```
+5 V Logic Rail (from Buck A)
+    │
+    ├─ U1, U2 comparators & supervisor (quiescent ~0.7 mA)
+    │
+    ├─ ACS758 sensor module (13.5 mA max)
+    │
+    ├─ RV1, RV2 potentiometers (low current)
+    │
+    ├─ LED drivers (LED1 POWER ~10 mA; LED2/LED3 conditional)
+    │
+    └─ Q1, Q3 gate drives (~1 µA quiescent; transient ~100 µA when gating)
+
+Pump Output (Q2 driver)
+    │
+    ├─ F1 PPTC fuse (1.5 A hold @ 20°C; 1.10 A @ 50°C)
+    │
+    └─ Q2 N-channel MOSFET
+           │
+           ├─ [D1 Schottky flyback diode on motor back-EMF]
+           │
+           └─ J3 pump connector to GROTHEN G528 pump
+                  │
+                  └─ Pump motor (~0.3 A nominal, <1.1 A peak)
+```
+
+### Test Points (Accessible on PCB for field troubleshooting)
+
+| Test Point | Signal | Nominal Range | Purpose |
+|---|---|---|---|
+| TP1 | +5V_PUMP | 4.95–5.05 V | Pump rail; ripple measurement |
+| TP2 | +5V_LOGIC | 4.95–5.05 V | Logic rail; ripple |
+| TP5 | ACS_FILTER | 0–5 V | Filtered sensor input |
+| TP6 | VTH | 2.21–2.80 V | Comparator threshold (RV1 wiper) |
+| TP8 | VMID | 2.40–2.60 V | Buffered half-supply reference |
+| TP9 | HOLD | 0–VDELAY | Gate-charge storage node |
+| TP10 | VDELAY | 0.98–1.06 V | Timer threshold |
+| TP11 | PUMP_GATE | <0.05 V idle; ~4.5 V when pump on | Q2 pump driver gate signal |
+| TP12 | PUMP_SW_NEG | ~0 V when pump on; near +5V_PUMP when off | Pump negative leg (Q2 source) |
+| TP14 | TIMER_N | 0 V (on) / >4.5 V (off) | Timer comparator output |
+
+---
+
+## Umbilicals and Connectors
+
+### Standard Umbilical Assembly (per gun channel)
+
+Each gun receives a four-foot "umbilical" bundle containing:
+
+```
+[Pack side] ←──── Four-foot bundle ────→ [Gun side]
+    │                    │                      │
+    ├─ XT30U connector    ├─ 16 AWG power pair  ├─ Gun motor
+    │ (pack mating)       │ (two conductors)    │
+    │                     │                      │
+    ├─ Fluid hose barb    ├─ 3.5×5.5 mm         ├─ Gun pump
+    │ (3.5 mm barb)       │ silicone tube       │ inlet
+    │                     │ (~4 feet)           │
+    ├─ Paracord anchor    ├─ 550-cord           ├─ Cable restraint
+    │ (load-bearing)      │ (tether, 4 mm)      │ (short loop)
+    │                     │                      │
+    └─ Connector block    └─ Braided sleeve     └─ Strain relief
+      (XT30U + barb + tether)  (10 mm PET, protective)  (printed TPU boot)
+```
+
+**Specifications:**
+- **Power:** Two 16 AWG silicone conductors (black/red); stranded, tinned copper; 5 m spools sufficient for two umbilicals
+- **Fluid:** 3.5 × 5.5 mm silicone hose; three barbed nylon unions (one pack-side reducer, two gun adapters)
+- **Tether:** 550 paracord (4 mm, 7-strand), listing states 150 kg load-bearing capacity; load-bearing for gun weight and hose strain relief
+- **Protective sheathing:** 10 mm braided PET cable sleeving; black; functional, not cosmetic
+- **Connectors:** 
+  - Pack side: XT30U (female/recessed) on main connector block
+  - Gun side: XT30U (male) soldered to 16 AWG pair with strain relief boot
+  - Hose side: Barbed nylon unions (pack reducer, gun adapter); secured with narrow zip ties
+- **Redundancy:** Two identical umbilicals per system; spare materials are available for additional umbilicals if needed
+
+### Connector Hierarchy
+
+| Connection | Connector Type | Rating | Wire Gauge | Quantity | Location |
+|---|---|---|---|---|---|
+| Battery → Breaker | XT60H | 30 A | 12 AWG | 1 pair | Cartridge side |
+| Breaker → Gun channels | XT30U | 15 A | 16 AWG | 2 pairs | Pack core |
+| ACS758 input | JST-XH | 2 A | 22 AWG | 1× 3-pin | PCB J2 |
+| Pump output | JST-XH | 0.3 A | 22 AWG | 1× 2-pin | PCB J3 |
+| Power input | JST-XH | 5 A | 22 AWG | 1× 2-pin | PCB J1 |
+| Battery display | Two-wire | 0.1 A | 22 AWG | 1 pair | External voltmeter |
+
+**Design Rationale:**
+- XT60H for main battery: 30 A rating exceeds worst-case 25 A system draw; larger connector accommodates thick 12 AWG lugs
+- XT30U for gun channels: 15 A rating per gun sufficient (max 17 A per XT30U at full six-head draw, below continuous limit)
+- JST-XH for PCB and sensor: Low-current logic signals; keyed connectors prevent reversal
+- All connectors female/recessed on live (power source) side for safety during connection/disconnection
+
+---
+
+## Physical Layout
+
+### Pack Interior Geometry
+
+**Container:** MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry to be measured)
+- Battery cartridge, pump, electronics tray, and 1 L reservoir mounted inside
+
+**Layout intent:**
+- **Battery cartridge:** High and close to the spine (upper-rear), centered vertically to balance on the wearer
+- **Pump and fluid manifold:** Lower wet zone with recirculation loop
+- **Electronics tray (PCB + Buck converters):** Above the wet bay, protected from splash by divider
+- **Wet/dry divider:** Printed PETG or thermoplastic barrier with weep holes for drainage
+- **Connectors:** Positioned at lower left and right for ergonomic reach
+- **Master disconnect:** Reachable at the side (XT60 loop key or battery unplugging)
+
+**Weight distribution (festival configuration with 1 L solution):**
+- 1 L bubble solution: 1.0 kg
+- 2S5P battery + cartridge enclosure: 0.55–0.65 kg
+- Pump, tubing, electronics, divider: 0.3–0.5 kg
+- MAX LED backpack carrier: 0.3–0.5 kg
+- **Total (rough estimate, not weighed):** ~2.2–2.7 kg. The platform-spec target for the standard rig is 4.6–5.5 lb (~2.1–2.5 kg). Weigh the real build.
+
+### Internal Assembly (Pack Interior)
+
+The BubbleLink system is mounted inside a MAX LED "M Style" Bluetooth LED pixel backpack, with internal printed supports for component positioning.
+
+**Internal sub-assemblies:**
+
+1. **Battery Cartridge (Rigid PETG/ASA enclosure)**
+   - Dimensions: ~105 × 75 × 43 mm (2S5P cells + BMS + XT60H connector)
+   - Position: Upper-rear, close to the spine, weight-balanced toward wearer's back
+   - Access: XT60H connector for battery connection/disconnection
+   - Labeling: Sharpie-marked directly on enclosure: "2S5P Samsung 25R / 7.2 V nominal / 12.5 Ah / 90 Wh / Build date / XT60H polarity"
+
+2. **Pump Assembly**
+   - Component: GROTHEN G528 6 V peristaltic pump with 3×5 mm tubing
+   - Position: Lower wet zone, vibration-dampened mounting
+   - Outlet: Tee fittings for manifold and recirculation loop
+
+3. **Electronics Tray (Printed PETG frame, upper dry zone)**
+   - Dimensions: ~140 × 80 × 25 mm (PCB + Buck A + Buck B side-by-side)
+   - Components:
+     - **BubbleLink CTRL PCB:** 50 × 40 mm, centered for balanced connector access
+     - **Buck A (pump supply):** 30 × 25 × 15 mm, left side, powers PCB logic and pump
+     - **Buck B (LED backpack supply):** 30 × 25 × 15 mm, right side, powers MAX LED display
+   - Connectors: J1 (5 V input), J2 (ACS758 sensor), J3 (pump output) accessible from front
+   - LEDs: POWER, GUN ACTIVE, PUMP mounted on PCB top; visible through backpack display opening
+   - Test points: Accessible via small holes (users use oscilloscope probes or multimeter during calibration)
+
+4. **Wet/Dry Separator (Printed TPU/PETG divider)**
+   - Purpose: Isolates electronics tray from pump discharge and recirculation loop
+   - Position: Horizontal wall separating lower (pump/fluid) and upper (electronics) zones
+   - Drainage: Weep holes (3 mm diameter, ~5–8 holes) allow condensation and minor spills to drain to lowest point
+
+5. **Umbilical Management (Printed clips and strain-relief boots)**
+   - Hose routing: Two four-foot umbilical bundles from pack shoulder exits
+   - Clips: Printed spiral wraps or zip ties every 12 inches along hose length
+   - Strain relief: TPU-printed boots at shoulder-exit junction (transfer pulling force from connector to enclosure)
+
+### Hose Routing
+
+```
+MAX LED backpack interior layout (side view):
+
+                    [SHOULDER EXIT LEFT]  [SHOULDER EXIT RIGHT]
+                              ↑                      ↑
+                              │                      │
+    ┌─────────────────────────────────────────────────────┐
+    │              Electronics Tray (Dry Zone)             │
+    │    [PCB + Buck A + Buck B]  [POWER/GUN/PUMP LEDs]   │
+    ├─────────────────────────────────────────────────────┤
+    │          Wet/Dry Divider (PETG + Weep Holes)        │
+    ├─────────────────────────────────────────────────────┤
+    │              Pump Cradle (Wet Zone)                  │
+    │    [G528 Pump] [Outlet Tee] [Manifold/Bypass]       │
+    │                                                      │
+    │             [1 L Reservoir (Bladder)]                │
+    │                                                      │
+    │         [Battery Cartridge (Upper-Rear)]             │
+    └─────────────────────────────────────────────────────┘
+
+    Umbilicals:  Left 4 ft hose → Gun 1 umbilical → [Shoulder exit left]
+                 Right 4 ft hose → Gun 2 umbilical → [Shoulder exit right]
+```
+
+### Wet/Dry Separation and Condensation Control
+
+- **Upper (dry) zone:** Electronics tray with 5 V power supplies, PCB, LEDs, adjustable potentiometers
+- **Lower (wet) zone:** Pump, fluid lines, reservoir, manifold, recirculation loop, check valve
+- **Divider membrane:** Printed PETG or thermoplastic divider with weep holes (3 mm diameter, ~5–8 holes)
+- **Ventilation:** Small gaps allow air circulation; prevents mold growth and moisture buildup
+- **Drain path:** Any condensation or minor spills flow to pack bottom corners (away from electronics)
+- **Backpack-side drainage:** MAX LED backpack underside should allow evaporation or weeping to the lowest point
+
+---
+
+## Subsystems Reference
+
+The following documents detail each subsystem:
+
+| Subsystem | Document | Scope |
+|---|---|---|
+| Power System | [04-power-system.md](04-power-system.md) | Battery cartridge design, BMS configuration, breaker specifications, buck converter tuning, voltage display |
+| Fluid System | [05-fluid-system.md](05-fluid-system.md) | Pump selection and tuning, hose sizing, manifold/tee design, recirculation loop calibration, fluid mixing and storage |
+| Guns and Heads | [06-guns-heads-and-umbilicals.md](06-guns-heads-and-umbilicals.md) | Donor gun qualification, umbilical assembly, adapter designs, connector-block fabrication |
+| PCB Design | [07-pcb/overview.md](07-pcb/overview.md) | BubbleLink CTRL v1.2 schematic, BOM, layout, fabrication history, bringup procedures |
+| PCB Connectors & Pinout | [07-pcb/connectors-and-pinout.md](07-pcb/connectors-and-pinout.md) | JST-XH pin assignments, test points, connector mechanical drawings |
+| PCB BOM and Parts | [07-pcb/bom-and-parts.md](07-pcb/bom-and-parts.md) | Component sourcing, part numbers, equivalents, through-hole user assembly |
+| PCB Fabrication | [07-pcb/fabrication-and-assembly.md](07-pcb/fabrication-and-assembly.md) | PCBWay order, Gerber files, SMT assembly, manual soldering guide |
+| PCB Bringup & Test | [07-pcb/bringup-and-acceptance-test.md](07-pcb/bringup-and-acceptance-test.md) | Power-on checklist, calibration procedures, acceptance criteria, troubleshooting |
+| Printed Parts | [09-printed-parts.md](09-printed-parts.md) | 3D-printed battery enclosure, pump cradle, wet/dry divider, connector blocks, strain-relief boots, CAD file links |
+| Build Guide | [10-build-guide.md](10-build-guide.md) | Step-by-step assembly sequence, hand-solder procedures, fluid system priming, harness routing, first-time setup |
+| Parts Order Ledger | [parts/ORDER_LEDGER.md](parts/ORDER_LEDGER.md) | Complete AliExpress and PCBWay orders, delivery status, part variants, pricing |
+
+---
+
+## Electrical Isolation and Safety
+
+The design maintains strict isolation between high-current gun channels and low-current logic:
+
+- **Pump and USB LED backpack current do NOT pass through the ACS758 sensor**, preventing false pump triggers from power-supply transients
+- **Gun-current measurement is common** (both XT30U channels combined), enabling single-comparator automatic detection
+- **Brownout supervisor (U2) monitors battery voltage** and forces pump OFF during low-battery condition, preventing unpredictable behavior
+- **Manual PRIME button provides override** if sensor fails or gun current falls below detection threshold
+- **Force-on fallback (J4)** available as a no-respin workaround if the ACS758 cannot detect very low-current gun heads (currently DNP)
+
+---
+
+## Thermal Management
+
+- **Battery cells:** Reach 45–55°C during sustained high-current operation (within Samsung 25R safe operating range of 0–60°C continuous)
+- **PCB and components:** Expected <20°C rise above ambient during typical festival use (0.3 A pump + sensor logic)
+- **Pump motor:** 6 V peristaltic motor runs cool under low-flow conditions; <60°C expected at maximum continuous output
+- **F1 PPTC fuse:** Rated for temperature-dependent hold current; 1.10 A limit at 50°C ambient ensures safe margin below pump stall current
+- **Natural convection:** Backpack-mounted configuration with internal air gaps and weep holes in the wet/dry divider allow air circulation; no active cooling required
+
+---
+
+## Charging and Storage
+
+- **Charging:** 2S USB-C 4 A charger (external module, integrated into pack core); 8–10 hour charge time from empty on typical USB-C PD supply (≥3 A at 5 V)
+- **Battery management:** 2S 40 A BMS with cell balancing; permanently mounted to battery cartridge
+- **Pre-event:** Charge to 8.4 V minimum; voltage display shows ~4.2 V per cell when ready
+- **Storage:** Store charged to 3.7 V per cell (~7.4 V system) for maximum cell lifespan; recharge monthly if unused >2 weeks
+- **Travel:** 90 Wh battery within FAA 0–100 Wh limit; no airline approval required (confirmed 2S5P = 90 Wh exact)
+
+---
+
+## Summary
+
+BubbleLink combines a simple, robust power system with straightforward fluid delivery and automatic pump control. The architecture emphasizes field serviceability: all major assemblies (battery, PCB, pump, umbilicals) are user-replaceable; the internal wet/dry separation protects electronics while allowing drainage; and the two-stage calibration (RV1 gun detection, RV2 pump delay) provides tuning flexibility for varying gun types and event conditions. The dual XT30U channels support simultaneous dual-gun operation without manual switching, while the recirculation bypass keeps hoses primed during brief trigger releases, ensuring consistent bubble output across a full festival session.

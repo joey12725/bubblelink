@@ -1,0 +1,88 @@
+{
+  "circuit_sha256": "cefb930d83c3d1503fd2eda358e178ab7c5f5063bffa378bbb6ffb9a54190d6d",
+  "checks": [
+    {
+      "name": "U1 exact TI D0008A pad count, numbered positions and dimensions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Regression: original 4.30 mm U1 footprint is rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "All logical circuit records unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "All component placements and rotations unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "top actual Gerber copper matches pads/routes/vias/pour (2 um tolerance)",
+      "passed": true,
+      "detail": {
+        "excess_area_mm2": 0.0,
+        "missing_area_mm2": 0.0
+      }
+    },
+    {
+      "name": "top all net copper clearances including pour >= 0.20 mm",
+      "passed": true,
+      "detail": {
+        "minimum_mm": 0.19999999999999926,
+        "violations": []
+      }
+    },
+    {
+      "name": "top copper has 0.50 mm outline setback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bottom actual Gerber copper matches pads/routes/vias/pour (2 um tolerance)",
+      "passed": true,
+      "detail": {
+        "excess_area_mm2": 0.0,
+        "missing_area_mm2": 0.0
+      }
+    },
+    {
+      "name": "bottom all net copper clearances including pour >= 0.20 mm",
+      "passed": true,
+      "detail": {
+        "minimum_mm": 0.20745957660343478,
+        "violations": []
+      }
+    },
+    {
+      "name": "bottom copper has 0.50 mm outline setback",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "U1 F_Cu: eight correct flashes at numbered pad positions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "U1 F_Paste: eight correct flashes at numbered pad positions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "U1 F_Mask: eight correct flashes at numbered pad positions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Every component SMT pad: KiCad absolute position, size and orientation match Gerber authority",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "passed": true
+}

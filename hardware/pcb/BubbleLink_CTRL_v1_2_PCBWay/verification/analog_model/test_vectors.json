@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.1",
+  "design": "BubbleLink CTRL v1.1 frozen supervised fail-off topology",
+  "model_revision": "2026-08-07",
+  "vectors": [
+    {
+      "id": "DET-001",
+      "test": "detector_hysteresis",
+      "requirement": "Increasing ACS voltage must assert DET_N with modest, non-latching hysteresis.",
+      "inputs": {"vcc_v": 5.0, "rv1_position": 0.5, "detector_vol_v": 0.1},
+      "acceptance": {"hysteresis_min_mv": 3.0, "hysteresis_max_mv": 7.0},
+      "bench_required": false
+    },
+    {
+      "id": "DET-002",
+      "test": "detector_adjustment_span",
+      "requirement": "RV1 plus R19 must cover approximately 2.20 V to 2.80 V at 5.0 V.",
+      "inputs": {"vcc_v": 5.0},
+      "acceptance": {"minimum_turn_on_v": [2.15, 2.25], "maximum_turn_on_v": [2.75, 2.85]},
+      "bench_required": false
+    },
+    {
+      "id": "DET-003",
+      "test": "sensor_step_latency",
+      "requirement": "A qualified gun-current step must be detected without perceptible latency.",
+      "inputs": {"current_a": 0.5, "threshold_margin_mv": 10.0},
+      "acceptance": {"maximum_latency_ms": 10.0},
+      "bench_required": false
+    },
+    {
+      "id": "DET-004",
+      "test": "pwm_detection",
+      "requirement": "The model must expose low-average-current PWM profiles that cannot cross the detector threshold.",
+      "inputs": {"peak_current_a": 1.0, "frequency_hz": 100.0, "duty_cycle": 0.1, "threshold_margin_mv": 10.0},
+      "acceptance": {"expected_detected": false},
+      "bench_required": false
+    },
+    {
+      "id": "DET-005",
+      "test": "pwm_detection",
+      "requirement": "A higher-current PWM profile must cross the same detector threshold.",
+      "inputs": {"peak_current_a": 3.0, "frequency_hz": 100.0, "duty_cycle": 0.1, "threshold_margin_mv": 10.0},
+      "acceptance": {"expected_detected": true},
+      "bench_required": false
+    },
+    {
+      "id": "TMR-001",
+      "test": "timer_true_hysteresis",
+      "requirement": "R13 from TIMER_N to VDELAY must create instantaneous timer hysteresis.",
+      "inputs": {"vcc_v": 5.0, "timer_vol_v": 0.1},
+      "acceptance": {"hysteresis_min_mv": 5.0, "hysteresis_max_mv": 12.0},
+      "bench_required": false
+    },
+    {
+      "id": "TMR-002",
+      "test": "timer_delay_range",
+      "requirement": "The 6.8 uF, 10 k/100 k/1 M timer must include the desired approximately 350 ms setting.",
+      "inputs": {"vcc_v": 5.0},
+      "acceptance": {"minimum_delay_ms": [25.0, 70.0], "maximum_delay_ms": [450.0, 750.0]},
+      "bench_required": false
+    },
+    {
+      "id": "TMR-003",
+      "test": "timer_target_solution",
+      "requirement": "RV2 must have a valid setting that produces a 350 ms modeled delay.",
+      "inputs": {"target_delay_ms": 350.0},
+      "acceptance": {"position_min": 0.0, "position_max": 1.0, "error_max_ms": 0.01},
+      "bench_required": false
+    },
+    {
+      "id": "TMR-004",
+      "test": "timer_adjustable_branch_open",
+      "requirement": "R21 must guarantee finite shutoff if the R9/RV2 discharge branch opens.",
+      "inputs": {},
+      "acceptance": {"maximum_delay_s": 10.0},
+      "bench_required": false
+    },
+    {
+      "id": "START-001",
+      "test": "q1_start_latency",
+      "requirement": "Q1 must raise HOLD through R20 and across the rising timer threshold at the passive corners.",
+      "inputs": {"vcc_v": 4.75, "c6_effective_uf": 13.5, "c7_effective_uf": 8.6, "r20_ohm": 2222.0, "delay_position": 0.0, "detector_vol_v": 0.25},
+      "acceptance": {"maximum_latency_ms": 40.0},
+      "bench_required": false
+    },
+    {
+      "id": "START-002",
+      "test": "q1_drive_corner",
+      "requirement": "At minimum delay Q1 required steady current must remain below its threshold-test current with positive gate overdrive.",
+      "inputs": {"vcc_v": 4.75, "r20_ohm": 2178.0, "delay_position": 0.0, "detector_vol_v": 0.25},
+      "acceptance": {"maximum_required_current_ua": 250.0, "minimum_vgs_overdrive_v": 0.25},
+      "bench_required": true
+    },
+    {
+      "id": "SAFE-001",
+      "test": "q3_fail_off",
+      "requirement": "With U1B open or unpowered, Q3 leakage plus R15 must keep Q2 below its minimum threshold.",
+      "inputs": {"vcc_v": 5.25, "q3_off_leakage_ua": 1.0},
+      "acceptance": {"maximum_q2_gate_v": 0.02, "minimum_off_margin_v": 0.60},
+      "bench_required": false
+    },
+    {
+      "id": "PWR-000",
+      "test": "por_fail_off_coverage",
+      "requirement": "The TLV803 controlled-output range must overlap the entire TLV1822 response-capable supply range; below it, Hi-Z POR plus R15 must fail off.",
+      "inputs": {},
+      "acceptance": {"minimum_coverage_margin_v": 1.0, "maximum_q2_gate_v": 0.02},
+      "bench_required": true
+    },
+    {
+      "id": "PWR-001",
+      "test": "supervisor_startup_ramp",
+      "requirement": "U2 must hold reset long after U1 POR for hard-plug and slow-ramp startup.",
+      "inputs": {"falling_threshold_v": 4.2924, "hysteresis_fraction": 0.009, "release_delay_ms": 130.0, "final_supply_v": 4.75, "ramp_rates_v_per_s": [0.1, 1.0, 10.0, 100.0], "include_hard_step": true},
+      "acceptance": {"minimum_release_supply_v": 4.20, "minimum_por_guard_ms": 129.0},
+      "bench_required": true
+    },
+    {
+      "id": "PWR-002",
+      "test": "supervisor_clamp_sweep",
+      "requirement": "Asserted U2 through R23 must hold HOLD below the active timer threshold from 3.0 to 5.25 V even with Q1 on.",
+      "inputs": {"r20_ohm": 2178.0, "r23_ohm": 565.6, "reset_low_v": 0.30, "supplies_v": [3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25]},
+      "acceptance": {"minimum_off_margin_v": 0.10, "maximum_steady_sink_current_ma": 5.0},
+      "bench_required": true
+    },
+    {
+      "id": "PWR-003",
+      "test": "supervisor_brownout_shutdown",
+      "requirement": "Brownout assertion must respect U2 sink current and remove Q2 gate drive promptly.",
+      "inputs": {"pre_brownout_vcc_v": 5.25, "r20_ohm": 2178.0, "r23_ohm": 554.4, "c7_effective_uf": 8.6, "c10_nf": 110.0, "assert_delay_us": 50.0, "delay_position": 1.0, "reset_v_for_current": 0.0, "reset_v_for_timing": 0.30},
+      "acceptance": {"maximum_initial_sink_current_ma": 5.0, "maximum_total_pump_off_ms": 15.0},
+      "bench_required": true
+    },
+    {
+      "id": "DISC-001",
+      "test": "sensor_disconnect",
+      "requirement": "A complete or VOUT sensor disconnect must settle to pump-off rather than leave an infinite command.",
+      "inputs": {"starting_sensor_v": 3.46, "detector_release_v": 2.52, "delay_position": 1.0},
+      "acceptance": {"maximum_total_off_time_s": 1.0},
+      "bench_required": false
+    },
+    {
+      "id": "PTC-001",
+      "test": "ptc_derating",
+      "requirement": "The measured production-pump continuous current must remain below the PTC hold current at 50 C.",
+      "inputs": {"maximum_continuous_pump_current_50c_a": 1.10},
+      "acceptance": {"measured_current_required": true},
+      "bench_required": true
+    },
+    {
+      "id": "ENV-001",
+      "test": "sensor_environmental_window",
+      "requirement": "A fixed RV1 setting must separate actual maximum idle output from actual minimum active output over 0 to 50 C.",
+      "inputs": {"minimum_margin_each_side_mv": 15.0},
+      "acceptance": {"measured_window_required": true},
+      "bench_required": true
+    },
+    {
+      "id": "PWR-004",
+      "test": "physical_power_transients",
+      "requirement": "Hard plug, slow ramp, shallow brownout and reconnect must create no pump motion at idle.",
+      "inputs": {"supply_range_v": [0.0, 5.25], "ramp_rates_v_per_s": [0.1, 1.0, 10.0, 100.0]},
+      "acceptance": {"unintended_pump_pulses": 0},
+      "bench_required": true
+    },
+    {
+      "id": "EMI-001",
+      "test": "pump_inductive_switching",
+      "requirement": "Pump turn-off and brush noise must not violate MOSFET or controller noise margins.",
+      "inputs": {"cycles": 10000},
+      "acceptance": {"q2_drain_peak_max_v": 12.0, "logic_rail_peak_to_peak_max_mv": 50.0, "false_transitions": 0},
+      "bench_required": true
+    }
+  ]
+}

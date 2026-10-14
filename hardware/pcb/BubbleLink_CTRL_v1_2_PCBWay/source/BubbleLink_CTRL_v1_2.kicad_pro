@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "head": {
+    "generator": "circuit-json-to-kicad",
+    "generator_version": "0.0.1",
+    "project_name": "BubbleLink_CTRL_v1_2",
+    "created": "2026-09-09T17:41:58.137Z",
+    "modified": "2026-09-09T17:41:58.137Z"
+  },
+  "meta": {
+    "version": 1
+  },
+  "text_variables": {},
+  "libraries": {
+    "pinned_symbol_libs": [],
+    "pinned_footprint_libs": []
+  },
+  "boards": [],
+  "cvpcb": {
+    "meta": {
+      "version": 0
+    }
+  },
+  "erc": {
+    "meta": {
+      "version": 0
+    },
+    "erc_exclusions": []
+  },
+  "net_settings": {
+    "meta": {
+      "version": 1
+    },
+    "last_net_id": 0,
+    "classes": [
+      {
+        "name": "Default",
+        "track_width": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
+        "clearance": 0.2
+      }
+    ]
+  },
+  "pcbnew": {
+    "page_layout_descr_file": "",
+    "last_paths": {}
+  },
+  "schematic": {
+    "meta": {
+      "version": 1
+    },
+    "page_layout_descr_file": "",
+    "last_opened_files": [
+      "BubbleLink_CTRL_v1_2.kicad_sch"
+    ]
+  },
+  "board": {
+    "meta": {
+      "version": 1
+    },
+    "design_settings": {
+      "rules": {
+        "min_via_annular_width": 0.15,
+        "min_hole_clearance": 0.2,
+        "min_via_diameter": 0.6,
+        "min_track_width": 0.2,
+        "min_through_hole_diameter": 0.3
+      }
+    },
+    "last_opened_board": "BubbleLink_CTRL_v1_2.kicad_pcb"
+  },
+  "sheets": [
+    [
+      "0e367920-ef88-4111-a10a-cbd34bfd7b08",
+      "Root"
+    ]
+  ]
+}

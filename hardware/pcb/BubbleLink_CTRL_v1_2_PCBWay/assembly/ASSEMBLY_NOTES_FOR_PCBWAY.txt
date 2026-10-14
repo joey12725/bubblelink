@@ -1,0 +1,87 @@
+BUBBLELINK CTRL v1.2 - REPLACEMENT DATA FOR ORDER [assembly order]
+Issued 2026-09-09. Supersedes v1.1 manufacturing and assembly references.
+
+DISPOSITION
+Keep U1 Texas Instruments TLV1822QDRQ1. The v1.1 PCB land pattern is wrong.
+Do not assemble U1 onto v1.1 boards. Use the complete v1.2 Gerber/drill set.
+No component substitution, lead forming, adapter, solder bridges, or copper
+modification is authorized by this package. Quote any remake and stencil
+cost before proceeding; retain the order's existing PCB/assembly quantities.
+Reuse the already purchased exact components wherever possible.
+
+U1 CORRECTION
+- TI D0008A, eight pads, 1.27 mm pitch along rows.
+- Opposite pad-row center spacing: 5.40 mm.
+- Pads: 1.55 mm across package x 0.60 mm along row.
+- Copper inner gap: 3.85 mm; outer span: 6.95 mm.
+- U1 mask opening: 1.70 mm across x 0.75 mm along row; 0.075 mm per-side expansion.
+- Top paste includes all eight full-size U1 apertures.
+- TI's stencil example uses 0.125 mm thickness. Confirm the complete-board
+  stencil process and notify us of any required aperture changes before use.
+- Nearby routes and three signal-via locations changed. Bottom GND pour was
+  regenerated. Replace BOTH copper layers, both masks, paste, silk and drills.
+  Do not patch only U1 or reuse the old stencil/drill program.
+- Board datum, every component centroid and CPL rotation are unchanged.
+
+BOARD / SERVICE
+50.0 x 40.0 mm; 2 layers; 1.6 mm FR-4; 1 oz copper; green mask;
+white top legend; lead-free HASL; original order quantities.
+Top-side SMT only: exactly 41 placements from PCBWAY_SMT_BOM.csv and
+PCBWAY_SMT_CPL.csv. CPL in mm, finished-board lower-left datum, top view,
++X right and +Y up. Component centroid coordinates; do not mirror.
+No bottom-side or through-hole assembly. No bottom paste/legend supplied.
+PCB bare-board electrical test required, including the revised via drilling.
+Four NPTH mounting holes: 3.20 mm; centers form a 43.0 x 33.0 mm rectangle.
+Plated drill program: 98 hits (42 component holes and 56 vias).
+
+POPULATION
+J4 and R22 are DNP. C9 and R18 MUST be fitted.
+Leave J1-J3, C1, RV1/RV2, SW1 and LED1-LED3 for customer THT installation.
+Leave their holes open. TP1-TP15 are PCB test features, H1-H4 mounting holes,
+and the three standalone circular copper pads fiducials; no placement item.
+No paste on DNP R22, THT pads, test holes, or fiducials. Exactly 92 populated
+SMT paste apertures. The BOM and CPL contain no THT or DNP placements.
+
+EXACT PARTS / POLARITY
+Follow the BOM substitution column. Obtain written review for any change to
+U1, U2, Q1-Q3, D1, F1, FB1, C2, C6 or C7.
+- U1: TLV1822QDRQ1, SOIC-8. Physical pin 1 is the LOWER-LEFT pad in the
+  supplied top view; center X=14.095, Y=18.800 mm. Do not use a generic
+  assembly thumbnail's corner triangle as a substitute for pin numbering.
+- U2: TLV803EA43DBZR. Pin 1 GND, pin 2 RESET_N, pin 3 +5V_LOGIC.
+  RDBZ/VDBZ pinout variants are NOT interchangeable with this exact part.
+- Q1/Q3: DMP2065UQ-7, P-channel; Q2: AO3400A, N-channel.
+  All three: 1=gate, 2=source, 3=drain.
+- D1: B340A-E3/61T. Pad 1 is cathode / PUMP_PLUS; package band faces pad 1.
+  Pad 1 center X=40.500, Y=7.800 mm. Pad 2 goes to PUMP_SW_NEG.
+- F1: exact 1812L150/16DR, nonpolar, custom Littelfuse land pattern.
+- C6: C3225X7R1E226M250AB, 22 uF 25 V X7R, 1210.
+- C7: CGA5L1X7R1E685K160AC, 6.8 uF 25 V X7R, 1206.
+Do not infer MLCC package from capacitance or supplier shorthand.
+
+PREVENT REPEAT ENGINEERING HOLDS
+Before remaking boards/stencil, compare every procured MPN's actual package,
+pinout and terminal orientation with the final copper and paste; include
+U2/Q1-Q3 SOT-23 lands, D1 SMA, F1 oversized PTC lands and C2/C6/C7 MLCC sizes.
+These are not all exact copies of each manufacturer's example land pattern;
+PCBWay should confirm its process suitability, actual package overlap and
+solder fillets. Report all remaining DFM/assembly issues in ONE response.
+Confirm part availability now, particularly the exact C2 MPN, before starting
+a remake; no replacement part is pre-authorized just because a distributor
+suggests it. PCBWay's inventory and already purchased parts are authoritative.
+
+For nominal mask openings outside U1, confirm normal fabrication registration
+compensation. Do not reduce intended exposed copper or delete polarity marks.
+Check mask dams and clip silk from mask openings while retaining readable
+reference/polarity identification. Confirm stencil fits large F1 and small
+SOT-23 lands without bridging or inadequate paste release.
+
+QUALITY / FACTORY RETURN
+Provide top-side placement/CAM preview using the updated PDF and pad-1 CSV.
+Check BOM vs CPL vs actual packages, U1 pin 1, U2 pinout, MOSFET polarity,
+D1 band, all solder joints, and the exact 41-part population.
+Clean flux residue, especially near 4.7 Mohm R5/R13 and timing/threshold nodes.
+Use a process compatible with the fitted parts; no unqualified conformal coat.
+Provide a clear first-article photograph and flag discrepancies before the
+remaining assembly. Customer bring-up follows THT installation; no powered
+functional test fixture or completed bench qualification is represented here.

@@ -1,0 +1,1193 @@
+{
+  "schema_version": 1,
+  "design": "BubbleLink_CTRL_v1_2",
+  "board": {
+    "width_mm": 50.0,
+    "height_mm": 40.0,
+    "thickness_mm": 1.6,
+    "copper_layers": 2,
+    "material": "fr4",
+    "min_trace_width_mm": 0.2,
+    "min_via_drill_mm": 0.3,
+    "min_via_diameter_mm": 0.6,
+    "min_via_drill_edge_clearance_mm": 0.1,
+    "min_board_edge_clearance_mm": 0.5,
+    "min_copper_to_hole_edge_mm": 1.0,
+    "mounting_holes": [
+      {
+        "x": -21.5,
+        "y": -16.5,
+        "diameter": 3.2
+      },
+      {
+        "x": 21.5,
+        "y": -16.5,
+        "diameter": 3.2
+      },
+      {
+        "x": -21.5,
+        "y": 16.5,
+        "diameter": 3.2
+      },
+      {
+        "x": 21.5,
+        "y": 16.5,
+        "diameter": 3.2
+      }
+    ],
+    "keepout_radius_mm": 3.0,
+    "keepout_layers": [
+      "top",
+      "bottom"
+    ]
+  },
+  "circuit_counts": {
+    "source_component": 68,
+    "source_trace": 111,
+    "pcb_component": 68,
+    "pcb_trace": 111,
+    "pcb_via": 56,
+    "pcb_copper_pour": 1,
+    "pcb_courtyard_rect": 35,
+    "pcb_courtyard_outline": 5,
+    "pcb_smtpad": 97,
+    "pcb_plated_hole": 42,
+    "pcb_hole": 4,
+    "pcb_keepout": 4,
+    "unowned_pcb_smtpad": 3
+  },
+  "components": {
+    "J1": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "POWER 5V",
+      "mpn": "B2B-XH-A(LF)(SN)"
+    },
+    "J2": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "ACS758",
+      "mpn": "B3B-XH-A(LF)(SN)"
+    },
+    "J3": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "PUMP",
+      "mpn": "B2B-XH-A(LF)(SN)"
+    },
+    "J4": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": true,
+      "value_field": "display_name",
+      "value": "EXT PRIME DNP",
+      "mpn": null
+    },
+    "C1": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "100uF 16V",
+      "mpn": "16ZLH100MEFC5X11"
+    },
+    "FB1": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "220R@100MHz",
+      "mpn": "BLM21PG221SN1D"
+    },
+    "C2": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-05,
+      "mpn": "GRM31CR71C106KA12L"
+    },
+    "C3": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "LED1": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "POWER GREEN",
+      "mpn": "L-934GD"
+    },
+    "R17": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 2200,
+      "mpn": "RC0805FR-072K2L"
+    },
+    "R18": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 100000,
+      "mpn": "RC0805FR-07100KL"
+    },
+    "R1": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 10000,
+      "mpn": "RC0805FR-0710KL"
+    },
+    "C5": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-06,
+      "mpn": "GRM21BR71C105KA01L"
+    },
+    "C12": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "R2": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 7500,
+      "mpn": "RC0805FR-077K5L"
+    },
+    "RV1": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "THRESH 2k",
+      "mpn": "3296W-1-202LF"
+    },
+    "R3": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 7500,
+      "mpn": "RC0805FR-077K5L"
+    },
+    "R19": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 220000,
+      "mpn": "RC0805FR-07220KL"
+    },
+    "U1": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "TLV1822-Q1",
+      "mpn": "TLV1822QDRQ1"
+    },
+    "C4": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "R4": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 10000,
+      "mpn": "RC0805FR-0710KL"
+    },
+    "R5": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 4700000,
+      "mpn": "RC0805FR-074M7L"
+    },
+    "R22": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": true,
+      "value_field": "resistance",
+      "value": 4700000,
+      "mpn": "RC0805FR-074M7L"
+    },
+    "R6": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 2200,
+      "mpn": "RC0805FR-072K2L"
+    },
+    "LED2": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "GUN YELLOW",
+      "mpn": "L-934YD"
+    },
+    "R7": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 4700,
+      "mpn": "RC0805FR-074K7L"
+    },
+    "R8": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 4700,
+      "mpn": "RC0805FR-074K7L"
+    },
+    "C6": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 2.2e-05,
+      "mpn": "C3225X7R1E226M250AB"
+    },
+    "Q1": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "DMP2065UQ P-MOS",
+      "mpn": "DMP2065UQ-7"
+    },
+    "R20": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 2200,
+      "mpn": "RC0805FR-072K2L"
+    },
+    "C7": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 6.8e-06,
+      "mpn": "CGA5L1X7R1E685K160AC"
+    },
+    "R21": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 1000000,
+      "mpn": "RC0805FR-071ML"
+    },
+    "R9": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 10000,
+      "mpn": "RC0805FR-0710KL"
+    },
+    "RV2": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "DELAY 100k",
+      "mpn": "3296W-1-104LF"
+    },
+    "R10": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 39000,
+      "mpn": "RC0805FR-0739KL"
+    },
+    "R11": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 10000,
+      "mpn": "RC0805FR-0710KL"
+    },
+    "C8": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "R12": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 10000,
+      "mpn": "RC0805FR-0710KL"
+    },
+    "R13": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 4700000,
+      "mpn": "RC0805FR-074M7L"
+    },
+    "U2": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "4.38V / 200ms RESET",
+      "mpn": "TLV803EA43DBZR"
+    },
+    "C11": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "R23": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 560,
+      "mpn": "RC0805FR-07560RL"
+    },
+    "Q3": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "DMP2065UQ P-MOS",
+      "mpn": "DMP2065UQ-7"
+    },
+    "R14": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 100,
+      "mpn": "RC0805FR-07100RL"
+    },
+    "R15": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 10000,
+      "mpn": "RC0805FR-0710KL"
+    },
+    "C10": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "Q2": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "AO3400A N-MOS",
+      "mpn": "AO3400A"
+    },
+    "D1": {
+      "ftype": "simple_chip",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "3A 40V SMA",
+      "mpn": "B340A-E3/61T"
+    },
+    "C9": {
+      "ftype": "simple_capacitor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "capacitance",
+      "value": 1e-07,
+      "mpn": "GRM21BR71H104KA01L"
+    },
+    "F1": {
+      "ftype": "simple_fuse",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "current_rating_amps",
+      "value": 1.5,
+      "mpn": "1812L150/16DR"
+    },
+    "R16": {
+      "ftype": "simple_resistor",
+      "mount": "SMT",
+      "dnp": false,
+      "value_field": "resistance",
+      "value": 2200,
+      "mpn": "RC0805FR-072K2L"
+    },
+    "LED3": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "PUMP RED",
+      "mpn": "L-934ID"
+    },
+    "SW1": {
+      "ftype": "simple_chip",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "PRIME",
+      "mpn": "B3F-1000"
+    },
+    "TP1": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "+5V_PUMP",
+      "mpn": null
+    },
+    "TP2": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "+5V_LOGIC",
+      "mpn": null
+    },
+    "TP3": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "GND",
+      "mpn": null
+    },
+    "TP4": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "ACS_OUT",
+      "mpn": null
+    },
+    "TP5": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "ACS_FILTER",
+      "mpn": null
+    },
+    "TP6": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "VTH",
+      "mpn": null
+    },
+    "TP7": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "DET_N",
+      "mpn": null
+    },
+    "TP8": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "VMID",
+      "mpn": null
+    },
+    "TP9": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "HOLD",
+      "mpn": null
+    },
+    "TP10": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "VDELAY",
+      "mpn": null
+    },
+    "TP11": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "PUMP_GATE",
+      "mpn": null
+    },
+    "TP12": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "PUMP_SW_NEG",
+      "mpn": null
+    },
+    "TP13": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "GND",
+      "mpn": null
+    },
+    "TP14": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "TIMER_N",
+      "mpn": null
+    },
+    "TP15": {
+      "ftype": "simple_test_point",
+      "mount": "THT",
+      "dnp": false,
+      "value_field": "display_name",
+      "value": "PUMP_PLUS",
+      "mpn": null
+    }
+  },
+  "critical_pin_labels": {
+    "J1": {
+      "1": "PLUS_5V_PUMP",
+      "2": "GND"
+    },
+    "J2": {
+      "1": "PLUS_5V_LOGIC",
+      "2": "GND",
+      "3": "ACS_OUT"
+    },
+    "J3": {
+      "1": "PUMP_PLUS",
+      "2": "PUMP_SW_NEG"
+    },
+    "J4": {
+      "1": "DET_N",
+      "2": "GND"
+    },
+    "C1": {
+      "1": "POS",
+      "2": "NEG"
+    },
+    "LED1": {
+      "1": "K",
+      "2": "A"
+    },
+    "LED2": {
+      "1": "K",
+      "2": "A"
+    },
+    "LED3": {
+      "1": "K",
+      "2": "A"
+    },
+    "RV1": {
+      "1": "LOW",
+      "2": "WIPER",
+      "3": "HIGH"
+    },
+    "RV2": {
+      "1": "LOW",
+      "2": "WIPER",
+      "3": "HIGH"
+    },
+    "U1": {
+      "1": "DET_N",
+      "2": "ACS_FILTER",
+      "3": "VTH",
+      "4": "GND",
+      "5": "VDELAY",
+      "6": "HOLD",
+      "7": "TIMER_N",
+      "8": "PLUS_5V_LOGIC"
+    },
+    "U2": {
+      "1": "GND",
+      "2": "RESET_N",
+      "3": "PLUS_5V_LOGIC"
+    },
+    "Q1": {
+      "1": "GATE",
+      "2": "SOURCE",
+      "3": "DRAIN"
+    },
+    "Q2": {
+      "1": "GATE",
+      "2": "SOURCE",
+      "3": "DRAIN"
+    },
+    "Q3": {
+      "1": "GATE",
+      "2": "SOURCE",
+      "3": "DRAIN"
+    },
+    "D1": {
+      "1": "CATHODE",
+      "2": "ANODE"
+    },
+    "F1": {
+      "1": "pin1",
+      "2": "pin2"
+    },
+    "SW1": {
+      "1": "A1",
+      "2": "A2",
+      "3": "B1",
+      "4": "B2"
+    }
+  },
+  "topology": {
+    "PLUS_5V_PUMP": [
+      "J1.1",
+      "C1.1",
+      "FB1.1",
+      "F1.1",
+      "TP1.1"
+    ],
+    "PLUS_5V_LOGIC": [
+      "J2.1",
+      "FB1.2",
+      "C2.1",
+      "C3.1",
+      "R17.1",
+      "C12.1",
+      "R2.1",
+      "U1.8",
+      "C4.1",
+      "R4.1",
+      "R6.1",
+      "R7.1",
+      "R10.1",
+      "R12.1",
+      "U2.3",
+      "C11.1",
+      "Q3.2",
+      "R16.1",
+      "TP2.1"
+    ],
+    "GND": [
+      "J1.2",
+      "J2.2",
+      "J4.2",
+      "C1.2",
+      "C2.2",
+      "C3.2",
+      "LED1.1",
+      "R18.2",
+      "C5.2",
+      "C12.2",
+      "R3.2",
+      "U1.4",
+      "C4.2",
+      "R8.2",
+      "C6.2",
+      "C7.2",
+      "R21.2",
+      "RV2.1",
+      "R11.2",
+      "C8.2",
+      "U2.1",
+      "C11.2",
+      "R15.2",
+      "C10.2",
+      "Q2.2",
+      "SW1.3",
+      "TP3.1",
+      "TP13.1"
+    ],
+    "ACS_OUT": [
+      "J2.3",
+      "R18.1",
+      "R1.1",
+      "TP4.1"
+    ],
+    "ACS_FILTER": [
+      "R1.2",
+      "C5.1",
+      "U1.2",
+      "TP5.1"
+    ],
+    "VTH": [
+      "RV1.2",
+      "R19.1",
+      "U1.3",
+      "R5.2",
+      "R22.2",
+      "TP6.1"
+    ],
+    "VTH_HIGH": [
+      "R2.2",
+      "RV1.3",
+      "R19.2"
+    ],
+    "VTH_LOW": [
+      "RV1.1",
+      "R3.1"
+    ],
+    "DET_N": [
+      "J4.1",
+      "U1.1",
+      "R4.2",
+      "R5.1",
+      "R22.1",
+      "LED2.1",
+      "Q1.1",
+      "SW1.1",
+      "TP7.1"
+    ],
+    "VMID": [
+      "R7.2",
+      "R8.1",
+      "C6.1",
+      "Q1.2",
+      "TP8.1"
+    ],
+    "Q1_DRAIN": [
+      "Q1.3",
+      "R20.1"
+    ],
+    "HOLD": [
+      "U1.6",
+      "R20.2",
+      "C7.1",
+      "R21.1",
+      "R9.1",
+      "R23.2",
+      "TP9.1"
+    ],
+    "DELAY_WIPER": [
+      "R9.2",
+      "RV2.2",
+      "RV2.3"
+    ],
+    "VDELAY": [
+      "U1.5",
+      "R10.2",
+      "R11.1",
+      "C8.1",
+      "R13.2",
+      "TP10.1"
+    ],
+    "TIMER_N": [
+      "U1.7",
+      "R12.2",
+      "R13.1",
+      "Q3.1",
+      "LED3.1",
+      "TP14.1"
+    ],
+    "RESET_N": [
+      "U2.2",
+      "R23.1"
+    ],
+    "Q3_DRAIN": [
+      "Q3.3",
+      "R14.1"
+    ],
+    "PUMP_GATE": [
+      "R14.2",
+      "R15.1",
+      "C10.1",
+      "Q2.1",
+      "TP11.1"
+    ],
+    "PUMP_PLUS": [
+      "J3.1",
+      "D1.1",
+      "C9.1",
+      "F1.2",
+      "TP15.1"
+    ],
+    "PUMP_SW_NEG": [
+      "J3.2",
+      "Q2.3",
+      "D1.2",
+      "C9.2",
+      "TP12.1"
+    ],
+    "POWER_LED_A": [
+      "LED1.2",
+      "R17.2"
+    ],
+    "GUN_LED_A": [
+      "R6.2",
+      "LED2.2"
+    ],
+    "PUMP_LED_A": [
+      "R16.2",
+      "LED3.2"
+    ]
+  },
+  "internal_connections": [
+    [
+      "SW1.1",
+      "SW1.2"
+    ],
+    [
+      "SW1.3",
+      "SW1.4"
+    ]
+  ],
+  "critical_source_edges": [
+    {
+      "endpoints": [
+        "J1.1",
+        "F1.1"
+      ],
+      "width_mm": 1.2,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "J1.1",
+        "C1.1"
+      ],
+      "width_mm": 1.0,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "J1.1",
+        "TP1.1"
+      ],
+      "width_mm": 0.75,
+      "classification": "non_load_test_branch",
+      "via_policy": {
+        "mode": "unrestricted_non_load"
+      }
+    },
+    {
+      "endpoints": [
+        "J1.2",
+        "Q2.2"
+      ],
+      "width_mm": 1.2,
+      "via_policy": {
+        "mode": "parallel_bank_bottom_ground_pour",
+        "minimum_vias_per_transition": 3,
+        "coordinate_tolerance_mm": 0.01,
+        "minimum_pad_edge_clearance_mm": 0.25,
+        "expected_distinct_bottom_route_points": 10,
+        "expected_via_coordinates": [
+          [
+            12.1,
+            -9.1
+          ],
+          [
+            12.95,
+            -9.1
+          ],
+          [
+            13.8,
+            -9.1
+          ]
+        ],
+        "expected_transition_coordinates": [
+          [
+            13.8,
+            -9.1
+          ]
+        ],
+        "rationale": "reviewed 0.85 mm-pitch GND transition bank with 0.25 mm pad-edge spacing and continuous bottom GND pour"
+      }
+    },
+    {
+      "endpoints": [
+        "J1.2",
+        "C1.2"
+      ],
+      "width_mm": 1.0,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "Q2.3",
+        "J3.2"
+      ],
+      "width_mm": 1.2,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "Q2.3",
+        "D1.2"
+      ],
+      "width_mm": 1.0,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "D1.2",
+        "TP12.1"
+      ],
+      "width_mm": 1.0,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "F1.2",
+        "J3.1"
+      ],
+      "width_mm": 1.2,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "J3.1",
+        "D1.1"
+      ],
+      "width_mm": 1.0,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    },
+    {
+      "endpoints": [
+        "F1.2",
+        "TP15.1"
+      ],
+      "width_mm": 1.0,
+      "via_policy": {
+        "mode": "via_free"
+      }
+    }
+  ],
+  "courtyard_refs": [
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "C10",
+    "C11",
+    "C12",
+    "FB1",
+    "Q1",
+    "Q2",
+    "Q3",
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8",
+    "R9",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R22",
+    "R23",
+    "U1",
+    "U2"
+  ],
+  "reviewed_courtyard_clearances": [
+    {
+      "refs": [
+        "R18",
+        "C12"
+      ],
+      "minimum_mm": 0.06
+    }
+  ],
+  "gerber_policy": {
+    "required_roles": [
+      "f_cu",
+      "b_cu",
+      "f_mask",
+      "b_mask",
+      "f_paste",
+      "f_silk",
+      "edge",
+      "drill_pth",
+      "drill_npth"
+    ],
+    "forbidden_roles": [
+      "b_paste",
+      "b_silk"
+    ],
+    "exact_manufacturing_file_count": 9,
+    "top_paste_populated_flash_count": 92,
+    "top_paste_scale_to_copper_pad": 1.0
+  },
+  "drc_required_audit_categories": [
+    "source_traces_have_pcb_traces",
+    "pcb_ports_connected",
+    "trace_routes_contiguous",
+    "trace_overlap_clearance_0_20mm",
+    "pad_trace_clearance_0_20mm",
+    "pad_pad_clearance_0_20mm",
+    "via_trace_clearance_0_20mm",
+    "same_net_via_spacing_0_20mm",
+    "different_net_via_spacing_0_20mm",
+    "vias_in_smt_pads",
+    "footprint_overlap",
+    "components_out_of_board",
+    "traces_out_of_board",
+    "vias_out_of_board",
+    "aggregate_placement_including_courtyard_and_access",
+    "aggregate_routing",
+    "per_source_trace_minimum_width",
+    "embedded_circuit_error_records"
+  ],
+  "assembly": {
+    "side": "top",
+    "smt_refs": [
+      "FB1",
+      "C2",
+      "C3",
+      "R17",
+      "R18",
+      "R1",
+      "C5",
+      "C12",
+      "R2",
+      "R3",
+      "R19",
+      "U1",
+      "C4",
+      "R4",
+      "R5",
+      "R6",
+      "R7",
+      "R8",
+      "C6",
+      "Q1",
+      "R20",
+      "C7",
+      "R21",
+      "R9",
+      "R10",
+      "R11",
+      "C8",
+      "R12",
+      "R13",
+      "U2",
+      "C11",
+      "R23",
+      "Q3",
+      "R14",
+      "R15",
+      "C10",
+      "Q2",
+      "D1",
+      "C9",
+      "F1",
+      "R16"
+    ],
+    "dnp_refs": [
+      "J4",
+      "R22"
+    ],
+    "tht_refs": [
+      "J1",
+      "J2",
+      "J3",
+      "J4",
+      "C1",
+      "LED1",
+      "RV1",
+      "LED2",
+      "RV2",
+      "LED3",
+      "SW1",
+      "TP1",
+      "TP2",
+      "TP3",
+      "TP4",
+      "TP5",
+      "TP6",
+      "TP7",
+      "TP8",
+      "TP9",
+      "TP10",
+      "TP11",
+      "TP12",
+      "TP13",
+      "TP14",
+      "TP15"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+Reference Designator,Status,Value or Function,Footprint,Instruction,Reason
+R22,DNP,4.7 Mohm optional hysteresis resistor,0805,LEAVE PADS EMPTY,"Reserved tuning option; not in PCBWay SMT BOM or CPL"
+J4,DNP,External prime input option,Custom 2-pin 2.50 mm THT,LEAVE HOLES EMPTY,"Pads-only option; not in THT BOM"
+TP1-TP15,NO COMPONENT,Plated probe-loop/test holes,1.0 mm PTH in 2.0 mm pad,DO NOT PLACE,"Fabricated copper features only; not component designators"
+H1-H4,NO COMPONENT,3.2 mm mounting holes,NPTH,DO NOT PLACE,"Mechanical holes"
+FID1-FID3,NO COMPONENT,Local fiducials,1.0 mm copper with 0.5 mm mask pullback,DO NOT PLACE,"Optical assembly features"

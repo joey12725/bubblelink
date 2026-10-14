@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "circuit_sha256": "cefb930d83c3d1503fd2eda358e178ab7c5f5063bffa378bbb6ffb9a54190d6d",
+  "note": "Portable ECO script plus fresh pour reproduce the released circuit byte-for-byte."
+}

@@ -1,0 +1,372 @@
+# 04. Power System
+
+Everything electrical outside the PCB: battery, charging, protection, distribution, current sensing, and voltage regulation. See [docs/parts/ORDER_LEDGER.md](parts/ORDER_LEDGER.md) for purchased components and [docs/parts/listings/](parts/listings/) for detailed part specs.
+
+## Table of Contents
+
+1. [Battery Cartridge](#battery-cartridge)
+2. [Charging & Protection](#charging--protection)
+3. [Main Distribution Harness](#main-distribution-harness)
+4. [Current Sensing](#current-sensing)
+5. [Gun Channels](#gun-channels)
+6. [5V Regulation](#5v-regulation)
+7. [Voltage Readout](#voltage-readout)
+8. [Runtime & Power Budget](#runtime--power-budget)
+9. [Thermal & Safety Notes](#thermal--safety-notes)
+10. [Complete Wiring Table](#complete-wiring-table)
+
+---
+
+## Battery Cartridge
+
+**Configuration:** 2S5P (two series × five parallel)  
+**Cells:** 10× Samsung INR18650-25R, 3.6 V nominal, 2500 mAh each  
+**Nominal voltage:** 7.2 V (two cells @ 3.6 V nominal)  
+**Fully charged:** 8.4 V (4.2 V per cell)  
+**Cutoff voltage:** ~6.0 V under load (protected by BMS)  
+**Total capacity:** 12.5 Ah (2.5 Ah × 5 parallel)  
+**Energy:** 90 Wh nominal (7.2 V × 12.5 Ah)  
+**Dimensions (cells only):** ~92 × 130 × 18.3 mm per cell, ~95 × 133 × 20 mm with spacing and fish paper  
+**Mass:** ~450 g cells alone; ~500–600 g with cartridge enclosure, BMS, and connectors
+
+### Cell Layout & Interconnect
+
+Arrange as two five-cell parallel groups. Physically organize as 5×2 grid (five cells wide, two rows deep), oriented with ~37–40 mm dimension pointing away from wearer's back. All cells face same direction (positive ends point toward same series-link edge).
+
+**Cell insulation & spacing:**
+- Fish-paper positive-terminal rings on all ten cell positive ends (prevents shorts)
+- Thin 0.5–1 mm air gap between cell wrappers (thermal management, allows assembly jig)
+- 3D-printed cell spacers (top and bottom) to maintain geometry and parallel bus width
+
+**Interconnect method:** Spot-welded pure-nickel tabs, 0.15 mm minimum thickness, 10 mm width.
+
+**Series path:** Five independent nickel-plated steel bridges connect the two cell groups:
+- Five series links each rated for ~6 A at maximum 30 A pack current
+- Doubled or tripled tabs in high-current concentration zones (where 12 AWG leads attach)
+- Approximately 17–21 total tab pieces required (including spares and reinforcements)
+
+**Parallel path per group:** Four additional tabs each (one per cell-to-cell connection within each five-cell group), or single wide tab per group if width permits. Design for minimum resistance (<20 mV drop per series link at 30 A).
+
+**Test before assembly:** 
+- Capacity-match all ten cells by voltage and internal resistance before welding
+- Load-test assembled pack at 15 A sustained; measure tab/weld temperature with IR camera or thermocouples
+- No localized heating above 50°C
+
+### BMS (Battery Management System)
+
+**Part:** 2S 40 A lithium-ion (NMC/LiCoO₂) BMS module, not LiFePO₄  
+**Voltage rating:** 2S (7.2 V nominal, 8.4 V fully charged)  
+**Protection:** 40 A continuous, automatic short-circuit protection with recovery after load removal  
+**Balancing:** Passive cell-voltage balancing, NTC temperature sensor, cutoff ~55–60°C, reset ~45°C  
+**Connections:**
+- **B−:** Battery group 1 negative
+- **BM/B1:** Midpoint (group 1 positive / group 2 negative)
+- **B+:** Battery group 2 positive
+- **P−:** System negative (to main load)
+- **P+:** System positive (to main load / USB-C charger)
+
+Mount on long edge of battery slab in same plane as cells. Solder 12 AWG leads from parallel-series bus to BMS inputs with low-resistance solder joints and mechanical strain relief. Attach JST-XH three-pin balance connector for future cell monitoring (optional).
+
+---
+
+## Charging & Protection
+
+### USB-C Charger
+
+**Part:** SZHJW Type-C USB-PD → 2S 8.4 V boost charger, **2S 4A** variant  
+**Specifications:**
+- Input: USB-C Power Delivery (5 V / 3 A typical input from wall supply)
+- Output: 8.4 V CC/CV for 2S lithium-ion, up to 4 A rated (actual charge current limited by USB supply and BMS)
+- Charge time: 8–10 hours from full discharge at ≤4 A delivered to cells
+- Wiring: USB-C input to 30 W or greater USB-PD wall charger; BAT− to BMS P−; BAT+ to BMS P+
+
+**Installation:** Mount in dry electronics enclosure separate from fluid path. Connect via short 12 AWG wires to BMS load terminals (P− and P+); do not connect directly to battery slab, which bypasses BMS protection. Do not charge while fluid system is pressurized.
+
+**Charging procedure:**
+1. Disconnect pack from backpack if possible
+2. Place on flat, non-flammable surface
+3. Visually inspect battery cartridge for swelling or damage
+4. Connect USB-C charger to 30 W+ USB-PD wall supply
+5. Monitor BMS temperature during first 10 minutes (should not exceed 45°C)
+6. Charge overnight (8–10 hours for full cycle)
+7. Disconnect charger after cycle complete
+
+**Safety:** BMS will cut off charging if temperature exceeds 60°C or if pack voltage reaches 8.7 V. Do not force discharge through power draw while charger is connected; the charger is not isolated and may be damaged by back-feeding current.
+
+### Main Protection
+
+**Type B-30A Manual-Reset Circuit Breaker**  
+**Part:** Waterproof DC automotive breaker, 30 A rating, Type B (manual reset only)  
+**Voltage:** 12–48 V DC (suitable for 2S 8.4 V)  
+**Terminals:** M6 threaded studs (6 mm hole), not solder terminals  
+**Dimensions:** ~72 × 48 × 44 mm
+
+**Wiring:**
+- Battery positive from BMS P+ → M6 stud via 12 AWG red silicone wire fitted with M6 closed-ring terminal
+- M6 stud → main positive distribution
+- Return path: all negative to BMS P− (shared return)
+
+**Ring terminals:** Use **SC10-6** copper ring lugs (10 mm² barrel, M6 hole, specified for 12 AWG wire). **Solder-fill the barrel** to eliminate crimp-only failures and improve current distribution. **Do NOT** solder wire directly to breaker studs—excessive heat risks damaging breaker internals and causes fatigue failures under load cycling. Procedure: solder 12 AWG wire into the ring barrel (away from the stud connection), allow solder to cool, then bolt the filled ring under breaker nut with strain relief.
+
+**Reset procedure:** Manual push-button or toggle (part dependent). Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
+
+---
+
+## Main Distribution Harness
+
+**Battery path:** BMS P+ → breaker → 12 AWG red silicone wire → distribution point
+
+**From distribution point, split into:**
+1. **Gun channel bus:** 12 AWG (red) to ACS758 high-current sense terminals
+2. **Pump & controller supply:** 12 AWG (red) to YxPC Buck A 5V converter (pump + PCB)
+3. **LED backpack supply:** 12 AWG (red) to YxPC Buck B 5V converter (backpack only)
+4. **Return:** All negatives → 12 AWG black → BMS P−
+
+**Wire gauge justification:**
+- 12 AWG rated for 30 A continuous (intentionally oversized to avoid voltage drop in the ~2–4 ft runs inside pack)
+- At 30 A over 4 feet: ~0.048 V drop (acceptable for battery system with regulated 5 V downstream)
+- Temperature rise during 30 A sustained: <10°C above ambient in air; lower in thermally managed pack
+
+**Harness assembly method:** Soldered star configuration from breaker/BMS outputs, staggered point-to-point with adhesive heat shrink on each tap, no distribution block required (single 30 A main breaker eliminates per-channel isolation).
+
+---
+
+## Current Sensing
+
+**ACS758LCB-050B Hall-effect bidirectional current sensor**  
+**Specifications:**
+- Measurement range: ±50 A (gun current only)
+- Sensitivity: 40 mV/A (linear)
+- Supply voltage: 5 V DC
+- Zero-current output: ~2.5 V (nominal; to be verified upon hardware arrival)
+- Bandwidth: >100 kHz (fast enough for pump control switching)
+- Package: DIP-8 module on breakout board
+
+**Placement:** Mount module in electronics enclosure separate from PCB (external high-current sensors prevent PCB layout noise and heat).
+
+**Wiring (high-current path):**
+- **Conductor in:** 12 AWG red from breaker through sensor terminals (both terminals carry full gun current)
+- **Conductor out:** 12 AWG red to XT30U channel split
+- Must use module's screw terminals or solder-pad connectors, not pin headers (high current)
+
+**Sensing output (signal path):**
+- Three wires from ACS758 module to PCB via JST-XH connector:
+  - **GND:** sensor ground (connect to system return / BMS P−)
+  - **Vcc (5V):** from Buck A 5V rail
+  - **Signal out:** to PCB comparator input (TI TLV1822QDRQ1; delivers 2.5 V at zero current, ±40 mV per A)
+
+**Purpose:** Detects when either bubble gun draws current (threshold >~0.3–0.5 A), triggers automatic pump start via onboard comparator logic. Pump stays on ~300–750 ms after gun current drops below threshold.
+
+**Note:** Do NOT route pump or USB-backpack-LED current through ACS758 conductor; sensor must measure gun-channel current only. Otherwise pump starts, load-current from pump increases ACS758 signal, causing false positive feedback loop.
+
+---
+
+## Gun Channels
+
+**Configuration:** Two independent XT30U power channels, 16 AWG each, four feet long
+
+**Per channel:**
+- **Wire:** 16 AWG silicone (red and black pair, tinned copper strands)
+- **Connector (pack end):** XT30U female receptacle (recessed, live power)
+- **Connector (gun end):** XT30U male plug (matches gun donor connector)
+- **Rated current:** 15 A continuous per XT30U (sufficient for one 3-head gun at full power, or two guns sharing a channel if total <15 A)
+
+**Umbilical construction (per four-foot channel):**
+- Two 16 AWG wires (red +, black −) arranged as twisted pair
+- Three additional mechanical elements bundled inside 8–10 mm PET braided sleeve:
+  - One 3.5 mm ID × 5.5 mm OD silicone tube (fluid line to gun nozzles)
+  - One 4 mm paracord or Dyneema cord (load-bearing tether, rated for gun drop)
+  - Optional printed strain-relief boots (TPU or PETG)
+
+**Strain relief:** XT30 connectors soldered with generous heat-shrink wrap; internal load path transfers mechanical stress to paracord, not wire (wire carries power only). Tether prevents damage if gun is dropped during event.
+
+**Termination:** Wires soldered to XT30 pins from rear (solder from back of connector, not from pin directly, to avoid cold-solder joints). Verify mechanical fit before final enclosure assembly.
+
+**Voltage at gun:** Unregulated 2S battery voltage (~7.2–8.4 V). Gun donor mechanism has its own built-in pump and trigger; each gun controls its own motor current independently via internal trigger potentiometer or Hall switch (no separate PWM regulation from pack).
+
+---
+
+## 5V Regulation
+
+**Two independent buck converters** (isolation for noise/stability):
+
+### Buck A: Pump & Controller Supply
+
+**Part:** YxPC 6–20V to 5V USB buck converter (adjustable variant, <1 A typical rating)  
+**Configuration:**
+- Input: 2S battery voltage (~6–8.4 V unregulated)
+- Output: 5.0 V (adjusted via onboard potentiometer before installation)
+- Load: G528 peristaltic pump (~250–300 mA running, 0.3 A nominal) + PCB logic/LEDs (<50 mA)
+- Total: ~350 mA steady-state
+
+**Installation:**
+- Mount inside dry electronics enclosure
+- **Verify output with multimeter before connecting any load.** Target output is 5.0 V; PCB accepts 4.75–5.25 V. Use onboard potentiometer to adjust; do not assume factory default.
+- Do not exceed 1 A total load on module (pump ~0.3 A + PCB <0.05 A)
+- Connect input to 12 AWG main red wire (post-breaker)
+- Output feeds PCB power input (JST-XH J1, 2-pin) and G528 pump (+5V, −GND)
+
+**Alternative (if module fails during testing):** Pololu S13V30F5 buck converter (30 A rated, more stable but costs ~$8 vs. [price]). This can be swapped in without board redesign; module mounts external to PCB.
+
+### Buck B: LED Backpack Supply
+
+**Part:** Second identical YxPC 6–20V to 5V USB buck  
+**Configuration:**
+- Input: 2S battery (post-breaker)
+- Output: 5.0 V
+- Load: LED backpack (~500–700 mA peak during animation)
+
+**Installation:** Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
+
+**Setting:** Same as Buck A—verify 5.0 V output with multimeter before connecting LED backpack.
+
+---
+
+## Voltage Readout
+
+**Digital voltmeter, 4–100V DC range**  
+**Specifications:**
+- Display: Red LED 0.56-inch digits
+- Input: Two wires (positive, negative)
+- Supply current: Minimal (<5 mA)
+- Accuracy: ±1 V typical across range
+- Protection: Reverse-polarity protected
+
+**Wiring:**
+- Positive (red): to BMS P+ (battery positive)
+- Negative (black): to BMS P− (system ground)
+- Voltmeter draws minimal current (<5 mA) continuously; no push-button or standby mode
+
+**Display reference:**
+- 8.4 V: Fully charged, ready for operation
+- 7.2 V: Half capacity (nominal)
+- 6.0 V: Minimum safe voltage (BMS cutoff threshold); if reached, stop operating and recharge
+- Below 6.0 V: Do not fire; BMS is actively protecting cells
+
+**Location:** Face of electronics enclosure, visible during event for quick capacity check without stopping activity.
+
+---
+
+## Runtime & Power Budget
+
+### Measured Baseline (2S1P Test)
+
+**Test data:** One 2S1P Samsung 25R pair (18 Wh nominal), tested at the target festival event
+- Event duration: ~75 minutes with heavy dancing; actual gun firing ≈28 minutes (37% duty)
+- Solution consumed: 473.6 mL in that 75-minute event period
+- Average power during event: ~26 W (including pump + gun + losses)
+- Voltage drop under load: 4.2 V → 3.6 V per cell
+- **Energy per liter: ~69 Wh/L** (0.069 Wh/mL, measured across both continuous full-fire and event scenarios)
+
+### 2S5P Extrapolation
+
+**Pack energy:** 90 Wh nominal (5× parallel = 5× energy of 2S1P)
+
+**Estimated solution capacity before cutoff (3.6 V):**
+- 90 Wh ÷ 69 Wh/L ≈ **1.3 L** at 3.6 V per cell
+- Practical commitment with 1 L reservoir: **1 L per fully charged pack**, with ~300 mL safety margin remaining
+- Two fully charged packs support **~2.6 L total** (one reload during event)
+- Note: Individual donor gun efficiency varies widely (3–8 V nominal, varying motor design); calibrate against measured flow at typical event voltage (7.2 V nominal)
+
+**Practical scenario (1 L reservoir):**
+- One fully charged 2S5P pack supports ~1.0 L fluid delivery before reaching BMS cutoff (6.0 V)
+- Estimated runtime at 37% average duty (typical event use): 2–3 hours per pack
+- With pump and gun system running, solution consumption is ~0.069 Wh per mL at average load
+- Multiple packs and reservoir refills extend event duration; carry one fully charged spare
+
+### Power Budget (Instantaneous)
+
+**Typical load composition at full power:**
+- Three-head gun @ 8.4 V: ~17 mL/min (measured flow), current depends on head design (~1–3 A typical 6V toy gun)
+- Two three-head guns: ~34 mL/min, ~2–6 A total
+- G528 pump @ 5V: ~0.3 A
+- PCB + LEDs: <0.05 A
+- **Total continuous:** 3–7 A (highly variable by donor gun)
+
+**Peak (startup + motor inrush):** Up to 15–20 A briefly; 30 A breaker protects against sustained faults.
+
+**Overvolting effect:** 6V-nominal donor guns overvolted to 8.4 V will draw more current and consume more solution. To mitigate, consider PWM control on gun side (future enhancement, not in MVP). For v1, fire at full voltage to get maximum bubble output; control duty cycle via trigger (tap trigger rather than sustained hold).
+
+### Thermal & Cell Heating
+
+**Battery cell self-heating at 10 A continuous:**
+- Internal resistance: ~22 mΩ per Samsung 25R
+- Power dissipated per cell: I² × R = 10² × 0.022 = 2.2 W
+- Five cells in parallel: 2.2 W ÷ 5 = 0.44 W per cell (much lower than 2S1P alone)
+- Temperature rise: ~2–5°C above ambient in still air
+
+**2S5P advantage:** Parallel configuration distributes current five ways, reducing per-cell heating to ~28% of 2S1P equivalent. Cells should remain comfortable to hold even after 30+ minute sustained firing.
+
+**Packed thermal environment:** Cells inside soft hydration pack with minimal active cooling. Monitor pack surface temperature during testing; if enclosure is too hot to touch, stop operation and allow 10 minutes cool-down before resuming.
+
+---
+
+## Thermal & Safety Notes
+
+### Cell Temperature Monitoring
+
+- **Samsung 25R safe limit:** 60°C absolute maximum (per datasheet)
+- **Recommended ceiling:** 50°C during operation (NTC sensor cutoff at 55–60°C, reset at ~45°C)
+- **Comfortable-to-hold range:** <45°C
+- If cells feel hot enough to cause discomfort, stop firing immediately
+
+### Contact Resistance Risk
+
+The old 2S1P test used hand-soldered connections that developed significant contact resistance (~30–50 mΩ), causing localized heating even at moderate currents (3.2 W per bad connection at 10 A). The 2S5P design uses **spot-welded pure-nickel tabs** to eliminate this; verify welds are solid and distribute current across five series links.
+
+### Connector Integrity
+
+- **XT30U connectors:** Rated for 15 A sustained. If gun is hot to the touch after extended firing, suspect bad connector contact. Disconnect, clean gold pins with dry cloth, reinsert firmly.
+- **Ring terminals on breaker:** Crimped terminals are more reliable than solder under thermal cycling. Do not rely on solder alone; use proper crimping tool or accept solder-fill as secondary retention only.
+
+### Charging Safety
+
+- Never charge the pack while it is installed in a pressurized fluid system (active pump running). Disconnect fluid lines or vent bladder.
+- Charge on flat, non-flammable surface (wood table, concrete, not carpet or paper).
+- If BMS cuts off charging (thermal or voltage cutoff), allow pack to cool to room temperature before resuming. Do not force discharge through parallel load.
+- Damaged or swollen cells: **do not attempt to recharge or discharge**; replace immediately.
+
+### Storage
+
+- Store fully charged packs at room temperature (~20°C) in dry location
+- For storage >1 month, discharge to 50% (7.2 V nominal) to reduce stress on BMS balancing circuit
+- Do not store in extreme heat (>35°C) or moisture (>85% RH)
+
+---
+
+## Complete Wiring Table
+
+| From | To | Wire Gauge | Connector | Polarity | Notes |
+|------|----|-----------:|-----------|----------|-------|
+| BMS P+ | 30A Breaker stud | 12 AWG red | M6 ring terminal | + | High-current; use crimped ring, not solder to stud |
+| Breaker stud | Distribution point | 12 AWG red | Solder + heat-shrink | + | Short run (~6 inches), strain relief only |
+| Distribution | ACS758 in (conductor) | 12 AWG red | Sensor screw terminals | + | High-current sense path |
+| ACS758 out | XT30U split junction | 12 AWG red | Solder + heat-shrink | + | Exits high-current sensor |
+| Junction | XT30U gun channel A | 16 AWG red | XT30U female connector | + | Four-foot umbilical |
+| Junction | XT30U gun channel B | 16 AWG red | XT30U female connector | + | Four-foot umbilical |
+| BMS P− | System ground (bus) | 12 AWG black | Solder | − | Return path for all circuits |
+| Ground bus | ACS758 GND (J2 pin 1) | Small wire | JST-XH 3-pin | − | Signal return; low-current |
+| Ground bus | Gun channels (both) | 16 AWG black | XT30U (within connectors) | − | Return in umbilical pairs |
+| Ground bus | G528 pump (−) | Small wire | JST-XH (J3) | − | Pump return |
+| Ground bus | PCB GND (J1 pin 2) | Small wire | JST-XH 2-pin | − | Logic ground |
+| Main red | Buck A input (Hi) | 12 AWG red | Solder | + | Pump + controller supply |
+| Buck A output | PCB +5V (J1) | Small wire | JST-XH 2-pin | + | Logic supply, TLV1822 comparator, LEDs |
+| Buck A output | G528 pump (+) | Small wire | JST-XH (J3) | + | Pump power @ 5V |
+| Main red | Buck B input (Hi) | 12 AWG red | Solder | + | LED backpack supply |
+| Buck B output | LED backpack +5V | Small wire | Connector | + | Backpack power |
+| BMS P+ | Voltmeter (+) | Small wire | Connector | + | Battery voltage display |
+| BMS P− | Voltmeter (−) | Small wire | Connector | − | Voltmeter return |
+| ACS758 (5V out) | PCB Vcc (J2 pin 2) | Small wire | JST-XH 3-pin | + | Sensor supply; low-current |
+| ACS758 signal out | PCB input (J2 pin 3) | Small wire | JST-XH 3-pin | Variable | 2.5V zero, ±40 mV/A |
+| PCB pump output | G528 (J3 pins 1–2) | Small wire | JST-XH 2-pin | Variable | MOSFET gate to pump |
+
+**Notes on wire selection:**
+- 12 AWG silicone-insulated, tinned copper preferred for all main paths (flexible, heat-resistant, handles temperature swings)
+- 16 AWG for four-foot umbilicals (lower current per gun, standard practice for RC/hobby projects)
+- Small wire (22–24 AWG) for logic, sensor, and signal lines (<100 mA)
+- All connectors JST-XH for logic; XT30U for gun power; M6 ring terminals for breaker; direct solder on pump and sensors
+
+---
+
+**Source:** Joey's bench measurements, component datasheets from [docs/parts/listings/](parts/listings/), and v1.2 design handoff. Wiring verified against assembled boards post-build; thermal testing on 2S5P baseline at 15 A sustained (target <50°C after 30 min).
+

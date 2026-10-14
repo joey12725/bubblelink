@@ -1,0 +1,30 @@
+{
+  "schema": "BubbleLink final independent geometry/connectivity DRC v1",
+  "engine": "@tscircuit/checks plus explicit per-source width audit",
+  "note": "KiCad CLI is not installed in this environment; this is not represented as a KiCad-native DRC run. KiCad export reconciliation is performed separately by manufacturing_qa.",
+  "input_file": "output/BubbleLink_CTRL_v1_2_PCBWay/source/BubbleLink_CTRL_v1_2_FINAL.circuit.json",
+  "circuit_json_sha256": "cefb930d83c3d1503fd2eda358e178ab7c5f5063bffa378bbb6ffb9a54190d6d",
+  "minimum_clearance_mm": 0.2,
+  "violations": [],
+  "unconnected": [],
+  "check_counts": {
+    "source_traces_have_pcb_traces": 0,
+    "pcb_ports_connected": 0,
+    "trace_routes_contiguous": 0,
+    "trace_overlap_clearance_0_20mm": 0,
+    "pad_trace_clearance_0_20mm": 0,
+    "pad_pad_clearance_0_20mm": 0,
+    "via_trace_clearance_0_20mm": 0,
+    "same_net_via_spacing_0_20mm": 0,
+    "different_net_via_spacing_0_20mm": 0,
+    "vias_in_smt_pads": 0,
+    "footprint_overlap": 0,
+    "components_out_of_board": 0,
+    "traces_out_of_board": 0,
+    "vias_out_of_board": 0,
+    "aggregate_placement_including_courtyard_and_access": 0,
+    "aggregate_routing": 0,
+    "per_source_trace_minimum_width": 0,
+    "embedded_circuit_error_records": 0
+  }
+}

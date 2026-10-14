@@ -1,0 +1,448 @@
+{
+  "checks": [
+    {
+      "evidence": {
+        "design": "BubbleLink_CTRL_v1_2"
+      },
+      "id": "CFG-001",
+      "message": "frozen design manifest parsed",
+      "section": "configuration",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "elements": 1711
+      },
+      "id": "CIR-001",
+      "message": "circuit JSON parsed",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "U1-001",
+      "message": "U1 matches TI D0008A: 1.27 mm pitch, 5.40 mm rows, 1.55 x 0.60 mm pads, 0.075 mm mask expansion",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "pcb_component": 68,
+        "pcb_copper_pour": 1,
+        "pcb_courtyard_outline": 5,
+        "pcb_courtyard_rect": 35,
+        "pcb_hole": 4,
+        "pcb_keepout": 4,
+        "pcb_plated_hole": 42,
+        "pcb_smtpad": 97,
+        "pcb_trace": 111,
+        "pcb_via": 56,
+        "source_component": 68,
+        "source_trace": 111,
+        "unowned_pcb_smtpad": 3
+      },
+      "id": "CIR-002",
+      "message": "all frozen structural counts match",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "CIR-003",
+      "message": "zero explicit circuit/PCB errors",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "CIR-004",
+      "message": "no source properties were ignored",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "CMP-001",
+      "message": "exact frozen component set present (68 refs)",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "CMP-002",
+      "message": "all component types, values, and MPNs match frozen design",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "CMP-003",
+      "message": "every component has the expected SMT/THT pad technology",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "CMP-004",
+      "message": "exact DNP flags are present",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "PIN-001",
+      "message": "critical IC/transistor/diode/connector pin maps match",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "PIN-002",
+      "message": "every logical pin maps to exactly the expected physical pin set",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "NET-001",
+      "message": "all 23 frozen connectivity groups match exactly",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "NET-002",
+      "message": "PRIME switch internal pole pairs are exactly 1-2 and 3-4",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "NET-003",
+      "message": "all 23 groups are explicit two-terminal N-1 trees (111 edges)",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "TRC-001",
+      "message": "all pump/high-current source trace-width constraints match",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "BRD-001",
+      "message": "board is exactly 50 x 40 x 1.6 mm, two-layer FR-4 with frozen rule floors",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "BRD-002",
+      "message": "four 3.2 mm mounting holes match the 43 x 33 mm pattern",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "BRD-003",
+      "message": "3.0 mm-radius keepouts protect every mounting hole on both layers",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "TRC-002",
+      "message": "routed PCB trace objects present (111)",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "minimum_mm": 0.25
+      },
+      "id": "TRC-003",
+      "message": "all routed wire widths meet the 0.20 mm floor",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "TRC-004",
+      "message": "all high-current routes meet their 1.0/1.2 mm constraints",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "TRC-005",
+      "message": "all load-current paths satisfy their frozen via policy; non-load test branches are explicitly classified",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "count": 56
+      },
+      "id": "VIA-001",
+      "message": "via geometry/count is within frozen limits",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "BRD-004",
+      "message": "circuit geometry preserves 1.0 mm copper-to-mounting-hole-edge clearance",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "id": "BRD-005",
+      "message": "checked traces, pours, pads, holes, and vias respect 0.5 mm board-edge clearance",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "closest_clearance_mm": 0.02,
+        "closest_pair": [
+          "C7",
+          "U2"
+        ],
+        "reviewed": [
+          {
+            "actual_mm": 0.07000000000000028,
+            "minimum_mm": 0.06,
+            "refs": [
+              "C12",
+              "R18"
+            ]
+          }
+        ]
+      },
+      "id": "PLC-001",
+      "message": "all 40 frozen courtyards are pairwise disjoint and reviewed placement clearances pass",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "source_component_pins_underspecified_warning": 18,
+        "source_no_ground_pin_defined_warning": 18,
+        "source_no_power_pin_defined_warning": 18,
+        "source_refdes_convention_warning": 15
+      },
+      "id": "CIR-005",
+      "message": "non-fatal warning inventory recorded",
+      "section": "circuit_json",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "b_cu": "B_Cu.gbr",
+        "b_mask": "B_Mask.gbr",
+        "drill_npth": "drill_npth.drl",
+        "drill_pth": "drill-L1-L2.drl",
+        "edge": "Edge_Cuts.gbr",
+        "f_cu": "F_Cu.gbr",
+        "f_mask": "F_Mask.gbr",
+        "f_paste": "F_Paste.gbr",
+        "f_silk": "F_SilkScreen.gbr"
+      },
+      "id": "GBR-001",
+      "message": "exact nine-file top-assembly Gerber/Excellon set present",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "id": "GBR-002",
+      "message": "all required manufacturing layers have valid text framing",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "bbox_mm": [
+          -25.0,
+          -20.0,
+          25.0,
+          20.0
+        ]
+      },
+      "id": "GBR-003",
+      "message": "Gerber profile is exactly 50 x 40 mm",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "b_cu": 0.25,
+        "f_cu": 0.25
+      },
+      "id": "GBR-004",
+      "message": "Gerber copper draw apertures meet the 0.20 mm floor",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "evidence": [
+        {
+          "diameter": 3.2,
+          "x": -21.5,
+          "y": -16.5
+        },
+        {
+          "diameter": 3.2,
+          "x": 21.5,
+          "y": -16.5
+        },
+        {
+          "diameter": 3.2,
+          "x": -21.5,
+          "y": 16.5
+        },
+        {
+          "diameter": 3.2,
+          "x": 21.5,
+          "y": 16.5
+        }
+      ],
+      "id": "GBR-005",
+      "message": "NPTH drill has exactly the frozen four-hole pattern",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "id": "GBR-006",
+      "message": "PTH drill hit count matches 42 component holes + 56 vias (98)",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "id": "GBR-007",
+      "message": "F.Paste has exactly 92 full-size populated top-SMT flashes; R22 DNP, PTH, fiducial, and bottom apertures are absent",
+      "section": "gerber_excellon",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "bytes": 581800,
+        "member": "BubbleLink_CTRL_v1_2.kicad_pcb"
+      },
+      "id": "KIC-001",
+      "message": "KiCad PCB parsed",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "id": "KIC-002",
+      "message": "KiCad PCB is 50 x 40 x 1.6 mm with two copper layers",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "minimum_segment_width_mm": 0.25,
+        "segments": 533,
+        "vias": 56
+      },
+      "id": "KIC-003",
+      "message": "KiCad traces/vias meet width/diameter floors",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "id": "KIC-004",
+      "message": "KiCad has exact 68-footprint designator set",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "id": "KIC-005",
+      "message": "KiCad footprint pad-number sets match the frozen topology",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "id": "KIC-006",
+      "message": "KiCad pad-to-net topology matches all frozen groups",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "id": "KIC-007",
+      "message": "KiCad NPTH mounting-hole pattern matches",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "segments": 533,
+        "vias": 56
+      },
+      "id": "KIC-008",
+      "message": "KiCad routed segment/via counts exactly match circuit JSON",
+      "section": "kicad_pcb",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "rows": 23,
+        "source": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/assembly/PCBWAY_SMT_BOM.csv"
+      },
+      "id": "BOM-001",
+      "message": "PCBWay BOM parsed with required columns",
+      "section": "pcbway_bom",
+      "status": "PASS"
+    },
+    {
+      "id": "BOM-002",
+      "message": "BOM is exact 41-part top-SMT population; DNP/THT excluded",
+      "section": "pcbway_bom",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "rows": 41,
+        "source": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/assembly/PCBWAY_SMT_CPL.csv"
+      },
+      "id": "CPL-001",
+      "message": "PCBWay CPL parsed with required columns",
+      "section": "pcbway_cpl",
+      "status": "PASS"
+    },
+    {
+      "id": "CPL-002",
+      "message": "CPL exactly matches circuit placements and BOM; DNP/THT excluded",
+      "section": "pcbway_cpl",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "circuit_json_sha256": "cefb930d83c3d1503fd2eda358e178ab7c5f5063bffa378bbb6ffb9a54190d6d",
+        "unconnected": 0,
+        "violations": 0,
+        "zero_audit_categories": 18
+      },
+      "id": "DRC-001",
+      "message": "DRC report is hash-bound to the circuit and states zero violations, unconnected items, and audit-category findings",
+      "section": "drc",
+      "status": "PASS"
+    },
+    {
+      "id": "HASH-001",
+      "message": "all 9 SHA-256 entries match",
+      "section": "integrity",
+      "status": "PASS"
+    },
+    {
+      "id": "HASH-002",
+      "message": "every supplied release input/artifact is hash-covered",
+      "section": "integrity",
+      "status": "PASS"
+    }
+  ],
+  "disposition": "PASS",
+  "exit_code": 0,
+  "inputs": {
+    "bom": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/assembly/PCBWAY_SMT_BOM.csv",
+    "circuit_json": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/source/BubbleLink_CTRL_v1_2_FINAL.circuit.json",
+    "cpl": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/assembly/PCBWAY_SMT_CPL.csv",
+    "drc": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/verification/BubbleLink_CTRL_v1_2_DRC.json",
+    "gerbers": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip",
+    "hash_manifest": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/verification/manufacturing_qa/release_hashes.portable.sha256",
+    "kicad": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/source/BubbleLink_CTRL_v1_2_KiCad_Source.zip",
+    "manifest": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/verification/manufacturing_qa/frozen_design.json",
+    "source": "/workspace/scratch/b5dc20e5c1c7/output/BubbleLink_CTRL_v1_2_PCBWay/source/repro/circuit.tsx"
+  },
+  "phase": "release",
+  "schema_version": 1,
+  "summary": {
+    "FAIL": 0,
+    "PASS": 50,
+    "PENDING": 0
+  },
+  "validator": "BubbleLink manufacturing structural QA",
+  "validator_version": "1.0.0"
+}

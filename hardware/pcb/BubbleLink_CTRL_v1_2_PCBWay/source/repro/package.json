@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@tscircuit/checks": "^0.0.151",
+    "@tscircuit/copper-pour-solver": "^0.0.42",
+    "circuit-json-to-gerber": "^0.0.90",
+    "circuit-json-to-kicad": "^0.0.171",
+    "circuit-to-svg": "^0.0.400"
+  }
+}

@@ -1,0 +1,9 @@
+c8f13d11d7eb95ba72ec40f16cdda094d85e73a2f8df5003952da09787f1407e  ../../source/repro/circuit.tsx
+cefb930d83c3d1503fd2eda358e178ab7c5f5063bffa378bbb6ffb9a54190d6d  ../../source/BubbleLink_CTRL_v1_2_FINAL.circuit.json
+1ac477ec11a85dc51a75196ea46baa74505f862f7090f1b2c470e1b5bbe350bb  ../../fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip
+dd2907b297ab726fbac267b7e8dd632642b6bdc6ff5da1e392fe6acd5b337455  ../../source/BubbleLink_CTRL_v1_2_KiCad_Source.zip
+70a907dfd2e4c8a4cf2e8a39e4fca4d8dabc7bc751a1d5a76185b18b02ba2550  ../../assembly/PCBWAY_SMT_BOM.csv
+cc46d67c672d7e02f7ba2f3c22ea60111d3aba39463b48c7ea106169344d8f8b  ../../assembly/PCBWAY_SMT_CPL.csv
+b610aa00258297c97a98104ff59dcdea4dfd31f1dbc0c7621d5d95b38dd39f90  ../../verification/BubbleLink_CTRL_v1_2_DRC.json
+f37f247bdfff35f0c0dacdba6c76a79bf524f86bbeeae8247f72f0ef6870704b  ../../verification/manufacturing_qa/frozen_design.json
+ed20c800738310cdf00752fa273061e4779ce4d8dab13c5d6c5e0dfa2f488c1b  ../../verification/manufacturing_qa/validate_release.py

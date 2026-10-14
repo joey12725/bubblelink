@@ -1,0 +1,7 @@
+Reference,Pad 1 function,X mm lower-left datum,Y mm lower-left datum
+U1,OUT1,14.0950,18.8000
+U2,GND,34.6375,20.0500
+Q1,Gate,22.5500,23.3625
+Q2,Gate,36.1375,9.0500
+Q3,Gate,23.8625,13.9500
+D1,Cathode / band,40.5000,7.8000

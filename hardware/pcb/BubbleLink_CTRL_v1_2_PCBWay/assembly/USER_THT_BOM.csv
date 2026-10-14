@@ -1,0 +1,10 @@
+Item,Reference Designator,Quantity per PCB,Manufacturer,Manufacturer Part Number,Description,PCB Footprint,Installation and Polarity
+1,"J1,J3",2,JST,B2B-XH-A(LF)(SN),2-position vertical XH header,2.50 mm pitch custom THT,"Pin 1 to square pad; connector opening/outline must match assembly drawing"
+2,J2,1,JST,B3B-XH-A(LF)(SN),3-position vertical XH header,2.50 mm pitch custom THT,"Pin 1 to square pad; connector opening/outline must match assembly drawing"
+3,C1,1,Rubycon,16ZLH100MEFC5X11,100 uF 16 V low-impedance aluminum electrolytic,Radial D5 mm P2.0 mm,"Positive lead to square pad/pad 1 and + silkscreen"
+4,RV1,1,Bourns,3296W-1-202LF,2 kohm 25-turn top-adjust trimmer,3296W physical 1-3-2,"Top view left-to-right pad order 1-3-2; pin 2 is wiper"
+5,RV2,1,Bourns,3296W-1-104LF,100 kohm 25-turn top-adjust trimmer,3296W physical 1-3-2,"Top view left-to-right pad order 1-3-2; pin 2 is wiper"
+6,SW1,1,Omron,B3F-1000,6 x 6 mm momentary tactile switch,Custom 4-pin B3F,"Pins 1/2 are one side and 3/4 the other; seat flush"
+7,LED1,1,Kingbright,L-934GD,3 mm green LED,Radial P2.54 mm,"Cathode/short lead/flat to pad 1 and K mark"
+8,LED2,1,Kingbright,L-934YD,3 mm yellow LED,Radial P2.54 mm,"Cathode/short lead/flat to pad 1 and K mark"
+9,LED3,1,Kingbright,L-934ID,3 mm red LED,Radial P2.54 mm,"Cathode/short lead/flat to pad 1 and K mark"
