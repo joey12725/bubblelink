@@ -1,6 +1,6 @@
 # BubbleLink Build Guide
 
-Complete step-by-step assembly procedure from parts-on-the-bench to festival-ready bubble-gun system. This guide covers incoming inspection, battery assembly, electrical harness construction, PCB and controller setup, fluid system assembly, donor gun integration, LED backpack assembly, and final testing. The entire build requires 25–40 hours of hands-on work over approximately **two weeks** (compression from the original four-week estimate due to the 2026-10-29 hard deadline). **Status as of 2026-10-14:** AliExpress parts on hand; PCBs shipped ETA **Oct 15–18**. Prep work (cell matching, 3D printing, harness prep) can start immediately. PCB assembly begins after board arrival. **Target completion: 2026-10-29** (the target festival 2026-10-30 to 31).
+Complete step-by-step assembly procedure from parts-on-the-bench to festival-ready bubble-gun system. This guide covers incoming inspection, battery assembly, electrical harness construction, PCB and controller setup, fluid system assembly, donor gun integration, LED backpack assembly, and final testing. The entire build requires 25–40 hours of hands-on work over approximately **two weeks** (compression from the original four-week estimate due to the 2026-10-29 hard deadline). **Status as of 2026-10-14:** AliExpress parts on hand; PCBs shipped ETA **Oct 15–18**. Printed-part CAD is done (the upright "stick", see [09-printed-parts.md](09-printed-parts.md) and [hardware/printed/README.md](../hardware/printed/README.md)); nothing has been printed or test-fitted yet. Prep work (cell matching, 3D printing, harness prep) can start immediately. PCB assembly begins after board arrival. **Target completion: 2026-10-29** (the target festival 2026-10-30 to 31).
 
 ## Quick Reference
 
@@ -13,12 +13,20 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - Hot-water bath or heat gun (for hose warm-stretching)
 - Narrow 2.5 mm zip ties
 - Electrical tape, electrical shrink tubing
-- 3D printer (Creality K2/Bambu A1)
+- 3D printer (Creality K2/Bambu A1), PETG and TPU filament
+- Printed-part hardware: 6× M3 screws (2× M3×10, 4× M3×12) + 6 nuts glued in, glue (CA/hot glue/silicone), a strip of 1 mm foam, a long narrow screwdriver, and a 2 mm screwdriver for the trimmers
 
-**Build schedule by week:**
-- **Week 1 (Oct 14–20; prep before PCB arrival):** Incoming inspection of non-PCB parts, battery cell matching and voltage testing, 3D-printed part production (battery spacers, pump cradle, connector blocks, pinch clamps)
-- **Week 2 (Oct 21–27; PCB assembly and integration):** Battery cartridge soldering and testing, electrical harness construction, PCB THT component soldering and bring-up, pump assembly and plumbing, fluid system integration
-- **Week 3 (Oct 28–29; testing and final prep):** Donor gun integration and calibration, LED backpack setup, first firing tests, leak test, endurance test, final electrical verification
+**Build order to 2026-10-29:**
+1. **Now:** check or buy the PCB THT parts (no purchase record). Get written the target festival approval. Bench-test Buck A (<5.25 V under load) and the pump (marked 6 V, <0.3 A at 5 V). Incoming inspection and cell matching.
+2. **Print:** the fit coupon, cell holders and slide clamps, then the stick parts and umbilical bricks.
+3. **Build the battery.**
+4. **Boards arrive (est. Oct 15–18):** PCB THT soldering and bring-up.
+5. **Tear down the guns** (pick 4 matched heads).
+6. **Electronics into the sled.**
+7. **Fluid and umbilicals.**
+8. **First fire and tuning.**
+9. **Bench gates** and system tests.
+10. **Done Oct 29.**
 
 ---
 
@@ -36,6 +44,8 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Verify motor housing marked **6V** (NOT 12V; artwork on some units misleads)
    - Measure DC resistance of motor coil: should read ~10–15 Ω
    - Included tubing: **3 mm ID × 5 mm OD** (kept as pump connection reference)
+   - Bench test: should draw **<0.3 A at 5 V**
+   - Measured 2026-10-14: 2 × 1¾ × 1½ in at its thickest; it fits the cup's 52 × 46 mm pocket (measure your own before printing the cup)
 
 3. **2S 4A USB-C boost charger** (SZHJW Technology Store, [price])
    - Verify input USB-C connector and output spade terminals
@@ -46,6 +56,9 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - **CRITICAL:** before use, dial pot to exactly **5.0 V** and verify with multimeter
    - **Buck A** powers the controller PCB and pump motor (~5.0–5.1 V; PCB qualified input 4.75–5.25 V)
    - **Buck B** powers the LED backpack's USB input
+   - Bench-test Buck A under load: must stay **below 5.25 V**
+   - Measured 2026-10-14: 1 in along the port, 5/16 in thick. **Width not measured** (17 mm assumed); measure it
+   - You'll solder both outputs directly (no room for USB plugs inside the stick)
 
 **Electrical subsystem (critical variants):**
 5. **ACS758LCB-050B current sensor** (Great IT Electronic, [price])
@@ -56,6 +69,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 6. **30A manual-reset circuit breaker** (YONGRUN Store, [price])
    - Verify **Type B-30A** rating and 12–48 V DC compliance
    - Confirm terminal studs are **M6** (6 mm diameter) for ring-terminal fit
+   - Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong), plate holes 1¼ in apart. Inline type: studs at both ends, red reset lever and red push-to-trip button on the square plate
    - Do NOT apply power until ring terminals are crimped
 
 7. **M6 ring terminals** (SC10-6, solder-filled, match for 12 AWG wire)
@@ -80,6 +94,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 11. **Automotive hose-fitting assortment** (Shop1103411025, [price])
     - Identify **#68401** straight 1/8" unions and **#68409** 5/32" tees in compartment
     - Confirm black nylon material and barb sizes
+    - Count the tees: the pack plumbing needs **three**, plus one per dual-head gun
 
 **Connectors & wiring (critical variants):**
 12. **XT60H battery connectors** (Shop911130012, [price])
@@ -114,7 +129,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
     - Check SMT assembly: U1 (TLV1822QDRQ1), U2 (TLV803E), MOSFETs (Q1/Q3 DMP2065UQ, Q2 AO3400A), diode D1 (B340A), fuse F1 (1812L150)
     - Confirm C9 and R18 are **fitted** (populated), NOT DNP
     - Confirm J4 and R22 are **DNP** (not populated)
-    - Through-hole parts (RV1, RV2, LEDs, J1–J3, SW1, C1) user-installed
+    - Through-hole parts (RV1, RV2, LEDs, J1–J3, SW1, C1) user-installed. **There's no purchase record for them: check or buy them now**
 
 20. **Nickel-plated steel battery tabs** (AllThingsHome, qty 3 packs = 30 total, [price] each)
     - Verify **2.6 cm length, 0.15 mm thick minimum** by caliper
@@ -134,7 +149,19 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 24. **COB LED strip 5V 2 m ice-blue** (KISUFU Lighting, [price]) [OPTIONAL]
     - For Tracer cosplay side panel; NOT part of bubble system
 
+**Other measured parts (2026-10-14):** BMS 2½ × 1⅞ × ¼ in; ACS758 module 1½ × ~¾ × ⅛ in; USB-C charger 1½ in (plug direction) × 11/16 × ⅜ in; voltmeter bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm). **Measure the voltmeter's idle current once** with a multimeter on the mA range (unmeasured; small LED meters typically draw tens of mA).
+
 **Mark any missing or incorrect variants in an "Incoming Issues" list; do NOT proceed with assembly until verified.**
+
+### Printed parts (start now)
+
+Follow the print order in [hardware/printed/README.md](../hardware/printed/README.md):
+
+1. Print the **fit coupon** first. Pick the tightest cell ring a 25R slides into by hand and the snug XT30U pocket, set `cell_bore` and `fit_clear` in `src/params.scad`, and rebuild the STLs with `build.sh`.
+2. Print the **cell holders** (MID and TERM) and the **slide clamps** (×3).
+3. Print the **stick parts** (tube, cap, sled, cup, PRIME plunger) in PETG and the TPU parts (cap ring, grommet halves, PRIME boot, two screw washers), then the **umbilical bricks** (×4). Use a light-coloured PETG for the cap so the LEDs show through. Nothing needs supports.
+
+None of these parts has been test-fitted yet, so check fits as you go.
 
 ---
 
@@ -158,13 +185,14 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Row 1: cells 1–5 (all at same voltage before welding)
    - Row 2: cells 6–10 (all at same voltage before welding)
    - Label rows with tape to avoid mixing during welding
+   - **Orient the two rows in opposite directions:** row 1 (A) goes + toward one end and row 2 (B) goes − toward that end. If every cell faces the same way, it's 10P, not 2S5P
 
 ### 2.2 Spot-weld battery tabs
 
 **Setup:**
-- Printed cell spacers (5×2 offset layout, 0.5–1 mm air gap between wrappers)
-- One spacer at each end of the cartridge
-- Nickel-plated steel tabs (qty 30 total)
+- Printed cell holders, MID and TERM (original 5×2 offset design, 19.9 mm pitch, ~1.6 mm wrapper gap)
+- **MID** caps the series end (every tab on that face is the midpoint); **TERM** carries the separate pack + and − buses. Keep the two rows' strips on TERM apart, with fish paper between them. The holders are mirror images; if the A/B letters don't line up, rotate MID 180°
+- Nickel-plated steel tabs, 2.6 cm (qty 30 total); they reach both cell centres at the 19.9 mm pitch
   - Five independent series links connecting the two rows (positive of row 1 to negative of row 2)
   - Four links joining cells 1–5 in parallel (row 1)
   - Four links joining cells 6–10 in parallel (row 2)
@@ -200,7 +228,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - **B−:** Row 1 negative terminal (cell 1 −)
 - **BM/B1:** Row 1 positive + Row 2 negative midpoint (junction between series links)
 - **B+:** Row 2 positive terminal (cell 10 +)
-- **P−:** System load negative (main harness to breaker)
+- **P−:** System load negative (main harness return; it does not go to the breaker)
 - **P+:** System load positive (main harness from XT60H)
 
 **Solder XT60H to battery terminals:**
@@ -214,14 +242,15 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Wrap Row 1 − and Row 2 + with fish-paper rings or electrical tape to prevent short circuits
    - Cover all nickel tabs with electrical tape (except the connections to BMS terminals)
 
-### 2.4 Label the battery cartridge
+### 2.4 Label the battery
 
-**Use permanent Sharpie to label the rigid enclosure:**
+**Use permanent Sharpie on the cell holders:**
 - "2S5P Samsung 25R"
 - "7.2 V nominal, 12.5 Ah, 90 Wh"
 - "Build date: [DATE]"
 - "XT60 polarity: Red = +, Black = −"
-- Diagrams of cell orientation if enclosure is clear/translucent
+
+On the bench, hold the block together with tape or a rubber band; in the stick, the tube walls hold it in.
 
 ---
 
@@ -242,13 +271,14 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Crimp ring terminal onto stripped wire (or solder inside barrel after crimping for extra strength)
    - Verify hole diameter matches M6 studs (should be 6.2–6.5 mm)
 
-2. **Connect to breaker:**
-   - Red wire (+): crimp and bolt to one M6 stud with stainless nut (torque: hand-tight + 1/8 turn)
-   - Black wire (−): crimp and bolt to opposite M6 stud the same way
+2. **Connect to breaker (+ line only):**
+   - Red wire from BMS P+ (via the XT60H loop): crimp and bolt to one M6 stud with stainless nut (torque: hand-tight + 1/8 turn)
+   - Red wire to the distribution point: crimp and bolt to the other M6 stud the same way
+   - The breaker is in the **+ line only**. No black (−) wire goes to the breaker; the return runs straight to BMS P−
    - **CRITICAL:** do NOT solder directly to breaker studs; thermal stress damages internal contacts
 
 3. **Main harness cable:**
-   - From breaker output studs, run **12 AWG red and black** to the distribution point (inside pack)
+   - From the breaker's output stud, run **12 AWG red** to the distribution point, and **12 AWG black** from BMS P− (inside the stick)
    - Keep pairs twisted to minimize noise induction
    - Total length: ~1 m (adjust for pack layout)
 
@@ -267,19 +297,21 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - XT30U female (recessed) on gun 2 side
 
 3. **Return paths (GND):**
-   - 12 AWG black from breaker to ACS758 high-current terminal (both guns in parallel on return)
-   - 16 AWG black from ACS758 return to each gun 1 and gun 2 return terminals
+   - 12 AWG black from BMS P− to the return split (both guns in parallel on return)
+   - 16 AWG black from the return split to each gun 1 and gun 2 return terminal (the ACS758 is in the + path only)
 
 4. **Strain relief:**
    - Braided PET sleeving over all soldered joints
    - Heat-shrink tubing over each XT30U connector neck
    - No sharp kinks in the hose or cable bundles
 
+5. **Voltmeter:** wire its + lead to the main positive **after the breaker** (− to BMS P−), so the breaker's trip button turns off the bucks, PCB, voltmeter and guns together. The trip button, pressed through the membrane in the stick's right wall, is the OFF switch; the XT60H loop is the full battery disconnect for storage
+
 ### 3.3 ACS758 external mounting
 
-**Current sensor module placement (beside PCB in enclosure):**
+**Current sensor module placement (sled, front of the cross panel):**
 
-1. Mount ACS758 module on its own standoff or bracket (not on PCB; high-current terminals kept clear)
+1. Drop the ACS758 module into its compartment on the front of the sled's cross panel, above Buck A, and hold it with a zip tie (not on PCB; mounting holes not used; high-current terminals kept clear)
 2. **High-current path:**
    - Breaker positive → ACS758 positive terminal (screw or connector)
    - ACS758 negative terminal → split to XT30U Channel 1 and Channel 2 males
@@ -307,7 +339,8 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 
 4. **Connections:**
    - Buck input: battery 2S pack (via breaker)
-   - Buck output: to pump inlet via flyback-protected circuit (see Pump driver section)
+   - Buck output: **solder directly** to the lead for PCB J1 (no room for USB plugs inside the stick); the PCB drives the pump through J3
+   - Bench test under load before installing: output must stay **below 5.25 V**
 
 ### 4.2 LED backpack regulation (5V for display, Buck B)
 
@@ -316,6 +349,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 1. **Input:** 2S battery voltage
 2. **Output:** **Dial to exactly 5.0 V**
 3. **Load:** LED backpack USB input (variable, ~100–500 mA depending on display mode)
+4. **Connection:** **solder the output directly** to a cut USB cable that runs to the backpack
 
 ---
 
@@ -343,7 +377,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 **Installation order:**
 
 1. **Connectors (J1–J3):** Solder JST-XH 2-pin (B2B-XH-A) and 3-pin (B3B-XH-A) headers; confirm polarity marks face outward
-2. **Trimmers (RV1, RV2):** Solder 10-turn potentiometers; leads are 1–3–2 (NOT 1–2–3)
+2. **Trimmers (RV1, RV2):** Solder 25-turn 3296W potentiometers; leads are 1–3–2 (NOT 1–2–3). **Pin 1 goes on the square pad.** The cap's adjustment windows sit over each trimmer's screw at the pin-1 end; if one goes in reversed, its screw ends up under the PRIME boot
 3. **LEDs:** Install with cathodes toward GND; verify colors (red, green, yellow)
 4. **PRIME switch (SW1):** Solder tactile switch; confirm closure resistance <10 Ω
 5. **Capacitor C1:** 100 µF 16 V electrolytic on J1 input bypass (positive lead to square pad, + mark)
@@ -460,8 +494,8 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Secure with narrow 2.5 mm zip tie; do NOT overtighten
 
 4. **Hydration bladder setup inside pack:**
-   - Place bladder in rear compartment of LED backpack or hydration pack
-   - Cut factory hose to ~30 cm length (retain inside pack; loop back to pump inlet)
+   - Stand the bladder beside the stick in the LED backpack
+   - Cut factory hose short; it enters the stick's wet cup through the 20 mm service hole in the floor
    - Factory hose feeds to reducer → 3.5 mm silicone tube → pump inlet tee
 
 ### 6.2 Assemble pump manifold
@@ -471,57 +505,57 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - 1L bladder (pre-configured above)
 - 3.5 × 5.5 mm silicone tubing, 5 m spool
 - 4 mm plastic check valve (opening pressure 0.003 MPa)
-- Automotive hose-fitting assortment (tees, unions, reducers)
-- Printed pinch clamp (recirculation restrictor, or fixed-tube bypass)
-- Pump inlet filter (optional; typically not needed for clean solution)
+- Automotive hose-fitting assortment: **three tees** (inlet tee, outlet tee 1, outlet tee 2), unions, reducers
+- Printed slide clamps ×3 (bypass restrictor + both channel shutoffs)
+- The stick's wet cup (no inlet filter; the system has none)
 
 **Plumbing path (functional diagram):**
 
 ```
 Bladder (1 L)
     ↓
-Factory hose (cut short, ~30 cm)
+Factory hose (cut short)
     ↓
 Reducer (e.g., 6→4 mm barb)
     ↓
 3.5 × 5.5 mm silicone inlet line
     ↓
-INLET TEE (3-way tee fitting)
-    ├─ Pump inlet (top of tee)
+INLET TEE
+    ├─ Pump inlet
     │   GROTHEN G528
     │   (6V, 250–300 mA at 5V)
-    ├─ Bypass return (from printed pinch clamp via check valve)
-    │   Loop back from pump outlet
+    ├─ Bypass return (from bypass slide clamp via check valve)
     │
 Pump outlet
     ↓
-OUTLET SPLITTER TEE (2 to 3 branch tee)
-    ├─ Left gun channel → LEFT PINCH CLAMP (shutoff) → 4-foot hose → Gun 1 inlet
-    ├─ Right gun channel → RIGHT PINCH CLAMP (shutoff) → 4-foot hose → Gun 2 inlet
-    └─ Bypass return → Printed restrictor → Check valve → Pump inlet tee
+OUTLET TEE 1
+    ├─ Side branch → BYPASS SLIDE CLAMP → Check valve (arrow toward inlet) → Inlet tee
+    ↓
+OUTLET TEE 2
+    ├─ Left gun channel → LEFT SLIDE CLAMP (shutoff) → 4-foot hose → Gun 1 inlet
+    └─ Right gun channel → RIGHT SLIDE CLAMP (shutoff) → 4-foot hose → Gun 2 inlet
 ```
 
 **Assembly steps:**
 
-1. **Mount pump inside pack** on printed cradle (small foam pad underneath to isolate vibration)
+1. **Strap the pump into the cup:** it sits in the 52 × 46 mm pocket on the left of the cup floor, held with zip ties through the slots either side. Drains are under it. The tees, check valve and bypass slide clamp strap to the six floor slots on the right-hand strip (the 70 mm clamp runs front to back)
 
 2. **Pump inlet tubing:**
    - Cut 3.5 mm silicone hose to ~1 m from bladder reducer to pump inlet
    - Barb at inlet tee (1/8" or 5/32" diameter from assortment)
    - Secure inlet with 2.5 mm zip tie (do NOT overtighten into soft silicone)
 
-3. **Pump outlet splitter:**
-   - Install 1/8" or 5/32" 2-to-3 tee at pump outlet
-   - Three branches: left-gun channel, right-gun channel, bypass return
-   - Pump outlet tubing: cut ~30 cm section to tee
+3. **Pump outlet tees:**
+   - Install 1/8" or 5/32" outlet tee 1 at the pump outlet, then outlet tee 2 after it
+   - Tee 1's side branch is the bypass return; tee 2 splits to the left and right gun channels (the outlet side has four connections)
 
 4. **Gun outlet channels (2× four-foot hoses):**
-   - Left channel: pump outlet tee → left pinch clamp → 4-foot 3.5 mm hose → left gun barb
-   - Right channel: pump outlet tee → right pinch clamp → 4-foot 3.5 mm hose → right gun barb
-   - Each hose secured at pack exit with zip tie; outer hose sheathed in braided PET sleeving for durability
+   - Left channel: outlet tee 2 → left slide clamp → 4-foot 3.5 mm hose → left gun barb
+   - Right channel: outlet tee 2 → right slide clamp → 4-foot 3.5 mm hose → right gun barb
+   - Each hose leaves through one of the cup floor's 13 mm holes into its umbilical brick; outer hose sheathed in braided PET sleeving for durability
 
 5. **Bypass/recirculation loop:**
-   - Pump outlet tee → printed pinch clamp restrictor → 4 mm check valve → pump inlet tee
+   - Outlet tee 1 side branch → bypass slide clamp → 4 mm check valve → pump inlet tee
    - Allows pump to "unload" when guns are closed, reducing cavitation and noise
    - Restrictor tuned to ~5–10 mL/min bypass flow during normal operation (calibrate by observation)
 
@@ -533,7 +567,9 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
    - Fill bladder with water (not solution yet, to avoid mess)
    - Prime pump via PRIME button for 5 seconds
    - Verify no leaks at barbs, tees, or unions (all hoses secured with narrow zip ties)
-   - Apply gentle air pressure to outlet hose (pinch clamp open); check valve should barely crack open
+   - Apply gentle air pressure to outlet hose (slide clamp open); check valve should barely crack open
+
+8. **Close the cup:** bolt it on from below with 4× M3×12 screws through the corner columns into the nuts glued into the bulkhead's underside (you need a long, narrow screwdriver)
 
 ---
 
@@ -541,7 +577,9 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 
 ### 7.1 Identify and prepare donor guns
 
-**Recommended:** Four-AA 10-hole rocket-style gun (Joey's design note)
+**the target festival plan:** a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week: strip them, pick **4 matched heads**, and keep the spares. Record the teardown measurements; the gun/head mounts aren't designed yet and need them. Rough estimate (unmeasured): ~12 A with all 4 heads firing (~6 A per channel), about 2–2.5 h of heavy firing, about 2 h per 1 L.
+
+**Earlier design note:** Four-AA 10-hole rocket-style gun
 - Compact mechanical head
 - 10 apertures, high bubble count
 - 4.5V nominal (AA batteries × 4), or 6V variant if available
@@ -571,10 +609,9 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 - 16 AWG red and black silicone wire, 4–5 meters (accounts for 4-foot gun hose bundling)
 - XT30U male connector (power inlet, gun-side)
 - 3.5 mm silicone tubing, 4 feet (fluid inlet)
-- Printed connector block (pack end) with XT30U female socket and fluid barb
-- Printed connector block (gun end) with XT30U male receptacle and fluid inlet barb
+- Two printed umbilical bricks (one at each end)
 - 550 paracord 4 mm, ~2 meters (load-bearing tether)
-- Heat-shrink and braided PET sleeving (strain relief)
+- Heat-shrink and braided PET sleeving
 
 **Harness construction:**
 
@@ -585,34 +622,33 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
    - Insulate solder joints with heat-shrink
 
 2. **Fluid line (3.5 mm tubing):**
-   - 4-foot length from pack-side connector block to gun-side inlet barb
+   - 4-foot length from the pack-side brick to gun-side inlet barb
    - Bundle alongside power leads with zip ties at ~1 m intervals
    - Do NOT kink or bind tightly (allows liquid flow)
 
 3. **Load-bearing paracord:**
    - 2 m length, 4 mm 550 paracord in black
    - Bundles power and fluid together as primary support member
-   - Attached to printed strain-relief boots at pack and gun ends
+   - Ties through the umbilical bricks at pack and gun ends
    - Carries mechanical load; electrical leads and fluid line are passengers
 
-4. **Connector blocks (printed):**
-   - Pack-end: XT30U female socket (recessed), 1/8" or 5/32" barb for 3.5 mm hose, paracord anchor
-   - Gun-end: XT30U male receptacle, barbed inlet for motor pump, paracord anchor
-   - Assembled with M3 screws or snap clips (design per CAD)
-
-5. **Strain relief (printed TPU boots):**
-   - At pack entry: curved boot transitions paracord load to bag stitching and structure
-   - At gun end: boot anchors paracord to gun body, isolates tubing/wires from pinch stress
+4. **Umbilical bricks (printed, one at each end):**
+   - Drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside the pocket
+   - Run the 16 AWG pair and the fluid tube in their grooves, held by narrow zip ties
+   - Tie the paracord through the outer hole; the inner hole ties to the stick (pack end) or the gun (gun end)
+   - No screws; the bricks are the strain relief (there are no separate TPU boots)
 
 ### 7.3 Gun motor rewiring
 
 1. **Solder 16 AWG leads** from umbilical XT30U male connector:
    - Red wire to motor positive terminal (usually marked or color-coded)
    - Black wire to motor negative terminal
+   - On a dual-head gun, wire both head motors **in parallel** on the gun's XT30U
    - Use electrical tape or heat-shrink to insulate solder joints
 
 2. **Pump tubing connection:**
    - Warm 3.5 mm tubing in hot water
+   - On a dual-head gun, split the umbilical's tube with **one assortment tee** to feed both donor pumps
    - Push over motor inlet barb until fully seated
    - Secure with 2.5 mm zip tie (or barb clip if included)
 
@@ -632,46 +668,50 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 
 ### 8.1 Measure LED backpack interior
 
-**Goal:** Determine if battery, pump, controller, and fluid fit inside the M-Style LED pixel backpack
+**Goal:** Confirm the stick and the bladder fit side by side inside the M-Style LED pixel backpack
 
 1. **Empty the backpack** (remove factory bladder and internal pads)
-2. **Measure internal dimensions:**
-   - Length (back pocket depth): typically 34–36 cm
-   - Width: typically 20–22 cm
-   - Depth (front to back): typically 6.5–7.5 cm
-   - Usable volume after LED panel/controller removed: ~2.5–3.5 L (vs. advertised 5 L nominal)
+2. **Measure internal dimensions.** Nobody has measured them yet. The "~34 × 20 × 7 cm" figure that has circulated is an AI estimate of the bag's **exterior** from photos, not an internal measurement
 
 3. **Mock up with cardboard:** Cut cardboard templates for:
-   - Battery cartridge: ~105 × 75 × 43 mm
-   - Pump cradle: ~65 × 55 × 50 mm
-   - Controller/charger/breaker tray: ~140 × 80 × 25–35 mm
+   - The stick: about 99 × 78 × 207 mm, standing upright
    - Fluid reservoir: 1 L + ~20% bladder material volume
 
 4. **Fit test:** Place templates inside backpack; confirm no binding or excessive gaps
 
-### 8.2 Internal organization
+### 8.2 Internal organization (electronics into the sled)
 
-1. **Rear compartment (water-proof divider optional):**
-   - Battery cartridge (bottom, closest to back)
-   - 1L fluid reservoir (bladder in protective mesh bag)
-   - Pump on foam cradle (damping vibration)
+Everything except the bladder goes into the stick. Full part notes are in [hardware/printed/README.md](../hardware/printed/README.md).
 
-2. **Front compartment:**
-   - Controller PCB on small tray (~100 × 60 mm)
-   - USB-C charger (cable routed externally to shoulder strap opening)
-   - 30A breaker and 5V buck converters on same tray
-   - XT60H battery connector (accessible for field swap)
-   - JST-XH sensor and pump connectors (accessible for testing)
+1. **Sled (slides out of the top of the tube):**
+   - Battery: stands left of the spine on the base, cell axes front to back, **TERM face (pack + and −) toward the back**
+   - Breaker: stands upright right of the spine, behind the cross panel, with its reset lever and trip button facing the right wall, 2 mm behind the 34 × 40 mm window. Run one zip tie through each plate hole and the tall slot in the spine behind it. Leave about 1.5 mm under the bottom stud for its lug
+   - Breaker membrane: glue the TPU membrane over the right-wall window so you can trip and reset the breaker through the wall
+   - BMS: stands on edge in the slot along the back wall; the TERM-face leads reach it through the channel behind the spine
+   - Buck A, Buck B, ACS758: drop into the three compartments on the front of the panel and get a zip tie each. Wires to the breaker/BMS side go through the 10 × 30 mm pass at the panel's right end
 
-3. **Cable management:**
-   - All harnesses and umbilicals routed through side exit points (shoulder strap channels)
+2. **Cap (control head):**
+   - PCB: hangs under the cap, component side up. Push it onto the four pins and heat-stake the tips (heads under 5 mm, because J2 sits 2.7 mm from H3)
+   - PRIME: plunger in its sleeve; glue the TPU boot down around the bore
+   - Voltmeter: body through the 29 mm hole, glued around its bezel
+   - USB-C charger: glued under the CHG window, receptacle up; its output runs to BMS P+/P− through an XT30 pair so the cap stays removable
+   - J1, J2, J3 are XH plugs; leave enough slack to lift the cap and set it beside the stick
+
+3. **Bulkhead and cup:**
+   - Cut a slit with a knife from each grommet hole to the nearest long edge and lay the cables in: both 16 AWG gun pairs, both pump leads, both 12 AWG XT60H loop wires, and the LED-backpack USB cable. Push the lower half up from the cup side and the upper half down from the dry side. It's a splash baffle, not watertight
+   - Once the wiring is final, run a thin bead of neutral-cure silicone over the grommet's top face (it peels off when you need to pull the sled)
+   - Give every cable a drip loop below the cup, so water runs off the low point rather than up the cable
+   - Umbilicals leave through the cup floor's two 13 mm holes; the bladder feed, LED-backpack USB and XT60H loop use the 20 mm service hole
+   - The XT60H pair and the USB plug end up in the wet zone below the stick: wrap them in a bag or heat-shrink
+
+4. **Close the stick:**
+   - Add 1 mm foam to the cap's two ribs; they press the cell holders and pin the sled onto the bulkhead
+   - Stretch the TPU ring into the cap skirt's groove. Fit the cap, then 2× M3×10 screws through the front and back walls, **each with a TPU washer under the head**, into the nuts glued in the cap's slots
+   - To get the cap off, lever it up with a flat screwdriver in the notch on the left edge
+
+5. **In the bag:**
+   - Stand the stick upright beside the bladder, its back (y = 0) against your back
    - No pressure on fluid bladder or PCB
-   - Zip ties at strategic points to prevent movement during dance/shake
-
-4. **Weight distribution:**
-   - Battery (~500 g) centered
-   - Pump (~70 g) on pad to isolate vibration
-   - Electronics tray balanced on front
    - Total loaded weight ~3.1–3.5 kg (within performance envelope for festival wear)
 
 ### 8.3 Electrical integration inside backpack
@@ -681,15 +721,16 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
    - **Buck B** (YxPC, set to 5.0V): input from 2S battery, output to LED backpack USB input
 
 2. **Connector routing:**
-   - J1 (PCB power): short JST-XH cable from Buck A output
+   - J1 (PCB power): JST-XH cable soldered directly to Buck A's output
    - J2 (ACS758 sensor): 3-wire JST-XH from external ACS758 module (receives 5V and GND from PCB J1)
-   - J3 (pump output): short cable to pump motor (2-pin JST-XH, controlled by PCB MOSFET Q2)
-   - LED backpack USB: 5V from Buck B output
+   - J3 (pump output): cable down through the bulkhead grommet to the pump motor (2-pin JST-XH, controlled by PCB MOSFET Q2)
+   - LED backpack USB: cut USB cable soldered directly to Buck B's output
 
 3. **Test before final packing:**
    - Apply 5V to system; verify all test points nominal per PCB bring-up section
    - Confirm no shorts when fully integrated
-   - Verify connectors are accessible for field calibration (RV1, RV2 must be visible/reachable)
+   - RV1 and RV2 adjust through the cap's two small windows with a 2 mm screwdriver; cover the windows with electrical tape afterwards
+   - **Charge with the cap off** until the first enclosed charge has been checked (see [test plan](13-test-plan.md))
 
 ---
 
@@ -702,8 +743,8 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 - [ ] All solder joints cold and solid (no joint movement with probe)
 - [ ] Pump inlet and outlet NOT kinked or occluded
 - [ ] XT30U connectors fully seated and latched
-- [ ] Breaker reset lever DOWN (armed)
-- [ ] PRIME button accessible for priming
+- [ ] Breaker armed (reset lever worked through the membrane in the right wall); the trip button through the same membrane is the OFF switch
+- [ ] PRIME plunger in the cap works (or prime with a trigger pull)
 - [ ] Donor guns verified for motor movement and tubing inlet patency
 - [ ] Fluid solution mixed (1 part JOYFY concentrate + 9 parts water in 1L container)
 
@@ -777,16 +818,22 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 
 ### 10.2 Dynamic leak test (during pump operation)
 
-1. **Prime pump for 30 seconds** with guns closed (pinch clamps fully shut)
-   - Observe bypass restrictor and check valve (should hear quiet gurgle if flow is ~5–10 mL/min)
-   - Watch for weeps at all connections
+1. **Prime pump for 30 seconds** with guns closed (channel slide clamps fully shut)
+   - Observe bypass slide clamp and check valve (should hear quiet gurgle if flow is ~5–10 mL/min)
+   - Watch for weeps at all connections; confirm the slide clamps hold their settings
 
-2. **Open one pinch clamp** and trigger PRIME for 10 seconds:
+2. **Open one channel slide clamp** and trigger PRIME for 10 seconds:
    - Solution flows to that gun; no leaks at barb connections (zip ties tight but not crushing silicone)
 
 3. **Repeat with both guns open**:
    - Pump supplies both channels simultaneously
    - No dripping or weeping anywhere
+
+### 10.3 Stick wet checks (not yet verified)
+
+1. **Cap seal:** the TPU ring is a starting geometry, not a proven seal. Wet-test the closed stick before trusting it ([test plan](13-test-plan.md))
+2. **Cup drain:** pour a little water into the cup and confirm it drains through the floor
+3. **Grommet:** splash only; it isn't watertight, so keep fluid joints below it
 
 ---
 
@@ -803,8 +850,8 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 2. **Dance simulation:**
    - Wear backpack and move for 2–3 minutes (jumping, turning, arm swinging)
    - Monitor for vibration/noise from internal components
-   - Verify no battery tab fractures visible through enclosure window (if clear)
-   - No cable strain at pack exit points
+   - No rattle from the sled inside the tube (the cap's foam-padded ribs should pin it)
+   - No cable strain at the umbilical bricks
 
 3. **Hose head-height test (if applicable):**
    - Raise gun intake barb 5 feet above reservoir surface
@@ -820,7 +867,7 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 1. **Charge battery to 8.4 V** via USB-C charger
 2. **Fill 1L bladder** with mixed bubble solution
 3. **Connect guns and start firing continuously:**
-   - Both gun channels open (pinch clamps fully open)
+   - Both gun channels open (slide clamps fully open)
    - Continuous trigger (PRIME held or gun triggers held)
    - Measure time until solution depleted (bladder empty, no more bubbles)
 
@@ -831,7 +878,7 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
    - Solution consumption (should be approximately 100 mL/min for dual-gun operation, yielding ~10 minute runtime for 1L)
 
 5. **Thermal monitoring:**
-   - Check battery cartridge temperature after endurance test
+   - Check battery temperature after endurance test
    - Should be warm but NOT hot to touch (aim <50°C)
    - Check PCB temperature at U1 and Q2 (should be <60°C)
    - Pump and motor temperature rise acceptable if <20°C above ambient
@@ -853,6 +900,7 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 - [ ] Battery charges from 6.0 V (depleted) to 8.4 V in <10 hours
 - [ ] Voltmeter reads 8.4 V when charger is done
 - [ ] No overheating of charger or battery during charging
+- [ ] First enclosed charge (cap on): charger and BMS temperatures checked. Until this passes, charge with the cap off
 
 ### 13.3 Controller stability
 
@@ -873,12 +921,14 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 - [ ] Pump primed (no air locks in tubing)
 - [ ] Both guns tested for motor spin and inlet patency
 - [ ] PCB calibrated (RV1 = detection threshold, RV2 = ~350 ms delay)
-- [ ] Voltmeter visible and readable on front of backpack
+- [ ] Voltmeter readable on top of the stick's cap
+- [ ] Cap seal wet-tested; RV1/RV2 windows taped over
 - [ ] LED backpack powered and responsive (if used)
 - [ ] Backpack weight balanced and comfortable (tested for 5+ minutes wear)
 - [ ] Umbilical connectors accessible for quick gun swap in field
 - [ ] Spare bubble solution concentrate on hand (1× 32 oz bottle supports ~10 refills)
-- [ ] Spare fuses/breaker reset mechanism tested
+- [ ] Breaker tripped and reset through the membrane: tripping it turns off the bucks, PCB, voltmeter and guns (it's the OFF switch)
+- [ ] Voltmeter idle current measured once with a multimeter; XT60H loop unplugged whenever the pack is stored
 - [ ] Conformal coating applied (optional; skip if field repair access needed)
 - [ ] Documentation (this build guide, test results, calibration notes) stored digitally or on paper
 
@@ -888,7 +938,7 @@ OUTLET SPLITTER TEE (2 to 3 branch tee)
 
 - **Total build time:** 25–40 hours hands-on
 - **Critical path:** PCB bring-up (6+ hours) + fluid system assembly (4+ hours) + donor gun integration (3+ hours)
-- **Estimated completion:** 2026-10-20 to 2026-10-25 (allowing 4–9 days for final testing and calibration before 2026-10-29 deadline)
+- **Estimated completion:** 2026-10-29 (see the build order at the top)
 - **Loaded weight:** 3.1–3.5 kg (with 1L fluid, festival configuration)
 - **Runtime:** 8–12 minutes continuous firing (1L solution at dual-gun operation)
 - **Estimated bubble output:** 500–1000 bubbles/minute per gun (subject to head design and solution quality)

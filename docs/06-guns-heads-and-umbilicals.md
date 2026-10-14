@@ -28,6 +28,14 @@ BubbleLink uses donor bubble-gun heads stripped from retail toy guns rather than
 
 An existing three-head gun has been used for all benchmarking and performance reference. This gun remains the only one "actually proven to survive [Joey's] usage," though its original solder contacts were creating unintended voltage drop and current limiting.
 
+### the target festival plan: a pair of dual-head guns
+
+- **Two guns × two donor blower heads.** Joey is picking up ~20 bubble guns this week to strip for heads. Pick 4 matched heads and keep the spares.
+- **Wiring:** each gun's two head motors run in parallel on that gun's XT30U.
+- **Fluid:** both donor pumps in a gun are fed from its umbilical through one assortment tee.
+- **Rough estimates (not measured):** ~12 A with all 4 heads firing (~6 A per channel, well under the 30 A breaker); about 2–2.5 h of heavy firing; about 2 h per 1 L of fluid.
+- **Mounts:** gun/head mounts are not designed yet. They need the teardown measurements.
+
 ---
 
 ## Current and voltage characteristics
@@ -160,6 +168,7 @@ The electrical and fluid "umbilical" connects the pack to each gun head. It is a
 | **Hose (fluid)** | ID 3.5 mm, OD 5.5 mm silicone tube, food-grade | 5 m spool; order ref [order ref removed] |
 | **Tether (mechanical load-bearing)** | 550 paracord, 7-strand, 4 mm diameter, black | 15 m spool; order ref [order ref removed] |
 | **Wire protection** | 10 mm braided PET sleeving | 5 m spool; order ref [order ref removed] |
+| **Umbilical bricks** | Printed PETG, one at each end (×2 per umbilical, ×4 total) | `hardware/printed/` (`10_umbilical_brick_x4`) |
 
 ### Hose length—default 4 feet
 
@@ -177,15 +186,16 @@ The **default umbilical length is 4 feet (approximately 1.2 m)**, which provides
 2. **Paracord tether:** Cut paracord to match hose length; seal cut ends with a lighter to prevent fraying
 3. **Braided sleeving:** Pre-stretch 10 mm braided PET to length; slide onto the hose + paracord bundle
 4. **Power connector(s):** Solder 16 AWG wire pairs to XT30U male and female connectors; use adhesive heat shrink to cover each solder joint
-5. **Pack-side termination:** Solder power wires to the gun-channel XT30U output on the pack; route hose to the fluid tank and tether anchor point
-6. **Gun-side termination:** Attach XT30U connector to the gun's motor input; barb the hose to the gun's wetting manifold and secure tether loop to the gun body or wand
+5. **Bricks:** At each end, drop the XT30U into the brick's open-top pocket and strap it with a zip tie through the slots beside the pocket. Run the 16 AWG pair and the tube in their grooves under narrow zip ties. Tie the paracord through the outer hole
+6. **Pack-side termination:** Solder power wires to the gun-channel XT30U output on the pack; the hose enters the stick's wet cup through a 13 mm hole in its floor and connects to outlet tee 2 via that channel's slide clamp. Tie the brick's inner hole to the stick
+7. **Gun-side termination:** Attach XT30U connector to the gun's motor input; barb the hose to the gun's wetting manifold (through one assortment tee to both donor pumps on a dual-head gun) and tie the brick's inner hole to the gun body or wand
 
 ### Strain relief and routing
 
 - **Paracord as load-bearing tether:** The 550 paracord **is the primary load path** for the umbilical. All tension (including accidental tugging, falls, or costume weight) goes through the paracord, not the hose or electrical connectors
 - **Braided sleeving:** Provides protection from abrasion and UV; also visually integrates the umbilical bundle
-- **Pack-side anchor:** Umbilicals exit the pack near the waist area on two independent XT30U outputs
-- **Strain-relief boot:** A **3D-printed TPU boot** or cable gland at the pack exit prevents sharp bends and anchors the paracord loop mechanically
+- **Pack-side anchor:** Both umbilicals leave from the bottom of the stick (two 13 mm chamfered holes in the cup's floor) on two independent XT30U outputs
+- **Umbilical brick:** A **printed PETG brick** at each end of each umbilical prevents sharp bends, holds the XT30U, and anchors the paracord loop mechanically
 - **Drip loop:** A loose loop in the hose 6–12 inches from the gun prevents solution from running back into the pack connectors if the gun is held above pack height
 
 ---
@@ -202,19 +212,20 @@ The standard pack supports **two independent gun channels**, each with its own X
 
 Each channel supports up to **15 A continuous** (XT30U rating); shared channel operation is not recommended at full power.
 
-### Connector block (printed)
+### Umbilical brick (printed)
 
-For multi-head configurations that combine both pack channels into a single handheld wand, a **3D-printed connector block** serves as the gun-side junction:
+Each umbilical has a **3D-printed PETG brick** at both ends (four in all). It is the only printed connector part; the earlier combined-wand connector block and pump/hose/tether block are superseded.
 
 | Feature | Detail |
 |---|---|
-| **Electrical** | Two XT30U sockets (one per pack channel); internal wiring joins both to a single output connector or to separate motor branches |
-| **Fluid** | Two fluid inputs (one per pack channel) feeding a common manifold; optional fluid valve/splitter for pressure balancing |
-| **Mechanical** | Paracord loop anchors for both umbilicals; strain-relief geometry to prevent kinking |
-| **Material** | Resin-printed (SLS or FDM) TPU or flexible PETG; handles both electrical load and mechanical strain |
-| **Modularity** | Snap-on design allows quick attachment/detachment of the wand from individual umbilicals |
+| **Electrical** | XT30U dropped into an open-top pocket and strapped with a zip tie through the slots beside it |
+| **Fluid** | The tube runs in a groove, held by a narrow zip tie |
+| **Mechanical** | The 16 AWG pair runs in its own groove; the paracord tether ties through the outer hole, and the inner hole ties to the stick or the gun |
+| **Material** | PETG, printed on the A1 |
 
 ### Wand configuration options
+
+For the target festival the plan is option 2 below, with each gun a dual-head gun.
 
 1. **Single wand + two heads (3 + 3 split):** One print-molded wand body holds two XT30U sockets and connects to two parallel three-head gun blocks. Total: 6 heads, each channel at ~10.9 A at 6.4 V (typical), leaving margin below 15 A limit.
 2. **Dual handheld guns:** Joey wields one gun per hand, each connected to a single XT30U umbilical. Simplest configuration; no wand block needed.
@@ -239,6 +250,7 @@ The pack has a **30 A manual-reset main breaker** protecting the entire system. 
 - **Combined current:** up to 25 A (typical; some headroom below 30 A limit)
 - **Combined power:** 25 A × 6.4 V ≈ 160 W (within budget for 2S5P battery under moderate load)
 - **Supported configuration:** 6 standard heads (3 + 3 split) at full power
+- **the target festival estimate:** ~12 A with all 4 heads of the two dual-head guns firing (~6 A per channel); not measured
 
 ### Expansion ceiling
 
@@ -256,6 +268,8 @@ In practice, Joey's current builds support:
 ---
 
 ## Gun teardown and qualification
+
+For the target festival, strip the ~20 bubble guns Joey is picking up this week, pick 4 matched heads, and keep the spares. Record the teardown measurements: the gun/head mounts aren't designed yet and are drawn from them.
 
 Before integrating a donor gun into the system, it must be qualified for:
 
@@ -321,7 +335,8 @@ The Tracer gun shells are hollow with an internal cavity designed to accept:
 
 ## Open items
 
-- **Exact donor gun models:** Specific AliExpress or retail models selected for the build system are documented in the parts ledger but are not detailed here; consult manufacturing-orders.md and the original custom-bubble-gun-design thread for the finalized list
+- **Exact donor gun models:** Joey is picking up ~20 bubble guns this week to strip; the 4 matched heads for the two dual-head guns are chosen at teardown
+- **Gun/head mounts:** Not designed yet; they need the teardown measurements
 - **Motor current by head type:** Individual motor current draw for various common donor heads has not been systematically measured; field measurements during commissioning will establish accurate per-head budgets
 - **Tracer shell final integration:** Exact hose routing, LED placement, and drainage design for the Tracer cosplay guns will be confirmed during build-out in October 2026
 

@@ -18,7 +18,7 @@ Complete hydraulic design and operation of BubbleLink's bubble-solution delivery
 
 ## Overview
 
-The fluid system transfers bubble solution from a 1 L reservoir to donor gun heads via a peristaltic transfer pump and low-pressure recirculation loop. The transfer pump maintains adequate hydrostatic pressure to prime four-foot hose runs and overcome elevation changes. Each gun head provides its own metering via internal pump; the pack pump supplies 120–150% of demand, with excess flowing through a recirculation restrictor back to the pump inlet. This architecture allows a single pump to supply two independent gun channels without the complexity of per-channel metering or the oversizing that would result from series feeding to a splitter.
+The fluid system transfers bubble solution from a 1 L reservoir to donor gun heads via a peristaltic transfer pump and low-pressure recirculation loop. The transfer pump maintains adequate hydrostatic pressure to prime four-foot hose runs and overcome elevation changes. Each gun head provides its own metering via internal pump; the pack pump supplies 120–150% of demand, with excess flowing through a recirculation restrictor (a printed slide clamp) back to the pump inlet. This architecture allows a single pump to supply two independent gun channels without the complexity of per-channel metering or the oversizing that would result from series feeding to a splitter.
 
 **Key design intent**: Pack pump eliminates suction-lift problems over four-foot hose runs; donor pumps retain responsibility for output control via trigger and internal mechanics. Recirculation prevents fighting between pack and donor pumps. System operates continuously when armed; gun triggers control donor pump current draw, which pack controller detects to begin energy accumulation.
 
@@ -42,7 +42,7 @@ The fluid system transfers bubble solution from a 1 L reservoir to donor gun hea
 | Valves | Shutoff bite valve on outlet; double-seal seams |
 | Pressure rated | Leak-proof, designed for hiking use |
 
-**Installation note**: The factory 101 cm (40 in) tube should be cut short to fit the pack frame. The bladder outlet connects through a car-hose reducer fitting to the 3.5×5.5 mm system tubing feeding the pump inlet.
+**Installation note**: The bladder stands beside the printed stick in the bag. The factory 101 cm (40 in) tube should be cut short and enters the stick's wet cup through the 20 mm service hole in its floor. The bladder outlet connects through a car-hose reducer fitting to the 3.5×5.5 mm system tubing feeding the pump inlet.
 
 ### GROTHEN G528 6 V Peristaltic Transfer Pump
 
@@ -60,9 +60,11 @@ The fluid system transfers bubble solution from a 1 L reservoir to donor gun hea
 | Pressure output | Low-pressure, non-positive-displacement pump (no pressure relief; reliant on external recirculation restrictor for pressure capping) |
 | Self-priming | Yes; capable of pumping air for initial hose fill |
 | Mounting orientation | Horizontal preferred; vertical mounting with motor below outlet acceptable |
+| Size (measured 2026-10-14) | 2 × 1¾ × 1½ in at its thickest (the earlier 60 × 60 × 50 / 65 × 55 × 50 mm figures were wrong) |
+| Mounting in the stick | 52 × 46 mm pocket on the left of the wet cup's floor, strapped down with zip ties through the slots either side; drains under it |
 | Life expectancy | Peristaltic tube degrades over ~500–1000 hours of operation; replacements available from vendor |
 
-**Calibration note**: This pump, driven at constant 6 V via a fixed 6 V buck converter (no PWM), delivers approximately 100–120 mL/min with finished bubble solution (thicker than water) through the standard 3×5 tube. Measured three-head gun consumes ~17 mL/min at full blast; eight-head configuration consumes ~45 mL/min, providing a 2.2–2.7× safety margin against starvation. Do not operate pump dry; always fill reservoir before starting.
+**Calibration note**: Bench-test the delivered pump before installing it: the motor must be marked 6 V, and it should draw <0.3 A at 5 V. This pump, driven at 5 V from Buck A through the PCB's MOSFET (no PWM), delivers approximately 100–120 mL/min with finished bubble solution (thicker than water) through the standard 3×5 tube. Measured three-head gun consumes ~17 mL/min at full blast; eight-head configuration consumes ~45 mL/min, providing a 2.2–2.7× safety margin against starvation. Do not operate pump dry; always fill reservoir before starting.
 
 ---
 
@@ -86,21 +88,23 @@ GROTHEN G528 pump (motor: 6 V DC, 3×5 mm tube)
     ├─ pump outlet
     │
     ▼
-Pump outlet tee (3.5×5.5 mm / car-hose fitting)
+Outlet tee 1 (3.5×5.5 mm / car-hose fitting)
     │
-    ├─ (main outlet to gun channels)
+    ├─ (main outlet) → outlet tee 2 → gun 1 / gun 2
     │
-    └─ (third leg: recirculation restrictor → check valve → pump inlet)
+    └─ (side branch: bypass slide clamp → check valve → pump inlet tee)
 ```
+
+Three tees in total: the inlet tee, outlet tee 1 and outlet tee 2 (the outlet side has four connections). Check the assortment has three. The tees, check valve and bypass slide clamp are strapped to the right-hand strip of the stick's wet cup.
 
 ### Low-Pressure Recirculation Loop
 
 The recirculation loop allows the pack pump to run continuously without dumping solution into inactive gun heads. Plumbing:
 
-1. Pump outlet tee: main outlet feeds downstream; third leg is recirculation return
-2. Adjustable pinch restrictor on the return leg throttles flow (initial setting: ~0.2–0.3 psi pressure when all outlets blocked)
-3. Plastic one-way check valve (4 mm, 0.003 MPa opening pressure) prevents reverse flow into pump outlet
-4. Restrictor outlet returns to pump inlet tee (merges with fresh inlet from reservoir)
+1. Outlet tee 1: main outlet feeds outlet tee 2 and the guns; the side branch is the recirculation return
+2. Printed slide clamp on the return leg throttles flow (initial setting: ~0.2–0.3 psi pressure when all outlets blocked)
+3. Plastic one-way check valve (4 mm, 0.003 MPa opening pressure, arrow toward the inlet) prevents reverse flow into pump outlet
+4. Check valve outlet returns to pump inlet tee (merges with fresh inlet from reservoir)
 
 **Design benefit**: Excess pump flow recirculates at low pressure rather than forcing solution through idle gun heads. Pump runs at one calibrated speed (~6 V); excess capacity is "wasted" internally. This is simpler than PWM speed control and eliminates need for per-channel pump metering.
 
@@ -172,10 +176,10 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 - **Exact contents**: Assortment may vary; select pieces as needed for manifold construction
 
 **Manifold and fluid path**:
-1. Pump outlet → car-hose tee (connects to: main distribution path and recirculation return leg)
-2. Main distribution → 3.5×5.5 mm tubing to gun channels
-3. Recirculation leg → pinch restrictor → 4 mm check valve (0.003 MPa cracking) → return to pump inlet
-4. Pump inlet merges fresh inlet from the reservoir with the recirculation return (there is no filter)
+1. Pump outlet → outlet tee 1 (connects to: main distribution path and recirculation return leg)
+2. Main distribution → outlet tee 2 → 3.5×5.5 mm tubing to gun 1 and gun 2, each through its own slide-clamp shutoff
+3. Recirculation leg (tee 1's side branch) → bypass slide clamp → 4 mm check valve (0.003 MPa cracking) → return to pump inlet tee
+4. Pump inlet tee merges fresh inlet from the reservoir with the recirculation return (there is no filter)
 
 ### Gun Channel Hoses (Four-Foot Standard)
 
@@ -190,9 +194,9 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 - One 5 m roll provides four 4-foot (1.22 m) channel hoses plus spares
 
 **Hose routing**:
-- Pump outlet → 3.5×5.5 mm hose (one per gun channel, 4 feet)
+- Outlet tee 2 → slide clamp → 3.5×5.5 mm hose (one per gun channel, 4 feet), leaving through a 13 mm hole in the cup's floor
 - Field termination: nylon barb from car-hose assortment (pressed onto hose end, secured with narrow zip tie)
-- Gun-side termination: nylon barb from car-hose assortment (attached to umbilical connector brick)
+- Gun-side termination: nylon barb from car-hose assortment; the tube runs in a groove of the gun-end umbilical brick
 
 ### Check Valve (Recirculation Loop)
 
@@ -213,19 +217,19 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 | Forward direction | Opens above 0.003 MPa, passes recirculation flow ~freely |
 | Reverse direction | Blocks backflow; zero leakage under normal 0–0.5 psi pressure cycling |
 
-**Installation**: Recirculation restrictor outlet → 4 mm hose ~6 inches → check valve 4 mm inlet barb → 4 mm hose ~12 inches → inlet tee 4 mm inlet. Arrow on valve body points downstream (toward pump inlet tee).
+**Installation**: Bypass slide clamp outlet → 4 mm hose ~6 inches → check valve 4 mm inlet barb → 4 mm hose ~12 inches → inlet tee 4 mm inlet. Arrow on valve body points downstream (toward pump inlet tee).
 
 ---
 
-### Pinch Restrictor (Recirculation Bypass Adjustment)
+### Slide Clamp (Recirculation Bypass Adjustment)
 
-**Adjustable plastic needle restrictor or manual pinch clamp**:
-- Pump outlet tee → restrictor input → check valve → pump inlet return
+**Printed slide clamp** (one of three identical clamps; the other two are the channel shutoffs):
+- Outlet tee 1 side branch → slide clamp → check valve → pump inlet tee
+- Assembly: lay the tube in the channel and slide the slider on from the open end, ridge down. The 70 mm clamp runs front to back in the cup
+- Operation: slide toward the arrow to close. The first ~8 mm goes from fully open (6.0 mm gap) to 2.4 mm; the next 22 mm is fine adjustment (about 0.08 mm per mm); it seals at 0.6 mm against the stop blocks
 - Initial setting: fully open (minimum back-pressure)
-- Commissioning adjustment: slowly close restrictor (pinching or rotating needle) until pump outlet pressure (measured at temporary test port) reaches 0.2–0.3 psi with all downstream outlets blocked
-- Lock-down: once calibrated, do NOT adjust further during operation; temperature and solution viscosity changes are minor
-
-**Alternative**: Laundry clip or C-clamp on the return tubing can be manually adjusted; a simple spring clip works adequately for festival use if needle valve is unavailable.
+- Commissioning adjustment: slowly slide the clamp closed until pump outlet pressure (measured at temporary test port) reaches 0.2–0.3 psi with all downstream outlets blocked
+- Lock-down: the shallow ramp self-locks (no screw); wet-test that it holds. Once calibrated, do NOT adjust further during operation
 
 ---
 
@@ -236,13 +240,13 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 Each gun receives one four-foot umbilical containing:
 - Two 16 AWG silicone-insulated copper wires (red and black)
 - One 3.5 mm ID × 5.5 mm OD silicone fluid tube
-- One 1.5–2 mm load-bearing cord (paracord or Dyneema; **this cord carries the gun weight if dropped**, not the electrical wire)
+- One 4 mm 550 paracord (load-bearing tether; **this cord carries the gun weight if dropped**, not the electrical wire)
 
 **Assembly**:
 1. Cut lengths to exact 4 feet (48 inches / 1.22 m): two 16 AWG, one 3.5 mm tube, one paracord
 2. Gather into one 8–10 mm braided PET expandable sleeve
-3. Solder XT30 connectors to wire leads; apply strain-relief boot
-4. Insert fluid tube and paracord into shrink-wrapped or glued connector brick (printed TPU or ABS, holds XT30 socket, nylon barb fitting from car-hose assortment, and tether anchor point)
+3. Solder XT30 connectors to wire leads
+4. Fit a printed umbilical brick (PETG) at each end: drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside it; run the 16 AWG pair and the fluid tube in their grooves under narrow zip ties; tie the paracord through the outer hole, and tie the inner hole to the stick or the gun
 5. Press nylon barb from car-hose assortment onto fluid tube; secure with narrow zip tie
 6. Test for continuity (XT30 wires), fluid leak (at barb), and mechanical strength (paracord under load)
 
@@ -263,7 +267,7 @@ Identical to four-foot except:
 2. Close or unplug both gun XT30 connectors (no current draw; pump starts only on PRIME button or gun trigger)
 3. Apply power (close main XT60 battery connector)
 4. **LED indication**: POWER LED (green) lights; GUN ACTIVE (yellow) and PUMP (red) LEDs off
-5. Press the momentary PRIME button (SW1) on the PCB to run the pump manually for priming
+5. Press the momentary PRIME button (SW1) through the plunger in the stick's cap to run the pump manually for priming
 6. Hold PRIME button; observe hose outlets for solution flow
 7. Once solution reaches both outlet fittings, release PRIME button
 8. Connect both gun XT30 connectors
@@ -277,12 +281,12 @@ Identical to four-foot except:
 ### Pressure Calibration (Restrictor Setting)
 
 1. After priming, install temporary pressure test port on pump outlet tee (use a 0–5 psi water-column gauge with 1/8" barb fitting)
-2. Block both gun channel hoses (pinch clamps or inline stopcocks) to simulate zero gun flow
+2. Close both gun channel slide clamps to simulate zero gun flow
 3. Apply power and press the momentary PRIME button (SW1) to run the pump
 4. Observe gauge reading; should settle to ~0.1–0.2 psi within 5 seconds
-5. If pressure exceeds 0.3 psi, slowly open the recirculation restrictor (if using needle valve, unscrew 1/4 turn; if using pinch clamp, loosen slightly) until pressure drops to 0.2–0.3 psi
-6. If pressure drops below 0.1 psi, close restrictor slightly
-7. Once calibrated, mark restrictor position (e.g., sharpie line on needle valve, or clamp position) and do NOT adjust further during operation
+5. If pressure exceeds 0.3 psi, slowly slide the bypass slide clamp back toward open until pressure drops to 0.2–0.3 psi
+6. If pressure drops below 0.1 psi, slide the clamp slightly further closed
+7. Once calibrated, mark the slider position (e.g., sharpie line on the clamp body) and do NOT adjust further during operation
 8. Remove test gauge; cap or plug the test port
 9. Unblock gun hoses and proceed to normal operation
 
@@ -354,35 +358,37 @@ Before integrating a new donor gun head into the system:
 ### Manifold and Return Loop Assembly
 
 1. **Lay out parts on workbench**:
-   - Pump outlet tee (car-hose T from assortment, sized for 3.5×5.5 mm / 1/8" connections)
-   - Pinch restrictor (needle valve or clamp) for recirculation bypass
+   - Three car-hose tees from the assortment (inlet tee, outlet tee 1, outlet tee 2), sized for 3.5×5.5 mm / 1/8" connections
+   - Three printed slide clamps: one bypass restrictor, two channel shutoffs
    - Check valve (4 mm one-way) for recirculation return
    - 3.5×5.5 mm hose lengths (pre-cut from 5 m roll) for:
      - Inlet from bladder to pump inlet (via car-hose reducer from factory tube)
-     - Outlet from pump outlet tee to gun channels
-     - Recirculation loop: restrictor → check valve → inlet return
+     - Outlet from outlet tee 1 to outlet tee 2, and from tee 2 to the gun channels
+     - Recirculation loop: tee 1 side branch → slide clamp → check valve → inlet tee
    - Car-hose reducers (1/4" to 3/8") to adapt bladder factory hose to 3.5×5.5 mm
 
 2. **Connect pump inlet path**:
-   - Bladder factory tube (cut short) → car-hose reducer → 3.5×5.5 mm hose → pump inlet
+   - Bladder factory tube (cut short) → car-hose reducer → 3.5×5.5 mm hose → inlet tee → pump inlet. The bladder feed enters the cup through its 20 mm service hole
    - Pump inlet tee merges fresh inlet with recirculation return flow
 
 3. **Connect pump outlet path**:
-   - Pump outlet (3×5 mm tube) → car-hose tee → two 3.5×5.5 mm outputs:
-     - Main outlet: 3.5×5.5 mm hose to gun channels
-     - Recirculation outlet: 3.5×5.5 mm hose to pinch restrictor input
+   - Pump outlet (3×5 mm tube) → outlet tee 1 → two 3.5×5.5 mm outputs:
+     - Main outlet: 3.5×5.5 mm hose to outlet tee 2
+     - Side branch: 3.5×5.5 mm hose to the bypass slide clamp
 
 4. **Connect recirculation loop**:
-   - Pinch restrictor output → 4 mm hose (~6 inches) → check valve inlet barb
+   - Bypass slide clamp output → 4 mm hose (~6 inches) → check valve inlet barb
    - Check valve outlet → 4 mm hose (~12 inches) → pump inlet tee inlet
    - Ensure check valve arrow points downstream (toward pump inlet)
 
 5. **Gun channel connections**:
-   - From pump outlet tee main outlet: 3.5×5.5 mm hose (4 feet per gun channel)
+   - From outlet tee 2: one slide clamp and one 3.5×5.5 mm hose (4 feet) per gun channel, out through the cup floor's 13 mm holes
    - Each hose terminates in nylon barb from car-hose assortment (pressed on and secured with narrow zip tie)
-   - Attach to umbilical connector brick at gun end
+   - Run the tube through the umbilical bricks at both ends
 
-6. **Secure all connections**:
+6. **Strap down** the pump in its 52 × 46 mm pocket and the tees, check valve and bypass clamp to the six floor slots on the cup's right-hand strip
+
+7. **Secure all connections**:
    - Use narrow zip ties at each barb connection; warm silicone tubing in hot water to stretch before assembly
    - Verify no leaks with dry-run (no solution yet); apply gentle hand pressure to inputs and look for squirts at fittings
    - Tighten any weeping connections by adjusting zip tie or reseating barb
@@ -391,7 +397,7 @@ Before integrating a new donor gun head into the system:
 
 1. Fill reservoir with water (not solution; easier cleanup)
 2. Prime hoses as per [System Priming](#system-priming) section
-3. Once primed, run pump with all gun outlets pinched closed for 2 minutes
+3. Once primed, run pump with both channel slide clamps closed for 2 minutes
 4. Inspect all manifold connections, barb fittings, and zip ties for weeping or dripping
 5. Pay special attention to pump inlet tee (high flow path under pressure)
 6. If leaks observed, adjust zip tie or reseat barb by removing hose, cleaning barb tip, and reinserting firmly with mallet tap
@@ -402,8 +408,8 @@ Before integrating a new donor gun head into the system:
 Before field deployment (festival event):
 
 - [ ] Reservoir filled with finished bubble solution
-- [ ] Pump outlet hoses primed (solution reaches all three outlets of Y-splitter)
-- [ ] Restrictor pressure calibrated to 0.2–0.3 psi (checked with test gauge)
+- [ ] Pump outlet hoses primed (solution reaches both gun outlets of outlet tee 2)
+- [ ] Bypass slide clamp set to 0.2–0.3 psi (checked with test gauge) and holding
 - [ ] All gun XT30 connectors seated and locked
 - [ ] All gun umbilical fluid barbs drip-tested (no solution leaking from unused channels)
 - [ ] Donor head electrical contacts clean (no corrosion on XT30 pins)
@@ -439,5 +445,7 @@ Before field deployment (festival event):
 
 2. **Concentrate alternative**: JOYFY is the commercial concentrate in the current design. If JOYFY becomes unavailable, test alternative concentrates for compatibility with donor pump suction and final bubble quality.
 
-3. **Check valve backward-flow threshold**: BigBigBear 4 mm valve is rated 0.003 MPa cracking pressure. Confirm that static pressure in blocked-outlet condition does not cause creep-back into recirculation path over extended operation (e.g., 2+ hour festival).
+3. **Slide clamp hold**: The clamp's self-locking ramp is printed, not proven. Wet-test that the bypass and channel clamps hold their setting under pump pressure.
+
+4. **Check valve backward-flow threshold**: BigBigBear 4 mm valve is rated 0.003 MPa cracking pressure. Confirm that static pressure in blocked-outlet condition does not cause creep-back into recirculation path over extended operation (e.g., 2+ hour festival).
 

@@ -16,19 +16,19 @@ Two cells in series, five cells in parallel. BubbleLink uses 10× Samsung INR186
 Battery Management System. 40 A lithium BMS with cell balancing and temperature cutoff (~55–60°C discharge stop). Ordered variant: IC GOGOGO Store, 2S 8.4V 40A, Li-ion (not LiFePO₄). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 2.
 
 **Buck A**  
-First (primary) voltage regulator module. Converts battery 2S voltage (6–8.4 V) down to regulated 5 V for PCB and accessories. Generic YxPC Store 5V USB buck module (2 units ordered, [price] each). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 4. Design ceiling: 5.25 V maximum (PCB spec). Backup upgrade: Pololu S13V30F5 (not ordered).
+First (primary) voltage regulator module. Converts battery 2S voltage (6–8.4 V) down to regulated 5 V for the PCB and pump. Generic YxPC Store 5V USB buck module (2 units ordered, [price] each; the second is **Buck B**, for the LED backpack). Both outputs are soldered directly (Buck A to PCB J1, Buck B to a cut USB cable); there's no room for USB plugs inside the stick. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 4. Design ceiling: 5.25 V maximum (PCB spec). Backup upgrade: Pololu S13V30F5 (not ordered).
 
 **USB-C charger (2S boost)**  
 USB Power Delivery input module (SZHJW Technology Store, 2S 4A boost converter, order ref [order ref removed]). Steps up USB-C input to 8.4 V for battery charging. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 3.
 
 **Circuit breaker (main)**  
-30 A manual-reset breaker (Type B-30A, YONGRUN Store, 12–48 V DC, M6 terminal studs). Mounted immediately after BMS for catastrophic overcurrent protection on the main 12 AWG power rails. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 5.
+30 A manual-reset breaker (Type B-30A, YONGRUN Store, 12–48 V DC, M6 terminal studs). Inline type: studs at both ends, a 1⅝ in square plate in the middle with a red reset lever and a red push-to-trip button; 4 in (102 mm) long (measured 2026-10-14). Mounted immediately after BMS, in the + line only, for catastrophic overcurrent protection on the main 12 AWG power rails. In the stick its controls sit behind a TPU membrane in the right wall; the trip button is the OFF switch. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 5.
 
 **Ring lug (SC10-6)**  
 M6 closed-ring terminal, 10 mm² barrel (~8 AWG), 10 pcs ordered. Connects 12 AWG main power wire to circuit breaker M6 studs. Barrel is oversized; requires solder-fill and strain relief. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 6.
 
 **Voltmeter (battery gauge)**  
-DC 4–100V circular two-wire LED voltmeter display (Stlxy Store, red, 5 pcs). One in use, four spares. Shows battery state of charge on pack exterior. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 12.
+DC 4–100V circular two-wire LED voltmeter display (Stlxy Store, red, 5 pcs). One in use, four spares. Shows battery voltage on top of the stick's cap. Wired after the breaker, so tripping the breaker turns it off; idle draw not yet measured. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 12.
 
 ---
 
@@ -100,7 +100,7 @@ Omron B3F-1000, 6×6 mm tactile switch. Momentary pushbutton; grounds the DET_N 
 
 **Connectors (power)**
 
-- **XT60H (10 pairs):** High-current DC connector (60 A rated), gold-plated. Chosen for battery-to-breaker interface (alternative to solder); not currently used in final design but ordered as backup. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 9.
+- **XT60H (10 pairs):** High-current DC connector (60 A rated), gold-plated. Used for the battery-to-breaker interface: the **XT60H loop** runs out below the stick and is the full battery disconnect (unplug it for storage). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 9.
 - **XT30U (gun channels):** 30 A rated connector pair for XT30 (upgrade variant U for improved contact). Connects main PCB / power distribution to individual gun heads. 10 pair ordered. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 23.
 - **JST-XH 2.54 mm:** Connector family for low-power signal and power distribution. Used for PCB interfaces:
   - **J1:** 2-pin JST-XH header, 5V and GND from Buck A.
@@ -171,13 +171,13 @@ Food-grade TPU flexible water reservoir, 1 L capacity, with detachable 101 cm fa
 Transparent food-grade tubing, ID 3.5 mm, OD 5.5 mm, 5 meters per spool. Used throughout fluid path (pump inlet, outlet, distribution to guns, recirculation bypass). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 13.
 
 **Hose fitting assortment (nylon barbs, tees, reducers)**  
-Assortment of plastic barbed connectors for coupling silicone tubing. Includes tees (Y-splitters), reducers (ID steps), and straight connectors. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 14.
+Assortment of plastic barbed connectors for coupling silicone tubing. Includes tees (Y-splitters), reducers (ID steps), and straight connectors. The pack plumbing uses three tees (inlet tee, outlet tee 1, outlet tee 2), and each dual-head gun uses one more. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 14.
 
 **Check valve (4 mm)**  
 One-way plastic valve, 4 mm barb ID, manual opening pressure 0.003 MPa. Installed in recirculation bypass line to prevent reverse flow from gun outlet back toward pump. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 22.
 
 **Recirculation loop (bypass)**  
-Tubing path: pump outlet → gun channels → gun outlet tee → check valve → printed restrictor → inlet tee → pump inlet. Maintains constant low-pressure circulation when guns are not firing (primes lines, keeps pump cool). Target bypass pressure 0.2–0.5 psi (opens when gun outlet backs up).
+Tubing path: outlet tee 1's side branch → printed slide clamp (restrictor) → check valve (arrow toward the inlet) → inlet tee → pump inlet. The main flow continues from outlet tee 1 to outlet tee 2 and the two gun channels. Maintains constant low-pressure circulation when guns are not firing (primes lines, keeps pump cool). Target bypass pressure 0.2–0.5 psi (opens when gun outlet backs up).
 
 **Cracking / opening pressure**  
 Pressure threshold at which recirculation check valve opens and allows fluid bypass. Typically 0.003–0.01 MPa for low-pressure systems.
@@ -188,12 +188,15 @@ Bundled cable assembly connecting PCB/pack to each bubble-gun head. Contains:
 - One 3.5 × 5.5 mm silicone fluid hose.
 - One 550 paracord (load-bearing tether; carries drop load, not electrical current).
 - All four bundled in 8–10 mm braided PET sleeve.
-- Connectors: XT30 female socket + fluid barb + paracord anchor.
+- Connectors: XT30U + fluid barb, with a printed umbilical brick at each end.
 
 Four-foot umbilical is standard (~9.8 mL priming volume). Six-foot variant experimental (~14.5 mL priming volume).
 
-**Connector block (printed)**  
-3D-printed junction piece at each gun's umbilical termination, provides mechanical anchor points for paracord, strain relief for power/fluid connectors, and quick-disconnect features (printed latches or snap-fit).
+**Umbilical brick (printed)**  
+PETG block at each end of each umbilical (×4 in all). Strain relief: the XT30U drops into an open-top pocket and is strapped with a zip tie, the 16 AWG pair and the tube run in grooves under narrow zip ties, and the paracord ties through the outer hole (the inner hole ties to the stick or the gun). It replaces the earlier "connector block" / pump/hose/tether block and TPU strain-relief boots.
+
+**Slide clamp (printed)**  
+PETG tube clamp, ×3. One design serves as the bypass restrictor and both channel shutoffs. Slide toward the arrow to close: ~8 mm of coarse travel, then 22 mm of fine adjustment, sealing at 0.6 mm. The shallow ramp self-locks (no screw); wet-test that it holds. Replaces the earlier "pinch clamp" wording.
 
 **Bladder outlet**  
 1 L hydration bladder's fluid-discharge port. Factory hose (101 cm, detachable) is cut short inside pack and reduced to 3.5 × 5.5 mm silicone tubing via assortment reducer fitting.
@@ -206,10 +209,24 @@ Liquid antimicrobial preservative (100 g bottle, Shop1105380267 Store, order ref
 ## Wearable Pack & Integration
 
 **Hydration pack (MAX LED M Style backpack)**  
-MAX LED Official Store "M Style" LED pixel backpack (48.16 USD). Carries the BubbleLink system: battery cartridge, PCB, pump, and 1 L reservoir. Interior layout: printed wet/dry divider separates the fluid system (lower, open-bottom wet bay draining) from the electronics tray (upper, dry area holding battery, PCB, and pump). Exterior LED matrix programmable via Bluetooth (secondary feature; not part of core bubble functionality). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 20.
+MAX LED Official Store "M Style" LED pixel backpack (48.16 USD). Carries the BubbleLink system: the printed **stick** (battery, electronics and pump) standing upright beside the 1 L reservoir. Interior geometry not yet measured (the "~34 × 20 × 7 cm" figure is an AI estimate of the exterior). Exterior LED matrix programmable via Bluetooth (secondary feature; not part of core bubble functionality). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 20.
 
 **LED pixel backpack (M Style)**  
 Alternative name for the MAX LED M Style backpack. "Pixel" refers to individually-addressable LED array on exterior.
+
+**Stick (printed pack unit)**  
+The whole pack apart from the bladder, as one upright printed column about 99 × 78 × 207 mm (3.9 × 3.06 × 8.15 in), standing beside the bladder. CAD in `hardware/printed/` (designed 2026-10-14; not yet printed or test-fitted). Two umbilicals leave from its bottom. Sections, top to bottom:
+- **Cap:** the control head. The CTRL PCB hangs underneath; LEDs show through 0.6 mm skin windows; PRIME is a plunger under a TPU boot; RV1/RV2 adjust through tape-covered windows; the voltmeter and USB-C charge port are on top. A TPU ring seals radially against the tube (not yet wet-tested); 2× M3×10 screws with TPU washers keep it on.
+- **Tube:** the dry section. Its floor is the **bulkhead**, the wet/dry divider.
+- **Sled:** slides out of the top. The 2S5P block stands beside a central spine; the breaker stands behind a cross panel (controls behind a TPU membrane window in the right wall), the BMS on edge along the back wall, and Buck A, Buck B and the ACS758 in compartments on the front of the panel.
+- **Bulkhead grommet:** two-piece TPU grommet with knife-cut slits that the cables pass through. A splash baffle, not watertight; seal its top face with a thin bead of neutral-cure silicone once the wiring is final.
+- **Cup:** the wet chamber (pump, three tees, check valve, bypass slide clamp). Bolts on from below with 4× M3×12; drains through its floor.
+
+**Cell holders (MID and TERM)**  
+Printed 5×2 offset cell holders for the 2S5P block, 19.9 mm pitch. MID caps the series end; TERM carries the pack + and − buses. Replaces the earlier Cults3D spacer remix. Printed after the **fit coupon**, which sets the cell-bore and XT30U-pocket clearances.
+
+**OFF switch**  
+The breaker's push-to-trip button, pressed through the TPU membrane in the stick's right wall. It turns off the bucks, PCB, voltmeter and guns. The **XT60H loop** below the stick is the full battery disconnect; the BMS stays on the battery either way.
 
 **Tracer cosplay**  
 Reference to Overwatch character Tracer armor shell + integrated bubble guns (aesthetic context for the LED integration and gun cosplay skins).
@@ -366,4 +383,4 @@ Verification checkpoints:
 
 ## Word Count
 
-~2,800
+~4,300

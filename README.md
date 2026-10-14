@@ -1,10 +1,10 @@
 # BubbleLink
 
-BubbleLink is a wearable, pack-fed bubble system for festivals. A backpack carries a 90 Wh 2S5P battery cartridge, a 1 L bubble-solution bladder, one shared peristaltic transfer pump, and the **BubbleLink CTRL** board, a small analog PCB that runs the pump automatically whenever a gun draws current. Hand-held bubble heads (mechanisms pulled from toy bubble guns, starting with Joey's existing overvolted three-head gun) plug into two channels through umbilicals that each carry XT30U power, a silicone fluid line, and a paracord tether.
+BubbleLink is a wearable, pack-fed bubble system for festivals. A backpack carries a 1 L bubble-solution bladder and, standing beside it, one 3D-printed upright "stick" (about 99 × 78 × 207 mm, 3.9 × 3.06 × 8.15 in) that holds everything else: the 90 Wh 2S5P battery, one shared peristaltic transfer pump, and the **BubbleLink CTRL** board, a small analog PCB that runs the pump automatically whenever a gun draws current. Hand-held bubble heads (mechanisms pulled from toy bubble guns; the the target festival plan is a pair of dual-head guns) plug into two channels through umbilicals that each carry XT30U power, a silicone fluid line, and a paracord tether, and leave from the bottom of the stick.
 
 This repo is the single source of truth for the project. It records the final design, the parts actually bought, the PCB release, and the build and test plan. It covers only what was chosen. Alternatives that were considered and dropped are left out on purpose.
 
-**Status (2026-10-14):** parts on hand, controller PCBs in transit (ETA Oct 15–18), build not started. Target event: the target festival, Oct 30–31. → [Project status](docs/00-project-status.md)
+**Status (2026-10-14):** parts on hand, controller PCBs in transit (ETA Oct 15–18), printed-part CAD done (nothing printed or test-fitted yet), build not started. Target event: the target festival, Oct 30–31. → [Project status](docs/00-project-status.md)
 
 ## Start here
 
@@ -16,7 +16,7 @@ This repo is the single source of truth for the project. It records the final de
 | See how it all fits together | [docs/02-system-architecture.md](docs/02-system-architecture.md) |
 | Know why something is the way it is | [docs/03-design-decisions.md](docs/03-design-decisions.md) |
 | Look up a part you bought | [docs/parts/ORDER_LEDGER.md](docs/parts/ORDER_LEDGER.md) · [docs/parts/listings/](docs/parts/listings/) |
-| Build it | [docs/10-build-guide.md](docs/10-build-guide.md) · [docs/09-printed-parts.md](docs/09-printed-parts.md) |
+| Build it | [docs/10-build-guide.md](docs/10-build-guide.md) · [docs/09-printed-parts.md](docs/09-printed-parts.md) · [hardware/printed/README.md](hardware/printed/README.md) |
 | Test it | [docs/13-test-plan.md](docs/13-test-plan.md) · [docs/07-pcb/bringup-and-acceptance-test.md](docs/07-pcb/bringup-and-acceptance-test.md) |
 
 ## Documentation map
@@ -25,13 +25,13 @@ This repo is the single source of truth for the project. It records the final de
 - [Canonical facts](docs/canonical-facts.md): one-page verified summary; wins any conflict
 - [00 Project status](docs/00-project-status.md): current state, PCB tracking, critical path
 - [01 Overview and requirements](docs/01-overview-and-requirements.md): goals, use, requirements, MVP scope
-- [02 System architecture](docs/02-system-architecture.md): power, fluid, and control paths; pack layout
+- [02 System architecture](docs/02-system-architecture.md): power, fluid, and control paths; the stick layout
 - [03 Design decisions](docs/03-design-decisions.md): every final decision with its rationale
 
 **Subsystems**
-- [04 Power system](docs/04-power-system.md): 2S5P cartridge, BMS, USB-C charging, 30 A breaker, harness, 5 V bucks, voltmeter
-- [05 Fluid system](docs/05-fluid-system.md): bladder, G528 pump, recirculating bypass, check valve, fittings, solution
-- [06 Guns, heads and umbilicals](docs/06-guns-heads-and-umbilicals.md): donor heads, overvolting, umbilicals, connector bricks
+- [04 Power system](docs/04-power-system.md): 2S5P battery, BMS, USB-C charging, 30 A breaker, harness, 5 V bucks, voltmeter
+- [05 Fluid system](docs/05-fluid-system.md): bladder, G528 pump, recirculating bypass, check valve, slide clamps, fittings, solution
+- [06 Guns, heads and umbilicals](docs/06-guns-heads-and-umbilicals.md): donor heads, dual-head gun plan, overvolting, umbilicals, umbilical bricks
 - [07 Controller PCB (BubbleLink CTRL v1.2)](docs/07-pcb/overview.md)
   - [Connectors and pinout](docs/07-pcb/connectors-and-pinout.md)
   - [BOM and parts](docs/07-pcb/bom-and-parts.md)
@@ -42,7 +42,7 @@ This repo is the single source of truth for the project. It records the final de
 
 **Making it**
 - [08 PCBWay order history](docs/08-manufacturing/pcbway-order-history.md)
-- [09 Printed parts](docs/09-printed-parts.md)
+- [09 Printed parts](docs/09-printed-parts.md): the stick, cell holders, slide clamps, umbilical bricks
 - [10 Build guide](docs/10-build-guide.md)
 - [13 Test plan](docs/13-test-plan.md)
 - [14 Budget](docs/14-budget.md)
@@ -61,6 +61,7 @@ This repo is the single source of truth for the project. It records the final de
 | [`hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay_Complete.zip`](hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay_Complete.zip) | The same release as the original ZIP |
 | [`hardware/pcb/…/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip`](hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip) | **The file to upload to a fab.** Upload this, not the outer package |
 | [`hardware/pcb/pcbway-replacement-order/`](hardware/pcb/pcbway-replacement-order/) | Replacement-order review: checked BOM/CPL, QA JSON, assembly-review images, status |
+| [`hardware/printed/`](hardware/printed/README.md) | Printed parts: OpenSCAD sources (`src/`), STLs (`stl/`), `build.sh`, and the print guide. Not yet printed or test-fitted |
 
 ## Archive
 

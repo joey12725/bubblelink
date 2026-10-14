@@ -1,6 +1,6 @@
 # System Architecture
 
-BubbleLink is a modular bubble-gun system for festivals and raves, built around a 2S5P 18650 lithium-ion battery cartridge, a single transfer pump controlled by gun-current detection, dual XT30U gun channels, and a one-liter bubble-solution reservoir. This document describes the complete system architecture, power distribution, fluid paths, control logic, and mechanical layout.
+BubbleLink is a modular bubble-gun system for festivals and raves, built around a 2S5P 18650 lithium-ion battery, a single transfer pump controlled by gun-current detection, dual XT30U gun channels, and a one-liter bubble-solution reservoir. This document describes the complete system architecture, power distribution, fluid paths, control logic, and mechanical layout.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ The BubbleLink system integrates five major subsystems:
 - **Fluid Delivery:** 1 L hydration bladder, GROTHEN G528 6 V pump, low-pressure recirculation loop, two gun channels with four-foot hoses.
 - **Control Electronics:** BubbleLink CTRL v1.2 PCB (50 × 40 mm), ACS758 external current sensor, three status LEDs, adjustable pump delay.
 - **Gun Outputs:** Two XT30U power connectors on independent 16 AWG branches, supporting dual bubble-gun heads simultaneously.
-- **Mechanical Integration:** Internal wet/dry separation and electronics tray inside MAX LED backpack, strain-relief umbilicals.
+- **Mechanical Integration:** One printed upright "stick" (about 99 × 78 × 207 mm) beside the bladder inside the MAX LED backpack: a control-head cap over a sealed dry tube (battery and electronics on a slide-out sled) over a draining wet cup (pump and fittings). Printed umbilical bricks give strain relief at both ends of each umbilical. See [09-printed-parts.md](09-printed-parts.md).
 
 ---
 
@@ -37,13 +37,14 @@ The BubbleLink system integrates five major subsystems:
 - **Capacity:** 90 Wh (12.5 Ah)
 - **Current rating:** 40 A BMS (peak); continuous operation <1.1 A total system
 - **Configuration:** Thin 2S5P slab (5 parallel columns × 2 series rows) with distributed nickel-plated-steel bridges (minimum 0.15 mm thick)
-- **Protection:** 2S 40 A Li-ion BMS with balance charging, mounted permanently to cartridge
+- **Protection:** 2S 40 A Li-ion BMS with balance charging; stands on edge in a slot along the stick's back wall, next to the battery's TERM face
+- **Cell holders:** printed MID and TERM, two offset rows of five at 19.9 mm pitch; the two rows face opposite directions
 - **Thermal observation:** Cells reach 45–55°C during sustained high-current use; within safe Samsung 25R operating range
 
 ### Primary Breaker and Distribution
 
 ```
-2S5P Battery Cartridge (7.2–8.4 V)
+2S5P Battery (7.2–8.4 V)
     │
     ├─ BMS (40 A, 2S, Li-ion)
     │
@@ -65,8 +66,11 @@ The BubbleLink system integrates five major subsystems:
 **Breaker Specifications:**
 - Type: 12V–48V DC manual-reset, waterproof
 - Rating: 30 A (6 mm / M6 threaded studs)
-- Mounting: Accessible on battery cartridge or pack exterior for manual reset
-- Installation: Two M6 ring terminals (12 AWG, tinned copper) soldered to 12 AWG main harness, clamped beneath nuts
+- Form: inline type, studs at both ends; a square plate in the middle carries a red reset lever and a red push-to-trip button
+- Size (measured 2026-10-14): 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick, plate holes 1¼ in apart (the listing's 72 × 48 × 44 mm was wrong: it's longer but slimmer)
+- Mounting: Stands upright behind the sled's cross panel with its controls facing the right wall, 2 mm behind a 34 × 40 mm window covered by a glued TPU membrane, so you can trip or reset it through the wall. It hangs by zip ties through its two plate holes and slots in the spine
+- OFF switch: pressing the trip button through the membrane turns off everything downstream (bucks, PCB, voltmeter, guns). The XT60H loop below the stick is the full battery disconnect, for storage; the BMS stays on the battery either way
+- Installation: In the + line only. Two M6 ring terminals (12 AWG, tinned copper) soldered to 12 AWG main harness, clamped beneath nuts
 
 ### Regulated 5 V Rails
 
@@ -79,15 +83,15 @@ The BubbleLink system integrates five major subsystems:
 
 **Buck B (Secondary):** LED backpack USB power (isolated)
 - Input: Unregulated 6.4–8.4 V from battery
-- Output: 5.0 V USB-A for LED display backpack
+- Output: 5.0 V for LED display backpack, soldered directly to a cut USB cable (no room for USB plugs inside the stick; Buck A's output is likewise soldered straight to the J1 lead)
 - Load: ~0.5 A (LED pixel matrix)
 - Module: Separate step-down converter (dedicated, no cross-load coupling)
 - Rationale: Isolates LED and pump load transients from PCB logic supply
 
 **Battery Voltage Display:** External 4–100 V digital voltmeter
-- Input: Direct 2S battery voltage (7.2–8.4 V nominal)
-- Connector: Two-wire (optional momentary push-to-read button prevents standby drain)
-- Display: Panel-mounted on pack exterior; updates when button pressed
+- Input: 2S battery voltage (7.2–8.4 V nominal), wired after the breaker so tripping the breaker turns it off
+- Connector: Two-wire. Idle draw not measured (small LED meters typically draw tens of mA); check it once with a multimeter, and unplug the XT60H loop for storage
+- Display: Glued into a 29.2 mm hole in the top of the stick's cap (about 1 in deep or a bit more; the cap allows 30 mm)
 - Accuracy: Sufficient for field battery estimation; accounts for voltage sag under load
 
 ---
@@ -131,19 +135,21 @@ The BubbleLink system integrates five major subsystems:
 **Purpose:** Maintains four-foot hoses primed and ready; allows pump to run faster than gun demand without overpressurizing
 
 ```
-Pump outlet tee
+Outlet tee 1 (pump outlet)
     │
-    ├─ [1] To gun channels (primary path)
+    ├─ [1] To outlet tee 2 → gun 1 / gun 2 (primary path)
     │
-    └─ [2] Bypass restrictor (printed pinch clamp, adjustable)
+    └─ [2] Side branch: bypass restrictor (printed slide clamp, adjustable)
            │
            └─ Check valve (0.003 MPa opening pressure; 4 mm barb, plastic PP body)
                   │
                   └─ Pump inlet tee (closes circuit)
 ```
 
+Three tees in total: the inlet tee and outlet tees 1 and 2. All of them, the check valve and the bypass slide clamp are strapped to the right-hand strip of the stick's wet cup.
+
 **Flow Regulation:**
-- Restrictor: Printed screw-type pinch clamp (calibrated during build, then replaced with fixed smaller-ID tube ~1–2 mm for final setting)
+- Restrictor: Printed slide clamp (the same design as the two channel shutoffs). Slide toward the arrow to close: the first ~8 mm takes the gap from 6.0 mm to 2.4 mm, the next 22 mm is fine adjustment, and it seals at 0.6 mm. The shallow ramp self-locks; no screw. Set during build; wet-test that it holds
 - Check valve: 4 mm plastic one-way valve (BigBigBear model); opening pressure 0.003 MPa (≈0.44 psi), low enough for peristaltic operation
 - Orientation: Check valve arrow points toward pump inlet/reservoir side (critical for direction)
 - Expected bypass flow: 5–15 mL/min at nominal pump output, balancing hydrostatic lift and line friction
@@ -153,7 +159,7 @@ Pump outlet tee
 **Dual independent channels (symmetrical):**
 
 ```
-Outlet tee (pump side)
+Outlet tee 2
     │
     ├─ Left channel:  3.5 × 5.5 mm silicone hose
     │                 └─ Four-foot length → XT30U connector → paracord umbilical
@@ -166,6 +172,7 @@ Outlet tee (pump side)
 
 **Specifications:**
 - Hose ID: 3.5 mm; OD: 5.5 mm; food-grade silicone
+- Shutoff: one printed slide clamp on each gun line
 - Length: Four feet per channel (measured inside pack to gun adapter)
 - Fittings: Nylon barbs from automotive hose assortment (#68409, 5/32-inch ≈4 mm tees; #68401 straight unions for reducers)
 - Pressure rating: Low (<1 psi during normal operation; dynamic hose suitable)
@@ -184,7 +191,7 @@ Outlet tee (pump side)
 - Zero-current output: ~2.5 V nominal
 - Operating range: 0–5 V output (0–50 A primary measurement range)
 - Accuracy: ±4 mV over temperature; noise floor ~±10 mV
-- Location: Mounted beside PCB in pack enclosure; signal wire routed separately to J2 connector
+- Location: Compartment on the front of the sled's cross panel, above Buck A, held with a zip tie (mounting holes not used); signal wire routed separately to J2 connector
 - Purpose: Detects combined current from both XT30U gun channels; triggers pump-on when threshold exceeded
 
 **Current Sensing Path:**
@@ -206,10 +213,12 @@ Outlet tee (pump side)
 - **Q2 (AO3400A):** N-channel MOSFET pump driver (logic-level, SOT-23)
 - **D1 (B340A-E3/61T):** 2–3 A Schottky flyback diode (pump back-EMF suppression)
 - **F1 (1812L150/16DR):** 1.5 A PPTC fuse (pump branch protection, temperature-derated)
-- **RV1 (Bourns 3296W-1-202LF):** 2 kΩ 10-turn trimmer (gun-detection sensitivity)
-- **RV2 (Bourns 3296W-1-104LF):** 100 kΩ 10-turn trimmer (pump shutoff delay, ~350 ms nominal)
-- **LEDs:** POWER (always on), GUN ACTIVE (detection), PUMP (pump running)
-- **SW1 (PRIME button):** Momentary switch for manual pump trigger (testing, priming)
+- **RV1 (Bourns 3296W-1-202LF):** 2 kΩ 25-turn trimmer (gun-detection sensitivity)
+- **RV2 (Bourns 3296W-1-104LF):** 100 kΩ 25-turn trimmer (pump shutoff delay, ~350 ms nominal)
+- **LEDs:** POWER (always on), GUN ACTIVE (detection), PUMP (pump running); they show through 0.6 mm skin windows in the cap
+- **SW1 (PRIME button):** Momentary switch for manual pump trigger (testing, priming); pressed through a plunger under a TPU boot in the cap
+
+In the stick, the PCB hangs component-side up under the cap, heat-staked onto four printed pins. RV1 and RV2 adjust through two small tape-covered windows in the cap.
 
 **Board Specifications:**
 - Size: 50 × 40 mm, two-layer FR-4, 1 oz copper, lead-free HASL
@@ -362,8 +371,8 @@ Each gun receives a four-foot "umbilical" bundle containing:
     ├─ Paracord anchor    ├─ 550-cord           ├─ Cable restraint
     │ (load-bearing)      │ (tether, 4 mm)      │ (short loop)
     │                     │                      │
-    └─ Connector block    └─ Braided sleeve     └─ Strain relief
-      (XT30U + barb + tether)  (10 mm PET, protective)  (printed TPU boot)
+    └─ Umbilical brick    └─ Braided sleeve     └─ Umbilical brick
+      (XT30U + tube + tether)  (10 mm PET, protective)  (strain relief)
 ```
 
 **Specifications:**
@@ -372,8 +381,9 @@ Each gun receives a four-foot "umbilical" bundle containing:
 - **Tether:** 550 paracord (4 mm, 7-strand), listing states 150 kg load-bearing capacity; load-bearing for gun weight and hose strain relief
 - **Protective sheathing:** 10 mm braided PET cable sleeving; black; functional, not cosmetic
 - **Connectors:** 
-  - Pack side: XT30U (female/recessed) on main connector block
-  - Gun side: XT30U (male) soldered to 16 AWG pair with strain relief boot
+  - Pack side: XT30U (female/recessed), strapped with a zip tie into the open-top pocket of the pack-end umbilical brick
+  - Gun side: XT30U (male) soldered to 16 AWG pair, strapped into the gun-end umbilical brick
+  - Bricks: printed, one at each end of each umbilical (×4). The 16 AWG pair and the tube run in grooves under narrow zip ties; the paracord ties through the outer hole, and the inner hole ties to the stick or the gun
   - Hose side: Barbed nylon unions (pack reducer, gun adapter); secured with narrow zip ties
 - **Redundancy:** Two identical umbilicals per system; spare materials are available for additional umbilicals if needed
 
@@ -381,12 +391,12 @@ Each gun receives a four-foot "umbilical" bundle containing:
 
 | Connection | Connector Type | Rating | Wire Gauge | Quantity | Location |
 |---|---|---|---|---|---|
-| Battery → Breaker | XT60H | 30 A | 12 AWG | 1 pair | Cartridge side |
+| Battery → Breaker | XT60H | 30 A | 12 AWG | 1 pair | Disconnect loop below the stick |
 | Breaker → Gun channels | XT30U | 15 A | 16 AWG | 2 pairs | Pack core |
 | ACS758 input | JST-XH | 2 A | 22 AWG | 1× 3-pin | PCB J2 |
 | Pump output | JST-XH | 0.3 A | 22 AWG | 1× 2-pin | PCB J3 |
 | Power input | JST-XH | 5 A | 22 AWG | 1× 2-pin | PCB J1 |
-| Battery display | Two-wire | 0.1 A | 22 AWG | 1 pair | External voltmeter |
+| Battery display | Two-wire | 0.1 A | 22 AWG | 1 pair | Voltmeter in the cap, wired after the breaker |
 
 **Design Rationale:**
 - XT60H for main battery: 30 A rating exceeds worst-case 25 A system draw; larger connector accommodates thick 12 AWG lugs
@@ -401,94 +411,81 @@ Each gun receives a four-foot "umbilical" bundle containing:
 ### Pack Interior Geometry
 
 **Container:** MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry to be measured)
-- Battery cartridge, pump, electronics tray, and 1 L reservoir mounted inside
+- The printed stick and the 1 L reservoir stand side by side inside
 
-**Layout intent:**
-- **Battery cartridge:** High and close to the spine (upper-rear), centered vertically to balance on the wearer
-- **Pump and fluid manifold:** Lower wet zone with recirculation loop
-- **Electronics tray (PCB + Buck converters):** Above the wet bay, protected from splash by divider
-- **Wet/dry divider:** Printed PETG or thermoplastic barrier with weep holes for drainage
-- **Connectors:** Positioned at lower left and right for ergonomic reach
-- **Master disconnect:** Reachable at the side (XT60 loop key or battery unplugging)
+**Layout (the stick, about 99 × 78 × 207 mm, standing upright beside the bladder):**
+- **Back:** The stick's back goes against the wearer's back
+- **Battery:** Left of the sled's spine at the top of the dry side, the highest and driest spot, so the heavy part rides high
+- **Electronics:** On the sled beside the battery; PCB hung under the cap
+- **Bulkhead:** The tube's floor is the wet/dry divider
+- **Pump and fluid manifold:** In the wet cup at the bottom, which drains through its floor
+- **Exits:** Both umbilicals, the bladder feed, the LED-backpack USB and the XT60H disconnect loop leave through the cup's floor
+- **OFF switch and master disconnect:** Everyday OFF is the breaker's trip button, pressed through the TPU membrane in the right wall. The XT60H loop below the stick is the full battery disconnect (open the bag to pull it); unplug it for storage
 
 **Weight distribution (festival configuration with 1 L solution):**
 - 1 L bubble solution: 1.0 kg
-- 2S5P battery + cartridge enclosure: 0.55–0.65 kg
-- Pump, tubing, electronics, divider: 0.3–0.5 kg
+- 2S5P battery + printed stick: 0.55–0.65 kg
+- Pump, tubing, electronics: 0.3–0.5 kg
 - MAX LED backpack carrier: 0.3–0.5 kg
 - **Total (rough estimate, not weighed):** ~2.2–2.7 kg. The platform-spec target for the standard rig is 4.6–5.5 lb (~2.1–2.5 kg). Weigh the real build.
 
 ### Internal Assembly (Pack Interior)
 
-The BubbleLink system is mounted inside a MAX LED "M Style" Bluetooth LED pixel backpack, with internal printed supports for component positioning.
+Everything except the bladder is one printed upright stick. CAD is in `hardware/printed/` ([print guide](../hardware/printed/README.md)); nothing has been printed or test-fitted yet.
 
 **Internal sub-assemblies:**
 
-1. **Battery Cartridge (Rigid PETG/ASA enclosure)**
-   - Dimensions: ~105 × 75 × 43 mm (2S5P cells + BMS + XT60H connector)
-   - Position: Upper-rear, close to the spine, weight-balanced toward wearer's back
-   - Access: XT60H connector for battery connection/disconnection
-   - Labeling: Sharpie-marked directly on enclosure: "2S5P Samsung 25R / 7.2 V nominal / 12.5 Ah / 90 Wh / Build date / XT60H polarity"
+1. **Cap (control head)**
+   - CTRL v1.2 PCB hangs under it, component side up, heat-staked onto four pins
+   - LEDs show through 0.6 mm skin windows; PRIME is a plunger under a TPU boot; RV1/RV2 adjust through two tape-covered windows
+   - Voltmeter (29.2 mm hole) and USB-C charge port (charger glued under the CHG window) on top
+   - A TPU ring seals radially against the tube; 2× M3×10 screws with TPU washers keep it on
 
-2. **Pump Assembly**
-   - Component: GROTHEN G528 6 V peristaltic pump with 3×5 mm tubing
-   - Position: Lower wet zone, vibration-dampened mounting
-   - Outlet: Tee fittings for manifold and recirculation loop
+2. **Tube and sled (dry section)**
+   - The sled slides out of the top. The 2S5P block stands beside a central spine, cell axes front to back, TERM face toward the back
+   - Breaker stands upright behind a cross panel, hung by zip ties through its plate holes and spine slots, its trip button and reset lever 2 mm behind the TPU-membrane window in the right wall; BMS stands on edge in a slot along the back wall
+   - Buck A, Buck B and the ACS758 sit in open compartments on the front of the panel, each held with a zip tie (no mounting holes used)
+   - The cap's ribs press the cell holders and pin the sled onto the bulkhead
 
-3. **Electronics Tray (Printed PETG frame, upper dry zone)**
-   - Dimensions: ~140 × 80 × 25 mm (PCB + Buck A + Buck B side-by-side)
-   - Components:
-     - **BubbleLink CTRL PCB:** 50 × 40 mm, centered for balanced connector access
-     - **Buck A (pump supply):** 30 × 25 × 15 mm, left side, powers PCB logic and pump
-     - **Buck B (LED backpack supply):** 30 × 25 × 15 mm, right side, powers MAX LED display
-   - Connectors: J1 (5 V input), J2 (ACS758 sensor), J3 (pump output) accessible from front
-   - LEDs: POWER, GUN ACTIVE, PUMP mounted on PCB top; visible through backpack display opening
-   - Test points: Accessible via small holes (users use oscilloscope probes or multimeter during calibration)
+3. **Bulkhead**
+   - The tube's floor and the wet/dry divider
+   - Cables pass through a two-piece TPU grommet with knife-cut slits: a splash baffle, not watertight. Once the wiring is final, seal its top face with a thin bead of neutral-cure silicone (it peels off for service); give cables drip loops below the cup
 
-4. **Wet/Dry Separator (Printed TPU/PETG divider)**
-   - Purpose: Isolates electronics tray from pump discharge and recirculation loop
-   - Position: Horizontal wall separating lower (pump/fluid) and upper (electronics) zones
-   - Drainage: Weep holes (3 mm diameter, ~5–8 holes) allow condensation and minor spills to drain to lowest point
+4. **Cup (wet chamber)**
+   - Pump in a 52 × 46 mm pocket, strapped down; three tees, the 4 mm check valve and the bypass slide clamp strapped to the floor slots
+   - Bolts on from below with 4× M3×12 into nuts glued into the bulkhead
+   - Drains through its floor
 
-5. **Umbilical Management (Printed clips and strain-relief boots)**
-   - Hose routing: Two four-foot umbilical bundles from pack shoulder exits
-   - Clips: Printed spiral wraps or zip ties every 12 inches along hose length
-   - Strain relief: TPU-printed boots at shoulder-exit junction (transfer pulling force from connector to enclosure)
+5. **Umbilical Management (printed umbilical bricks)**
+   - Two four-foot umbilical bundles leave through two 13 mm holes in the cup's floor
+   - A brick at each end of each umbilical (×4) gives strain relief, holds the XT30U, and anchors the paracord
 
 ### Hose Routing
 
 ```
-MAX LED backpack interior layout (side view):
+Stick (side by side with the bladder in the MAX LED backpack):
 
-                    [SHOULDER EXIT LEFT]  [SHOULDER EXIT RIGHT]
-                              ↑                      ↑
-                              │                      │
-    ┌─────────────────────────────────────────────────────┐
-    │              Electronics Tray (Dry Zone)             │
-    │    [PCB + Buck A + Buck B]  [POWER/GUN/PUMP LEDs]   │
-    ├─────────────────────────────────────────────────────┤
-    │          Wet/Dry Divider (PETG + Weep Holes)        │
-    ├─────────────────────────────────────────────────────┤
-    │              Pump Cradle (Wet Zone)                  │
-    │    [G528 Pump] [Outlet Tee] [Manifold/Bypass]       │
-    │                                                      │
-    │             [1 L Reservoir (Bladder)]                │
-    │                                                      │
-    │         [Battery Cartridge (Upper-Rear)]             │
-    └─────────────────────────────────────────────────────┘
+   ┌──── cap ────┐   voltmeter, USB-C, LEDs, PRIME; PCB hangs under it
+   │ BATT │ BRK  │
+   │ 2S5P │ BMS  │   ← sled slides out of the top
+   │      │bucks │
+   ╞══ bulkhead ═╡   cables pass through a slit TPU grommet
+   │  pump cup   │   pump, tees, check valve, bypass clamp; drains
+   └──┬───────┬──┘
+     L        R      umbilicals, bladder feed, service cables out the floor
 
-    Umbilicals:  Left 4 ft hose → Gun 1 umbilical → [Shoulder exit left]
-                 Right 4 ft hose → Gun 2 umbilical → [Shoulder exit right]
+    Umbilicals:  Outlet tee 2 → left 4 ft hose → Gun 1 umbilical
+                 Outlet tee 2 → right 4 ft hose → Gun 2 umbilical
 ```
 
 ### Wet/Dry Separation and Condensation Control
 
-- **Upper (dry) zone:** Electronics tray with 5 V power supplies, PCB, LEDs, adjustable potentiometers
-- **Lower (wet) zone:** Pump, fluid lines, reservoir, manifold, recirculation loop, check valve
-- **Divider membrane:** Printed PETG or thermoplastic divider with weep holes (3 mm diameter, ~5–8 holes)
-- **Ventilation:** Small gaps allow air circulation; prevents mold growth and moisture buildup
-- **Drain path:** Any condensation or minor spills flow to pack bottom corners (away from electronics)
-- **Backpack-side drainage:** MAX LED backpack underside should allow evaporation or weeping to the lowest point
+- **Dry section:** The tube, closed by the cap's TPU ring at the top and the bulkhead at the bottom. Battery, breaker, BMS, bucks, ACS758, charger and PCB
+- **Wet section:** The cup: pump, tees, check valve, slide clamp. The bladder sits outside the stick
+- **Bulkhead grommet:** Splash baffle, not watertight. Seal its top face with a thin bead of neutral-cure silicone once the wiring is final (it peels off for service); give every cable a drip loop below the cup
+- **Drain path:** The cup drains through its floor
+- **Disconnects in the wet zone:** The XT60H pair and the LED-backpack USB plug end up below the stick; wrap them in a bag or heat-shrink
+- **Not verified:** The cap seal (wet-test it), pressure relief if a cell fails (the tube only breathes incidentally, through the grommet slits and the cap ring), and charger/BMS temperatures inside the closed tube
 
 ---
 
@@ -498,15 +495,15 @@ The following documents detail each subsystem:
 
 | Subsystem | Document | Scope |
 |---|---|---|
-| Power System | [04-power-system.md](04-power-system.md) | Battery cartridge design, BMS configuration, breaker specifications, buck converter tuning, voltage display |
+| Power System | [04-power-system.md](04-power-system.md) | Battery pack design, BMS configuration, breaker specifications, buck converter tuning, voltage display |
 | Fluid System | [05-fluid-system.md](05-fluid-system.md) | Pump selection and tuning, hose sizing, manifold/tee design, recirculation loop calibration, fluid mixing and storage |
-| Guns and Heads | [06-guns-heads-and-umbilicals.md](06-guns-heads-and-umbilicals.md) | Donor gun qualification, umbilical assembly, adapter designs, connector-block fabrication |
+| Guns and Heads | [06-guns-heads-and-umbilicals.md](06-guns-heads-and-umbilicals.md) | Donor gun qualification, umbilical assembly, adapter designs, umbilical bricks |
 | PCB Design | [07-pcb/overview.md](07-pcb/overview.md) | BubbleLink CTRL v1.2 schematic, BOM, layout, fabrication history, bringup procedures |
 | PCB Connectors & Pinout | [07-pcb/connectors-and-pinout.md](07-pcb/connectors-and-pinout.md) | JST-XH pin assignments, test points, connector mechanical drawings |
 | PCB BOM and Parts | [07-pcb/bom-and-parts.md](07-pcb/bom-and-parts.md) | Component sourcing, part numbers, equivalents, through-hole user assembly |
 | PCB Fabrication | [07-pcb/fabrication-and-assembly.md](07-pcb/fabrication-and-assembly.md) | PCBWay order, Gerber files, SMT assembly, manual soldering guide |
 | PCB Bringup & Test | [07-pcb/bringup-and-acceptance-test.md](07-pcb/bringup-and-acceptance-test.md) | Power-on checklist, calibration procedures, acceptance criteria, troubleshooting |
-| Printed Parts | [09-printed-parts.md](09-printed-parts.md) | 3D-printed battery enclosure, pump cradle, wet/dry divider, connector blocks, strain-relief boots, CAD file links |
+| Printed Parts | [09-printed-parts.md](09-printed-parts.md) | The upright stick (cap, tube, sled, bulkhead grommet, cup), cell holders, slide clamps, umbilical bricks; CAD in `hardware/printed/` |
 | Build Guide | [10-build-guide.md](10-build-guide.md) | Step-by-step assembly sequence, hand-solder procedures, fluid system priming, harness routing, first-time setup |
 | Parts Order Ledger | [parts/ORDER_LEDGER.md](parts/ORDER_LEDGER.md) | Complete AliExpress and PCBWay orders, delivery status, part variants, pricing |
 
@@ -530,14 +527,14 @@ The design maintains strict isolation between high-current gun channels and low-
 - **PCB and components:** Expected <20°C rise above ambient during typical festival use (0.3 A pump + sensor logic)
 - **Pump motor:** 6 V peristaltic motor runs cool under low-flow conditions; <60°C expected at maximum continuous output
 - **F1 PPTC fuse:** Rated for temperature-dependent hold current; 1.10 A limit at 50°C ambient ensures safe margin below pump stall current
-- **Natural convection:** Backpack-mounted configuration with internal air gaps and weep holes in the wet/dry divider allow air circulation; no active cooling required
+- **Enclosed dry tube:** No active cooling. The tube only breathes incidentally (grommet slits, cap ring). Charger and BMS temperatures inside the closed tube haven't been measured; at 4 A the charger alone may give off around 3–4 W. Charge with the cap off until the first enclosed charge has been checked
 
 ---
 
 ## Charging and Storage
 
-- **Charging:** 2S USB-C 4 A charger (external module, integrated into pack core); 8–10 hour charge time from empty on typical USB-C PD supply (≥3 A at 5 V)
-- **Battery management:** 2S 40 A BMS with cell balancing; permanently mounted to battery cartridge
+- **Charging:** 2S USB-C 4 A charger (external module, glued under the cap's CHG window with its receptacle on top; output to BMS P+/P− through an XT30 pair so the cap stays removable); 8–10 hour charge time from empty on typical USB-C PD supply (≥3 A at 5 V). Charge with the cap off until the first enclosed charge has been checked
+- **Battery management:** 2S 40 A BMS with cell balancing; stands on edge beside the battery's TERM face in the sled
 - **Pre-event:** Charge to 8.4 V minimum; voltage display shows ~4.2 V per cell when ready
 - **Storage:** Store charged to 3.7 V per cell (~7.4 V system) for maximum cell lifespan; recharge monthly if unused >2 weeks
 - **Travel:** 90 Wh battery within FAA 0–100 Wh limit; no airline approval required (confirmed 2S5P = 90 Wh exact)
@@ -546,4 +543,4 @@ The design maintains strict isolation between high-current gun channels and low-
 
 ## Summary
 
-BubbleLink combines a simple, robust power system with straightforward fluid delivery and automatic pump control. The architecture emphasizes field serviceability: all major assemblies (battery, PCB, pump, umbilicals) are user-replaceable; the internal wet/dry separation protects electronics while allowing drainage; and the two-stage calibration (RV1 gun detection, RV2 pump delay) provides tuning flexibility for varying gun types and event conditions. The dual XT30U channels support simultaneous dual-gun operation without manual switching, while the recirculation bypass keeps hoses primed during brief trigger releases, ensuring consistent bubble output across a full festival session.
+BubbleLink combines a simple, robust power system with straightforward fluid delivery and automatic pump control. The architecture emphasizes field serviceability: all major assemblies (battery, PCB, pump, umbilicals) are user-replaceable; the stick's dry tube over a draining wet cup keeps electronics away from the fluid; and the two-stage calibration (RV1 gun detection, RV2 pump delay) provides tuning flexibility for varying gun types and event conditions. The dual XT30U channels support simultaneous dual-gun operation without manual switching, while the recirculation bypass keeps hoses primed during brief trigger releases, ensuring consistent bubble output across a full festival session.
