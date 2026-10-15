@@ -22,7 +22,7 @@ First (primary) voltage regulator module. Converts battery 2S voltage (6–8.4 V
 USB Power Delivery input module (SZHJW Technology Store, 2S 4A boost converter, order ref [order ref removed]). Steps up USB-C input to 8.4 V for battery charging. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 3.
 
 **Circuit breaker (main)**  
-30 A manual-reset breaker (Type B-30A, YONGRUN Store, 12–48 V DC, M6 terminal studs). Inline type: studs at both ends, a 1⅝ in square plate in the middle with a red reset lever and a red push-to-trip button; 4 in (102 mm) long (measured 2026-10-14). Mounted immediately after BMS, in the + line only, for catastrophic overcurrent protection on the main 12 AWG power rails. In the stick its controls sit behind a TPU membrane in the right wall; the trip button is the OFF switch. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 5.
+30 A manual-reset breaker (Type B-30A, YONGRUN Store, 12–48 V DC, M6 terminal studs). Inline type: studs at both ends, a 1⅝ in square plate in the middle with a red reset lever and a red push-to-trip button; 4 in (102 mm) long (measured 2026-10-14). Mounted immediately after BMS, in the + line only, for catastrophic overcurrent protection on the main 12 AWG power rails. In the stick the walls are solid, so its controls are only reachable with the cap off and the sled out; the **XT60H loop** is the OFF switch. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 5.
 
 **Ring lug (SC10-6)**  
 M6 closed-ring terminal, 10 mm² barrel (~8 AWG), 10 pcs ordered. Connects 12 AWG main power wire to circuit breaker M6 studs. Barrel is oversized; requires solder-fill and strain relief. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 6.
@@ -193,10 +193,16 @@ Bundled cable assembly connecting PCB/pack to each bubble-gun head. Contains:
 Four-foot umbilical is standard (~9.8 mL priming volume). Six-foot variant experimental (~14.5 mL priming volume).
 
 **Umbilical brick (printed)**  
-PETG block at each end of each umbilical (×4 in all). Strain relief: the XT30U drops into an open-top pocket and is strapped with a zip tie, the 16 AWG pair and the tube run in grooves under narrow zip ties, and the paracord ties through the outer hole (the inner hole ties to the stick or the gun). It replaces the earlier "connector block" / pump/hose/tether block and TPU strain-relief boots.
+ASA (or PETG) block at each end of each umbilical (×4 in all). Strain relief: the XT30U drops into an open-top pocket and is strapped with a zip tie, the 16 AWG pair and the tube run in grooves under narrow zip ties, and the paracord ties through the outer hole (the inner hole ties to the stick or the gun). It replaces the earlier "connector block" / pump/hose/tether block and TPU strain-relief boots.
+
+**ASA**  
+The rigid printing material for the stick (tube, cap, sled, cup, bezel, skirt); older parts can be ASA or PETG. Prints best on the enclosed K2 Plus; shrinks about 0.5-0.7%, so re-run the fit coupon in ASA. See the print guide.
+
+**TPU cushions (parts 36-38)**  
+Replace the 1 mm foam: two compliant battery pads that click onto the cap's ribs, a 2 mm pump mat with eight drain holes, and a set of six flat 5 × 30 mm shim strips (0.6, 1.0 and 1.5 mm thick) cut to fit where a board rattles.
 
 **Slide clamp (printed)**  
-PETG tube clamp, ×3. One design serves as the bypass restrictor and both channel shutoffs. Slide toward the arrow to close: ~8 mm of coarse travel, then 22 mm of fine adjustment, sealing at 0.6 mm. The shallow ramp self-locks (no screw); wet-test that it holds. Replaces the earlier "pinch clamp" wording.
+ASA (or PETG) tube clamp, ×3. One design serves as the bypass restrictor and both channel shutoffs. Slide toward the arrow to close: ~8 mm of coarse travel, then 22 mm of fine adjustment, sealing at 0.6 mm. The shallow ramp self-locks (no screw); wet-test that it holds. Replaces the earlier "pinch clamp" wording.
 
 **Bladder outlet**  
 1 L hydration bladder's fluid-discharge port. Factory hose (101 cm, detachable) is cut short inside pack and reduced to 3.5 × 5.5 mm silicone tubing via assortment reducer fitting.
@@ -215,18 +221,19 @@ MAX LED Official Store "M Style" LED pixel backpack (48.16 USD). Carries the Bub
 Alternative name for the MAX LED M Style backpack. "Pixel" refers to individually-addressable LED array on exterior.
 
 **Stick (printed pack unit)**  
-The whole pack apart from the bladder, as one upright printed column about 99 × 78 × 207 mm (3.9 × 3.06 × 8.15 in), standing beside the bladder. CAD in `hardware/printed/` (designed 2026-10-14; not yet printed or test-fitted). Two umbilicals leave from its bottom. Sections, top to bottom:
-- **Cap:** the control head. The CTRL PCB hangs underneath; LEDs show through 0.6 mm skin windows; PRIME is a plunger under a TPU boot; RV1/RV2 adjust through tape-covered windows; the voltmeter and USB-C charge port are on top. A TPU ring seals radially against the tube (not yet wet-tested); 2× M3×10 screws with TPU washers keep it on.
-- **Tube:** the dry section. Its floor is the **bulkhead**, the wet/dry divider.
-- **Sled:** slides out of the top. The 2S5P block stands beside a central spine; the breaker stands behind a cross panel (controls behind a TPU membrane window in the right wall), the BMS on edge along the back wall, and Buck A, Buck B and the ACS758 in compartments on the front of the panel.
-- **Bulkhead grommet:** two-piece TPU grommet with knife-cut slits that the cables pass through. A splash baffle, not watertight; seal its top face with a thin bead of neutral-cure silicone once the wiring is final.
-- **Cup:** the wet chamber (pump, three tees, check valve, bypass slide clamp). Bolts on from below with 4× M3×12; drains through its floor.
+The whole pack apart from the bladder, as one upright printed column about 99.6 × 79.8 × 220 mm (3.9 × 3.1 × 8.7 in), standing beside the bladder. CAD in `hardware/printed/` (designed 2026-10-14; not yet printed or test-fitted). Two umbilicals leave from its bottom. Sections, top to bottom:
+- **Cap:** the control head. The CTRL PCB hangs underneath; LEDs shine through glue-filled 3.6 mm through-holes; PRIME is a TPU plunger under a TPU boot, guarded by an ASA bezel and hard-stopped after 0.75 mm; RV1/RV2 adjust through tape-covered windows; the voltmeter and USB-C charge port are on top. A TPU ring seals radially against the tube (not yet wet-tested); 2× M3×10 screws with TPU washers (nuts in slots behind the skirt) keep it on; two compliant TPU battery pads on its ribs press the cell holders.
+- **Tube:** the dry section, with raised BubbleLink lettering on its right-hand wall (98.8 mm wide, 99.6 with the lettering). Its floor is the **bulkhead**, the wet/dry divider.
+- **Sled:** slides out of the top. The 2S5P block stands beside a central spine; the breaker stands behind a cross panel, 2 mm from the outer wall (reset it with the sled out), the BMS on edge along the back wall, and Buck A, Buck B and the ACS758 in compartments on the front of the panel.
+- **Bulkhead grommet:** two-piece TPU grommet with knife-cut slits that the cables pass through, with an ASA drip skirt below it. A splash baffle on its own; fill its top face with neutral-cure silicone once the wiring is final.
+- **Tether anchors:** two pairs of 5 mm holes low in the cup's outer wall. The pack-end umbilical brick ties to one pair with a short paracord loop, so a dropped gun pulls on the cup, not the hose or wires.
+- **Cup:** the wet chamber (pump on a TPU mat, three tees, check valve, bypass slide clamp). Bolts on from below with 4× M3×12 into nuts in the bulkhead; drains through its floor.
 
 **Cell holders (MID and TERM)**  
-Printed 5×2 offset cell holders for the 2S5P block, 19.9 mm pitch. MID caps the series end; TERM carries the pack + and − buses. Replaces the earlier Cults3D spacer remix. Printed after the **fit coupon**, which sets the cell-bore and XT30U-pocket clearances.
+Printed 5×2 offset cell holders for the 2S5P block, 19.9 mm pitch, with flat end faces so the cap's pads bear across the full width. MID caps the series end; TERM carries the pack + and − buses. Replaces the earlier Cults3D spacer remix. Printed after the **fit coupon**, which sets the cell-bore and XT30U-pocket clearances.
 
 **OFF switch**  
-The breaker's push-to-trip button, pressed through the TPU membrane in the stick's right wall. It turns off the bucks, PCB, voltmeter and guns. The **XT60H loop** below the stick is the full battery disconnect; the BMS stays on the battery either way.
+Unplugging the **XT60H loop** below the stick (open the bag to reach it). It turns off the bucks, PCB, voltmeter and guns, and it's also the full battery disconnect for storage; the BMS stays on the battery either way. The breaker's controls are only reachable with the sled out.
 
 **Tracer cosplay**  
 Reference to Overwatch character Tracer armor shell + integrated bubble guns (aesthetic context for the LED integration and gun cosplay skins).

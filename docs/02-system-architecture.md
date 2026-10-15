@@ -23,7 +23,7 @@ The BubbleLink system integrates five major subsystems:
 - **Fluid Delivery:** 1 L hydration bladder, GROTHEN G528 6 V pump, low-pressure recirculation loop, two gun channels with four-foot hoses.
 - **Control Electronics:** BubbleLink CTRL v1.2 PCB (50 × 40 mm), ACS758 external current sensor, three status LEDs, adjustable pump delay.
 - **Gun Outputs:** Two XT30U power connectors on independent 16 AWG branches, supporting dual bubble-gun heads simultaneously.
-- **Mechanical Integration:** One printed upright "stick" (about 99 × 78 × 207 mm) beside the bladder inside the MAX LED backpack: a control-head cap over a sealed dry tube (battery and electronics on a slide-out sled) over a draining wet cup (pump and fittings). Printed umbilical bricks give strain relief at both ends of each umbilical. See [09-printed-parts.md](09-printed-parts.md).
+- **Mechanical Integration:** One printed upright "stick" (about 99.6 × 79.8 × 220 mm) beside the bladder inside the MAX LED backpack: a control-head cap over a sealed dry tube (battery and electronics on a slide-out sled) over a draining wet cup (pump and fittings). Printed umbilical bricks give strain relief at both ends of each umbilical. See [09-printed-parts.md](09-printed-parts.md).
 
 ---
 
@@ -68,8 +68,9 @@ The BubbleLink system integrates five major subsystems:
 - Rating: 30 A (6 mm / M6 threaded studs)
 - Form: inline type, studs at both ends; a square plate in the middle carries a red reset lever and a red push-to-trip button
 - Size (measured 2026-10-14): 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick, plate holes 1¼ in apart (the listing's 72 × 48 × 44 mm was wrong: it's longer but slimmer)
-- Mounting: Stands upright behind the sled's cross panel with its controls facing the right wall, 2 mm behind a 34 × 40 mm window covered by a glued TPU membrane, so you can trip or reset it through the wall. It hangs by zip ties through its two plate holes and slots in the spine
-- OFF switch: pressing the trip button through the membrane turns off everything downstream (bucks, PCB, voltmeter, guns). The XT60H loop below the stick is the full battery disconnect, for storage; the BMS stays on the battery either way
+- Mounting: Stands upright behind the sled's cross panel, 2 mm from the outer wall, with a wire channel between it and the spine. It hangs by zip ties through its two plate holes and tall slots in the spine. The tube walls are solid, so the reset lever and trip button are only reachable with the sled out
+- Reset: take the cap off (2 screws), lift the sled out (leave enough wiring slack for that) and reset the lever. A trip means a real fault (a short, a jammed motor), so find the cause before resetting
+- OFF switch: unplug the XT60H loop below the stick (open the bag to reach it). That turns off everything downstream (bucks, PCB, voltmeter, guns) and is also the full battery disconnect for storage; the BMS stays on the battery either way
 - Installation: In the + line only. Two M6 ring terminals (12 AWG, tinned copper) soldered to 12 AWG main harness, clamped beneath nuts
 
 ### Regulated 5 V Rails
@@ -215,8 +216,8 @@ Outlet tee 2
 - **F1 (1812L150/16DR):** 1.5 A PPTC fuse (pump branch protection, temperature-derated)
 - **RV1 (Bourns 3296W-1-202LF):** 2 kΩ 25-turn trimmer (gun-detection sensitivity)
 - **RV2 (Bourns 3296W-1-104LF):** 100 kΩ 25-turn trimmer (pump shutoff delay, ~350 ms nominal)
-- **LEDs:** POWER (always on), GUN ACTIVE (detection), PUMP (pump running); they show through 0.6 mm skin windows in the cap
-- **SW1 (PRIME button):** Momentary switch for manual pump trigger (testing, priming); pressed through a plunger under a TPU boot in the cap
+- **LEDs:** POWER (always on), GUN ACTIVE (detection), PUMP (pump running); they shine through glue-filled 3.6 mm through-holes in the cap
+- **SW1 (PRIME button):** Momentary switch for manual pump trigger (testing, priming); pressed through a TPU plunger under a TPU boot in the cap; a guard bezel prevents accidental presses and the plunger hard-stops on the cap after 0.75 mm
 
 In the stick, the PCB hangs component-side up under the cap, heat-staked onto four printed pins. RV1 and RV2 adjust through two small tape-covered windows in the cap.
 
@@ -413,14 +414,14 @@ Each gun receives a four-foot "umbilical" bundle containing:
 **Container:** MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry to be measured)
 - The printed stick and the 1 L reservoir stand side by side inside
 
-**Layout (the stick, about 99 × 78 × 207 mm, standing upright beside the bladder):**
+**Layout (the stick, about 99.6 × 79.8 × 220 mm, standing upright beside the bladder):**
 - **Back:** The stick's back goes against the wearer's back
 - **Battery:** Left of the sled's spine at the top of the dry side, the highest and driest spot, so the heavy part rides high
 - **Electronics:** On the sled beside the battery; PCB hung under the cap
 - **Bulkhead:** The tube's floor is the wet/dry divider
 - **Pump and fluid manifold:** In the wet cup at the bottom, which drains through its floor
 - **Exits:** Both umbilicals, the bladder feed, the LED-backpack USB and the XT60H disconnect loop leave through the cup's floor
-- **OFF switch and master disconnect:** Everyday OFF is the breaker's trip button, pressed through the TPU membrane in the right wall. The XT60H loop below the stick is the full battery disconnect (open the bag to pull it); unplug it for storage
+- **OFF switch and master disconnect:** The XT60H loop below the stick is both the everyday OFF and the full battery disconnect (open the bag to pull it); unplug it for storage too
 
 **Weight distribution (festival configuration with 1 L solution):**
 - 1 L bubble solution: 1.0 kg
@@ -437,23 +438,26 @@ Everything except the bladder is one printed upright stick. CAD is in `hardware/
 
 1. **Cap (control head)**
    - CTRL v1.2 PCB hangs under it, component side up, heat-staked onto four pins
-   - LEDs show through 0.6 mm skin windows; PRIME is a plunger under a TPU boot; RV1/RV2 adjust through two tape-covered windows
+   - LEDs shine through 3.6 mm through-holes filled with clear hot glue or UV resin; PRIME is a guarded, hard-stopped TPU plunger under a TPU boot; RV1/RV2 adjust through two tape-covered windows; the USB-C charger sits in a pocket under its window
    - Voltmeter (29.2 mm hole) and USB-C charge port (charger glued under the CHG window) on top
-   - A TPU ring seals radially against the tube; 2× M3×10 screws with TPU washers keep it on
+   - A TPU ring seals radially against the tube; 2× M3×10 screws (TPU washer under each head, M3 nut in a slot behind the skirt) keep it on
 
 2. **Tube and sled (dry section)**
    - The sled slides out of the top. The 2S5P block stands beside a central spine, cell axes front to back, TERM face toward the back
-   - Breaker stands upright behind a cross panel, hung by zip ties through its plate holes and spine slots, its trip button and reset lever 2 mm behind the TPU-membrane window in the right wall; BMS stands on edge in a slot along the back wall
+   - Breaker stands upright behind a cross panel, hung by zip ties through its plate holes and spine slots, 2 mm from the outer wall (the walls are solid; reset it with the sled out); BMS stands on edge in a slot along the back wall
    - Buck A, Buck B and the ACS758 sit in open compartments on the front of the panel, each held with a zip tie (no mounting holes used)
-   - The cap's ribs press the cell holders and pin the sled onto the bulkhead
+   - The cap's ribs press the cell holders through two TPU battery pads and pin the sled onto the bulkhead
+   - Loose boards get TPU shim strips tucked into their compartments
 
 3. **Bulkhead**
-   - The tube's floor and the wet/dry divider
-   - Cables pass through a two-piece TPU grommet with knife-cut slits: a splash baffle, not watertight. Once the wiring is final, seal its top face with a thin bead of neutral-cure silicone (it peels off for service); give cables drip loops below the cup
+   - The tube's floor (3 mm) and the wet/dry divider
+   - Cables pass through a two-piece TPU grommet with knife-cut slits and an ASA drip skirt below it. The grommet alone is a splash baffle; once the wiring is final, fill its whole top face with neutral-cure silicone (it peels off for service); give cables drip loops below the cup
 
 4. **Cup (wet chamber)**
-   - Pump in a 52 × 46 mm pocket, strapped down; three tees, the 4 mm check valve and the bypass slide clamp strapped to the floor slots
-   - Bolts on from below with 4× M3×12 into nuts glued into the bulkhead
+   - Pump on a 2 mm TPU mat in a 52 × 46 mm pocket, strapped down; three tees, the 4 mm check valve and the bypass slide clamp strapped to the floor slots
+   - Bolts on from below with 4× M3×12 into M3 nuts dropped into hex pockets in the bulkhead from the dry side (pulling on the cup seats them, it can't pull them out)
+   - Drains through its floor and two low holes in each side wall, so it empties whichever side it lies on
+   - Two pairs of tether anchor holes in the outer wall take the umbilical paracord loads
    - Drains through its floor
 
 5. **Umbilical Management (printed umbilical bricks)**
@@ -482,7 +486,7 @@ Stick (side by side with the bladder in the MAX LED backpack):
 
 - **Dry section:** The tube, closed by the cap's TPU ring at the top and the bulkhead at the bottom. Battery, breaker, BMS, bucks, ACS758, charger and PCB
 - **Wet section:** The cup: pump, tees, check valve, slide clamp. The bladder sits outside the stick
-- **Bulkhead grommet:** Splash baffle, not watertight. Seal its top face with a thin bead of neutral-cure silicone once the wiring is final (it peels off for service); give every cable a drip loop below the cup
+- **Bulkhead grommet:** Splash baffle on its own. Fill its whole top face with neutral-cure silicone once the wiring is final (it peels off for service); the ASA drip skirt below it sheds water running along the bulkhead; give every cable a drip loop below the cup. Lying on any side, the cup drains through the down-facing wall before water reaches the grommet; upside down, the silicone is what keeps it out
 - **Drain path:** The cup drains through its floor
 - **Disconnects in the wet zone:** The XT60H pair and the LED-backpack USB plug end up below the stick; wrap them in a bag or heat-shrink
 - **Not verified:** The cap seal (wet-test it), pressure relief if a cell fails (the tube only breathes incidentally, through the grommet slits and the cap ring), and charger/BMS temperatures inside the closed tube

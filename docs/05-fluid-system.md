@@ -246,7 +246,7 @@ Each gun receives one four-foot umbilical containing:
 1. Cut lengths to exact 4 feet (48 inches / 1.22 m): two 16 AWG, one 3.5 mm tube, one paracord
 2. Gather into one 8–10 mm braided PET expandable sleeve
 3. Solder XT30 connectors to wire leads
-4. Fit a printed umbilical brick (PETG) at each end: drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside it; run the 16 AWG pair and the fluid tube in their grooves under narrow zip ties; tie the paracord through the outer hole, and tie the inner hole to the stick or the gun
+4. Fit a printed umbilical brick (ASA or PETG) at each end: drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside it; run the 16 AWG pair and the fluid tube in their grooves under narrow zip ties; tie the paracord through the outer hole, and tie the inner hole to the stick or the gun
 5. Press nylon barb from car-hose assortment onto fluid tube; secure with narrow zip tie
 6. Test for continuity (XT30 wires), fluid leak (at barb), and mechanical strength (paracord under load)
 
@@ -267,7 +267,7 @@ Identical to four-foot except:
 2. Close or unplug both gun XT30 connectors (no current draw; pump starts only on PRIME button or gun trigger)
 3. Apply power (close main XT60 battery connector)
 4. **LED indication**: POWER LED (green) lights; GUN ACTIVE (yellow) and PUMP (red) LEDs off
-5. Press the momentary PRIME button (SW1) through the plunger in the stick's cap to run the pump manually for priming
+5. Press the momentary PRIME button (SW1) through the boot in the stick's cap (a deliberate fingertip press inside the guard bezel) to run the pump manually for priming
 6. Hold PRIME button; observe hose outlets for solution flow
 7. Once solution reaches both outlet fittings, release PRIME button
 8. Connect both gun XT30 connectors
@@ -386,7 +386,7 @@ Before integrating a new donor gun head into the system:
    - Each hose terminates in nylon barb from car-hose assortment (pressed on and secured with narrow zip tie)
    - Run the tube through the umbilical bricks at both ends
 
-6. **Strap down** the pump in its 52 × 46 mm pocket and the tees, check valve and bypass clamp to the six floor slots on the cup's right-hand strip
+6. **Strap down** the pump in its 52 × 46 mm pocket and the tees, check valve and bypass clamp to the four tie slots on the cup's right-hand strip
 
 7. **Secure all connections**:
    - Use narrow zip ties at each barb connection; warm silicone tubing in hot water to stretch before assembly

@@ -68,7 +68,9 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The 30 A rating equals system continuous max (26 A guns + pump + margin). Manual reset requires deliberate recovery, preventing accidental re-closure into a persistent short. No per-channel fuses; XT30U connectors (15 A rating) and 16 AWG wire (20 A rated) are secondary barriers.
 
-**Implications:** A gun short trips the main breaker immediately. Press reset after fixing the fault. No fuses to carry or replace in field. The breaker is in the + line only. Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong). It's an inline type with a red reset lever and a red push-to-trip button on its square plate. It stands upright behind the sled's cross panel, controls 2 mm behind a 34 × 40 mm window in the right wall covered by a glued TPU membrane, so you can trip or reset it through the wall. The trip button is the stick's OFF switch.
+**Implications:** A gun short trips the main breaker immediately. Press reset after fixing the fault. No fuses to carry or replace in field. The breaker is in the + line only. Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong). It's an inline type with a red reset lever and a red push-to-trip button on its square plate. It stands upright behind the sled's cross panel, 2 mm from the outer wall, hung by zip ties through its plate holes and tall slots in the spine. Its controls are only reachable with the sled out: to reset it, take the cap off (2 screws), lift the sled out and reset the lever. The XT60H loop below the stick is the OFF switch.
+
+**Update (2026-10-14):** The breaker window and its TPU membrane were removed from the printed stick, and the tube walls are now solid. The window was a 34 × 40 mm glued seam on a side wall that flexes every time it's pressed. That made it the stick's biggest leak risk, right beside the breaker/BMS bay, for little benefit. A trip means a real fault (a short, a jammed motor), so needing to pull the sled to reset is acceptable; find the cause first. Leave enough wiring slack to lift the sled out.
 
 ---
 
@@ -124,7 +126,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** XT60 is RC-standard, rated 60 A, provides secure break of main power. A loop key (short XT60 jumper) prevents accidental reconnection and provides pull handle for safe field swaps.
 
-**Implications:** Electrical work requires unplugging battery XT60 and USB-C input. The XT60H loop runs out through the bulkhead grommet and the cup's floor; open the bag to pull it. It's the full battery disconnect, for storage. Everyday OFF is the breaker's trip button, pressed through the membrane in the stick's right wall. The BMS stays on the battery either way (quiescent draw unmeasured, typically tiny).
+**Implications:** Electrical work requires unplugging battery XT60 and USB-C input. The XT60H loop runs out through the bulkhead grommet and the cup's floor; open the bag to pull it. It's the everyday OFF and the full battery disconnect, for storage. The BMS stays on the battery either way (quiescent draw unmeasured, typically tiny).
 
 ---
 
@@ -340,7 +342,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Single momentary button allows manual pump start for priming or failsafe. Pressing PRIME runs pump for full off-delay. No pump-always-on mode.
 
-**Implications:** User-soldered. Pressed through a printed plunger under a TPU boot in the stick's cap (the boot is optional; pulling a trigger also primes).
+**Implications:** User-soldered. Pressed through a TPU plunger under a TPU boot in the stick's cap. An ASA bezel clamps the boot's flange and stands 1 mm proud of it, so a strap or the bag can't press it, and the plunger hard-stops on the cap after 0.75 mm so a hard press can't load the PCB. Pulling a trigger also primes.
 
 ---
 
@@ -438,7 +440,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Carrier bag is MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry unknown until measured).
 
-**Why:** Commercial, waterproof, modular. Holds the printed stick (about 99 × 78 × 207 mm, ~1.6 L) beside the 1 L reservoir. The "~34 × 20 × 7 cm" figure that circulated is an AI estimate of the exterior from photos, not an internal measurement.
+**Why:** Commercial, waterproof, modular. Holds the printed stick (about 99.6 × 79.8 × 220 mm, ~1.7 L) beside the 1 L reservoir. The "~34 × 20 × 7 cm" figure that circulated is an AI estimate of the exterior from photos, not an internal measurement.
 
 **Implications:** The bag's internal geometry is still unmeasured. The stick is self-contained, with two umbilicals leaving its bottom, so it can move to a different bag easily.
 
@@ -448,7 +450,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The battery rides high (heavy part high, close to the back), the wet cup is lowest so spills drain away from the electronics, and the whole pack except the bladder is one portable unit. An intermediate wide-box design (about 157 × 171 × 52 mm) was dropped the same day because it couldn't sit beside the bladder.
 
-**Implications:** The tube's floor (bulkhead) is the wet/dry divider; cables cross it through a slit TPU grommet that is a splash baffle, not watertight. The cap's TPU ring seal, pressure relief if a cell fails, and enclosed-charging temperatures are not verified: wet-test the cap, and charge with the cap off until the first enclosed charge has been checked. Umbilicals, bladder feed, LED-backpack USB and the XT60H disconnect loop exit through the cup's floor. Hardware: 6 M3 screws + 6 glued-in nuts, zip ties, glue, 1 mm foam, tape. Details in [09-printed-parts.md](09-printed-parts.md).
+**Implications:** The tube's floor (bulkhead) is the wet/dry divider; cables cross it through a slit TPU grommet that is a splash baffle, not watertight. The cap's TPU ring seal, pressure relief if a cell fails, and enclosed-charging temperatures are not verified: wet-test the cap, and charge with the cap off until the first enclosed charge has been checked. Umbilicals, bladder feed, LED-backpack USB and the XT60H disconnect loop exit through the cup's floor. Hardware: 6 M3 screws (2× M3×10 with TPU washers for the cap, 4× M3×12 for the cup) + 6 glued-in M3 nuts, zip ties, glue, tape. TPU pads, a pump mat and shim strips do the job foam would have done. Details in [09-printed-parts.md](09-printed-parts.md).
 
 ---
 
@@ -534,19 +536,35 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME plunger) in PETG, with TPU for the cap ring, the two grommet halves, the PRIME boot and the cap-screw washers; plus the fit coupon, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×4 in PETG.
+**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA, with TPU for the cap ring, the two grommet halves, the PRIME boot, the PRIME plunger, the cap-screw washers, the battery pads, the pump mat and the shim strips; plus the fit coupon, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×4 in ASA (PETG also works for those older parts).
 
 **Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (OpenSCAD sources and STL files provided).
 
-**Implications:** Nothing needs supports. Print the fit coupon first and set the cell-bore and XT30U clearances from it, then the cell holders and slide clamps, then the stick parts and bricks. Use a light-coloured PETG for the cap so the LEDs show through. See [hardware/printed/README.md](../hardware/printed/README.md).
+**Implications:** Nothing needs supports. Print the four fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt and nut coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 23 STLs in all, including three stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
+
+---
+
+**Decision:** ASA instead of PETG for the rigid printed parts (Joey, 2026-10-15). ASA is fine for this build.
+
+**Why:** ASA holds its shape at about 100 C, against about 80 C for PETG, which helps in a hot bag or in sun. Nothing in the design needs PETG, and the TPU parts are unaffected.
+
+**Implications:** Print the tall parts on the enclosed K2 Plus; the open-frame A1 (Bambu lists ASA as not recommended on it) is for TPU and the small ASA parts only, with a brim and draft shield. ASA shrinks about 0.5-0.7% (PETG about 0.3%), so re-run the fit coupon in ASA before the stick. ASA-to-ASA joints bond better with acetone than CA; heat-stake the PCB pins briefly at 250-280 C; ASA is more brittle, so don't over-torque the M3 screws; ventilate the print room. Details in the *Printing in ASA* section of the print guide.
+
+---
+
+**Decision:** TPU cushions replace the 1 mm EVA foam (Joey, 2026-10-15).
+
+**Why:** Printed TPU parts are repeatable and can be reprinted; foam has to be cut and glued by hand.
+
+**Implications:** Parts 36 (two compliant battery pads that click onto the cap's ribs, about 0.6 mm of compression; a solid TPU block would be stiffer than the cap plate and would not take up tolerance), 37 (a 2 mm pump mat under the G528, with eight 6 mm holes over the floor drains and drain grooves underneath) and 38 (a set of six 5 × 30 mm shim strips, 0.6, 1.0 and 1.5 mm thick, to cut and tuck where a board rattles). The EVA foam on hand is not needed for this build.
 
 ---
 
 **Decision:** Printers: Creality K2 Plus (350³ mm) and Bambu Lab A1 (256³ mm), both owned by Joey.
 
-**Why:** Both fit every stick part (the tallest, the tube, is 139 mm). A1 is faster for small parts.
+**Why:** Both fit every stick part (the tallest, the tube, is 159 mm). The K2 Plus is enclosed, which ASA needs for tall parts; the A1 is open-frame and faster for small parts.
 
-**Implications:** Stick parts on either printer. Small parts (coupon, clamps, bricks, plunger) and all TPU parts on the A1.
+**Implications:** Tube, cap, sled, cup and the cell holders on the K2 Plus (enclosed, for ASA). Small parts (clamps, bricks, bezel, skirt) and all TPU parts on the A1; the bezel and skirt are ASA, so use a brim and a draft shield.
 
 ---
 
@@ -574,4 +592,4 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Word count:** ~5,300 words, 69 final design decisions organized across nine domains. Each decision includes final state (one line), rationale with numbers and sources, and implications for building and field use.
+**Word count:** ~5,300 words, 71 final design decisions organized across nine domains. Each decision includes final state (one line), rationale with numbers and sources, and implications for building and field use.

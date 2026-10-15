@@ -107,8 +107,8 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 **Terminals:** M6 threaded studs (6 mm hole), not solder terminals  
 **Dimensions (measured 2026-10-14):** 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick, plate holes 1¼ in apart. The listing's 72 × 48 × 44 mm was wrong: it's longer (102 vs 72 mm) but slimmer.  
 **Form:** Inline type: studs at both ends, and a square plate in the middle carrying a red reset lever and a red push-to-trip button.  
-**Location:** Stands upright behind the sled's cross panel with its controls facing the right wall, 2 mm behind a 34 × 40 mm window covered by a glued TPU membrane, so you can trip or reset it through the wall. It hangs by zip ties through its two plate holes and slots in the spine.  
-**OFF switch:** Pressing the trip button through the membrane turns off the bucks, PCB, voltmeter and guns. For storage, unplug the XT60H loop (the full battery disconnect, outside below the stick). The BMS stays on the battery either way.
+**Location:** Stands upright behind the sled's cross panel, 2 mm from the outer wall, with a wire channel between it and the spine. It hangs by zip ties through its two plate holes and tall slots in the spine. The tube walls are solid, so its controls are only reachable with the sled out.  
+**OFF switch:** Unplug the XT60H loop below the stick (open the bag to reach it). That turns off the bucks, PCB, voltmeter and guns, and it's also the full battery disconnect for storage. The BMS stays on the battery either way.
 
 **Wiring:** The breaker is in the **+ line only**. No negative wire goes to it.
 - Battery positive from BMS P+ → M6 stud via 12 AWG red silicone wire fitted with M6 closed-ring terminal
@@ -117,7 +117,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 **Ring terminals:** Use **SC10-6** copper ring lugs (10 mm² barrel, M6 hole, specified for 12 AWG wire). **Solder-fill the barrel** to eliminate crimp-only failures and improve current distribution. **Do NOT** solder wire directly to breaker studs—excessive heat risks damaging breaker internals and causes fatigue failures under load cycling. Procedure: solder 12 AWG wire into the ring barrel (away from the stud connection), allow solder to cool, then bolt the filled ring under breaker nut with strain relief.
 
-**Reset procedure:** Work the red reset lever through the TPU membrane in the stick's right wall (no need to open the cap). Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
+**Reset procedure:** A trip means a real fault (a short, a jammed motor), so find the cause first. Take the cap off (2 screws), lift the sled out (leave enough wiring slack for that) and work the red reset lever. Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
 
 ---
 
@@ -185,7 +185,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - Three additional mechanical elements bundled inside 8–10 mm PET braided sleeve:
   - One 3.5 mm ID × 5.5 mm OD silicone tube (fluid line to gun nozzles)
   - One 4 mm paracord or Dyneema cord (load-bearing tether, rated for gun drop)
-  - A printed umbilical brick at each end (PETG)
+  - A printed umbilical brick at each end (ASA or PETG)
 
 **Strain relief:** XT30 connectors soldered with generous heat-shrink wrap, then strapped with a zip tie into the open-top pocket of the umbilical brick at each end. The paracord ties through the brick, so the load path transfers mechanical stress to paracord, not wire (wire carries power only). Tether prevents damage if gun is dropped during event.
 

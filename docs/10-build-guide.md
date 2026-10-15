@@ -13,8 +13,8 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - Hot-water bath or heat gun (for hose warm-stretching)
 - Narrow 2.5 mm zip ties
 - Electrical tape, electrical shrink tubing
-- 3D printer (Creality K2/Bambu A1), PETG and TPU filament
-- Printed-part hardware: 6× M3 screws (2× M3×10, 4× M3×12) + 6 nuts glued in, glue (CA/hot glue/silicone), a strip of 1 mm foam, a long narrow screwdriver, and a 2 mm screwdriver for the trimmers
+- 3D printer (Creality K2 Plus for the tall ASA parts, Bambu A1 for small parts and TPU), ASA and TPU filament (PETG also works for the older cell holders, clamps and bricks); see *Printing in ASA* in the [print guide](../hardware/printed/README.md)
+- Printed-part hardware: 6× M3 screws (2× M3×10, 4× M3×12) + 6 M3 nuts (4 in the bulkhead's hex pockets, 2 in the cap's slots) glued in, glue (CA/hot glue/neutral-cure silicone; acetone for ASA-to-ASA joints), clear hot glue or UV resin for the LED windows, scissors for the TPU shim strips, a long narrow screwdriver, and a 2 mm screwdriver for the trimmers
 
 **Build order to 2026-10-29:**
 1. **Now:** check or buy the PCB THT parts (no purchase record). Get written the target festival approval. Bench-test Buck A (<5.25 V under load) and the pump (marked 6 V, <0.3 A at 5 V). Incoming inspection and cell matching.
@@ -149,7 +149,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 24. **COB LED strip 5V 2 m ice-blue** (KISUFU Lighting, [price]) [OPTIONAL]
     - For Tracer cosplay side panel; NOT part of bubble system
 
-**Other measured parts (2026-10-14):** BMS 2½ × 1⅞ × ¼ in; ACS758 module 1½ × ~¾ × ⅛ in; USB-C charger 1½ in (plug direction) × 11/16 × ⅜ in; voltmeter bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm). **Measure the voltmeter's idle current once** with a multimeter on the mA range (unmeasured; small LED meters typically draw tens of mA).
+**Other measured parts (2026-10-14):** BMS 2½ × 1⅞ × ¼ in; ACS758 module 1½ × ~¾ × ⅛ in; USB-C charger 1½ in (plug direction) × 11/16 × ⅜ in, receptacle centred on the 17.5 mm short side (confirmed by Joey, 2026-10-15); voltmeter bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm). **Measure the voltmeter's idle current once** with a multimeter on the mA range (unmeasured; small LED meters typically draw tens of mA).
 
 **Mark any missing or incorrect variants in an "Incoming Issues" list; do NOT proceed with assembly until verified.**
 
@@ -157,9 +157,9 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 
 Follow the print order in [hardware/printed/README.md](../hardware/printed/README.md):
 
-1. Print the **fit coupon** first. Pick the tightest cell ring a 25R slides into by hand and the snug XT30U pocket, set `cell_bore` and `fit_clear` in `src/params.scad`, and rebuild the STLs with `build.sh`.
-2. Print the **cell holders** (MID and TERM) and the **slide clamps** (×3).
-3. Print the **stick parts** (tube, cap, sled, cup, PRIME plunger) in PETG and the TPU parts (cap ring, grommet halves, PRIME boot, two screw washers), then the **umbilical bricks** (×4). Use a light-coloured PETG for the cap so the LEDs show through. Nothing needs supports.
+1. Print the four **fit coupons** first, in ASA: `00_fit_coupon` plus the stick's rim, skirt and nut coupons. Pick the tightest cell ring a 25R slides into by hand and the snug XT30U pocket, and check that the skirt slice drops into the rim slice with the TPU ring on and that an M3 nut presses into both hex pockets. Set `cell_bore`, `fit_clear` or `sk_c` in `src/params.scad` (or use about 100.5% slicer shrink compensation on the K2 Plus) and rebuild the STLs with `build.sh`.
+2. Print the **tube**, **sled**, **cell holders** (MID and TERM; they now have flat ends, so reprint any older ones) and the **slide clamps** (×3). Then **measure** the tube rim height (156 mm above the bulkhead plus 3 mm) and the assembled battery block (113.15 mm nominal): the coupons don't capture Z shrink. If the stack is off by more than 0.2 mm, edit `bp_ov` and rebuild only the cap and pads. Print the cap and battery pads after measuring.
+3. Print the **stick parts** (tube, cap, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA (tall parts on the K2 Plus; run the fit coupon in ASA first) and the TPU parts (cap ring, grommet halves, PRIME boot, PRIME plunger, two screw washers, two compliant battery pads, the pump mat, the shim strip set), then the **umbilical bricks** (×4). The LED windows are through-holes, so any cap colour works. Nothing needs supports.
 
 None of these parts has been test-fitted yet, so check fits as you go.
 
@@ -305,7 +305,7 @@ On the bench, hold the block together with tape or a rubber band; in the stick, 
    - Heat-shrink tubing over each XT30U connector neck
    - No sharp kinks in the hose or cable bundles
 
-5. **Voltmeter:** wire its + lead to the main positive **after the breaker** (− to BMS P−), so the breaker's trip button turns off the bucks, PCB, voltmeter and guns together. The trip button, pressed through the membrane in the stick's right wall, is the OFF switch; the XT60H loop is the full battery disconnect for storage
+5. **Voltmeter:** wire its + lead to the main positive **after the breaker** (− to BMS P−), so the meter goes off with the bucks, PCB and guns whenever the breaker trips or the power is unplugged. Unplugging the XT60H loop below the stick is the OFF switch and the full battery disconnect for storage
 
 ### 3.3 ACS758 external mounting
 
@@ -569,7 +569,7 @@ OUTLET TEE 2
    - Verify no leaks at barbs, tees, or unions (all hoses secured with narrow zip ties)
    - Apply gentle air pressure to outlet hose (slide clamp open); check valve should barely crack open
 
-8. **Close the cup:** bolt it on from below with 4× M3×12 screws through the corner columns into the nuts glued into the bulkhead's underside (you need a long, narrow screwdriver)
+8. **Close the cup:** bolt it on from below with 4× M3×12 screws through the corner columns into the 4 nuts in the bulkhead's hex pockets (fitted from the dry side before the sled went in; you need a long, narrow screwdriver)
 
 ---
 
@@ -635,7 +635,8 @@ OUTLET TEE 2
 4. **Umbilical bricks (printed, one at each end):**
    - Drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside the pocket
    - Run the 16 AWG pair and the fluid tube in their grooves, held by narrow zip ties
-   - Tie the paracord through the outer hole; the inner hole ties to the stick (pack end) or the gun (gun end)
+   - Tie the paracord through the outer hole; the inner hole ties to the gun (gun end) or, with a short loop, to a tether anchor pair in the cup's outer wall (pack end)
+   - Leave the hose and wires a little longer than the cord at both ends, so a dropped gun loads the cord, never the hose or the solder joints
    - No screws; the bricks are the strain relief (there are no separate TPU boots)
 
 ### 7.3 Gun motor rewiring
@@ -674,7 +675,7 @@ OUTLET TEE 2
 2. **Measure internal dimensions.** Nobody has measured them yet. The "~34 × 20 × 7 cm" figure that has circulated is an AI estimate of the bag's **exterior** from photos, not an internal measurement
 
 3. **Mock up with cardboard:** Cut cardboard templates for:
-   - The stick: about 99 × 78 × 207 mm, standing upright
+   - The stick: about 99.6 × 79.8 × 220 mm, standing upright
    - Fluid reservoir: 1 L + ~20% bladder material volume
 
 4. **Fit test:** Place templates inside backpack; confirm no binding or excessive gaps
@@ -685,28 +686,31 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 
 1. **Sled (slides out of the top of the tube):**
    - Battery: stands left of the spine on the base, cell axes front to back, **TERM face (pack + and −) toward the back**
-   - Breaker: stands upright right of the spine, behind the cross panel, with its reset lever and trip button facing the right wall, 2 mm behind the 34 × 40 mm window. Run one zip tie through each plate hole and the tall slot in the spine behind it. Leave about 1.5 mm under the bottom stud for its lug
-   - Breaker membrane: glue the TPU membrane over the right-wall window so you can trip and reset the breaker through the wall
-   - BMS: stands on edge in the slot along the back wall; the TERM-face leads reach it through the channel behind the spine
-   - Buck A, Buck B, ACS758: drop into the three compartments on the front of the panel and get a zip tie each. Wires to the breaker/BMS side go through the 10 × 30 mm pass at the panel's right end
+   - Breaker: stands upright right of the spine, behind the cross panel, 2 mm from the outer wall. Run one zip tie through each plate hole and the tall slot in the spine behind it. Leave about 1.5 mm under the bottom stud for its lug. The gap between the spine and the breaker is a wire channel. The tube walls are solid, so the reset lever is only reachable with the sled out: leave enough wiring slack to lift the sled out
+   - BMS: stands on edge in the slot along the back wall; the TERM-face leads reach it through the channel behind the spine. Two small posts on the base (x = 12–17 and 31–36) stop the battery sliding into the leads: route the leads clear of them; the TERM-bus leads must run above z = 10.5 mm, since the posts fill the bottom 8 mm of the lead channel
+   - Buck A, Buck B, ACS758: drop into the three compartments on the front of the panel and get a zip tie each. Wires to the breaker/BMS side go through the 8 × 30 mm pass at the panel's right end
 
 2. **Cap (control head):**
    - PCB: hangs under the cap, component side up. Push it onto the four pins and heat-stake the tips (heads under 5 mm, because J2 sits 2.7 mm from H3)
-   - PRIME: plunger in its sleeve; glue the TPU boot down around the bore
+   - PRIME: TPU plunger in its sleeve, head up. Put a thin ring of silicone around the bore, lay the boot's D-shaped flange on it (flat side toward the LEDs), then glue the ASA bezel down over the flange (acetone slurry, or CA)
+   - LEDs: once the PCB is staked, fill each 3.6 mm LED hole from the top with clear hot glue or UV resin
    - Voltmeter: body through the 29 mm hole, glued around its bezel
-   - USB-C charger: glued under the CHG window, receptacle up; its output runs to BMS P+/P− through an XT30 pair so the cap stays removable
+   - USB-C charger: presses by hand, with firm pressure, up into its pocket under the CHG window (four crush ribs grip it), receptacle against the window, plus a dab of glue; its output runs to BMS P+/P− through an XT30 pair so the cap stays removable
    - J1, J2, J3 are XH plugs; leave enough slack to lift the cap and set it beside the stick
 
 3. **Bulkhead and cup:**
-   - Cut a slit with a knife from each grommet hole to the nearest long edge and lay the cables in: both 16 AWG gun pairs, both pump leads, both 12 AWG XT60H loop wires, and the LED-backpack USB cable. Push the lower half up from the cup side and the upper half down from the dry side. It's a splash baffle, not watertight
-   - Once the wiring is final, run a thin bead of neutral-cure silicone over the grommet's top face (it peels off when you need to pull the sled)
+   - **Before the sled goes in:** drop the 4 M3 nuts into the hex pockets in the bulkhead floor from the dry side and lock each with a dab of CA or silicone. The M3×12 cup screws then go up from below through the cup columns and thread fully through these nuts
+   - Cut a slit with a knife from each grommet hole to the nearest long edge and lay the cables in: both 16 AWG gun pairs, both pump leads, both 12 AWG XT60H loop wires, and the LED-backpack USB cable. Hold the ASA drip skirt's lip against the bulkhead's underside, push the lower half up through it from the cup side, and the upper half down from the dry side
+   - Once the wiring is final, fill the grommet's whole top face with neutral-cure silicone, worked around each cable (it peels off when you need to pull the sled)
+   - Tie each pack-end umbilical brick's inner hole with a short paracord loop through a tether anchor pair in the cup's outer wall; leave the hose and wires to the brick longer than the loop
+   - Jostle-proofing: hot glue on the J1–J3 XH plugs after a final test, tape or a zip tie around each mated XT30/XT60, a zip tie within 2–3 cm of every solder joint, the TPU pump mat under the pump (strapped down with zip ties across the pocket), and a slack loop on each hose in the cup
    - Give every cable a drip loop below the cup, so water runs off the low point rather than up the cable
    - Umbilicals leave through the cup floor's two 13 mm holes; the bladder feed, LED-backpack USB and XT60H loop use the 20 mm service hole
    - The XT60H pair and the USB plug end up in the wet zone below the stick: wrap them in a bag or heat-shrink
 
 4. **Close the stick:**
-   - Add 1 mm foam to the cap's two ribs; they press the cell holders and pin the sled onto the bulkhead
-   - Stretch the TPU ring into the cap skirt's groove. Fit the cap, then 2× M3×10 screws through the front and back walls, **each with a TPU washer under the head**, into the nuts glued in the cap's slots
+   - Click a TPU battery pad onto the end of each of the cap's two ribs (its bead snaps into the rib's groove; a dab of hot glue is only a backup). If the cap closes with the pads loose, put a 0.6 mm shim strip under a pad; the ribs press the cell holders and pin the sled onto the bulkhead. Tuck TPU shim strips into any pocket where a board rattles (0.6 and 1.0 mm for the BMS slot and buck/ACS758 pockets), against a component-free board edge, and keep the zip tie
+   - Stretch the TPU ring into the cap skirt's groove. Fit the cap, then 2× M3×10 screws through the front and back walls, **each with a TPU washer under the head**, into the M3 nuts glued into the slots behind the cap's skirt. Snug is enough; ASA cracks if over-torqued. Press the cap down while tightening so the screw holes' slack doesn't eat the pad preload
    - To get the cap off, lever it up with a flat screwdriver in the notch on the left edge
 
 5. **In the bag:**
@@ -743,8 +747,8 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 - [ ] All solder joints cold and solid (no joint movement with probe)
 - [ ] Pump inlet and outlet NOT kinked or occluded
 - [ ] XT30U connectors fully seated and latched
-- [ ] Breaker armed (reset lever worked through the membrane in the right wall); the trip button through the same membrane is the OFF switch
-- [ ] PRIME plunger in the cap works (or prime with a trigger pull)
+- [ ] Breaker armed (reset lever ON, checked with the sled out before closing the stick); the XT60H loop below the stick is the OFF switch
+- [ ] PRIME works with a deliberate fingertip press inside the bezel, and a flat palm or a strap across the cap doesn't trigger it
 - [ ] Donor guns verified for motor movement and tubing inlet patency
 - [ ] Fluid solution mixed (1 part JOYFY concentrate + 9 parts water in 1L container)
 
@@ -850,8 +854,9 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 2. **Dance simulation:**
    - Wear backpack and move for 2–3 minutes (jumping, turning, arm swinging)
    - Monitor for vibration/noise from internal components
-   - No rattle from the sled inside the tube (the cap's foam-padded ribs should pin it)
+   - No rattle from the sled inside the tube (the cap's TPU-padded ribs should pin it)
    - No cable strain at the umbilical bricks
+   - Tug each gun hard: the paracord goes taut while the hose and wires stay slack
 
 3. **Hose head-height test (if applicable):**
    - Raise gun intake barb 5 feet above reservoir surface
@@ -927,7 +932,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 - [ ] Backpack weight balanced and comfortable (tested for 5+ minutes wear)
 - [ ] Umbilical connectors accessible for quick gun swap in field
 - [ ] Spare bubble solution concentrate on hand (1× 32 oz bottle supports ~10 refills)
-- [ ] Breaker tripped and reset through the membrane: tripping it turns off the bucks, PCB, voltmeter and guns (it's the OFF switch)
+- [ ] XT60H loop unplugged with the stick closed: the bucks, PCB, voltmeter and guns all go off (it's the OFF switch)
 - [ ] Voltmeter idle current measured once with a multimeter; XT60H loop unplugged whenever the pack is stored
 - [ ] Conformal coating applied (optional; skip if field repair access needed)
 - [ ] Documentation (this build guide, test results, calibration notes) stored digitally or on paper

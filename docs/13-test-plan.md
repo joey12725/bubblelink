@@ -259,20 +259,20 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ---
 
-### Test 3.3: OFF Switch Through the Membrane, and Idle Draw
+### Test 3.3: OFF via the XT60H Loop, and Idle Draw
 
-**Objective:** Confirm the breaker's trip button, pressed through the TPU membrane in the stick's right wall, works as the OFF switch, and measure the voltmeter's idle current (not yet measured).
+**Objective:** Confirm that unplugging the XT60H loop below the stick works as the OFF switch, and measure the voltmeter's idle current (not yet measured). The breaker has no wall window; its controls are only reachable with the sled out.
 
 **Procedure:**
-1. With the stick closed and the XT60H loop plugged in, press the trip button through the membrane
-2. Confirm everything downstream goes off: the voltmeter goes dark, the PCB's POWER LED goes out (Buck A off), the LED backpack goes off (Buck B off), and the guns don't fire
-3. Work the reset lever through the membrane and confirm everything comes back
-4. **Voltmeter idle current:** with a multimeter on the mA range in series with the voltmeter's + lead, read its draw. Small LED meters typically draw tens of mA
-5. Unplug the XT60H loop and confirm nothing downstream is live (that's the full battery disconnect for storage; the BMS stays on the battery either way)
+1. With the stick closed, the breaker armed and the XT60H loop plugged in, confirm the voltmeter, the PCB's POWER LED and the LED backpack are on
+2. Open the bag and unplug the XT60H loop below the stick
+3. Confirm everything downstream goes off: the voltmeter goes dark, the PCB's POWER LED goes out (Buck A off), the LED backpack goes off (Buck B off), and the guns don't fire. That's also the full battery disconnect for storage; the BMS stays on the battery either way
+4. Plug the loop back in and confirm everything comes back
+5. **Voltmeter idle current:** with a multimeter on the mA range in series with the voltmeter's + lead, read its draw. Small LED meters typically draw tens of mA
 
 **Acceptance criteria:**
-- [ ] Trip button and reset lever both work through the membrane, with the cap on
-- [ ] Tripping turns off the bucks, PCB, voltmeter and guns (the voltmeter is wired after the breaker)
+- [ ] Unplugging the XT60H loop with the stick closed turns off the bucks, PCB, voltmeter and guns
+- [ ] Everything comes back when the loop is plugged in again
 - [ ] Voltmeter idle current recorded
 
 **Data logged:**
@@ -653,7 +653,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 **Objective:** Check that the stick's dry tube stays dry. The cap's TPU ring is a starting geometry for a seal, not a proven one, and the bulkhead grommet is only a splash baffle.
 
 **Procedure:**
-1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU washers. The RV1/RV2 windows are taped and the PRIME boot is glued down
+1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU washers (each screw should pass fully through its nut; snug, not over-torqued). The RV1/RV2 windows are taped, the LED holes are filled with clear glue, and the PRIME boot is clamped under its glued bezel
 2. Splash and spray water over the cap and the outside of the tube, as rain or spilled solution would in use (no submersion)
 3. Pour a little water into the cup and confirm it drains through the cup floor
 4. Open the cap and check the dry side (cap underside, PCB, sled, top of the grommet) for any water
@@ -661,7 +661,8 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 **Acceptance criteria:**
 - [ ] No water inside the dry tube
 - [ ] Cup drains through its floor; no standing water around the fittings
-- [ ] Grommet top face sealed with a thin bead of neutral-cure silicone once the wiring is final; every cable has a drip loop below the cup
+- [ ] Grommet top face filled with neutral-cure silicone once the wiring is final; drip skirt fitted; every cable has a drip loop below the cup
+- [ ] Lay the closed, wet stick on each of its four sides for 5 minutes: water runs out of the down-facing wall's drains, and the dry side stays dry
 
 **Pass/Fail:** ____
 
@@ -675,7 +676,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 **Procedure:**
 1. **Backpack assembly (fully integrated):**
-   - Battery and electronics on the sled inside the stick's tube, cap screwed on (the cap's foam-padded ribs pin the sled)
+   - Battery and electronics on the sled inside the stick's tube, cap screwed on (the cap's TPU-padded ribs pin the sled)
    - PCB hung under the cap on its heat-staked pins
    - Pump strapped into its pocket in the cup
    - All hoses in place, clipped at ~1 m intervals
@@ -1011,7 +1012,8 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 ### Electrical Systems
 - [ ] Battery fully charged: 8.40 ± 0.10 V open-circuit
 - [ ] BMS balanced: voltage spread <0.05 V (cells matched)
-- [ ] Breaker tripped and reset through the membrane (Test 3.3); reset lever back to ON (armed)
+- [ ] Breaker reset lever ON (armed), checked with the sled out before the stick was closed
+- [ ] XT60H loop unplugged and replugged with the stick closed: everything goes off and comes back (Test 3.3)
 - [ ] All connectors (XT60H, XT30U, JST-XH) latched firmly; test by gentle pull
 - [ ] Controller (PCB) powered on; all three LEDs respond to PRIME
 - [ ] RV1 and RV2 calibration locked: dial positions marked
@@ -1031,7 +1033,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 - [ ] Umbilical bricks fitted at both ends of each umbilical (XT30U strapped in, paracord tied through)
 
 ### Backpack Integration
-- [ ] Sled pinned in the tube by the cap's foam-padded ribs (no rattle, no movement during shake)
+- [ ] Sled pinned in the tube by the cap's compliant TPU battery pads (no rattle, no movement during shake; shim strips in any pocket where a board moves; the cap seats fully)
 - [ ] Pump strapped into its 52 × 46 mm pocket in the cup
 - [ ] PCB hung under the cap, heat-staked on its pins (secure, no flexing); RV1/RV2 windows taped over
 - [ ] All internal hoses clipped at 1 m intervals (no dangling loops)
