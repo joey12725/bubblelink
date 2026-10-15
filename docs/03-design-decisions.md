@@ -440,7 +440,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Carrier bag is MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry unknown until measured).
 
-**Why:** Commercial, waterproof, modular. Holds the printed stick (about 99.6 × 79.8 × 220 mm, ~1.7 L) beside the 1 L reservoir. The "~34 × 20 × 7 cm" figure that circulated is an AI estimate of the exterior from photos, not an internal measurement.
+**Why:** Commercial, waterproof, modular. Holds the printed stick (about 99.6 × 77.8 × 220 mm, ~1.7 L) beside the 1 L reservoir. The "~34 × 20 × 7 cm" figure that circulated is an AI estimate of the exterior from photos, not an internal measurement.
 
 **Implications:** The bag's internal geometry is still unmeasured. The stick is self-contained, with two umbilicals leaving its bottom, so it can move to a different bag easily.
 
@@ -540,7 +540,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (OpenSCAD sources and STL files provided).
 
-**Implications:** Nothing needs supports. Print the four fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt and nut coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 23 STLs in all, including three stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
+**Implications:** Nothing needs supports. Print the four fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt and nut coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 25 STLs in all, including three stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
 
 ---
 

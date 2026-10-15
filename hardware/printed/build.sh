@@ -38,5 +38,7 @@ render 35_TPU_prime_plunger.stl       stick.scad          -D 'part="plunger"'
 render 36_TPU_battery_pad_x2.stl      stick.scad          -D 'part="batpad"'
 render 37_TPU_pump_mat.stl            stick.scad          -D 'part="pumpmat"'
 render 38_TPU_shim_strip_set.stl      stick.scad          -D 'part="shim"'
+render 39_TPU_trimmer_plug.stl        stick.scad          -D 'part="trimplug"'
+render 40_TPU_usbc_plug.stl           stick.scad          -D 'part="usbplug"'
 # Superseded by the stick, kept for reference (not built):
 #   dry_core.scad, pump_module.scad, port_insert.scad

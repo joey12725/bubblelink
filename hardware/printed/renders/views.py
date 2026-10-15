@@ -32,25 +32,24 @@ if want("1"):
             ("L", (Wi + t, 20, 112), "Dry tube", "battery + electronics on a slide-out sled"),
             ("L", (Wi + t, 4, -4), "Cup-to-tube joint", "4x M3x12, driven up from underneath"),
             ("L", (Wi + t, 20, -30), "Wet cup", "pump, 3 tees, check valve, bypass clamp"),
-            ("L", (Wi + t, 13, -47), "Tether anchor holes (2 pairs)", "the paracord takes a dropped gun's pull, not the hose or wires"),
+            ("L", (Wi + t, 13, -39), "Paracord tie-offs 1 and 2", "a hole pair per umbilical; the cord takes a dropped gun's pull (view 9)"),
             ("R", (75, 60, TOP), "Control head (cap)", "voltmeter, USB-C, LEDs, PRIME: see view 2"),
-            ("R", (49, Di + t + 1, Zt - 5.2), "Cap screw (front + back)", "M3x10 with a TPU washer"),
+            ("R", (49, Di + t + 1, Zt - 5.2), "Cap screw (front + back)", "M3x10 socket head, steel flat washer over a TPU washer"),
             ("R", (60, Di + t, -56), "Underneath: everything exits here", "2 umbilicals, bladder feed, backpack USB, and the XT60H loop (unplug it = OFF)")],
            f"1 {DOT} Fully assembled",
-           "About 100 x 80 x 220 mm (3.9 x 3.1 x 8.7 in). Stands upright beside the bladder; the hidden back faces your back.")
+           "Body about 100 x 78 x 220 mm (3.9 x 3.1 x 8.7 in); 87 mm deep across the two cap screw heads. Stands upright beside the bladder; the hidden back faces your back.")
 
 if want("2"):
     R.view("2_cap_top",
-           f'color({CAP}) cap(); color({TPU}) translate([{pxy((14.7, 12.4))[0]}, {pxy((14.7, 12.4))[1]}, {Zt + tp}]) boot(); color({CAP}) translate([{pxy((14.7, 12.4))[0]}, {pxy((14.7, 12.4))[1]}, {Zt + tp}]) bezel(); ' + INK,
+           f'color({CAP}) cap(); color({TPU}) translate([{pxy((14.7, 12.4))[0]}, {pxy((14.7, 12.4))[1]}, {Zt + tp}]) boot(); color({CAP}) translate([{pxy((14.7, 12.4))[0]}, {pxy((14.7, 12.4))[1]}, {Zt + tp}]) bezel(); color({TPU}) translate([59.9, 33.505, {Zt + tp}]) trimplug(); color({TPU}) translate([23, 55, {Zt + tp}]) usbplug(); ' + INK,
            [47, 36.5 + 60, TOP + 350, 47, 36.5, TOP],
            [("L", (21, 28, TOP), "Voltmeter (29 mm hole)", "battery voltage; the body hangs ~1 in below"),
-            ("L", (23, 55, TOP), "USB-C charge port (CHG)", "charger glued underneath; charge with the cap off at first"),
+            ("L", (23, 55, TOP + 1), "USB-C port with its TPU plug", "pull the tab to charge; the charger sits in a pocket underneath"),
             ("L", (47, Di + t, TOP), "FRONT edge", "faces away from you"),
             ("L", (47, -t, TOP), "BACK edge", "against your back"),
             ("R", pxy((0, 16.7)) + (TOP,), "Status LED windows: PWR / GUN / PUMP", "through-holes; fill with clear hot glue or UV resin"),
             ("R", pxy((14.7, 12.4)) + (TOP + 4,), "PRIME button (guarded)", "the rim sits 1 mm above the boot; press with a fingertip (view 8)"),
-            ("R", pxy((-8.7, 10.1)) + (TOP,), "RV1 window: gun-detect threshold", "tape over after calibrating"),
-            ("R", pxy((2.7, 10.1)) + (TOP,), "RV2 window: pump off-delay", "tape over after calibrating")],
+            ("R", (59.9, 27.8, TOP + 1.2), "THR + DLY plug (one TPU piece)", "closes both trimmer windows; pull the tab to reach RV1 (threshold) and RV2 (delay)")],
            f"2 {DOT} Cap top (the control panel)",
            "Looking down from the front. Engraved labels drawn paint-filled (rub in acrylic or a paint pen). The PCB hangs under the LED/PRIME area.")
 
@@ -60,7 +59,9 @@ if want("3"):
     R.view("3_cap_off_front_cutaway",
            f'color({TUBE}) {cut}; color({SLED}) sled(); color({CUP}) translate([0,0,-56]) cup(); {GROM}',
            cam(C),
-           [("L", (43, 66.9, 108), "Spine", "zip-tie slots; lead channels at both ends"),
+           [("L", (20, 40, 115.65), "What holds the sled down", "the cap's TPU pads press the battery, which clamps the sled base onto the bulkhead"),
+            ("L", (43, 66.9, 108), "Spine", "zip-tie slots; lead channels at both ends"),
+            ("L", (5, 63.2, 1.0), "Corner bosses (x4) locate the sled", "the base hugs each boss with 0.3 mm clearance, so it can't slide or twist"),
             ("L", (64, 64, 0), "Bulkhead cable grommet", "every cable drops into the cup through here"),
             ("L", (30, 72, -30), "Wet cup (drains)", ""),
             ("R", (20, 72.5, 60), "Battery bay (2S5P block stands here)", "cells front-to-back, TERM face to the back"),
@@ -70,7 +71,7 @@ if want("3"):
             ("R", (74.7, 59.9, 21), "Buck B compartment", "5 V to the LED backpack"),
             ("R", (89.5, 55.9, 30), "Wire pass", "to the breaker / BMS side")],
            f"3 {DOT} Cap off: front of the sled (front and side walls cut away)",
-           "The sled lifts straight out of the top. Dashed blue = where the battery block sits; parts aren't drawn.",
+           "The sled lifts straight out of the top. It takes no screws: bosses stop it sliding, the cap clamps it down. Dashed blue = battery.",
            outlines=[box_edges((0.5, 2.65, 2.5), (41.33, 72.5, 115.65))])
 
 if want("4"):
@@ -116,13 +117,13 @@ if want("6"):
            cam((47, 36.5, -35), (-110, 150, 430)),
            [("L", (56, 52, z + 2), "Pump pocket (52 x 46 mm)", "the G528 sits on a 2 mm TPU mat"),
             ("L", (22, 9.5, z), "Pump strap slots", "zip ties over the pump"),
-            ("L", (40, 36.5, z), "Drain holes", "plus 2 low in each side wall, so it empties when lying on any side"),
+            ("L", (40, 36.5, z + 2), "Floor drains (8, under the pump)", "plus the same 2 flush-with-floor holes centred on every wall"),
             ("L", (89, 5, -3), "Screw columns (x4)", "M3x12 driven up from below"),
             ("R", (72, 12, z), "Umbilical exit 1 (13 mm)", ""),
             ("R", (72, 32, z), "Umbilical exit 2 (13 mm)", ""),
             ("R", (79, 56, z), "Service hole (20 mm)", "bladder feed, backpack USB, XT60H loop"),
             ("R", (88, 32, z), "Fittings strip + tie slots", "3 tees, check valve, bypass clamp"),
-            ("R", (Wi, 31, z + 6), "Tether anchor holes (2 pairs)", "the pack-end brick's cord loops through")],
+            ("R", (Wi, 31, z + 14), "Paracord tie-offs 1 and 2", "the pack-end brick's cord loops through a pair (view 9)")],
            f"6 {DOT} Cup off: inside the wet chamber",
            "Everything wet lives here. It drains through the floor, and the cup comes off from below.")
 
@@ -159,3 +160,30 @@ if want("8"):
             ("R", (sx, sy + 6.6, Zt + 1.5), "Cap plate", "")],
            f"8 {DOT} PRIME button, cut in half",
            "Section through the button. The switch and board are simple placeholders.")
+
+if want("9"):
+    cutT = (f'difference() {{ tube(); translate([{Wi - 0.6}, -20, 0.01]) cube([30, 140, 200]); '
+            f'translate([-20, {Di - 0.6}, 0.01]) cube([150, 30, 200]); translate([-20, -20, 92]) cube([150, 150, 100]); }}')
+    cutC = f'difference() {{ translate([0,0,-56]) cup(); translate([-20, {Di - 0.6}, -60]) cube([150, 30, 70]); }}'
+    tz = -56 + 3 + 14                  # paracord tie-off height (cup tf + 14)
+    RED, ORA, YEL = (214, 40, 40), (240, 140, 20), (215, 180, 0)
+    xo = Wi + t + 1.5
+    g1 = [(53, 58, 40), (54, 61, 30), (54, 61, 3), (54, 61, -8), (70, 16, -44), (72, 12, -56), (72, 12, -80)]
+    g2 = [(60, 58, 40), (63.5, 61, 30), (63.5, 61, 3), (63.5, 61, -8), (71, 34, -44), (72, 32, -56), (72, 32, -80)]
+    c1 = [(80, 9, -80), (xo, 13, tz - 3), (xo, 13, tz), (xo, 25, tz), (xo, 25, tz - 3), (80, 15, -80)]
+    c2 = [(80, 29, -80), (xo, 31, tz - 3), (xo, 31, tz), (xo, 43, tz), (xo, 43, tz - 3), (80, 35, -80)]
+    R.view("9_gun_power_and_paracord",
+           f'color({TUBE}) {cutT}; color({SLED}) sled(); color({CUP}) {cutC}; {GROM} '
+           f'color("cyan", 0.5) ghost(6);',
+           cam((58, 36.5, -8), (300, 380, 236)),
+           [("L", (57, 58, 60), "ACS758 (current sensor)", "battery + > breaker > ACS758, then it splits into the two gun channels"),
+            ("L", (60, 61, 1), "Cable grommet", "both 16 AWG gun pairs cross the bulkhead here"),
+            ("L", (70, 16, -44), "Gun 1 power (red), gun 2 power (orange)", "16 AWG pairs: + from the ACS758 split, - from BMS P-. Gun current never touches the PCB"),
+            ("L", (72, 32, -56), "Exits 1 and 2 (13 mm)", "numbers engraved on the underside"),
+            ("L", (72, 30, -85), "Pack-end umbilical bricks", "XT30U disconnect strapped in each; hose, 16 AWG pair and cord go on to the gun"),
+            ("R", (xo, 19, tz), "Paracord tie-off 1 (yellow)", "in one hole, out the other, around the 7 mm web; knot and melt the ends"),
+            ("R", (xo, 37, tz), "Paracord tie-off 2", "the same, beside exit 2; '1' and '2' are engraved above the pairs")],
+           f"9 {DOT} Gun power and paracord routing",
+           "Front and outer walls cut away, top of the tube hidden. Lines show routes; hoses not drawn. The cord goes tight before the wires or hose.",
+           outlines=[box_edges((64, 4, -92), (82, 18, -80)), box_edges((64, 26, -92), (82, 40, -80))],
+           paths=[(RED, g1), (ORA, g2), (YEL, c1), (YEL, c2)])

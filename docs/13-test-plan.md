@@ -653,7 +653,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 **Objective:** Check that the stick's dry tube stays dry. The cap's TPU ring is a starting geometry for a seal, not a proven one, and the bulkhead grommet is only a splash baffle.
 
 **Procedure:**
-1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU washers (each screw should pass fully through its nut; snug, not over-torqued). The RV1/RV2 windows are taped, the LED holes are filled with clear glue, and the PRIME boot is clamped under its glued bezel
+1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU and flat washers (each screw should pass fully through its nut; snug, not over-torqued). The RV1/RV2 windows are closed with the TPU trimmer plug, the USB-C port with its plug, the LED holes are filled with clear glue, and the PRIME boot is clamped under its glued bezel
 2. Splash and spray water over the cap and the outside of the tube, as rain or spilled solution would in use (no submersion)
 3. Pour a little water into the cup and confirm it drains through the cup floor
 4. Open the cap and check the dry side (cap underside, PCB, sled, top of the grommet) for any water
@@ -1035,7 +1035,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 ### Backpack Integration
 - [ ] Sled pinned in the tube by the cap's compliant TPU battery pads (no rattle, no movement during shake; shim strips in any pocket where a board moves; the cap seats fully)
 - [ ] Pump strapped into its 52 × 46 mm pocket in the cup
-- [ ] PCB hung under the cap, heat-staked on its pins (secure, no flexing); RV1/RV2 windows taped over
+- [ ] PCB hung under the cap, heat-staked on its pins (secure, no flexing); RV1/RV2 windows closed with the TPU trimmer plug; USB-C plug fitted when not charging
 - [ ] All internal hoses clipped at 1 m intervals (no dangling loops)
 - [ ] Loaded weight felt comfortable (wear for 2 minutes; feedback: ___________)
 - [ ] Umbilicals leave from the bottom of the stick with drip loops below the cup; no interference with arm movement

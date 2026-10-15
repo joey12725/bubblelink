@@ -23,7 +23,7 @@ The BubbleLink system integrates five major subsystems:
 - **Fluid Delivery:** 1 L hydration bladder, GROTHEN G528 6 V pump, low-pressure recirculation loop, two gun channels with four-foot hoses.
 - **Control Electronics:** BubbleLink CTRL v1.2 PCB (50 × 40 mm), ACS758 external current sensor, three status LEDs, adjustable pump delay.
 - **Gun Outputs:** Two XT30U power connectors on independent 16 AWG branches, supporting dual bubble-gun heads simultaneously.
-- **Mechanical Integration:** One printed upright "stick" (about 99.6 × 79.8 × 220 mm) beside the bladder inside the MAX LED backpack: a control-head cap over a sealed dry tube (battery and electronics on a slide-out sled) over a draining wet cup (pump and fittings). Printed umbilical bricks give strain relief at both ends of each umbilical. See [09-printed-parts.md](09-printed-parts.md).
+- **Mechanical Integration:** One printed upright "stick" (about 99.6 × 77.8 × 220 mm) beside the bladder inside the MAX LED backpack: a control-head cap over a sealed dry tube (battery and electronics on a slide-out sled) over a draining wet cup (pump and fittings). Printed umbilical bricks give strain relief at both ends of each umbilical. See [09-printed-parts.md](09-printed-parts.md).
 
 ---
 
@@ -219,7 +219,7 @@ Outlet tee 2
 - **LEDs:** POWER (always on), GUN ACTIVE (detection), PUMP (pump running); they shine through glue-filled 3.6 mm through-holes in the cap
 - **SW1 (PRIME button):** Momentary switch for manual pump trigger (testing, priming); pressed through a TPU plunger under a TPU boot in the cap; a guard bezel prevents accidental presses and the plunger hard-stops on the cap after 0.75 mm
 
-In the stick, the PCB hangs component-side up under the cap, heat-staked onto four printed pins. RV1 and RV2 adjust through two small tape-covered windows in the cap.
+In the stick, the PCB hangs component-side up under the cap, heat-staked onto four printed pins. RV1 and RV2 adjust through two small windows in the cap, closed by one TPU plug (pull it to adjust, push it back in).
 
 **Board Specifications:**
 - Size: 50 × 40 mm, two-layer FR-4, 1 oz copper, lead-free HASL
@@ -414,7 +414,7 @@ Each gun receives a four-foot "umbilical" bundle containing:
 **Container:** MAX LED "M Style" Bluetooth LED pixel backpack (internal geometry to be measured)
 - The printed stick and the 1 L reservoir stand side by side inside
 
-**Layout (the stick, about 99.6 × 79.8 × 220 mm, standing upright beside the bladder):**
+**Layout (the stick, about 99.6 × 77.8 × 220 mm, standing upright beside the bladder):**
 - **Back:** The stick's back goes against the wearer's back
 - **Battery:** Left of the sled's spine at the top of the dry side, the highest and driest spot, so the heavy part rides high
 - **Electronics:** On the sled beside the battery; PCB hung under the cap
@@ -438,9 +438,9 @@ Everything except the bladder is one printed upright stick. CAD is in `hardware/
 
 1. **Cap (control head)**
    - CTRL v1.2 PCB hangs under it, component side up, heat-staked onto four pins
-   - LEDs shine through 3.6 mm through-holes filled with clear hot glue or UV resin; PRIME is a guarded, hard-stopped TPU plunger under a TPU boot; RV1/RV2 adjust through two tape-covered windows; the USB-C charger sits in a pocket under its window
+   - LEDs shine through 3.6 mm through-holes filled with clear hot glue or UV resin; PRIME is a guarded, hard-stopped TPU plunger under a TPU boot; RV1/RV2 adjust through two windows closed by one TPU plug; the USB-C charger sits in a pocket under its window, and a TPU plug closes the port between charges
    - Voltmeter (29.2 mm hole) and USB-C charge port (charger glued under the CHG window) on top
-   - A TPU ring seals radially against the tube; 2× M3×10 screws (TPU washer under each head, M3 nut in a slot behind the skirt) keep it on
+   - A TPU ring seals radially against the tube; 2× M3×10 screws (TPU washer and M3 flat washer under each head, M3 nut in a slot behind the skirt) keep it on
 
 2. **Tube and sled (dry section)**
    - The sled slides out of the top. The 2S5P block stands beside a central spine, cell axes front to back, TERM face toward the back
@@ -456,8 +456,8 @@ Everything except the bladder is one printed upright stick. CAD is in `hardware/
 4. **Cup (wet chamber)**
    - Pump on a 2 mm TPU mat in a 52 × 46 mm pocket, strapped down; three tees, the 4 mm check valve and the bypass slide clamp strapped to the floor slots
    - Bolts on from below with 4× M3×12 into M3 nuts dropped into hex pockets in the bulkhead from the dry side (pulling on the cup seats them, it can't pull them out)
-   - Drains through its floor and two low holes in each side wall, so it empties whichever side it lies on
-   - Two pairs of tether anchor holes in the outer wall take the umbilical paracord loads
+   - Drains through its floor and the same pair of 4 mm holes in every wall, so it empties whichever side it lies on
+   - Two pairs of paracord tie-off holes (tether anchors) in the outer wall, numbered 1 and 2 to match the umbilical exits, take the umbilical paracord loads
    - Drains through its floor
 
 5. **Umbilical Management (printed umbilical bricks)**

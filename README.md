@@ -1,6 +1,6 @@
 # BubbleLink
 
-BubbleLink is a wearable, pack-fed bubble system for festivals. A backpack carries a 1 L bubble-solution bladder and, standing beside it, one 3D-printed upright "stick" (about 99.6 × 79.8 × 220 mm, 3.9 × 3.1 × 8.7 in) that holds everything else: the 90 Wh 2S5P battery, one shared peristaltic transfer pump, and the **BubbleLink CTRL** board, a small analog PCB that runs the pump automatically whenever a gun draws current. Hand-held bubble heads (mechanisms pulled from toy bubble guns; the the target festival plan is a pair of dual-head guns) plug into two channels through umbilicals that each carry XT30U power, a silicone fluid line, and a paracord tether, and leave from the bottom of the stick.
+BubbleLink is a wearable, pack-fed bubble system for festivals. A backpack carries a 1 L bubble-solution bladder and, standing beside it, one 3D-printed upright "stick" (about 99.6 × 77.8 × 220 mm, 3.9 × 3.1 × 8.7 in) that holds everything else: the 90 Wh 2S5P battery, one shared peristaltic transfer pump, and the **BubbleLink CTRL** board, a small analog PCB that runs the pump automatically whenever a gun draws current. Hand-held bubble heads (mechanisms pulled from toy bubble guns; the the target festival plan is a pair of dual-head guns) plug into two channels through umbilicals that each carry XT30U power, a silicone fluid line, and a paracord tether, and leave from the bottom of the stick.
 
 This repo is the single source of truth for the project. It records the final design, the parts actually bought, the PCB release, and the build and test plan. It covers only what was chosen. Alternatives that were considered and dropped are left out on purpose.
 
@@ -61,7 +61,7 @@ This repo is the single source of truth for the project. It records the final de
 | [`hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay_Complete.zip`](hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay_Complete.zip) | The same release as the original ZIP |
 | [`hardware/pcb/…/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip`](hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip) | **The file to upload to a fab.** Upload this, not the outer package |
 | [`hardware/pcb/pcbway-replacement-order/`](hardware/pcb/pcbway-replacement-order/) | Replacement-order review: checked BOM/CPL, QA JSON, assembly-review images, status |
-| [`hardware/printed/`](hardware/printed/README.md) | Printed parts: OpenSCAD sources (`src/`), 23 STLs (`stl/`; rigid parts in ASA, seals and cushions in TPU), `build.sh`, and the print guide. Not yet printed or test-fitted |
+| [`hardware/printed/`](hardware/printed/README.md) | Printed parts: OpenSCAD sources (`src/`), 25 STLs (`stl/`; rigid parts in ASA, seals and cushions in TPU), `build.sh`, and the print guide. Not yet printed or test-fitted |
 
 ## Archive
 

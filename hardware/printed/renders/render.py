@@ -115,7 +115,7 @@ def box_edges(lo, hi):
             if sum(1 for k in range(3) if p[k] != q[k]) == 1]
 
 
-def view(name, body, cam, labels, title, subtitle, outlines=()):
+def view(name, body, cam, labels, title, subtitle, outlines=(), paths=()):
     img = f"{D}/_{name}.png"
     run_scad(body, cam, img)
     proj = calibrate(cam)
@@ -130,6 +130,10 @@ def view(name, body, cam, labels, title, subtitle, outlines=()):
     col = (200, 60, 30)
     for edges in outlines:
         for a, b in edges: dashed(dr, sproj(a), sproj(b), (40, 95, 210))
+    for rgb, pts in paths:   # routing lines: solid, with a white halo so they read over the model
+        q = [sproj(p) for p in pts]
+        dr.line(q, fill=(255, 255, 255), width=13, joint="curve")
+        dr.line(q, fill=rgb, width=7, joint="curve")
     for side, p, tl, dl, y, h in place(labels, sproj, 130, H + 90):
         bx0 = 24 if side == "L" else cw - MARGIN + 30
         bx1 = MARGIN - 30 if side == "L" else cw - 24

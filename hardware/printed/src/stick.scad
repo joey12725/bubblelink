@@ -31,8 +31,8 @@
 // 6x M3 nuts glued into pockets, zip ties, glue. TPU: seal ring, two
 // grommet halves, PRIME boot and plunger, two screw washers, two battery
 // pads, a pump mat and a shim set. Rigid parts are ASA (PETG also works): includes the
-// PRIME guard bezel and grommet drip skirt. Tape over the trimmer
-// slots.
+// PRIME guard bezel and grommet drip skirt. TPU plugs close the trimmer
+// windows (one plug for both) and the USB-C port.
 //
 // part = tube | cap | sled | cup | plunger | ring | boot | grommet_lo | grommet_hi |
 //        skirt | bezel | washer | batpad | pumpmat | shim | coupon_rim | coupon_skirt |
@@ -71,6 +71,7 @@ m3_clear = 3.4;
 nut_d = 5.5 / cos(30) + 0.4;   // hex pocket, across corners
 nut_h = 2.8;
 cup_screw = 12;                // M3 x 12 into the bulkhead nuts
+lw_t = 0.8;                    // M3 split lock washer under each cup screw head
 cs = [[5, 5], [Wi - 5, 5], [5, Di - 5], [Wi - 5, Di - 5]];
 
 // ------------------------------------------------------------ TPU cushions (replace foam)
@@ -264,7 +265,8 @@ module cap() {
         // trimmer windows over each 3296W screw. Per the KiCad Bourns
         // footprint the screw sits 0.955 mm beyond pin 1 (the square pad),
         // i.e. 3.5 mm from the trimmer centre on the side away from SW1.
-        // Solder RV1/RV2 with pin 1 on the square pad. Tape over afterwards.
+        // Solder RV1/RV2 with pin 1 on the square pad. One TPU plug (part 39)
+        // closes both windows afterwards.
         for (r = rv_xy) let(p = pxy(r + [-3.495, 0])) translate([p[0], p[1], Zt - 1])
             linear_extrude(tp + 2) square([5.6, 5], center = true);
         // PRIME bore
@@ -286,7 +288,7 @@ module cap_labels() {
             for (i = [0:2]) let(p = pxy(led_xy[i])) translate([p[0] - 3.4, p[1]]) rotate(180)
                 text(["PWR", "GUN", "PUMP"][i], size = 3, halign = "left", valign = "center",
                      font = "Liberation Sans:style=Bold");
-            for (i = [0:1]) let(p = pxy(rv_xy[i] + [-3.495, 0])) translate([p[0] + 4.6, p[1]]) rotate(180)
+            for (i = [0:1]) let(p = pxy(rv_xy[i] + [-3.495, 0])) translate([p[0] + 6.0, p[1]]) rotate(180)
                 text(["THR", "DLY"][i], size = 3, halign = "right", valign = "center",
                      font = "Liberation Sans:style=Bold");
             let(c = pxy(sw_xy)) translate([c[0], c[1] + 14]) rotate(180)
@@ -324,7 +326,11 @@ module sled() {
         union() {
             linear_extrude(base_t) difference() {
                 in2d(-0.5);
-                for (p = cs) translate(p - [6, 6]) square(12);   // clear the bulkhead bosses
+                // corner notches: each hugs its boss (0.3 mm) and opens out to the corner
+                for (p = cs) hull() {
+                    translate(p) circle(r = 4.8);
+                    translate([p[0] < Wi / 2 ? -2 : Wi - 3, p[1] < Di / 2 ? -2 : Di - 3]) square(5);
+                }
                 translate([gs[0] - 2.2, gs[1] - 2.2]) square([gs[2] + 4.4, gs[3] + 4.4]);
             }
             // two stops behind the battery's back face (y < 2.65) so a hard jump can't drive it into the leads;
@@ -341,7 +347,8 @@ module sled() {
             for (p = pk) pocket(p[0], p[1], p[2], p[3]);
         }
         // clear the bulkhead's corner bosses
-        for (p = cs) translate([p[0], p[1], -1]) cylinder(r = 5.5, h = base_t + 1.5);
+        // the four bulkhead bosses (r 4.5) locate the sled: 0.3 mm clearance all round
+        for (p = cs) translate([p[0], p[1], -1]) cylinder(r = 4.85, h = base_t + 1.5);
         // zip-tie slots: spine (through x) and panel (through y)
         for (y = [13 : 12 : Di - 12], z = [9 : 13 : spine_h - 6])
             translate([sx0 + ts / 2, y, z]) rotate([0, 90, 0]) cross_slot(ts + 2);
@@ -363,6 +370,7 @@ module sled() {
 // ============================================================ cup (local: floor bottom at z = 0)
 pp = [10, 13.5, pump_sz[0] + 1.2, pump_sz[1] + 1.5];   // pump pocket: x, y, w, d
 umb = [[72, 12], [72, 32]];  svc = [79, 56];
+tie_y = [19, 37];  tie_z = tf + 14;   // paracord tie-off pairs (outer wall), one per exit
 
 module cup() {
     difference() {
@@ -384,7 +392,9 @@ module cup() {
         }
         // M3 x 12 goes up from below through a deep counterbore
         for (p = cs) translate([p[0], p[1], 0]) {
-            translate([0, 0, -1]) cylinder(d = 6.6, h = tf + Hw - (cup_screw - 4.5) + 1);   // M3x12 reaches 0.7 past the nut
+            // 0.8 mm extra depth for an M3 split lock washer under the head: with it the M3x12
+            // still reaches 0.7 mm past the nut (without it, 1.5 mm past: also fine)
+            translate([0, 0, -1]) cylinder(d = 6.6, h = tf + Hw - (cup_screw - 4.5 - lw_t) + 1);
             cylinder(d = m3_clear, h = tf + Hw + 1);
         }
         // umbilical exits and service hole (bladder feed, LED-backpack USB,
@@ -394,19 +404,28 @@ module cup() {
             translate([0, 0, -0.01]) cylinder(d1 = d + 2, d2 = d, h = 1);
             translate([0, 0, tf - 0.99]) cylinder(d1 = d, d2 = d + 2, h = 1);
         }
-        // umbilical tether anchors: two pairs of holes low in the outer wall
-        // near the exits. Loop the pack-end brick's inner cord through a
-        // pair, so a dropped gun pulls on the cup (and its four screws), not
-        // on the hose or the solder joints.
-        for (yc = [19, 37], s = [-1, 1]) translate([Wi - 1, yc + s * 6, tf + 6])
+        // umbilical tether anchors (paracord tie-off): two pairs of 5 mm holes in the
+        // outer wall, one pair beside each umbilical exit, 17 mm up so they can't be
+        // mistaken for drains. Loop the pack-end brick's inner cord in one hole and out
+        // the other, around the 7 mm web between them, so a dropped gun pulls on the cup
+        // (and its four screws), not on the hose or the solder joints. "1" and "2" are
+        // engraved above each pair to match the exits.
+        for (yc = tie_y, s = [-1, 1]) translate([Wi - 1, yc + s * 6, tie_z])
             rotate([0, 90, 0]) cylinder(d = 5, h = t + 2);
-        // side drains: one pair low in each of the other three walls, so
-        // when the pack lies on its side the cup empties through the
-        // down-facing wall instead of pooling up to the grommet (the outer
-        // wall's tether holes do this job on that side)
-        for (x = [30, 75], y = [-t - 1, Di - 1]) translate([x, y, tf + 2.5])
+        for (k = [0, 1]) translate([Wi + t - 0.6, tie_y[k], tie_z + 9]) rotate([90, 0, 90])
+            linear_extrude(1) text(str(k + 1), size = 6, halign = "center", valign = "center",
+                                   font = "Liberation Sans:style=Bold");
+        // side drains: the same pair on all four walls (centred on each wall, flush with
+        // the floor), so whichever face the pack lies on, the cup empties instead of
+        // pooling up to the grommet
+        for (x = [Wi / 2 - 25, Wi / 2 + 25], y = [-t - 1, Di - 1]) translate([x, y, tf + 2])
             rotate([-90, 0, 0]) cylinder(d = 4, h = t + 2);
-        for (y = [25, 50]) translate([-t - 1, y, tf + 2.5]) rotate([0, 90, 0]) cylinder(d = 4, h = t + 2);
+        for (y = [Di / 2 - 20, Di / 2 + 20], x = [-t - 1, Wi - 1]) translate([x, y, tf + 2])
+            rotate([0, 90, 0]) cylinder(d = 4, h = t + 2);
+        // exit numbers engraved on the underside, next to each umbilical exit
+        for (k = [0, 1]) translate([umb[k][0] + 11, umb[k][1], -0.01]) mirror([1, 0, 0])
+            linear_extrude(0.6) text(str(k + 1), size = 6, halign = "center", valign = "center",
+                                     font = "Liberation Sans:style=Bold");
         // drains under the pump: a row down the middle, plus the four pocket corners
         for (x = [20 : 10 : 55]) translate([x, Di / 2, -1]) cylinder(d = 4, h = tf + 2);
         for (x = [16, 56], y = [pp[1] + 6, pp[1] + pp[3] - 6]) translate([x, y, -1]) cylinder(d = 4, h = tf + 2);
@@ -525,6 +544,42 @@ module emboss() {
         }
 }
 
+// TPU trimmer plug: ONE plug closes both the RV1 (THR) and RV2 (DLY) windows. A 1.2 mm
+// plate sits on the cap top with two square plugs (0.1 mm interference per side) pushed
+// 2.6 mm into the windows, and a pull tab toward the BubbleLink label. Printed plate-down.
+// Modelled with its origin at the cap's top surface, centred between the two windows.
+rv_win = [5.6, 5];
+rv_c = [for (r = rv_xy) pxy(r + [-3.495, 0])];             // window centres (stick x, y)
+rv_mid = (rv_c[0] + rv_c[1]) / 2;
+rv_span = abs(rv_c[1][1] - rv_c[0][1]);                    // 11.4 mm, along stick y
+module trimplug() {
+    w = rv_win[0] + 2;  l = rv_span + rv_win[1] + 2;
+    linear_extrude(1.2) hull() {
+        translate([-w / 2, -l / 2]) rr(w, l, 1.5);
+        translate([0, -l / 2 - 3]) circle(r = 2.2);          // pull tab (toward -y)
+    }
+    for (sy = [-1, 1]) translate([0, sy * rv_span / 2, 0]) mirror([0, 0, 1]) hull() {
+        translate([0, 0, -0.01]) linear_extrude(2.2) square(rv_win + [0.2, 0.2], center = true);
+        linear_extrude(2.6) square(rv_win - [0.6, 0.6], center = true);   // lead-in
+    }
+}
+// TPU USB-C plug: fills the CHG counterbore and the window through the 0.8 mm web, so grit
+// and spray stay out of the port when you're not charging. Nothing enters the receptacle
+// itself (its centre tongue sits right behind the mouth). Pull tab
+// toward -y (away from the CHG label). Origin at the cap's top surface.
+module usbplug() {
+    cb = usb_cbore + [0.2, 0.2];                             // 0.1 mm interference per side
+    translate([0, 0, 0]) linear_extrude(1.0) hull() {
+        offset(2.6) square(cb - [5.2, 5.2], center = true);
+        translate([0, -cb[1] / 2 - 3.5]) circle(r = 2.2);
+    }
+    mirror([0, 0, 1]) {
+        linear_extrude(tp - usb_web) offset(2.6) square(cb - [5.2, 5.2], center = true);
+        translate([0, 0, tp - usb_web - 0.01]) linear_extrude(usb_web + 0.01)
+            offset(1.6) square(usb_win - [3.2, 3.2], center = true);          // through the web
+    }
+}
+
 // TPU seal ring: stretches over the skirt into the groove
 module ring() {
     linear_extrude(ring_h) difference() { in2d(ring_sq); in2d(-sk_c - gr_d); }
@@ -600,6 +655,8 @@ else if (part == "washer") washer();
 else if (part == "batpad") batpad();
 else if (part == "pumpmat") pumpmat();
 else if (part == "shim") shim();
+else if (part == "trimplug") translate([0, 0, 1.2]) rotate([180, 0, 0]) trimplug();
+else if (part == "usbplug") translate([0, 0, 1.0]) rotate([180, 0, 0]) usbplug();
 else if (part == "none") {}
 // Fit coupons for the stick in the real filament (ASA shrinks more than PETG): a 19 mm slice of the
 // tube rim (16 mm below the rim + the bulkhead offset), the matching slice of the cap skirt (groove, ring land, screw slot), and a bulkhead corner
@@ -646,5 +703,7 @@ module installed_tpu() {
     color("black") {
         for (y = bp_y) translate([bat[0] + 3 + 0.2, y - 1.35, bat_top - bp_ov]) batpad();
         translate([pp[0] + 0.2, pp[1] + 0.2, -tb - Hw]) pumpmat();
+        translate([rv_mid[0], rv_mid[1], Zt + tp]) trimplug();
+        translate([usb_xy[0], usb_xy[1], Zt + tp]) usbplug();
     }
 }

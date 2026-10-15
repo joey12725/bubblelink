@@ -14,7 +14,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - Narrow 2.5 mm zip ties
 - Electrical tape, electrical shrink tubing
 - 3D printer (Creality K2 Plus for the tall ASA parts, Bambu A1 for small parts and TPU), ASA and TPU filament (PETG also works for the older cell holders, clamps and bricks); see *Printing in ASA* in the [print guide](../hardware/printed/README.md)
-- Printed-part hardware: 6× M3 screws (2× M3×10, 4× M3×12) + 6 M3 nuts (4 in the bulkhead's hex pockets, 2 in the cap's slots) glued in, glue (CA/hot glue/neutral-cure silicone; acetone for ASA-to-ASA joints), clear hot glue or UV resin for the LED windows, scissors for the TPU shim strips, a long narrow screwdriver, and a 2 mm screwdriver for the trimmers
+- Printed-part hardware: 6× M3 stainless socket-head screws from the HVAKHVA kit (2× M3×10 each with an M3 flat washer over its TPU washer; 4× M3×12 each with an M3 split lock washer) + 6 M3 nuts (4 in the bulkhead's hex pockets, 2 in the cap's slots) glued in, a 2.5 mm hex key long enough to reach about 46 mm up the cup columns (no anaerobic threadlocker near ASA; a drop of CA on the screw tip is safe), glue (CA/hot glue/neutral-cure silicone; acetone for ASA-to-ASA joints), clear hot glue or UV resin for the LED windows, scissors for the TPU shim strips, and a small screwdriver for the trimmers
 
 **Build order to 2026-10-29:**
 1. **Now:** check or buy the PCB THT parts (no purchase record). Get written the target festival approval. Bench-test Buck A (<5.25 V under load) and the pump (marked 6 V, <0.3 A at 5 V). Incoming inspection and cell matching.
@@ -635,7 +635,7 @@ OUTLET TEE 2
 4. **Umbilical bricks (printed, one at each end):**
    - Drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside the pocket
    - Run the 16 AWG pair and the fluid tube in their grooves, held by narrow zip ties
-   - Tie the paracord through the outer hole; the inner hole ties to the gun (gun end) or, with a short loop, to a tether anchor pair in the cup's outer wall (pack end)
+   - Tie the paracord through the outer hole; the inner hole ties to the gun (gun end) or, with a short loop, to a paracord tie-off pair in the cup's outer wall (pack end; pair 1 for umbilical exit 1, pair 2 for exit 2)
    - Leave the hose and wires a little longer than the cord at both ends, so a dropped gun loads the cord, never the hose or the solder joints
    - No screws; the bricks are the strain relief (there are no separate TPU boots)
 
@@ -675,7 +675,7 @@ OUTLET TEE 2
 2. **Measure internal dimensions.** Nobody has measured them yet. The "~34 × 20 × 7 cm" figure that has circulated is an AI estimate of the bag's **exterior** from photos, not an internal measurement
 
 3. **Mock up with cardboard:** Cut cardboard templates for:
-   - The stick: about 99.6 × 79.8 × 220 mm, standing upright
+   - The stick: about 99.6 × 77.8 × 220 mm, standing upright
    - Fluid reservoir: 1 L + ~20% bladder material volume
 
 4. **Fit test:** Place templates inside backpack; confirm no binding or excessive gaps
@@ -699,10 +699,10 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
    - J1, J2, J3 are XH plugs; leave enough slack to lift the cap and set it beside the stick
 
 3. **Bulkhead and cup:**
-   - **Before the sled goes in:** drop the 4 M3 nuts into the hex pockets in the bulkhead floor from the dry side and lock each with a dab of CA or silicone. The M3×12 cup screws then go up from below through the cup columns and thread fully through these nuts
+   - **Before the sled goes in:** drop the 4 M3 nuts into the hex pockets in the bulkhead floor from the dry side and lock each with a dab of CA or silicone. The M3×12 cup screws (each with an M3 split lock washer under the head) then go up from below through the cup columns and thread fully through these nuts
    - Cut a slit with a knife from each grommet hole to the nearest long edge and lay the cables in: both 16 AWG gun pairs, both pump leads, both 12 AWG XT60H loop wires, and the LED-backpack USB cable. Hold the ASA drip skirt's lip against the bulkhead's underside, push the lower half up through it from the cup side, and the upper half down from the dry side
    - Once the wiring is final, fill the grommet's whole top face with neutral-cure silicone, worked around each cable (it peels off when you need to pull the sled)
-   - Tie each pack-end umbilical brick's inner hole with a short paracord loop through a tether anchor pair in the cup's outer wall; leave the hose and wires to the brick longer than the loop
+   - Tie each pack-end umbilical brick's inner hole with a short paracord loop through the paracord tie-off pair that matches its exit (cord in one hole, out the other, around the web, knot, melt the ends); leave the hose and wires to the brick longer than the loop
    - Jostle-proofing: hot glue on the J1–J3 XH plugs after a final test, tape or a zip tie around each mated XT30/XT60, a zip tie within 2–3 cm of every solder joint, the TPU pump mat under the pump (strapped down with zip ties across the pocket), and a slack loop on each hose in the cup
    - Give every cable a drip loop below the cup, so water runs off the low point rather than up the cable
    - Umbilicals leave through the cup floor's two 13 mm holes; the bladder feed, LED-backpack USB and XT60H loop use the 20 mm service hole
@@ -710,7 +710,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 
 4. **Close the stick:**
    - Click a TPU battery pad onto the end of each of the cap's two ribs (its bead snaps into the rib's groove; a dab of hot glue is only a backup). If the cap closes with the pads loose, put a 0.6 mm shim strip under a pad; the ribs press the cell holders and pin the sled onto the bulkhead. Tuck TPU shim strips into any pocket where a board rattles (0.6 and 1.0 mm for the BMS slot and buck/ACS758 pockets), against a component-free board edge, and keep the zip tie
-   - Stretch the TPU ring into the cap skirt's groove. Fit the cap, then 2× M3×10 screws through the front and back walls, **each with a TPU washer under the head**, into the M3 nuts glued into the slots behind the cap's skirt. Snug is enough; ASA cracks if over-torqued. Press the cap down while tightening so the screw holes' slack doesn't eat the pad preload
+   - Stretch the TPU ring into the cap skirt's groove. Fit the cap, then 2× M3×10 screws through the front and back walls, **each with a TPU washer under the head**, into the M3 nuts glued into the slots behind the cap's skirt. Snug is enough; ASA cracks if over-torqued. Use the M3 flat washer on top of the TPU washer. Press the cap down while tightening so the screw holes' slack doesn't eat the pad preload
    - To get the cap off, lever it up with a flat screwdriver in the notch on the left edge
 
 5. **In the bag:**
@@ -733,7 +733,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 3. **Test before final packing:**
    - Apply 5V to system; verify all test points nominal per PCB bring-up section
    - Confirm no shorts when fully integrated
-   - RV1 and RV2 adjust through the cap's two small windows with a 2 mm screwdriver; cover the windows with electrical tape afterwards
+   - RV1 and RV2 (3296W, 25-turn) adjust through the cap's two small windows with a small screwdriver, with the TPU trimmer plug (part 39) pulled; push the plug back in afterwards. The plugs go in last: the trimmer plug when RV1/RV2 are set, and the USB-C plug (part 40) after charging
    - **Charge with the cap off** until the first enclosed charge has been checked (see [test plan](13-test-plan.md))
 
 ---
@@ -927,7 +927,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 - [ ] Both guns tested for motor spin and inlet patency
 - [ ] PCB calibrated (RV1 = detection threshold, RV2 = ~350 ms delay)
 - [ ] Voltmeter readable on top of the stick's cap
-- [ ] Cap seal wet-tested; RV1/RV2 windows taped over
+- [ ] Cap seal wet-tested; TPU trimmer plug (39) and USB-C plug (40) fitted
 - [ ] LED backpack powered and responsive (if used)
 - [ ] Backpack weight balanced and comfortable (tested for 5+ minutes wear)
 - [ ] Umbilical connectors accessible for quick gun swap in field

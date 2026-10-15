@@ -187,14 +187,14 @@ The **default umbilical length is 4 feet (approximately 1.2 m)**, which provides
 3. **Braided sleeving:** Pre-stretch 10 mm braided PET to length; slide onto the hose + paracord bundle
 4. **Power connector(s):** Solder 16 AWG wire pairs to XT30U male and female connectors; use adhesive heat shrink to cover each solder joint
 5. **Bricks:** At each end, drop the XT30U into the brick's open-top pocket and strap it with a zip tie through the slots beside the pocket. Run the 16 AWG pair and the tube in their grooves under narrow zip ties. Tie the paracord through the outer hole
-6. **Pack-side termination:** Solder power wires to the gun-channel XT30U output on the pack; the hose enters the stick's wet cup through a 13 mm hole in its floor and connects to outlet tee 2 via that channel's slide clamp. Tie the brick's inner hole with a short paracord loop through one of the two tether anchor pairs in the cup's outer wall. Leave the hose and wires between the cup and the brick longer than that loop, so the cord takes any pull first
+6. **Pack-side termination:** Solder power wires to the gun-channel XT30U output on the pack; the hose enters the stick's wet cup through a 13 mm hole in its floor and connects to outlet tee 2 via that channel's slide clamp. Tie the brick's inner hole with a short paracord loop through the paracord tie-off pair in the cup's outer wall that matches its exit (pair 1 for exit 1, pair 2 for exit 2). Leave the hose and wires between the cup and the brick longer than that loop, so the cord takes any pull first
 7. **Gun-side termination:** Attach XT30U connector to the gun's motor input; barb the hose to the gun's wetting manifold (through one assortment tee to both donor pumps on a dual-head gun) and tie the brick's inner hole to the gun body or wand
 
 ### Strain relief and routing
 
 - **Paracord as load-bearing tether:** The 550 paracord **is the primary load path** for the umbilical. All tension (including accidental tugging, falls, or costume weight) goes through the paracord, not the hose or electrical connectors
 - **Braided sleeving:** Provides protection from abrasion and UV; also visually integrates the umbilical bundle
-- **Pack-side anchor:** Both umbilicals leave from the bottom of the stick (two 13 mm chamfered holes in the cup's floor) on two independent XT30U outputs. The pack-end brick hangs just below the stick and ties to a tether anchor pair in the cup's outer wall; the cup carries the load into the bulkhead through its four M3 screws and captured nuts. Nothing in the umbilical joins inside the wet cup
+- **Pack-side anchor:** Both umbilicals leave from the bottom of the stick (two 13 mm chamfered holes in the cup's floor) on two independent XT30U outputs. The pack-end brick hangs just below the stick and ties to a paracord tie-off pair (tether anchor) in the cup's outer wall; the cup carries the load into the bulkhead through its four M3 screws and captured nuts. Nothing in the umbilical joins inside the wet cup
 - **Umbilical brick:** A **printed ASA (or PETG) brick** at each end of each umbilical prevents sharp bends, holds the XT30U, and anchors the paracord loop mechanically
 - **Drip loop:** A loose loop in the hose 6–12 inches from the gun prevents solution from running back into the pack connectors if the gun is held above pack height
 
@@ -220,7 +220,7 @@ Each umbilical has a **3D-printed ASA (or PETG) brick** at both ends (four in al
 |---|---|
 | **Electrical** | XT30U dropped into an open-top pocket and strapped with a zip tie through the slots beside it |
 | **Fluid** | The tube runs in a groove, held by a narrow zip tie |
-| **Mechanical** | The 16 AWG pair runs in its own groove; the paracord tether ties through the outer hole, and the inner hole ties to the gun, or with a short loop to a tether anchor pair in the stick's cup |
+| **Mechanical** | The 16 AWG pair runs in its own groove; the paracord tether ties through the outer hole, and the inner hole ties to the gun, or with a short loop to a paracord tie-off pair in the stick's cup |
 | **Material** | ASA or PETG, printed on the A1 (with ASA: brim and draft shield) |
 
 ### Wand configuration options

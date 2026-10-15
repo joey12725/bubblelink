@@ -4,7 +4,7 @@ Parametric OpenSCAD sources are in `src/`; ready-to-slice STLs are in `stl/`. Ri
 
 All STLs + this guide are also zipped at (link removed)
 
-The whole pack, apart from the bladder, is one upright **stick**: outside about **99.6 × 79.8 × 220 mm** (3.9 × 3.1 × 8.7 in) for the whole stick, including the cup, the PRIME guard bezel and the cap screw heads and washers. The rigid body alone (tube, cap, cup) is about 99.6 × 77.8 × 215 mm; the bezel adds about 5 mm on top and the screw heads about 1 mm per side, front and back. The tube is 98.8 mm wide, plus 0.8 mm for the raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. It stands beside the bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) leave from the bottom. That makes it easy to move into a different bag. Every model is designed around the parts in `docs/parts/ORDER_LEDGER.md` and the BubbleLink CTRL v1.2 board on order.
+The whole pack, apart from the bladder, is one upright **stick**: outside about **99.6 × 77.8 × 220 mm** (3.9 × 3.1 × 8.7 in) for the body including the cup and the PRIME guard bezel (the tube, cap and cup alone are 215 mm tall; the bezel adds about 5 mm on top). Across the two cap screw heads it is about **87 mm deep**: each screw stands 4.5 mm proud of the front or back wall (5.5 mm DIN 912 head, 3 mm tall, plus a 0.5 mm steel flat washer and a 1 mm TPU washer), at the very top of the walls, 5.2 mm below the rim. The tube is 98.8 mm wide, plus 0.8 mm for the raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. It stands beside the bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) leave from the bottom. That makes it easy to move into a different bag. Every model is designed around the parts in `docs/parts/ORDER_LEDGER.md` and the BubbleLink CTRL v1.2 board on order.
 
 ```
    ┌──── cap ────┐   control head: voltmeter, USB-C, LEDs, PRIME; PCB hangs under it
@@ -13,11 +13,20 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
    │      │bucks │
    ╞══ bulkhead ═╡   cables pass through a slit TPU grommet, silicone on top, drip skirt below
    │  pump cup   │   wet side: pump, tees, check valve, bypass clamp; drains
-   └──┬───────┬──┘   4× M3 from underneath; tether anchors in the outer wall
+   └──┬───────┬──┘   4× M3 from underneath; paracord tie-offs in the outer wall
      L        R      umbilicals, bladder feed, service cables out the floor
 ```
 
-**Hardware:** 6× M3 screws (2× **10 mm** for the cap, 4× **12 mm** for the cup) with 6 M3 nuts: 4 in hex pockets in the bulkhead floor, dropped in from the dry side, and 2 in slots in the cap's nut blocks, open on the underside. The nuts carry the threads (nothing self-taps into plastic; all clearance holes are 3.4 mm), so glue each one in. The 2 cap screws each get a TPU washer (part 34) under the head. Also zip ties, glue (CA/hot glue/neutral-cure silicone), clear hot glue or UV resin for the LED windows, electrical tape, and a soldering iron for heat-staking the PCB. The cup screws sit about 45 mm up their columns, so you need a long, narrow screwdriver. There is no foam in this build; the TPU cushions (parts 36-38) replace it. Optional: a paint pen or acrylic to fill the engraved cap labels.
+**Renders:** `renders/` has 9 views: 1 assembled, 2 cap top, 3 and 4 cap-off cutaways (front, back), 5 cap underside, 6 cup interior, 7 bulkhead underside, 8 PRIME section, and 9 gun power and paracord (`9_gun_power_and_paracord.png`: red is gun 1, orange gun 2, yellow paracord).
+
+**Hardware** (all of it from the HVAKHVA 304 stainless DIN 912 hex socket-head kit: M3 × 6/8/10/12 screws, 130 M3 nuts, M3 flat and lock washers; none of the M4/M5/M6 parts are needed):
+- **2× M3 × 10 socket head** (cap retention), each with an M3 **flat** washer on top of the TPU washer (part 34) under the head. The steel washer spreads the head load so the TPU isn't cut.
+- **4× M3 × 12 socket head** (cup), each with an M3 **split lock** washer under the head, as vibration protection for the jumping.
+- **6× M3 nuts:** 4 in hex pockets in the bulkhead floor, dropped in from the dry side, and 2 in slots in the cap's nut blocks, open on the underside. The nuts carry the threads (nothing self-taps into plastic; all clearance holes are 3.4 mm), so glue each one in.
+- **No anaerobic threadlocker** (Loctite 242/243 and similar) near ASA: it can crack ASA and ABS. If you want something on the threads, a tiny drop of CA on the screw tip is the plastic-safe option.
+- **Tool:** a 2.5 mm hex key (M3 DIN 912), long enough to reach about 46 mm up the cup columns.
+- Also zip ties, glue (CA/hot glue/neutral-cure silicone), clear hot glue or UV resin for the LED windows, electrical tape, and a soldering iron for heat-staking the PCB. There is no foam in this build; the TPU cushions (parts 36-38) replace it, and TPU plugs (39, 40) close the trimmer windows and the USB-C port. Optional: a paint pen or acrylic to fill the engraved cap labels.
+- Spares: the kit has plenty (30 of each screw length, 130 nuts, about 300 washers).
 
 ## Print order
 
@@ -48,8 +57,10 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 36 | `36_TPU_battery_pad_x2` | 2 | TPU | A1 | Compliant pad over the end of each of the cap's two battery ribs. Print slow, opening up. |
 | 37 | `37_TPU_pump_mat` | 1 | TPU | A1 | 2 mm mat under the pump, 8 drain holes, drain grooves on the underside |
 | 38 | `38_TPU_shim_strip_set` | 1 | TPU | A1 | One STL with six 5 × 30 mm strips: 2× 0.6, 2× 1.0 and 2× 1.5 mm thick. Cut to length and tuck where a board rattles. |
+| 39 | `39_TPU_trimmer_plug` | 1 | TPU | A1 | One plug closes both trimmer windows. Plate down. |
+| 40 | `40_TPU_usbc_plug` | 1 | TPU | A1 | Fills the CHG window; pull it to charge. Flange down. |
 
-That is 23 STLs: 5 older parts, 3 stick coupons, 6 rigid stick parts and 9 TPU parts (each file counts as one STL, whatever the copy count).
+That is 25 STLs: 5 older parts, 3 stick coupons, 6 rigid stick parts and 11 TPU parts (each file counts as one STL, whatever the copy count).
 
 The older wide-box design (`dry_core.scad`, `pump_module.scad`, `port_insert.scad`) is superseded and no longer built. **Don't print those.**
 
@@ -97,6 +108,11 @@ Then rebuild with `./build.sh /path/to/openscad`. It regenerates every STL in a 
   - **BMS:** stands on edge in the slot along the back wall. The battery's TERM-face leads reach it directly through the channel behind the spine.
   - **Buck A, Buck B, ACS758:** drop into the three compartments on the front of the panel and get a zip tie each. Wires to the breaker/BMS side go through the pass at the panel's right end.
   - **Slots:** the spine and panel have cross-shaped zip-tie slots, plus two wire pass holes for the battery leads.
+  - **How the sled is held (no screws):**
+    1. *Sideways and twist:* the base hugs the four bulkhead corner bosses (radius 4.5 mm) with 0.3 mm clearance, and sits 0.5 mm inside the tube walls.
+    2. *Up and down:* the cap's TPU pads press the battery, and the battery presses the sled base onto the bulkhead (about 75-125 N per pad).
+    3. *Swaying:* the tall spine and panel can't sway. The clamped battery block sits 0.5 mm beside the spine, and the panel runs to within 0.5 mm of the outer wall.
+    4. *The right (breaker) half of the base* is tied to the clamped left half by the spine and the 100 mm cross panel, so it can't lift.
   - **Battery stops:** two small ASA posts (5 × 1.75 × 8 mm) stand on the sled base at x = 12–17 and 31–36 (the cell holder's rounded end only reaches one of them), in the 2.65 mm lead channel behind the battery's back face, so a hard jump can't drive the block into the leads. **Route the battery leads clear of those two posts: the TERM-bus leads must run above z = 10.5 mm, because the posts fill the bottom 8 mm of the lead channel.**
   - **Holding it down:** the cap's two ribs press the cell holders through a compliant TPU battery pad (part 36) that clicks onto each rib end, which pins the sled onto the bulkhead. The sled itself takes no screws.
 - **Tube:** plain shell, 94 × 73 mm inside, 2.4 mm walls, 3 mm bulkhead floor, 156 mm of inside height above the bulkhead. **BubbleLink** is raised 0.8 mm on the outer right-hand (+x) wall, reading upward, so the tube is 99.6 mm wide instead of 98.8. The top half of each letter is inset 0.3 mm (a stepped bevel) so the lettering prints without a flat overhang; it is fine detail only. Print with the bulkhead on the bed; the lettering is on a vertical wall and needs no supports.
@@ -109,15 +125,15 @@ Then rebuild with `./build.sh /path/to/openscad`. It regenerates every STL in a 
     - The bezel's rim stands 1 mm above the boot, so it takes a deliberate fingertip press. A strap, an elbow or the bag can't press it.
     - The plunger head bottoms on the cap after 0.75 mm. SW1 clicks at about 0.55 mm, and the soft TPU plunger takes up the rest, so even a hard press can't push the PCB off its posts.
     - At rest the plunger tip is 0.3 mm above SW1. See view 8 in `renders/`.
-  - **RV1 and RV2:** adjust through two small windows with a 2 mm screwdriver. Cover the windows with electrical tape afterwards.
+  - **RV1 and RV2:** RV1 (THR) sets the gun-detect threshold and RV2 (DLY) the pump off-delay. Pull the TPU trimmer plug (part 39), adjust the 3296W trimmers (25-turn) through the two small windows with a small screwdriver, then push the plug back in. One plug closes both windows: a 1.2 mm plate on the cap top with two square plugs (5.8 × 5.2 mm, 0.1 mm interference per side) pushed 2.6 mm into the 5.6 × 5 mm windows, with a lead-in chamfer and a pull tab toward the BubbleLink label. Print plate down. Plugs go in last, once the trimmers are set. The THR and DLY labels are 1.4 mm further out so the plug doesn't cover them.
     - Each window sits over its 3296W adjusting screw, which is at the pin-1 end.
     - **Solder both trimmers with pin 1 on the square pad.** If one goes in reversed, its screw ends up under the PRIME boot.
   - **Voltmeter:** the body drops through the 29 mm hole and gets glued around its bezel.
-  - **USB-C charger:** slides up into a pocket under the CHG window, receptacle up against the window. Four small 0.55 mm crush ribs on the two wide walls grip the board (0.15 mm interference per side), so it presses in by hand with firm pressure and can't slide down off its glue under jumping or plug-insertion force. Still add a dab of glue. A USB-C plug pushes about 20 N, so charging with the cap on is fine once the board is seated. The receptacle is centred on the board's 17.5 mm short side (confirmed by Joey, 2026-10-15). Run its output to the BMS P+/P− through an XT30 pair, so the cap stays removable.
+  - **USB-C charger:** slides up into a pocket under the CHG window, receptacle up against the window. Four small 0.55 mm crush ribs on the two wide walls grip the board (0.15 mm interference per side), so it presses in by hand with firm pressure and can't slide down off its glue under jumping or plug-insertion force. Still add a dab of glue. A USB-C plug pushes about 20 N, so charging with the cap on is fine once the board is seated. Between charges, the TPU USB-C plug (part 40) fills the CHG counterbore (13.5 × 7.5 mm stadium, 0.1 mm interference per side) and the window through the 0.8 mm web. Nothing enters the receptacle (its centre tongue is right behind the mouth). The pull tab points toward the voltmeter; pull it to charge. Print flange down. The receptacle is centred on the board's 17.5 mm short side (confirmed by Joey, 2026-10-15). Run its output to the BMS P+/P− through an XT30 pair, so the cap stays removable.
   - **Labels:** engraved 0.6 mm deep, reading from the front. Rub in acrylic or a paint pen if you want them to stand out.
   - **Wires to the cap:** J1, J2 and J3 are XH plugs. Leave enough slack to lift the cap and set it beside the stick.
 - **Seal:** stretch the TPU ring into the cap skirt's groove (about 80% fill, 13% squeeze). The tube's rim has a 1 mm lead-in so the ring doesn't catch on the way in.
-  - Two M3 × 10 screws go through the front and back walls, **each with a TPU washer under the head**, into M3 nuts glued into the slots behind the cap's skirt (the slots open on the underside of the nut blocks). The screws only keep the cap on; the washers keep water from following the screw holes past the ring.
+  - Two M3 × 10 screws go through the front and back walls, **each with a TPU washer and an M3 flat washer under the head**, into M3 nuts glued into the slots behind the cap's skirt (the slots open on the underside of the nut blocks). Each also has an M3 flat steel washer on top of the TPU washer, under the head. The screws only keep the cap on; the washers keep water from following the screw holes past the ring.
   - To get the cap off, lever it up with a flat screwdriver in the notch on the left edge.
   - **Wet-test the cap** before trusting it. This is a starting geometry for a TPU seal, not a proven one.
 - **Bulkhead grommet:** two TPU halves plus an ASA drip skirt. Each half has its own hole per conductor, sized 0.2 mm under the wire OD.
@@ -126,7 +142,7 @@ Then rebuild with `./build.sh /path/to/openscad`. It regenerates every STL in a 
   - Put the skirt's lip against the bulkhead's underside, then push the lower half up through it from the cup side, and the upper half down from the dry side. They meet inside the slot, and the lower flange clamps the skirt's lip.
   - **Seal the top:** once the wiring is final, fill the whole top face of the upper half with neutral-cure silicone, covering the slits and working it around each cable. The silicone peels off when you need to pull the sled.
   - **Skirt:** its 8 mm wall hangs down around the cable exit. Water running along the underside of the bulkhead drips off its edge, and spray from a leaking fitting can't hit the grommet directly.
-  - **On its side:** the cup has drains in its floor and two low holes in each side wall (the tether holes do this on the outer wall), so whichever face is down, water runs out instead of pooling up to the grommet. Upside down is the one orientation where water sits on the grommet, which is why the top is sealed with silicone. Turn it upright and let it drain.
+  - **On its side:** the cup has drains in its floor and the same pair of 4 mm drains in every wall, so whichever face is down, water runs out instead of pooling up to the grommet. Upside down is the one orientation where water sits on the grommet, which is why the top is sealed with silicone. Turn it upright and let it drain.
   - Give every cable a drip loop below the cup, so water runs off the low point rather than up the cable.
 - **Venting and heat (not verified):**
   - The tube only breathes incidentally, through the grommet slits and the cap ring.
@@ -144,19 +160,21 @@ Then rebuild with `./build.sh /path/to/openscad`. It regenerates every STL in a 
   - **Pump:** sits on a 2 mm TPU pump mat (part 37) in a 52 × 46 mm pocket on the left of the floor, strapped down with zip ties through the slots on either side. Eight 4 mm drains are under it (four in the centre row, four at the pocket corners); the mat's eight 6 mm holes sit over them, and its underside grooves keep a flat pump bottom from sealing them. Four 6 × 1.5 mm notches through the pocket fence at floor level stop the pocket holding water when the pack lies on its side.
   - **Fittings:** the right-hand strip (x 64–94) holds three tees, the check valve and the bypass slide clamp, strapped to the four tie slots. The 70 mm clamp runs front to back.
   - **Holes:** umbilicals leave through the two 13 mm holes, and the bladder feed, LED-backpack USB and XT60 loop use the 20 mm service hole. All have chamfered edges so the hoses don't rub.
-  - **Drains:** eight 4 mm holes under the pump, plus two 4 mm holes low in the front, back and left walls.
-  - **Tether anchors:** two pairs of 5 mm holes low in the outer (right) wall, next to the umbilical exits. See *Built for jostling* below.
-  - **Mounting:** four M3 × 12 screws go up from underneath through the corner columns into the bulkhead nuts. **Fit the 4 nuts before the sled goes in:** drop each one into its hex pocket in the bulkhead floor from the dry side (there's 1.4 mm of floor under it) and lock it with a dab of CA or silicone. Each screw runs through the 3.4 mm hole in its column, past a 6.6 mm counterbore for the head, and threads fully through its nut. Pulling on the cup pulls the nuts down onto that floor, not out of their pockets.
+  - **Drains:** eight 4 mm floor drains under the pump (four in a centre row and four at the pocket corners; offset because the pump pocket sits left of the fittings strip). Every wall also has the same pair of 4 mm drains, centred on that wall and flush with the floor: front and back walls at x = 22 and 72, left and right walls at y = 16.5 and 56.5.
+  - **Paracord tie-offs** (also called tether anchors): two pairs of 5 mm holes in the outer (right, +x) wall, 17 mm above the cup bottom (tf + 14), so they can't be mistaken for drains. "1" and "2" are engraved above the pairs, and "1" and "2" are engraved on the cup's underside next to umbilical exits 1 and 2, so pair 1 belongs to exit 1. See *Built for jostling* below.
+  - **Mounting:** four M3 × 12 screws go up from underneath through the corner columns into the bulkhead nuts. **Fit the 4 nuts before the sled goes in:** drop each one into its hex pocket in the bulkhead floor from the dry side (there's 1.4 mm of floor under it) and lock it with a dab of CA or silicone. Each screw, with its lock washer, runs through the 3.4 mm hole in its column, past a 6.6 mm counterbore for the head and washer, and threads fully through its nut. Pulling on the cup pulls the nuts down onto that floor, not out of their pockets.
 - **Plumbing:** `bladder → inlet tee → pump → outlet tee 1 → outlet tee 2 → gun 1 / gun 2`. From tee 1's side branch: `→ slide clamp → check valve (arrow toward inlet) → inlet tee`. That's three tees in total, so check the assortment has three.
 
 ### Built for jostling (hours of jumping, dancing and walking)
 
-**Where the umbilical joins.** Nothing joins inside the wet cup. The gun wires (16 AWG pairs from the PCB) and the gun hoses (from the outlet tees) each leave the cup through their 13 mm exit and run a short way to the **pack-end umbilical brick**, which hangs just below the stick. That's where the XT30U disconnect is, strapped into the brick's pocket. From the brick to the gun it's one bundle: hose, 16 AWG pair and paracord, ending in a second brick at the gun.
+**Where the umbilical joins.** Nothing joins inside the wet cup. The gun wires (16 AWG pairs) and the gun hoses (from the outlet tees) each leave the cup through their 13 mm exit and run a short way to the **pack-end umbilical brick**, which hangs just below the stick. That's where the XT30U disconnect is, strapped into the brick's pocket. From the brick to the gun it's one bundle: hose, 16 AWG pair and paracord, ending in a second brick at the gun.
+
+**Gun power route.** The 16 AWG gun pairs do not come from the PCB. Battery + goes to the BMS, then the XT60H loop, then the 30 A breaker, then the ACS758, where it splits into two 16 AWG + leads. The − leads come from the BMS P− bus. Each pair runs down the front compartment, through the bulkhead grommet, across the cup and out its numbered exit to the pack-end umbilical brick (XT30U inside). View 9 in `renders/` (`9_gun_power_and_paracord.png`) shows it: red is gun 1, orange is gun 2 and yellow is the paracord.
 
 **Load path for a dropped gun.**
 1. The gun pulls the gun-end brick (its inner hole is tied to the gun).
 2. The brick pulls the **paracord**, which runs through both bricks' outer holes.
-3. The pack-end brick's inner hole is tied with a short paracord loop through a **tether anchor pair** in the cup's outer wall (in one hole, out the other, around the 7 mm web between them; knot it, then melt the ends).
+3. The pack-end brick's inner hole is tied with a short paracord loop through a **paracord tie-off pair** in the cup's outer wall (pair 1 for exit 1, pair 2 for exit 2): cord in one hole, out the other, around the 7 mm web between them; knot it, then melt the ends.
 4. The cup carries the load into the bulkhead through its four M3 screws and the captured nuts.
 
 The hose and wires between the cup exit and the pack-end brick, and between the gun-end brick and the gun, are **left longer than the cord**, with a visible slack loop. If a gun drops, the cord goes tight first and the hose and solder joints never see the load. Check this by pulling on the gun with everything assembled: the cord should go taut while the hose and wires stay slack.
@@ -169,6 +187,7 @@ The hose and wires between the cup exit and the pack-end brick, and between the 
 - **Charger:** held by its pocket and crush ribs, not only its glue.
 - **Pump:** the TPU pump mat (part 37) under it in the pocket, strapped down across the top with zip ties.
 - **Hoses:** a slack loop on every hose inside the cup, so pump vibration doesn't work the barbs loose.
+- **Sled:** takes no screws; it is located by the corner bosses and pinned by the pads (see *How the sled is held* above).
 - **Cap:** the radial TPU ring takes no clamping force, so the two screws can't shake it loose. The seal doesn't depend on screw torque.
 - **Nuts:** all six are captured in hex pockets and glued, so nothing turns when a screw is driven or the stick is shaken.
 
@@ -194,7 +213,7 @@ The hose and wires between the cup exit and the pack-end brick, and between the 
 - One at each end of both umbilicals.
 - **XT30U:** drop it into the open-top pocket and strap it with a zip tie through the slots beside the pocket.
 - **Wires and tube:** the 16 AWG pair and the fluid tube run in their grooves, held by narrow zip ties.
-- **Paracord:** the tether ties through the outer hole. The inner hole ties to the gun (gun end) or, with a short loop, to a tether anchor pair in the stick's cup (pack end).
+- **Paracord:** the tether ties through the outer hole. The inner hole ties to the gun (gun end) or, with a short loop, to a paracord tie-off pair in the stick's cup (pack end).
 
 ## M3 hardware (checked against `stick.scad`, 2026-10-15)
 
@@ -202,18 +221,20 @@ No screw cuts its own thread in plastic. Every clearance hole is 3.4 mm and ever
 
 | | Cap screws | Cup screws |
 |---|---|---|
-| Count and size | 2 × M3 × 10 | 4 × M3 × 12 |
+| Count and size | 2 × M3 × 10 socket head | 4 × M3 × 12 socket head |
 | Where | Front and back tube walls, 5.2 mm below the rim (a 3.5 mm land above the hole), centred at x = 49 | Four corner columns of the cup, up from below |
 | Nut | Slot opening on the underside of the cap's nut block. The slot is 5.9 mm wide and 3.0 mm deep (nut_h 2.8 + 0.2). | Hex pocket in the bulkhead, dropped in from the dry side. 6.75 mm across corners (5.5 / cos 30° + 0.4). The pocket starts 1.4 mm above the bulkhead's underside, so 1.4 mm of floor sits under the nut. |
-| Under the head | TPU washer (part 34), 1 mm | Counterbore, 6.6 mm wide, ending 7.5 mm from the bulkhead's underside |
-| Stack-up | washer 1 + wall 2.4 + gap 0.3 + skirt 2.6 to the nut seat = 6.3 mm | counterbore floor to nut seat = 7.5 + 1.4 = 8.9 mm |
-| Thread past the nut seat | 10 - 6.3 = 3.7 mm | 12 - 8.9 = 3.1 mm |
-| Through the nut | A full M3 nut is 2.4 mm, so the screw is through it with 1.3 mm showing | Through the nut with 0.7 mm showing |
+| Under the head | M3 flat washer (0.5 mm) on top of the TPU washer (part 34, 1 mm) | M3 split lock washer (0.8 mm); the 6.6 mm counterbore fits the 5.5 mm head and the washer |
+| Stack-up | flat 0.5 + TPU 1 + wall 2.4 + gap 0.3 + skirt 2.6 to the nut seat = 6.8 mm | head underside to nut seat = 8.9 mm (0.8 lock washer + 6.7 mm from the counterbore floor to the bulkhead's underside + the 1.4 mm floor) |
+| Thread past the nut seat | 10 - 6.8 = 3.2 mm | 12 - 8.9 = 3.1 mm |
+| Through the nut | A full M3 nut is 2.4 mm, so the screw is through it with 0.8 mm showing | Through the nut with 0.7 mm showing |
 | Engaged | The whole nut (about 5 turns at 0.5 mm pitch) | The whole nut (about 5 turns) |
+
+The cup counterbore is 0.8 mm deeper than a bare screw needs. With the lock washer the screw still reaches 0.7 mm past the nut; without it, it shows 1.5 mm. Without the extra depth, the lock washer would leave the tip 0.1 mm short of the nut top (still fully engaged, but with no margin).
 
 Both lengths work, so **don't use shorter screws**. Don't over-torque: ASA is a bit more brittle than PETG, and the cup's nuts are only held by the 1.4 mm floor and glue. Snug is enough; the cap seal doesn't depend on screw torque.
 
-Totals: 6 M3 screws (2 × 10, 4 × 12), 6 M3 nuts (4 bulkhead, 2 cap), 2 TPU washers.
+Totals: 6 M3 socket-head screws (2 × 10, 4 × 12), 6 M3 nuts (4 bulkhead, 2 cap), 2 TPU washers, 2 flat washers, 4 lock washers. No anaerobic threadlocker near ASA.
 
 ## TPU cushions (replacing foam)
 
@@ -228,6 +249,14 @@ The build no longer uses foam. Three TPU parts do its jobs. All print on the A1 
 - **Shim strips, part 38.** One STL with six 5 × 30 mm strips: two 0.6 mm, two 1.0 mm and two 1.5 mm thick. Cut with scissors and tuck into any pocket where a board rattles. The BMS slot has only about 0.6 mm of slack and the buck and ACS758 pockets about 1 mm of width, so use the 0.6 and 1.0 mm strips there. Place a strip against a component-free board edge and keep the zip tie.
 
 Check the pads on the first dry fit: with the cap on, the sled should not move when you shake the stick.
+
+## TPU plugs (no tape)
+
+Two TPU plugs close the cap's openings, so nothing is taped over any more. Print both on the A1.
+
+- **Trimmer plug, part 39.** One plug closes both trimmer windows (RV1 = THR, RV2 = DLY). A 1.2 mm plate sits on the cap top with two square plugs (5.8 × 5.2 mm, 0.1 mm interference per side) pushed 2.6 mm into the 5.6 × 5 mm windows. It has a lead-in chamfer and a pull tab toward the BubbleLink label. Pull it to adjust the trimmers, push it back in. Print plate down.
+- **USB-C plug, part 40.** Fills the CHG counterbore (13.5 × 7.5 mm stadium, 0.1 mm interference per side) and the window through the 0.8 mm web. Nothing enters the receptacle, because its centre tongue is right behind the mouth. The pull tab points toward the voltmeter. Pull it to charge. Print flange down.
+- The THR and DLY labels were moved 1.4 mm further out so the trimmer plug doesn't cover them.
 
 ## Printing in ASA
 
@@ -253,7 +282,7 @@ The rigid stick parts are ASA, not PETG. It is tougher in the heat (about 100 C 
 
 ## Checks done on these files (2026-10-14, updated 2026-10-15)
 
-- All 23 STLs rebuilt watertight. Every STL is watertight. All are single bodies except the clamp (a body and a slider) and the shim set (38), which is six separate strips on purpose. All sit at z = 0.
+- All 25 STLs rebuilt watertight. Every STL is watertight. All are single bodies except the clamp (a body and a slider) and the shim set (38), which is six separate strips on purpose. All sit at z = 0.
 - `stick.scad` `part="assembly"` has placeholder blocks for the battery, breaker, PCB, voltmeter, charger, BMS zone, bucks/ACS zone and pump envelope.
   - Pairwise intersection checks, including the TPU parts in their installed positions, found no overlaps. The exceptions are intended: the heat-stake pins pass through the PCB holes, and the seal ring presses 0.25 mm into the tube wall.
   - With the measured sizes, the pump fits its pocket with 0.6–0.75 mm of side clearance and 12 mm above it.
@@ -271,13 +300,14 @@ The rigid stick parts are ASA, not PETG. It is tougher in the heat (about 100 C 
 - A final GPT-6 Astra verification pass (2026-10-14) confirmed the earlier fixes and caught one last collision: the USB-C charger stands upright (its 1½ in runs along the plug), so it would have hit the battery. The cap was raised 8 mm and the stick is now 215 mm tall. It also flagged the breaker caveat above.
 - **Jostle pass (2026-10-14):**
   - The bulkhead nut pockets opened on the cup side, so tightening the screws would have pulled the nuts out. Fixed: they now drop in from the dry side.
-  - Added the tether anchors, the grommet drip skirt, wall drains for lying on its side, the charger pocket, through-hole LED windows, and the guarded, hard-stopped PRIME button.
+  - Added the paracord tie-offs (tether anchors), the grommet drip skirt, wall drains for lying on its side, the charger pocket, through-hole LED windows, and the guarded, hard-stopped PRIME button.
   - The PRIME plunger is now TPU and part 24 is the bezel; the old rigid plunger STL is gone. Labels were enlarged and turned to read from the front.
   - All 17 STLs rebuilt watertight; the interference sweep is still clear.
 - **TPU-cushion pass, 2026-10-15:**
   - Foam is gone. Added parts 36 (battery pads), 37 (pump mat) and 38 (shim strips); the tube gained raised BubbleLink lettering on its right-hand wall (now 99.6 mm wide); the USB-C receptacle position was confirmed; rigid parts move from PETG to ASA.
   - Two further independent reviews (Astra and Fable) led to: the compliant battery pad with snap beads, an 8-hole pump mat with drain grooves and cup corner drains and fence notches, a shim set in three thicknesses, charger crush ribs, battery y-stops on the sled, a stepped bevel on the tube lettering, and three stick fit coupons.
   - Round-2 reviews: flat end faces on both cell holders (reprint old ones); pad redesigned (3.8 mm floor, 0.6 mm compression, 70-140 N/mm); cap screw holes 0.7 mm lower (5.2 mm below the rim, 3.5 mm land); pump mat and cup corner drains moved 2 mm inward; print order now measures the real stack before the cap and pads.
-  - All 23 STLs rebuilt watertight.
+  - Hardware and plugs pass: the kit's DIN 912 socket heads with flat washers (cap) and lock washers (cup, counterbore 0.8 mm deeper); TPU trimmer and USB-C plugs (39, 40) replace the tape; cup drains made identical on every wall; paracord tie-offs moved up and numbered; sled base now hugs the corner bosses; gun power routing wording fixed; render view 9 added.
+  - All 25 STLs rebuilt watertight.
   - The M3 thread and nut stack-ups were re-checked against `stick.scad` (see *M3 hardware* below).
 - **None of these parts has been printed or test-fitted.**

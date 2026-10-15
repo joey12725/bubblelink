@@ -26,7 +26,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 - **Festival runtime:** 10 pm to 3:30 am (~5 hour block) with light-to-moderate bubble production, punctuated by high-intensity dance peaks during drop moments.
 - **Consumption baseline (measured):** Three-head gun at ~70 W draws approximately 16.9 mL/min of bubble solution (measured under overvolted operation).
 - **Actual field consumption:** Approximately 37% duty cycle (37 minutes of firing per 100 minutes elapsed) during "very dance heavy" usage; lower 12–20% duty during typical nights.
-- **Portability:** Worn as a backpack while dancing. Must fit within venue bag restrictions for the target event (hydration packs permitted at the target festival; larger rigid backpacks not). Battery, pump, and electronics live in one printed upright stick (about 99.6 × 79.8 × 220 mm) beside the bladder; two umbilicals leave from its bottom, so it can move to a different bag easily.
+- **Portability:** Worn as a backpack while dancing. Must fit within venue bag restrictions for the target event (hydration packs permitted at the target festival; larger rigid backpacks not). Battery, pump, and electronics live in one printed upright stick (about 99.6 × 77.8 × 220 mm) beside the bladder; two umbilicals leave from its bottom, so it can move to a different bag easily.
 - **Weight sensitivity:** Loaded festival config (1 L solution + 1 L drinking water + battery + pump + electronics + bag) targets 6.8–7.7 lb (3.1–3.5 kg); without added drinking water ~4.4–5.3 lb (2.0–2.4 kg).
 - **Camelback experience:** Joey previously used hydration bladders; BubbleLink is a hybrid system allowing both bubble solution and drinking water (optionally) in same pack.
 
@@ -134,12 +134,12 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 - **Pack model:** MAX LED "M Style" Bluetooth LED pixel backpack—a hydration-pack-form-factor carrier with built-in display capability (status unknown until measured). Holds the printed stick (battery, pump, controller PCB) and the fluid reservoir.
   - Display is dual-use: serves as Tracer cosplay component and may provide BubbleLink status feedback
-  - Required fit: room for the stick (about 99.6 × 79.8 × 220 mm) standing upright beside the 1 L bladder. Two umbilicals leave from the stick's bottom. The bag's internal geometry is unknown until measured
+  - Required fit: room for the stick (about 99.6 × 77.8 × 220 mm) standing upright beside the 1 L bladder. Two umbilicals leave from the stick's bottom. The bag's internal geometry is unknown until measured
 
 - **Internal organization:** Everything except the bladder is one upright printed stick: a control-head cap (PCB hung underneath, voltmeter and USB-C charge port on top) over a dry tube holding a slide-out sled (battery, breaker, BMS, Buck A, Buck B, ACS758). The tube's floor is the bulkhead (wet/dry divider); cables cross it through a slit TPU grommet. Below it, a wet cup holds the pump and fittings and drains through its floor. See [docs/09-printed-parts.md](09-printed-parts.md).
 
 - **Printed components** (CAD in `hardware/printed/`; nothing printed yet):
-  - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat and shim strips (23 STLs in all with the three stick fit coupons)
+  - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, and the trimmer and USB-C plugs (25 STLs in all with the three stick fit coupons)
   - Cell holders MID and TERM (original 5×2 offset design, 19.9 mm pitch)
   - Slide clamps ×3 (bypass restrictor and both channel shutoffs)
   - Umbilical bricks ×4 (one at each end of each umbilical)
@@ -236,7 +236,7 @@ As of 2026-10-14 (current date):
 1. **PCB delivery and acceptance:** Confirm receipt of two assembled BubbleLink CTRL v1.2 boards from PCBWay (ETA Oct 15–18, tracking [tracking removed] and [tracking removed]). Verify board functionality before build begins.
 2. **Inline wattmeter test (high priority):** Measure exact Wh/L figure for one complete 118.4 mL canister firing with the existing three-head baseline gun at 2S 7.2–8.4 V. This will confirm whether 2.7–3.0 L or better is achievable.
 3. **Bladder outlet adapter sourcing:** Measure actual outlet hose ID and barb OD on the delivered 1 L UWWWMM hydration bladder. Buy or 3D-print one reducer adapting bladder hose to the 3.5×5.5 mm system tubing.
-4. **MAX LED backpack physical fit verification:** Measure the bag's interior (it's on hand; internal geometry is still unknown). Confirm the stick (about 99.6 × 79.8 × 220 mm) stands beside the 1 L bladder.
+4. **MAX LED backpack physical fit verification:** Measure the bag's interior (it's on hand; internal geometry is still unknown). Confirm the stick (about 99.6 × 77.8 × 220 mm) stands beside the 1 L bladder.
 5. **Donor gun selection:** Joey is picking up ~20 bubble guns this week to strip for heads. Pick 4 matched heads for the two dual-head guns and keep spares. Measure current draw and bubble output, and take the teardown measurements the gun/head mounts need.
 6. **Recirculation restrictor calibration:** After system assembly, set the bypass slide clamp to the 0.2–0.5 psi target and wet-test that its self-locking ramp holds.
 7. **Printed parts:** Print the fit coupon, cell holders and slide clamps, then the stick and umbilical bricks. Wet-test the cap seal, and check charger and BMS temperatures on the first enclosed charge (charge with the cap off until then).
