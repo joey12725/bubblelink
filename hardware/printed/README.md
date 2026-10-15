@@ -24,7 +24,7 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 - **6× M3 nuts:** 4 in hex pockets in the bulkhead floor, dropped in from the dry side, and 2 in slots in the cap's nut blocks, open on the underside. The nuts carry the threads (nothing self-taps into plastic; all clearance holes are 3.4 mm), so glue each one in.
 - **No anaerobic threadlocker** (Loctite 242/243 and similar) near ASA: it can crack ASA and ABS. If you want something on the threads, a tiny drop of CA on the screw tip is the plastic-safe option.
 - **Tool:** a 2.5 mm hex key (M3 DIN 912), long enough to reach about 46 mm up the cup columns.
-- For the power key: one XT60H male and one XT60H female from the XT60H pairs on hand, a short length of 12 AWG, hot glue, and narrow zip ties for the connector keepers (key socket and each XT30U well). Also zip ties, glue (CA/hot glue/neutral-cure silicone), clear hot glue or UV resin for the LED windows, electrical tape, and a soldering iron for heat-staking the PCB. There is no foam in this build; the TPU cushions (parts 36-38) replace it, and TPU plugs (39, 40, 41) close the trimmer windows, the USB-C port and the LED 5 V port; two TPU port caps (42) close unused gun ports, and the key blank and gasket (43, 44) seal the KEY socket. Optional: a paint pen or acrylic to fill the engraved cap labels.
+- For the power key: one XT60H male and one XT60H female from the XT60H pairs on hand (plus one more pair inline on the key leads, so the cap comes off; see the cap-to-sled harness), a short length of 12 AWG, hot glue, and narrow zip ties for the connector keepers (key socket and each XT30U well). Also zip ties, glue (CA/hot glue/neutral-cure silicone), clear hot glue or UV resin for the LED windows, electrical tape, and a soldering iron for heat-staking the PCB. There is no foam in this build; the TPU cushions (parts 36-38) replace it, and TPU plugs (39, 40, 41) close the trimmer windows, the USB-C port and the LED 5 V port; two TPU port caps (42) close unused gun ports, and the key blank and gasket (43, 44) seal the KEY socket. Optional: a paint pen or acrylic to fill the engraved cap labels.
 - Spares: the kit has plenty (30 of each screw length, 130 nuts, about 300 washers).
 
 ## Print order
@@ -118,6 +118,21 @@ Every way in or out of the stick. Nothing exits underneath any more.
 **Bladder IN.** A hose pigtail out the front wall, 45 degrees down, joined to the bladder's factory tube with a reducer from the assortment. Labelled IN.
 
 **Drains.** Eight 4 mm floor drains under the pump (four in a centre row and four at the pocket corners), plus a pair of floor-flush 4 mm holes in every wall: front and back walls at x = 22 and 72; left and outer walls at y = 11, 35 and 61.5, the gaps between the corner columns and the port bosses.
+
+### Cap-to-sled harness
+
+The cap carries the PCB, the voltmeter, the USB-C charger and the power-key socket, so these wires run between the cap and the sled. Give the bundle about 15 cm of service loop, zip-tie it to the spine at the front lead channel, and put a disconnect in every run so the cap comes right off:
+
+| Run | Wires | From (sled) | To (cap) | Disconnect |
+|---|---|---|---|---|
+| Power key | 2 × 12 AWG | BMS P+ and the breaker's input stud | Key socket pins A and B | Inline XT60H pair (a spare from the 10) |
+| Charger | 2 × 16–18 AWG (up to 4 A) | BMS P+ and P− | Charger output | XT30 pair |
+| Voltmeter | 2 × thin | Main + after the breaker, BMS P− | Voltmeter | 2-pin JST-XH, inline |
+| PCB power (J1) | 2 × thin | Buck A output | PCB J1 | JST-XH at the PCB |
+| Current sense (J2) | 3 × thin | ACS758: GND, 5 V, signal | PCB J2 | JST-XH at the PCB |
+| Pump (J3) | 2 × thin | carried on to the pump, through the bulkhead grommet into the cup | PCB J3 | JST-XH at the PCB |
+
+That's 13 conductors in six runs. The two key wires carry the full gun current, so they are the only heavy ones. Nothing in the cap connects to the guns, the LED 5V port or the bladder: those all stay on the sled and the cup.
 
 ## Measured parts (Joey, tape measure, 2026-10-14)
 
