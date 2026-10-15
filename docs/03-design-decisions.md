@@ -60,7 +60,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Battery-side charging avoids the 30 A breaker and main connectors, reducing short-circuit fire risk. The 4A rate and 8.4 V output suit the 2S5P.
 
-**Implications:** Electrical work requires unplugging both XT60 battery and USB-C input. Charger is always available; no firmware or special modes required.
+**Implications:** Electrical work requires pulling both the power key and the USB-C input. The charger connects to BMS P+/P− upstream of the key, so it is always available (it works with the key out); no firmware or special modes required.
 
 ---
 
@@ -68,7 +68,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The 30 A rating equals system continuous max (26 A guns + pump + margin). Manual reset requires deliberate recovery, preventing accidental re-closure into a persistent short. No per-channel fuses; XT30U connectors (15 A rating) and 16 AWG wire (20 A rated) are secondary barriers.
 
-**Implications:** A gun short trips the main breaker immediately. Press reset after fixing the fault. No fuses to carry or replace in field. The breaker is in the + line only. Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong). It's an inline type with a red reset lever and a red push-to-trip button on its square plate. It stands upright behind the sled's cross panel, 2 mm from the outer wall, hung by zip ties through its plate holes and tall slots in the spine. Its controls are only reachable with the sled out: to reset it, take the cap off (2 screws), lift the sled out and reset the lever. The XT60H loop below the stick is the OFF switch.
+**Implications:** A gun short trips the main breaker immediately. Press reset after fixing the fault. No fuses to carry or replace in field. The breaker is in the + line only. Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong). It's an inline type with a red reset lever and a red push-to-trip button on its square plate. It stands upright behind the sled's cross panel, 2 mm from the outer wall, hung by zip ties through its plate holes and tall slots in the spine. Its controls are only reachable with the sled out: to reset it, take the cap off (2 screws), lift the sled out and reset the lever. The power key on the cap top is the OFF switch.
 
 **Update (2026-10-14):** The breaker window and its TPU membrane were removed from the printed stick, and the tube walls are now solid. The window was a 34 × 40 mm glued seam on a side wall that flexes every time it's pressed. That made it the stick's biggest leak risk, right beside the breaker/BMS bay, for little benefit. A trip means a real fault (a short, a jammed motor), so needing to pull the sled to reset is acceptable; find the cause first. Leave enough wiring slack to lift the sled out.
 
@@ -102,7 +102,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Decoupling prevents pump noise or LED transients from resetting the MCU. The YxPC modules have no defensible spec; both are provisional. If Buck A misbehaves, Pololu S13V30F5 is the external replacement (no PCB change).
 
-**Implications:** Measure each buck's output under load (PCB max input 5.25 V). Configure Buck A to ~5.0 V via trim pot before connecting pump. Solder both outputs directly (Buck A → PCB J1; Buck B → a cut USB cable to the backpack); there's no room for USB plugs inside the stick.
+**Implications:** Measure each buck's output under load (PCB max input 5.25 V). Configure Buck A to ~5.0 V via trim pot before connecting pump. Buck A's output is soldered straight to the PCB J1 lead. Buck B has no wiring on its output side: its own USB-A port sits behind a window in the tube's outer wall and the backpack cable plugs straight in.
 
 ---
 
@@ -118,15 +118,15 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Two-wire passive display shows battery state without firmware. No percentage fuel gauge; operator reads voltage and estimates runtime from experience. 4–100 V range covers 2S (2.8 V min to 8.4 V max).
 
-**Implications:** A 7 V reading with full fluid suggests ~5 min firing left; below 5 V, gun loses output. Spares prevent broken display from blocking deployment. Wire it after the breaker so tripping the breaker turns it off. Its idle draw is unmeasured (small LED meters typically draw tens of mA); measure it once, and unplug the XT60H loop for storage.
+**Implications:** A 7 V reading with full fluid suggests ~5 min firing left; below 5 V, gun loses output. Spares prevent broken display from blocking deployment. Wire it after the breaker so tripping the breaker turns it off. Its idle draw is unmeasured (small LED meters typically draw tens of mA); measure it once, and pull the power key (blank in) for storage.
 
 ---
 
-**Decision:** Master disconnect is XT60 battery plug or removable XT60 loop key.
+**Decision:** The OFF switch is a removable XT60H key in a socket on the cap top.
 
-**Why:** XT60 is RC-standard, rated 60 A, provides secure break of main power. A loop key (short XT60 jumper) prevents accidental reconnection and provides pull handle for safe field swaps.
+**Why:** XT60 is RC-standard, rated 60 A, provides secure break of main power. The key (an XT60H female with a short 12 AWG U-loop across its two cups, in a printed grip with a lanyard hole) is a visible, tool-free OFF that doesn't need the bag opened or anything reached under the stick.
 
-**Implications:** Electrical work requires unplugging battery XT60 and USB-C input. The XT60H loop runs out through the bulkhead grommet and the cup's floor; open the bag to pull it. It's the everyday OFF and the full battery disconnect, for storage. The BMS stays on the battery either way (quiescent draw unmeasured, typically tiny).
+**Implications:** The panel side is an XT60H male in a sleeve under the cap plate (a 0.8 mm lip stops pull-out, hot glue below stops push-in); socket pin A is BMS P+ and pin B is the breaker input, so the key switches the + line only. Key in is ON; key out is OFF: all loads off, but the battery stays connected to the BMS, the charger and one pin of the key socket. For storage or transport, key out and the TPU key blank in. The socket sleeve is 17.0 × 9.8 × 22 mm with a rear zip-tie keeper so the key's insertion force can't push it in. The charger connects to BMS P+/P− upstream of the key, so it works with the key out. Electrical work still requires pulling the key and the USB-C input. The BMS stays on the battery either way (quiescent draw unmeasured, typically tiny). Water in an open key socket only bridges P+ to the switched +, which cannot short the battery; keep the key or the blank in.
 
 ---
 
@@ -162,7 +162,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Battery output (~40 A peak, ~26 A sustained) is highest-current node. XT60H provides secure gold-plated contacts and protective sheath.
 
-**Implications:** Battery output is XT60 male; pack/main harness is XT60 female. Removable loop key completes master disconnect.
+**Implications:** The power key socket on the cap is an XT60H male and the key is an XT60H female. The key completes the circuit between BMS P+ and the breaker; it is not a full battery disconnect (the BMS, the charger and one socket pin stay live).
 
 ---
 
@@ -188,7 +188,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** 1 L provides ~2 h 38 min runtime at 37% duty. Factory hose disconnect is leakproof and can be cut/re-sealed with barbed tee (no purchased shutoff needed). Wide-mouth fill allows easy refill and cleaning.
 
-**Implications:** Fill through the bladder's wide mouth. The bladder feed enters the stick's cup through its floor. Drain and dry after every event; never store solution in bladder.
+**Implications:** Fill through the bladder's wide mouth. The bladder hose enters the cup through a pigtail on its front wall (labelled IN), 45 degrees down. Drain and dry after every event; never store solution in bladder.
 
 ---
 
@@ -432,7 +432,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** XT30U and silicone hose are rated for flow and signal, not sustained mechanical load. 550 paracord (4 mm, ~550 lb breaking strength) takes full weight when held high.
 
-**Implications:** Umbilical assembly includes paracord loop with knot/carabiner anchor. A printed umbilical brick at each end holds the XT30U (strapped in an open pocket), the 16 AWG pair and the tube (in grooves under narrow zip ties), and anchors the paracord; paracord separate, not twisted.
+**Implications:** Umbilical assembly includes paracord loop with knot/carabiner anchor. A printed umbilical brick at the gun end holds the XT30U (strapped in an open pocket), the 16 AWG pair and the tube (in grooves under narrow zip ties), and anchors the paracord; the pack end (XT30U male, hose end, paracord loop; the gun end is an XT30U female) plugs into a port cluster on the cup's outer wall and ties off in a U-tunnel boss there. Paracord separate, not twisted.
 
 ---
 
@@ -450,7 +450,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** The battery rides high (heavy part high, close to the back), the wet cup is lowest so spills drain away from the electronics, and the whole pack except the bladder is one portable unit. An intermediate wide-box design (about 157 × 171 × 52 mm) was dropped the same day because it couldn't sit beside the bladder.
 
-**Implications:** The tube's floor (bulkhead) is the wet/dry divider; cables cross it through a slit TPU grommet that is a splash baffle, not watertight. The cap's TPU ring seal, pressure relief if a cell fails, and enclosed-charging temperatures are not verified: wet-test the cap, and charge with the cap off until the first enclosed charge has been checked. Umbilicals, bladder feed, LED-backpack USB and the XT60H disconnect loop exit through the cup's floor. Hardware: 6 M3 screws (2× M3×10 with TPU washers for the cap, 4× M3×12 for the cup) + 6 glued-in M3 nuts, zip ties, glue, tape. TPU pads, a pump mat and shim strips do the job foam would have done. Details in [09-printed-parts.md](09-printed-parts.md).
+**Implications:** The tube's floor (bulkhead) is the wet/dry divider; cables cross it through a slit TPU grommet that is a splash baffle, not watertight. The cap's TPU ring seal, pressure relief if a cell fails, and enclosed-charging temperatures are not verified: wet-test the cap, and charge with the cap off until the first enclosed charge has been checked. Nothing exits underneath: the umbilicals plug into the cup's outer wall, the bladder hose enters through the front wall, the LED backpack plugs into a USB-A window in the tube wall, and the OFF switch is the power key on the cap. Hardware: 6 M3 screws (2× M3×10 with TPU washers for the cap, 4× M3×12 for the cup) + 6 glued-in M3 nuts, zip ties, glue, tape. TPU pads, a pump mat and shim strips do the job foam would have done. Details in [09-printed-parts.md](09-printed-parts.md).
 
 ---
 
@@ -536,11 +536,11 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA, with TPU for the cap ring, the two grommet halves, the PRIME boot, the PRIME plunger, the cap-screw washers, the battery pads, the pump mat and the shim strips; plus the fit coupon, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×4 in ASA (PETG also works for those older parts).
+**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA, with TPU for the cap ring, the two grommet halves, the PRIME boot, the PRIME plunger, the cap-screw washers, the battery pads, the pump mat, the shim strips, the trimmer, USB-C and USB-A plugs two gun port caps, the key blank and the key gasket; the stick's power key (26) is also ASA; plus the fit coupons, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×2 (gun end only) in ASA (PETG also works for those older parts).
 
 **Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (OpenSCAD sources and STL files provided).
 
-**Implications:** Nothing needs supports. Print the four fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt and nut coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 25 STLs in all, including three stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
+**Implications:** Nothing needs supports. Print the five fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt, nut and ports coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 31 STLs in all, including four stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
 
 ---
 

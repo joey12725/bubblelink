@@ -58,7 +58,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - **Buck B** powers the LED backpack's USB input
    - Bench-test Buck A under load: must stay **below 5.25 V**
    - Measured 2026-10-14: 1 in along the port, 5/16 in thick. **Width not measured** (17 mm assumed); measure it
-   - You'll solder both outputs directly (no room for USB plugs inside the stick)
+   - Buck A's output is soldered straight to the J1 lead; Buck B has no wiring on its output side (the backpack plugs into its own USB-A port through the tube wall)
 
 **Electrical subsystem (critical variants):**
 5. **ACS758LCB-050B current sensor** (Great IT Electronic, [price])
@@ -157,9 +157,9 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 
 Follow the print order in [hardware/printed/README.md](../hardware/printed/README.md):
 
-1. Print the four **fit coupons** first, in ASA: `00_fit_coupon` plus the stick's rim, skirt and nut coupons. Pick the tightest cell ring a 25R slides into by hand and the snug XT30U pocket, and check that the skirt slice drops into the rim slice with the TPU ring on and that an M3 nut presses into both hex pockets. Set `cell_bore`, `fit_clear` or `sk_c` in `src/params.scad` (or use about 100.5% slicer shrink compensation on the K2 Plus) and rebuild the STLs with `build.sh`.
+1. Print the five **fit coupons** first, in ASA: `00_fit_coupon` plus the stick's rim, skirt, nut and ports coupons. Pick the tightest cell ring a 25R slides into by hand and the snug XT30U pocket, and check that the skirt slice drops into the rim slice with the TPU ring on that an M3 nut presses into both hex pockets, and, on the ports coupon, that the umbilical's XT30U male shroud slides into the well, the silicone tube pushes snugly through the hose hole, a USB-A plug seats fully through the window, and the XT60H male drops into its sleeve and stops under the lip. Set `cell_bore`, `fit_clear` or `sk_c` in `src/params.scad` (or use about 100.5% slicer shrink compensation on the K2 Plus) and rebuild the STLs with `build.sh`.
 2. Print the **tube**, **sled**, **cell holders** (MID and TERM; they now have flat ends, so reprint any older ones) and the **slide clamps** (×3). Then **measure** the tube rim height (156 mm above the bulkhead plus 3 mm) and the assembled battery block (113.15 mm nominal): the coupons don't capture Z shrink. If the stack is off by more than 0.2 mm, edit `bp_ov` and rebuild only the cap and pads. Print the cap and battery pads after measuring.
-3. Print the **stick parts** (tube, cap, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA (tall parts on the K2 Plus; run the fit coupon in ASA first) and the TPU parts (cap ring, grommet halves, PRIME boot, PRIME plunger, two screw washers, two compliant battery pads, the pump mat, the shim strip set), then the **umbilical bricks** (×4). The LED windows are through-holes, so any cap colour works. Nothing needs supports.
+3. Print the **stick parts** (tube, cap, sled, cup, PRIME guard bezel, grommet drip skirt, power key) in ASA (tall parts on the K2 Plus; run the fit coupon in ASA first) and the TPU parts (cap ring, grommet halves, PRIME boot, PRIME plunger, two screw washers, two compliant battery pads, the pump mat, the shim strip set, trimmer plug, USB-C plug, USB-A plug, two gun port caps, key blank, key gasket), then the **umbilical bricks** (×2, gun end only). The LED windows are through-holes, so any cap colour works. Nothing needs supports.
 
 None of these parts has been test-fitted yet, so check fits as you go.
 
@@ -222,19 +222,21 @@ None of these parts has been test-fitted yet, so check fits as you go.
    - Tab contact resistance <5 mΩ per weld (measure with multimeter @ 10 A test)
    - No cell heating after 1 A load test for 30 seconds
 
-### 2.3 BMS and XT60H connection
+### 2.3 BMS and power key connection
 
 **BMS wiring (common-port design):**
 - **B−:** Row 1 negative terminal (cell 1 −)
 - **BM/B1:** Row 1 positive + Row 2 negative midpoint (junction between series links)
 - **B+:** Row 2 positive terminal (cell 10 +)
 - **P−:** System load negative (main harness return; it does not go to the breaker)
-- **P+:** System load positive (main harness from XT60H)
+- **P+:** System load positive (to pin A of the power key socket; the charger also connects to P+/P−, upstream of the key)
 
-**Solder XT60H to battery terminals:**
-1. Solder **XT60H female (recessed, safer on live pack)** to BMS P+/P− output:
-   - Red wire to P+ (row 2 +)
-   - Black wire to P− (row 1 −)
+**Wire the power key socket (XT60H male, in the cap):**
+1. Wire the socket in line with the + feed (it switches the + line only):
+   - Pin A: 12 AWG red to BMS P+ (row 2 +)
+   - Pin B: 12 AWG red to the breaker input
+   - The key (an XT60H female with a short 12 AWG U-loop across its two cups, hot-glued into the printed grip, part 26) bridges A and B. Key in is ON; key out is OFF (all loads off; the battery stays connected to the BMS, the charger and one pin of the key socket). Solder with slack to lift the cap; fit the rear zip-tie keeper behind the connector body, and put the TPU key blank (part 43) in the socket for storage
+   - Black (return) goes from P− (row 1 −) to the return split, not to the socket
    - Insulate solder joints with heat-shrink or electrical tape
    - **CRITICAL:** verify polarity with multimeter before connecting ANY load
 
@@ -272,7 +274,7 @@ On the bench, hold the block together with tape or a rubber band; in the stick, 
    - Verify hole diameter matches M6 studs (should be 6.2–6.5 mm)
 
 2. **Connect to breaker (+ line only):**
-   - Red wire from BMS P+ (via the XT60H loop): crimp and bolt to one M6 stud with stainless nut (torque: hand-tight + 1/8 turn)
+   - Red wire from BMS P+ (via the power key): crimp and bolt to one M6 stud with stainless nut (torque: hand-tight + 1/8 turn)
    - Red wire to the distribution point: crimp and bolt to the other M6 stud the same way
    - The breaker is in the **+ line only**. No black (−) wire goes to the breaker; the return runs straight to BMS P−
    - **CRITICAL:** do NOT solder directly to breaker studs; thermal stress damages internal contacts
@@ -286,26 +288,24 @@ On the bench, hold the block together with tape or a rubber band; in the stick, 
 
 **Setup:** Two independent channels (guns can be powered separately or together)
 
-1. **Channel 1 (left gun):**
-   - Strip 12 AWG red from main harness and solder to one XT30U male connector (positive pin)
-   - 16 AWG red wire (~2 m) to gun 1 input
-   - XT30U female (recessed) on gun 1 side
+1. **Pack side, each channel (gun port 1 and gun port 2):**
+   - **+:** a 16 AWG red lead from the ACS758's output stud (the + split after the breaker), through the bulkhead grommet, across the cup, to the **+ socket of the pack-side XT30U female** potted in that channel's well
+   - **−:** a 16 AWG black lead from the BMS P− bus, along the same route, to the − socket of the same female
+   - The two pairs cross the bulkhead in the grommet's four 16 AWG holes; heat-shrink every joint and fit the well's zip-tie keeper before the hot glue (see the print guide, Inputs and outputs)
 
-2. **Channel 2 (right gun):**
-   - Strip 12 AWG red from main harness (or split before main entry) and solder to second XT30U male
-   - 16 AWG red wire (~2 m) to gun 2 input
-   - XT30U female (recessed) on gun 2 side
+2. **Umbilical (one per gun, ~1.2 m):**
+   - Pack end: an XT30U **male** on the 16 AWG pair, plugged into the well
+   - Gun end: an XT30U **female** (power always comes from a female), in the gun-end brick
+   - The hose and paracord run with the pair; the cord is the shortest, so it takes any pull
 
-3. **Return paths (GND):**
-   - 12 AWG black from BMS P− to the return split (both guns in parallel on return)
-   - 16 AWG black from the return split to each gun 1 and gun 2 return terminal (the ACS758 is in the + path only)
+3. **Gun side:** an XT30U **male** on the gun's motor input (both heads of a dual-head gun in parallel)
 
 4. **Strain relief:**
    - Braided PET sleeving over all soldered joints
    - Heat-shrink tubing over each XT30U connector neck
    - No sharp kinks in the hose or cable bundles
 
-5. **Voltmeter:** wire its + lead to the main positive **after the breaker** (− to BMS P−), so the meter goes off with the bucks, PCB and guns whenever the breaker trips or the power is unplugged. Unplugging the XT60H loop below the stick is the OFF switch and the full battery disconnect for storage
+5. **Voltmeter:** wire its + lead to the main positive **after the breaker** (− to BMS P−), so the meter goes off with the bucks, PCB and guns whenever the breaker trips or the key is pulled. Pulling the power key on the cap top is the OFF switch (all loads off; for storage, key out and key blank in)
 
 ### 3.3 ACS758 external mounting
 
@@ -339,7 +339,7 @@ On the bench, hold the block together with tape or a rubber band; in the stick, 
 
 4. **Connections:**
    - Buck input: battery 2S pack (via breaker)
-   - Buck output: **solder directly** to the lead for PCB J1 (no room for USB plugs inside the stick); the PCB drives the pump through J3
+   - Buck output: **solder directly** to the lead for PCB J1 ; the PCB drives the pump through J3
    - Bench test under load before installing: output must stay **below 5.25 V**
 
 ### 4.2 LED backpack regulation (5V for display, Buck B)
@@ -349,7 +349,7 @@ On the bench, hold the block together with tape or a rubber band; in the stick, 
 1. **Input:** 2S battery voltage
 2. **Output:** **Dial to exactly 5.0 V**
 3. **Load:** LED backpack USB input (variable, ~100–500 mA depending on display mode)
-4. **Connection:** **solder the output directly** to a cut USB cable that runs to the backpack
+4. **Connection:** no wiring on the output side. Buck B lies on its ledge with its own USB-A port 1.3 mm behind the LED 5V window in the tube's outer wall; plug the backpack's USB cable straight into it from outside (unplug it before lifting the sled). Buck B sits 0.5 mm from the wall (put a 1.0 mm TPU shim at its input end, against the ACS758 rail); the plug must cross a 0.8 mm web and a 0.5 mm gap, so it needs at least about 10.3 mm of exposed shell (standard plugs have about 12 mm), and the backpack cable's overmold must fit the 17 × 9 mm counterbore. **Measure Buck B before printing the tube**: the window assumes 25.4 × 17 × 8 mm with the receptacle centred on the 17 mm side
 
 ---
 
@@ -495,7 +495,7 @@ On the bench, hold the block together with tape or a rubber band; in the stick, 
 
 4. **Hydration bladder setup inside pack:**
    - Stand the bladder beside the stick in the LED backpack
-   - Cut factory hose short; it enters the stick's wet cup through the 20 mm service hole in the floor
+   - Cut factory hose short; it enters the stick's wet cup through the IN hose pigtail on the front wall (45 degrees down); join the two with a reducer from the assortment
    - Factory hose feeds to reducer → 3.5 mm silicone tube → pump inlet tee
 
 ### 6.2 Assemble pump manifold
@@ -552,7 +552,7 @@ OUTLET TEE 2
 4. **Gun outlet channels (2× four-foot hoses):**
    - Left channel: outlet tee 2 → left slide clamp → 4-foot 3.5 mm hose → left gun barb
    - Right channel: outlet tee 2 → right slide clamp → 4-foot 3.5 mm hose → right gun barb
-   - Each hose leaves through one of the cup floor's 13 mm holes into its umbilical brick; outer hose sheathed in braided PET sleeving for durability
+   - Each hose leaves through the hose pigtail of its gun port on the cup's outer wall (60-80 mm of tube, 5.4 mm hole, zip-tied inside against its boss); join the umbilical hose to it with a straight barbed connector; outer hose sheathed in braided PET sleeving for durability
 
 5. **Bypass/recirculation loop:**
    - Outlet tee 1 side branch → bypass slide clamp → 4 mm check valve → pump inlet tee
@@ -607,9 +607,9 @@ OUTLET TEE 2
 
 **Components per umbilical:**
 - 16 AWG red and black silicone wire, 4–5 meters (accounts for 4-foot gun hose bundling)
-- XT30U male connector (power inlet, gun-side)
+- XT30U male connector (pack end) and XT30U female connector (gun end; power always comes from a female)
 - 3.5 mm silicone tubing, 4 feet (fluid inlet)
-- Two printed umbilical bricks (one at each end)
+- Two printed umbilical bricks (one at the gun end of each umbilical)
 - 550 paracord 4 mm, ~2 meters (load-bearing tether)
 - Heat-shrink and braided PET sleeving
 
@@ -618,30 +618,30 @@ OUTLET TEE 2
 1. **Electrical leads (16 AWG):**
    - Bundle red and black wires together (twist lightly)
    - Length: 4–5 m to account for gun hose routing and pack entry
-   - Soldered to XT30U male connector pins (+ red, − black)
+   - Soldered to the XT30U pins at each end (male at the pack end, female at the gun end; + red, − black)
    - Insulate solder joints with heat-shrink
 
 2. **Fluid line (3.5 mm tubing):**
-   - 4-foot length from the pack-side brick to gun-side inlet barb
+   - 4-foot length from the cup's hose pigtail to the gun-side inlet barb
    - Bundle alongside power leads with zip ties at ~1 m intervals
    - Do NOT kink or bind tightly (allows liquid flow)
 
 3. **Load-bearing paracord:**
    - 2 m length, 4 mm 550 paracord in black
    - Bundles power and fluid together as primary support member
-   - Ties through the umbilical bricks at pack and gun ends
+   - Ties to the gun-end brick at one end and through the U-tunnel boss on the cup at the other
    - Carries mechanical load; electrical leads and fluid line are passengers
 
-4. **Umbilical bricks (printed, one at each end):**
+4. **Umbilical bricks (printed, gun end only):**
    - Drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside the pocket
    - Run the 16 AWG pair and the fluid tube in their grooves, held by narrow zip ties
-   - Tie the paracord through the outer hole; the inner hole ties to the gun (gun end) or, with a short loop, to a paracord tie-off pair in the cup's outer wall (pack end; pair 1 for umbilical exit 1, pair 2 for exit 2)
-   - Leave the hose and wires a little longer than the cord at both ends, so a dropped gun loads the cord, never the hose or the solder joints
+   - Tie the paracord through the outer hole; the inner hole ties to the gun. The other end of the cord goes through the U-tunnel boss at the cup's port (port 1 for umbilical 1, port 2 for umbilical 2): in one opening, out the other, knot, melt the ends
+   - Leave the hose and wires a little longer than the cord, so a dropped gun loads the cord, never the hose or the solder joints
    - No screws; the bricks are the strain relief (there are no separate TPU boots)
 
 ### 7.3 Gun motor rewiring
 
-1. **Solder 16 AWG leads** from umbilical XT30U male connector:
+1. **Solder 16 AWG leads** from the gun's XT30U **male** input connector (it mates with the umbilical's gun-end female):
    - Red wire to motor positive terminal (usually marked or color-coded)
    - Black wire to motor negative terminal
    - On a dual-head gun, wire both head motors **in parallel** on the gun's XT30U
@@ -699,14 +699,15 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
    - J1, J2, J3 are XH plugs; leave enough slack to lift the cap and set it beside the stick
 
 3. **Bulkhead and cup:**
+   - **Pack end of each umbilical:** an XT30U male on the 16 AWG pair, the hose end and a paracord loop. No brick. Close an unplugged port well with a TPU port cap (part 42) and its fluid side with the slide clamp inside the cup (the cap only covers the electrical well)
    - **Before the sled goes in:** drop the 4 M3 nuts into the hex pockets in the bulkhead floor from the dry side and lock each with a dab of CA or silicone. The M3×12 cup screws (each with an M3 split lock washer under the head) then go up from below through the cup columns and thread fully through these nuts
-   - Cut a slit with a knife from each grommet hole to the nearest long edge and lay the cables in: both 16 AWG gun pairs, both pump leads, both 12 AWG XT60H loop wires, and the LED-backpack USB cable. Hold the ASA drip skirt's lip against the bulkhead's underside, push the lower half up through it from the cup side, and the upper half down from the dry side
+   - Cut a slit with a knife from each grommet hole to the nearest long edge and lay the cables in: both 16 AWG gun pairs and both pump leads (the XT60H loop and the backpack USB no longer cross the bulkhead). Hold the ASA drip skirt's lip against the bulkhead's underside, push the lower half up through it from the cup side, and the upper half down from the dry side
    - Once the wiring is final, fill the grommet's whole top face with neutral-cure silicone, worked around each cable (it peels off when you need to pull the sled)
-   - Tie each pack-end umbilical brick's inner hole with a short paracord loop through the paracord tie-off pair that matches its exit (cord in one hole, out the other, around the web, knot, melt the ends); leave the hose and wires to the brick longer than the loop
+   - Gun ports (cup outer wall): fit each pack-side XT30U **female** with a spare male plugged in as a jig. Push the pair in from inside until the male's rim is flush with the outer face, then fill the well behind the female with hot glue (it pots the solder cups too). Fit a rear zip-tie keeper across the sleeve between the female's solder cups, pushed against the back of its body (cup off the stick); it carries the 12-34 N unplugging force, so the glue only seals and centres. Proof-test each port by pulling the plugged umbilical at about 70 N with the paracord slack. Add a short heat-shrink boot over the umbilical's male and wires if you expect rain (the mated pair is recessed under a drip hood, not waterproof). Push the 60-80 mm hose pigtail out through its 5.4 mm hole and zip-tie it inside against its boss. Tie each umbilical's paracord through the U-tunnel beside its port (cord in one opening, out the other, knot, melt the ends); keep the cord shorter than the hose and wires; thread the cord through the tunnel with a leader (a stiff wire or a zip tie taped to the cord's tip) and test the tunnel with a hard pull on the cup
    - Jostle-proofing: hot glue on the J1–J3 XH plugs after a final test, tape or a zip tie around each mated XT30/XT60, a zip tie within 2–3 cm of every solder joint, the TPU pump mat under the pump (strapped down with zip ties across the pocket), and a slack loop on each hose in the cup
    - Give every cable a drip loop below the cup, so water runs off the low point rather than up the cable
-   - Umbilicals leave through the cup floor's two 13 mm holes; the bladder feed, LED-backpack USB and XT60H loop use the 20 mm service hole
-   - The XT60H pair and the USB plug end up in the wet zone below the stick: wrap them in a bag or heat-shrink
+   - Nothing exits underneath: the umbilicals use the two gun ports, the bladder uses the IN pigtail on the front wall, and the LED backpack plugs into the USB-A window in the tube wall
+   - The two gun XT30U wells and the IN pigtail are on the wet side; close unplugged wells with the TPU port caps
 
 4. **Close the stick:**
    - Click a TPU battery pad onto the end of each of the cap's two ribs (its bead snaps into the rib's groove; a dab of hot glue is only a backup). If the cap closes with the pads loose, put a 0.6 mm shim strip under a pad; the ribs press the cell holders and pin the sled onto the bulkhead. Tuck TPU shim strips into any pocket where a board rattles (0.6 and 1.0 mm for the BMS slot and buck/ACS758 pockets), against a component-free board edge, and keep the zip tie
@@ -722,13 +723,13 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 
 1. **5V power distribution:**
    - **Buck A** (YxPC, set to 5.0V): input from 2S battery (through breaker), output supplies PCB J1, ACS758 module power, and pump motor control via Q2 on the PCB
-   - **Buck B** (YxPC, set to 5.0V): input from 2S battery, output to LED backpack USB input
+   - **Buck B** (YxPC, set to 5.0V): input from 2S battery, output to its own USB-A port behind the LED 5V window (the backpack cable plugs in there)
 
 2. **Connector routing:**
    - J1 (PCB power): JST-XH cable soldered directly to Buck A's output
    - J2 (ACS758 sensor): 3-wire JST-XH from external ACS758 module (receives 5V and GND from PCB J1)
    - J3 (pump output): cable down through the bulkhead grommet to the pump motor (2-pin JST-XH, controlled by PCB MOSFET Q2)
-   - LED backpack USB: cut USB cable soldered directly to Buck B's output
+   - LED backpack USB: plugs into Buck B's own USB-A port through the tube wall (no cut cable)
 
 3. **Test before final packing:**
    - Apply 5V to system; verify all test points nominal per PCB bring-up section
@@ -747,7 +748,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 - [ ] All solder joints cold and solid (no joint movement with probe)
 - [ ] Pump inlet and outlet NOT kinked or occluded
 - [ ] XT30U connectors fully seated and latched
-- [ ] Breaker armed (reset lever ON, checked with the sled out before closing the stick); the XT60H loop below the stick is the OFF switch
+- [ ] Breaker armed (reset lever ON, checked with the sled out before closing the stick); the power key on the cap top is the OFF switch
 - [ ] PRIME works with a deliberate fingertip press inside the bezel, and a flat palm or a strap across the cap doesn't trigger it
 - [ ] Donor guns verified for motor movement and tubing inlet patency
 - [ ] Fluid solution mixed (1 part JOYFY concentrate + 9 parts water in 1L container)
@@ -755,7 +756,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 ### 9.2 Prime pump (bench, no guns)
 
 1. **Fill 1L bladder** with mixed solution (10 mL concentrate + 90 mL water for test)
-2. **Connect battery to XT60H** connector (red wire to +, black to −)
+2. **Insert the power key** (the battery is connected through the KEY socket)
    - Voltmeter reading should jump to ~8.4 V (battery full)
    - LEDs should light (POWER on, others off if no sensor/pump connected)
 
@@ -778,7 +779,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 
 ### 9.3 Gun firing (first test, single gun)
 
-1. **Connect Left Gun** (Umbilical 1) XT30U to Left Channel XT30U female:
+1. **Connect Left Gun** (Umbilical 1): plug its pack-end male into the port 1 well female, and its gun-end female onto the gun's male input:
    - Confirm snug fit and latch clicks
    - Motor should spin freely (dry run, no solution in tubing yet)
 
@@ -932,8 +933,8 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 - [ ] Backpack weight balanced and comfortable (tested for 5+ minutes wear)
 - [ ] Umbilical connectors accessible for quick gun swap in field
 - [ ] Spare bubble solution concentrate on hand (1× 32 oz bottle supports ~10 refills)
-- [ ] XT60H loop unplugged with the stick closed: the bucks, PCB, voltmeter and guns all go off (it's the OFF switch)
-- [ ] Voltmeter idle current measured once with a multimeter; XT60H loop unplugged whenever the pack is stored
+- [ ] Power key pulled with the stick closed: the bucks, PCB, voltmeter and guns all go off (it's the OFF switch)
+- [ ] Voltmeter idle current measured once with a multimeter; power key pulled whenever the pack is stored
 - [ ] Conformal coating applied (optional; skip if field repair access needed)
 - [ ] Documentation (this build guide, test results, calibration notes) stored digitally or on paper
 

@@ -4,15 +4,15 @@
 
 ## Design: the stick
 
-The whole pack, apart from the bladder, is one upright **stick**: about **99.6 × 77.8 × 220 mm** (3.9 × 3.1 × 8.7 in) including the PRIME bezel, the cap screw heads and the cup. It stands beside the 1 L bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) leave from its bottom, so it can move to a different bag easily. The tube is 98.8 mm wide plus 0.8 mm of raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. The rigid parts are printed in ASA; the seals and cushions are TPU (see *Printing in ASA* in the [print guide](../hardware/printed/README.md)).
+The whole pack, apart from the bladder, is one upright **stick**: about **99.6 × 77.8 × 220 mm** (3.9 × 3.1 × 8.7 in) including the PRIME bezel, the cap screw heads and the cup. It stands beside the 1 L bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) plug into ports on the cup's outer wall, and nothing exits underneath, so it can move to a different bag easily. The drip hoods stand 2.5 mm off the outer wall, so it is 101.3 mm (4.0 in) wide across them. The tube is 98.8 mm wide plus 0.8 mm of raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. The rigid parts are printed in ASA; the seals and cushions are TPU (see *Printing in ASA* in the [print guide](../hardware/printed/README.md)).
 
 | Section | What's in it |
 |---|---|
-| **Cap** (control head) | CTRL v1.2 PCB hung underneath. LEDs shine through glue-filled through-holes. PRIME is a TPU plunger under a TPU boot, inside a glued ASA guard bezel, with a hard stop. The USB-C charger presses into a pocket with four small crush ribs, and a TPU plug closes the CHG port between charges. RV1 and RV2 adjust through two windows closed by one TPU plug. Voltmeter and USB-C charge port on top. A TPU ring seals radially against the tube; two M3 × 10 screws, each with a TPU washer and a steel flat washer, keep it on. Two TPU battery pads on its ribs press the cell holders. |
-| **Tube** (dry) | Plain shell, 94 × 73 mm inside, 2.4 mm walls; its 3 mm floor is the bulkhead. Raised 0.8 mm BubbleLink lettering on the outer right-hand wall. |
-| **Sled** (slides out of the top) | The 2S5P block stands beside a central spine. Breaker and BMS sit behind a cross panel; Buck A, Buck B and the ACS758 sit in front of it. |
-| **Bulkhead** | Cables cross through a two-piece TPU grommet with an ASA drip skirt below it. The cup's 4 nuts sit in hex pockets, fitted from the dry side. |
-| **Cup** (wet) | Pump (on a TPU mat), three tees, check valve and bypass slide clamp. Bolts on from below with 4 M3 × 12 screws. Drains through its floor and through the same pair of 4 mm holes in every wall. Two numbered pairs of paracord tie-off holes (tether anchors) in the outer wall take the umbilical paracord loads. |
+| **Cap** (control head) | CTRL v1.2 PCB hung underneath. LEDs shine through glue-filled through-holes. PRIME is a TPU plunger under a TPU boot, inside a glued ASA guard bezel, with a hard stop. The USB-C charger presses into a pocket with four small crush ribs, and a TPU plug closes the CHG port between charges. RV1 and RV2 adjust through two windows closed by one TPU plug. Voltmeter, USB-C charge port and the power key socket (KEY, an XT60H male) on top. A TPU ring seals radially against the tube; two M3 × 10 screws, each with a TPU washer and a steel flat washer, keep it on. Two TPU battery pads on its ribs press the cell holders. |
+| **Tube** (dry) | Plain shell, 94 × 73 mm inside, 2.4 mm walls; its 3 mm floor is the bulkhead. Raised 0.8 mm BubbleLink lettering on the outer right-hand wall. A USB-A window (LED 5V) with a drip hood and TPU plug lets the LED backpack plug into Buck B. |
+| **Sled** (slides out of the top) | The 2S5P block stands beside a central spine. Breaker and BMS sit behind a cross panel; Buck A and the ACS758 sit in front of it, and Buck B lies on a ledge beside the ACS758. The BMS slot has a 12 mm lip and a 25 mm fence. |
+| **Bulkhead** | Only the two 16 AWG gun pairs and the two pump leads cross, through a two-piece TPU grommet with an ASA drip skirt below it. The cup's 4 nuts sit in hex pockets, fitted from the dry side. |
+| **Cup** (wet) | Pump (on a TPU mat), three tees, check valve and bypass slide clamp. Bolts on from below with 4 M3 × 12 screws. Drains through its floor and through the same pair of 4 mm holes in every wall. On the outer wall, two numbered port clusters (1 and 2) each have an XT30U female well, a hose pigtail, a paracord U-tunnel and a drip hood; the bladder IN pigtail is on the front wall. |
 
 **History:** Joey approved combining parts on 2026-10-14. The first combined design was a wide box (about 157 × 171 × 52 mm). It was replaced the same day because it couldn't sit beside the bladder. Its sources (`dry_core.scad`, `pump_module.scad`, `port_insert.scad`) are kept for reference only.
 
@@ -22,17 +22,19 @@ The whole pack, apart from the bladder, is one upright **stick**: about **99.6 �
 
 **Foam is gone.** Three TPU parts replace it: two compliant battery pads that click onto the cap's ribs (36; about 0.6 mm of compression, roughly 70-140 N/mm per pad), a 2 mm pump mat with eight drain holes (37), and a set of six 5 × 30 mm shim strips (0.6, 1.0 and 1.5 mm thick, two of each) to cut and tuck where a board rattles (38).
 
-**TPU parts (11 STLs, 18 pieces; the shim set is one STL):** cap ring (30), grommet lower and upper halves (31, 32), PRIME boot (33), screw washers ×2 (34), PRIME plunger (35), battery pads ×2 (36), pump mat (37), shim strip set (38), trimmer plug (39), USB-C plug (40).
+**New parts this round:** `00_stick_coupon_ports`, `26_stick_power_key` (ASA), and `41_TPU_usbA_plug`, `42_TPU_gun_port_cap_x2`, `43_TPU_key_blank` and `44_TPU_key_gasket` (TPU).
 
-**Fit coupons (print first, in ASA):** `00_fit_coupon` plus three stick coupons: tube rim, cap skirt (with seal-ring groove, nut slot and screw hole) and bulkhead nut corner. The skirt slice must drop into the rim slice with the TPU ring on, and an M3 nut must press into both hex pockets. Total: 25 STLs.
+**TPU parts (15 STLs, 23 pieces; the shim set is one STL):** cap ring (30), grommet lower and upper halves (31, 32), PRIME boot (33), screw washers ×2 (34), PRIME plunger (35), battery pads ×2 (36), pump mat (37), shim strip set (38), trimmer plug (39), USB-C plug (40), USB-A plug (41), gun port caps ×2 (42), key blank (43), key gasket (44).
 
-**Still in use from earlier:** the fit coupon, the two cell holders, the slide clamps (×3) and the umbilical bricks (×4). The Tracer cosplay shells (L1, L2, L3, L6, R1–R6) were printed 2026-08-06 and are a separate project.
+**Fit coupons (print first, in ASA):** `00_fit_coupon` plus four stick coupons: tube rim, cap skirt (with seal-ring groove, nut slot and screw hole), bulkhead nut corner, and ports (XT30U well, hose hole, USB-A window, XT60H key socket in a 2.4 mm wall). The skirt slice must drop into the rim slice with the TPU ring on, and an M3 nut must press into both hex pockets. Total: 31 STLs.
+
+**Still in use from earlier:** the fit coupon, the two cell holders, the slide clamps (×3) and the umbilical bricks (×2, gun end only). The Tracer cosplay shells (L1, L2, L3, L6, R1–R6) were printed 2026-08-06 and are a separate project.
 
 **Not designed yet:** mounts for the two dual-head guns. They need the teardown measurements.
 
 ## Measured parts
 
-Joey measured the breaker, BMS, bucks, ACS758, charger, voltmeter and pump with a tape measure on 2026-10-14. The stick is sized around those numbers, and every board sits in an open compartment held with a zip tie. The breaker is an inline type with a push-to-trip button and a reset lever. The tube walls are solid (there's no breaker window), so both are reached only with the cap off and the sled out. The XT60H loop below the stick is the OFF switch. The voltmeter is about 1 in deep, and the cap allows 30 mm. Still unknown: the bucks' width (17 mm assumed). The USB-C receptacle is centred on the charger's 17.5 mm short side (confirmed by Joey, 2026-10-15). See the [print guide](../hardware/printed/README.md).
+Joey measured the breaker, BMS, bucks, ACS758, charger, voltmeter and pump with a tape measure on 2026-10-14. The stick is sized around those numbers, and every board sits in an open compartment held with a zip tie. The breaker is an inline type with a push-to-trip button and a reset lever. The tube walls are solid (there's no breaker window), so both are reached only with the cap off and the sled out. The power key on the cap top is the OFF switch (all loads off; the BMS, the charger and one key-socket pin stay live). The voltmeter is about 1 in deep, and the cap allows 30 mm. Still unknown: the bucks' width (17 mm assumed). The USB-C receptacle is centred on the charger's 17.5 mm short side (confirmed by Joey, 2026-10-15). See the [print guide](../hardware/printed/README.md).
 
 ## Known risks (not yet verified)
 

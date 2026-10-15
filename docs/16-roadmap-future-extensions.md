@@ -57,6 +57,8 @@ The v1 MVP follows a measured development path:
 
 ## Master disconnect (XT60 loop key with pull handle)
 
+**Status (2026-10-15): the basic version is now in the MVP** as the XT60H power KEY on the stick's cap (see `hardware/printed/README.md`, Inputs and outputs). What's left for the roadmap is the pull-handle variant reachable under the pack straps without opening the bag.
+
 **Intended purpose:** Emergency power cutoff, safely accessible under pack straps while wearable.
 
 **Specifications:**
@@ -373,7 +375,7 @@ The following features are **not** designed into v1 and will not be pursued befo
 **Planned after the target festival (winter 2026–2027):**
 - 2S10P 180 Wh cartridge build and field validation
 - Enclosed swappable battery cartridge with XT60 interface
-- Master disconnect loop key integration
+- Master disconnect: pull-handle key reachable under the straps (the cap KEY is already in the MVP)
 - Wrist emitter and UV torch builds (parallel side projects)
 - Cosplay cartridge variant (Tracer costume integration)
 - Progressive Hall-effect trigger redesign and bench testing

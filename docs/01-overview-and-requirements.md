@@ -26,7 +26,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 - **Festival runtime:** 10 pm to 3:30 am (~5 hour block) with light-to-moderate bubble production, punctuated by high-intensity dance peaks during drop moments.
 - **Consumption baseline (measured):** Three-head gun at ~70 W draws approximately 16.9 mL/min of bubble solution (measured under overvolted operation).
 - **Actual field consumption:** Approximately 37% duty cycle (37 minutes of firing per 100 minutes elapsed) during "very dance heavy" usage; lower 12–20% duty during typical nights.
-- **Portability:** Worn as a backpack while dancing. Must fit within venue bag restrictions for the target event (hydration packs permitted at the target festival; larger rigid backpacks not). Battery, pump, and electronics live in one printed upright stick (about 99.6 × 77.8 × 220 mm) beside the bladder; two umbilicals leave from its bottom, so it can move to a different bag easily.
+- **Portability:** Worn as a backpack while dancing. Must fit within venue bag restrictions for the target event (hydration packs permitted at the target festival; larger rigid backpacks not). Battery, pump, and electronics live in one printed upright stick (about 99.6 × 77.8 × 220 mm) beside the bladder; two umbilicals plug into ports on the cup's outer wall (nothing exits underneath), so it can move to a different bag easily.
 - **Weight sensitivity:** Loaded festival config (1 L solution + 1 L drinking water + battery + pump + electronics + bag) targets 6.8–7.7 lb (3.1–3.5 kg); without added drinking water ~4.4–5.3 lb (2.0–2.4 kg).
 - **Camelback experience:** Joey previously used hydration bladders; BubbleLink is a hybrid system allowing both bubble solution and drinking water (optionally) in same pack.
 
@@ -51,11 +51,11 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
   - Charge time: 7–8 hours nominal for 90 Wh at ~2 A rate
   - Charge-only path, isolated from gun and accessory power
 
-- **Main protection:** 40 A BMS + one 30 A manual-reset circuit breaker (Type B, YONGRUN, M6 studs) mounted immediately after BMS, in the + line only. Ring lugs (SC10-6, solder-filled) connect the 12 AWG main wire; never solder wire directly to breaker studs. Its reset lever is reached only with the cap off and the sled out. The XT60H loop below the stick is the OFF switch and the full battery disconnect for storage
+- **Main protection:** 40 A BMS + one 30 A manual-reset circuit breaker (Type B, YONGRUN, M6 studs) mounted immediately after BMS, in the + line only. Ring lugs (SC10-6, solder-filled) connect the 12 AWG main wire; never solder wire directly to breaker studs. Its reset lever is reached only with the cap off and the sled out. The power key on the cap top (an XT60H socket and key) is the OFF switch (all loads off; the battery stays connected to the BMS, the charger and one pin of the key socket; for storage, key out and key blank in)
 
 - **Battery voltage display:** Two-wire DC 4–100 V round LED voltmeter in the top of the stick's cap, reading battery voltage, wired after the breaker so tripping it turns the meter off; printed reference label showing 8.4 V (full) and 6 V (cutoff) thresholds
 
-- **Accessory USB output:** 5 V regulated via Buck B converter (external, YxPC 6–20 V → 5 V module) providing power for LED backpack display and future accessory panels; Buck B's output is soldered directly to a cut USB cable that runs to the backpack (no room for USB plugs inside the stick)
+- **Accessory USB output:** 5 V regulated via Buck B converter (external, YxPC 6–20 V → 5 V module) providing power for LED backpack display and future accessory panels; Buck B lies on a ledge on the sled with its own USB-A port 1.3 mm behind a window in the tube's outer wall (labelled LED 5V), so the backpack cable plugs straight in (no extension cable, no USB plug inside the stick)
 
 ### Fluid System
 
@@ -134,15 +134,15 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 - **Pack model:** MAX LED "M Style" Bluetooth LED pixel backpack—a hydration-pack-form-factor carrier with built-in display capability (status unknown until measured). Holds the printed stick (battery, pump, controller PCB) and the fluid reservoir.
   - Display is dual-use: serves as Tracer cosplay component and may provide BubbleLink status feedback
-  - Required fit: room for the stick (about 99.6 × 77.8 × 220 mm) standing upright beside the 1 L bladder. Two umbilicals leave from the stick's bottom. The bag's internal geometry is unknown until measured
+  - Required fit: room for the stick (about 99.6 × 77.8 × 220 mm) standing upright beside the 1 L bladder. Two umbilicals plug into ports on the cup's outer wall. The bag's internal geometry is unknown until measured
 
 - **Internal organization:** Everything except the bladder is one upright printed stick: a control-head cap (PCB hung underneath, voltmeter and USB-C charge port on top) over a dry tube holding a slide-out sled (battery, breaker, BMS, Buck A, Buck B, ACS758). The tube's floor is the bulkhead (wet/dry divider); cables cross it through a slit TPU grommet. Below it, a wet cup holds the pump and fittings and drains through its floor. See [docs/09-printed-parts.md](09-printed-parts.md).
 
 - **Printed components** (CAD in `hardware/printed/`; nothing printed yet):
-  - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, and the trimmer and USB-C plugs (25 STLs in all with the three stick fit coupons)
+  - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, the trimmer, USB-C and USB-A plugs, gun port caps, key blank and gasket, and the power key (31 STLs in all with the four stick fit coupons)
   - Cell holders MID and TERM (original 5×2 offset design, 19.9 mm pitch)
   - Slide clamps ×3 (bypass restrictor and both channel shutoffs)
-  - Umbilical bricks ×4 (one at each end of each umbilical)
+  - Umbilical bricks ×2 (one at the gun end of each umbilical)
   - A fit coupon, printed first to set cell-bore and connector clearances
 
 - **Hydraulic zoning:** Pump and fittings in the wet cup at the bottom of the stick, which drains through its floor. Battery and electronics in the dry tube above the bulkhead, sealed at the top by the cap's TPU ring (not yet wet-tested). The grommet is a splash baffle, not watertight.
@@ -179,12 +179,12 @@ The minimum viable product completes and validates the core BubbleLink platform.
 - One shared automatic peristaltic transfer pump
 - Two independent gun channels via XT30 power connectors
 - Concurrent dual-gun operation (each gun independent; wand option consuming both channels)
-- Printed umbilical bricks (×4) at both ends of each umbilical: strain relief, XT30U in an open pocket, paracord anchors
+- Printed umbilical bricks (×2) at the gun end of each umbilical: strain relief, XT30U in an open pocket, paracord anchors; the pack end plugs into a port cluster on the cup's outer wall
 - Fixed full-power gun triggers (momentary trigger on each channel, raw 2S bus voltage with no PWM modulation)
 - Four-foot standard hose lengths per gun
 - Six-foot experimental hose option (optional extended routing)
 - Recirculating hydraulic bypass (pump supplies excess, slide-clamp restrictor routes back to inlet; prevents flooding)
-- LED backpack power (5 V via Buck B, soldered to a cut USB cable to the backpack)
+- LED backpack power (5 V via Buck B, out of its own USB-A port through the tube's outer wall)
 - One printed upright stick (battery, electronics, pump) beside the bladder in the MAX LED "M Style" LED pixel backpack
 - Donor gun integration: a pair of dual-head guns (2 guns × 2 donor heads, 4 matched heads stripped from ~20 bubble guns); gun/head mounts not designed yet
 

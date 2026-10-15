@@ -18,8 +18,13 @@
 //           presses the battery, which pins the sled to the bulkhead.
 //   CUP     the wet chamber: pump, tees, check valve, bypass clamp. Bolts
 //           to the bulkhead from below with 4 M3 screws reached from
-//           underneath, and drains through its floor. Umbilicals, the
-//           bladder feed and the service cables all leave through the floor.
+//           underneath, and drains through its floor and walls. Nothing exits
+//           underneath: see PORTS.
+//   PORTS   cap top (dry): USB-C charge, XT60H power KEY, PRIME, LEDs, THR/DLY,
+//           voltmeter. Tube outer wall (dry): LED 5V, Buck B's own USB-A port
+//           behind a window. Cup outer wall (wet): two gun clusters, each an
+//           XT30U well (pack side female), a hose pigtail and a paracord
+//           tunnel. Cup front wall: bladder IN pigtail.
 //   Cables cross the bulkhead through a two-piece TPU grommet with knife-cut
 //   slits, so the sled can still be pulled. It's a splash baffle, not a
 //   watertight feedthrough.
@@ -31,12 +36,14 @@
 // 6x M3 nuts glued into pockets, zip ties, glue. TPU: seal ring, two
 // grommet halves, PRIME boot and plunger, two screw washers, two battery
 // pads, a pump mat and a shim set. Rigid parts are ASA (PETG also works): includes the
-// PRIME guard bezel and grommet drip skirt. TPU plugs close the trimmer
-// windows (one plug for both) and the USB-C port.
+// PRIME guard bezel, grommet drip skirt and the power-key grip. TPU plugs and caps close
+// the trimmer windows (one plug for both), USB-C, LED 5V, unused gun ports and the key
+// socket.
 //
 // part = tube | cap | sled | cup | plunger | ring | boot | grommet_lo | grommet_hi |
-//        skirt | bezel | washer | batpad | pumpmat | shim | coupon_rim | coupon_skirt |
-//        coupon_nut | assembly
+//        skirt | bezel | washer | batpad | pumpmat | shim | trimplug | usbplug | usbAplug |
+//        gunportcap | powerkey | keyblank | keygasket | coupon_rim | coupon_skirt |
+//        coupon_nut | coupon_ports | assembly
 
 include <params.scad>
 
@@ -74,6 +81,24 @@ cup_screw = 12;                // M3 x 12 into the bulkhead nuts
 lw_t = 0.8;                    // M3 split lock washer under each cup screw head
 cs = [[5, 5], [Wi - 5, 5], [5, Di - 5], [Wi - 5, Di - 5]];
 
+// ------------------------------------------------------------ ports (every way in or out of the stick)
+// [ESTIMATE] connector sizes: check them with 00_stick_coupon_ports before printing the cup/cap/tube.
+xt30_well = [10.8, 6.2];   // well for the umbilical's XT30U male shroud (AMASS envelope ~10.2 x 5.6, +0.3 per side)
+xt30_len  = 24;            // well + potted female, along its 45-degree axis
+xt60_body = [17.0, 9.8];   // XT60H male (the key socket) body in the cap (AMASS envelope 16.4 x 9.2, +0.3 per side)
+xt60_dep  = 22;            // sleeve depth under the cap plate (room for the zip-tie keeper behind the body)
+key_xy    = [42, 52.0];    // power-key socket on the cap (long side along y)
+gun_y     = [22, 48];      // gun port clusters on the cup's outer wall (y centres)
+sock_z    = 30;            // XT30U well mouth centre (cup coordinates)
+hose_z    = 18;            // hose pigtail exit
+hose_hole = 5.4;           // 3.5 x 5.5 silicone pigtail, 0.05 squeeze per side
+in_xz     = [76, 18];      // bladder IN pigtail on the cup's front wall (x, z)
+usbA_win  = [13.2, 5.7];   // LED 5 V USB-A window (z x y on the tube's outer wall); plug shell 12 x 4.5
+usbA_cb   = [17, 9];       // outside counterbore for the plug's overmold, leaves a 0.8 web
+bb_sz     = [25.4, 8, 17]; // Buck B: length (x, port end toward the wall), thickness (y), width (z)
+bb_z0     = 42;            // Buck B bottom edge on its ledge (sled coordinates)
+bb_x0     = 68.1;          // Buck B input end: its port end sits 0.5 mm from the wall (TPU shim at the input end)
+
 // ------------------------------------------------------------ TPU cushions (replace foam)
 bp_t    = 3.8;    // battery pad cushion thickness (free, uncompressed)
 bp_wall = 1.2;    // pad wall around the rib end
@@ -99,8 +124,8 @@ rib_z0 = bat_top - bp_ov + bp_t;                                  // rib bottom 
 brk_sz  = [42, 42, 102];   // breaker: 1-5/8 in square plate, 4 in long, stands upright.
                            // Inline type: studs at both ends, reset lever and push-to-trip
                            // button on the plate face. There is no wall window: the walls stay
-                           // solid, so resetting it means cap off and sled out. The XT60H loop
-                           // below the stick is the OFF switch.
+                           // solid, so resetting it means cap off and sled out. The power
+                           // KEY on the cap is the OFF switch.
 brk_hole = 31.75;          // plate mounting holes, 1-1/4 in apart (zip ties go through them)
 bms_sz  = [48, 6.4, 63.5]; // BMS card: 1-7/8 x 1/4 x 2-1/2 in, stands against the back wall
 buck_sz = [17, 8, 25.4];   // Buck A/B: 1 in along the port, 5/16 in thick; width NOT measured
@@ -165,6 +190,9 @@ module tube() {
                 translate([gs[0], gs[1], -tb - 1]) linear_extrude(tb + 2) rr(gs[2], gs[3], 2);
             }
             emboss();
+            // drip hood over the LED 5 V window (45-degree underside)
+            translate([Wi + t - 0.01, bb_port[0] - 9, bb_port[1] + usbA_cb[0] / 2 + 2]) rotate([90, 0, 0])
+                translate([0, 0, -18]) linear_extrude(18) polygon([[0, -2.5], [2.5, 0], [2.5, 1.2], [0, 1.2]]);
             // corner bosses on the dry side, so the nut holes stay blind
             for (p = cs) translate([p[0], p[1], 0]) cylinder(r = 4.5, h = base_t - 0.1);
         }
@@ -176,6 +204,15 @@ module tube() {
             translate([0, 0, -tb - 0.01]) cylinder(d = m3_clear, h = tb + 3);
             translate([0, 0, -tb + 1.4]) cylinder(d = nut_d, h = 10, $fn = 6);
         }
+        // LED 5 V: window to Buck B's USB-A port (0.8 mm web) and an outside counterbore
+        // for the plug's overmold; label below
+        translate([Wi - 1, bb_port[0], bb_port[1]]) rotate([0, 90, 0]) linear_extrude(t + 2)
+            offset(0.5) square([usbA_win[0] - 1, usbA_win[1] - 1], center = true);
+        translate([Wi + 0.8, bb_port[0], bb_port[1]]) rotate([0, 90, 0]) linear_extrude(t)
+            offset(1.5) square([usbA_cb[0] - 3, usbA_cb[1] - 3], center = true);
+        translate([Wi + t - 0.6, bb_port[0], bb_port[1] - usbA_cb[0] / 2 - 4]) rotate([90, 0, 90])
+            linear_extrude(1) text("LED 5V", size = 3.5, halign = "center", valign = "center",
+                                   font = "Liberation Sans:style=Bold");
         // cap retention screws (above the seal ring)
         for (y = [-t - 1, Di - 1]) translate([cap_sx, y, cap_sz]) rotate([-90, 0, 0])
             cylinder(d = m3_clear, h = t + 2);
@@ -240,6 +277,9 @@ module cap() {
             }
             // PRIME plunger sleeve
             let(c = pxy(sw_xy)) translate([c[0], c[1], Zt - 8]) cylinder(d = 8.2, h = 8.01);
+            // power-key socket sleeve (XT60H male, potted from below)
+            translate([key_xy[0] - xt60_body[1] / 2 - 1.2, key_xy[1] - xt60_body[0] / 2 - 1.2, Zt - xt60_dep])
+                cube([xt60_body[1] + 2.4, xt60_body[0] + 2.4, xt60_dep + 0.01]);
         }
         // seal groove: square upper flank, 45-degree lower flank so the land
         // below it prints without an overhang
@@ -269,6 +309,18 @@ module cap() {
         // closes both windows afterwards.
         for (r = rv_xy) let(p = pxy(r + [-3.495, 0])) translate([p[0], p[1], Zt - 1])
             linear_extrude(tp + 2) square([5.6, 5], center = true);
+        // power-key socket: the male's shroud sits under a 0.8 mm lip (the lip stops it being
+        // pulled up; hot glue under it stops it being pushed down); the key's female plug
+        // enters through the window
+        translate([key_xy[0] - xt60_body[1] / 2, key_xy[1] - xt60_body[0] / 2, Zt - xt60_dep - 1])
+            cube([xt60_body[1], xt60_body[0], xt60_dep + 1 + tp - 0.8]);
+        translate([key_xy[0], key_xy[1], Zt - 1]) linear_extrude(tp + 2)
+            offset(0.8) square([xt60_body[1] - 1.0 - 1.6, xt60_body[0] - 1.0 - 1.6], center = true);
+        // rear keeper: a zip tie threaded across through these two slots, between the
+        // solder cups and pushed up against the back of the connector body before it is
+        // cinched round the sleeve; it stops the key's insertion force pushing the socket in
+        translate([key_xy[0] - xt60_body[1] / 2 - 2, key_xy[1] - 1.8, Zt + tp - 0.8 - 23])
+            cube([xt60_body[1] + 4, 3.6, 7]);
         // PRIME bore
         let(c = pxy(sw_xy)) translate([c[0], c[1], Zt - 9]) cylinder(d = 6.4, h = 20);
         // voltmeter
@@ -297,6 +349,9 @@ module cap_labels() {
             translate([usb_xy[0], usb_xy[1] + 7.5]) rotate(180)
                 text("CHG", size = 3.5, halign = "center", valign = "center",
                      font = "Liberation Sans:style=Bold");
+            translate([key_xy[0], key_xy[1] + xt60_body[0] / 2 + 4]) rotate(180)
+                text("KEY", size = 3.5, halign = "center", valign = "center",
+                     font = "Liberation Sans:style=Bold");
             translate([70, 12]) rotate(180)
                 text("BubbleLink", size = 4.5, halign = "center", valign = "center",
                      font = "Liberation Sans:style=Bold");
@@ -308,6 +363,7 @@ module cap_labels() {
 // supports. A board drops in from the top; a zip tie through the panel
 // slots holds it.
 pf = py0 + panel_t;      // panel front face
+bb_port = [pf + 0.2 + 1.6 + 2.85, bb_z0 + bb_sz[2] / 2];   // Buck B receptacle centre (y, z): board back on the panel
 module pocket(x0, w, z0, z1, d = 4) {
     // local profile (u = y, v = z), extruded along x
     module prof(top) polygon([[pf - 0.01, z0 - d], [pf + d, z0], [pf + d, top], [pf - 0.01, top]]);
@@ -318,8 +374,10 @@ module pocket(x0, w, z0, z1, d = 4) {
 }
 bay_x = sx0 + ts;        // breaker bay left edge
 pk = [[bay_x + 1.2, buck_sz[0] + 1, 8, 8 + buck_sz[2] + 2],             // Buck A
-      [bay_x + 3.4 + buck_sz[0] + 1, buck_sz[0] + 1, 8, 8 + buck_sz[2] + 2], // Buck B
       [bay_x + 1.2, acs_sz[0] + 1, 40, 40 + acs_sz[2] + 2]];             // ACS758
+// Buck B (LED backpack 5 V) lies on its side right of the ACS758, its USB-A port facing
+// the outer wall, behind a window in the tube: the backpack cable plugs straight into
+// the buck's own port, so no USB plug or extension sits inside the stick.
 
 module sled() {
     difference() {
@@ -340,11 +398,18 @@ module sled() {
             translate([sx0, 6, 0]) cube([ts, Di - 12, spine_h]);
             // cross panel
             translate([bay_x - 0.01, py0, 0]) cube([Wi - 0.5 - bay_x, panel_t, panel_h]);
-            // BMS slot: low lips front and back
-            translate([bay_x - 0.01, bms_y[0] - 0.8, 0]) cube([Wi - 0.5 - bay_x, 0.8, base_t + 5]);
-            translate([bay_x - 0.01, bms_y[1], 0]) cube([Wi - 0.5 - bay_x, 0.8, base_t + 5]);
-            // compartments for Buck A, Buck B and the ACS758
+            // BMS slot: a 12 mm back lip and a 25 mm front fence (the breaker's back face is
+            // 0.4 mm beyond it), so the card can't rock; a TPU shim behind its top takes up
+            // the last 1-2 mm against the tube wall
+            translate([bay_x - 0.01, bms_y[0] - 0.8, 0]) cube([Wi - 0.5 - bay_x, 0.8, base_t + 12]);
+            translate([bay_x - 0.01, bms_y[1], 0]) cube([Wi - 0.5 - bay_x, 1.2, base_t + 25]);
+            // compartments for Buck A and the ACS758
             for (p = pk) pocket(p[0], p[1], p[2], p[3]);
+            // Buck B ledge (45-degree underside): the ACS758's right rail is its left stop, the
+            // tube wall its right stop; a zip tie through the panel slots holds it on the ledge
+            translate([pk[1][0] + pk[1][1] + 1.6 - 0.01, 0, 0]) rotate([90, 0, 90])
+                linear_extrude(Wi - 0.5 - (pk[1][0] + pk[1][1] + 1.6))
+                    polygon([[pf - 0.01, bb_z0 - 4], [pf + 4, bb_z0], [pf - 0.01, bb_z0]]);
         }
         // clear the bulkhead's corner bosses
         // the four bulkhead bosses (r 4.5) locate the sled: 0.3 mm clearance all round
@@ -369,8 +434,7 @@ module sled() {
 
 // ============================================================ cup (local: floor bottom at z = 0)
 pp = [10, 13.5, pump_sz[0] + 1.2, pump_sz[1] + 1.5];   // pump pocket: x, y, w, d
-umb = [[72, 12], [72, 32]];  svc = [79, 56];
-tie_y = [19, 37];  tie_z = tf + 14;   // paracord tie-off pairs (outer wall), one per exit
+tie_z = tf + 5.5;   // paracord tie-off tunnels, one beside each gun port, low on the outer wall
 
 module cup() {
     difference() {
@@ -389,6 +453,13 @@ module cup() {
                 cube([pp[2] + 3.2, pp[3] + 3.2, tf + 6]);
                 translate([1.6, 1.6, tf]) cube([pp[2], pp[3], 10]);
             }
+            for (k = [0, 1]) gun_port_solid(gun_y[k]);
+            // IN pigtail boss (45-degree underside)
+            intersection() {
+                translate([in_xz[0], Di + t, in_xz[1]]) rotate([-45, 0, 0]) rotate([-90, 0, 0])
+                    translate([0, 0, -11]) cylinder(d = 9, h = 11);
+                translate([0, 0, tf]) linear_extrude(Hw) in2d(0.1);
+            }
         }
         // M3 x 12 goes up from below through a deep counterbore
         for (p = cs) translate([p[0], p[1], 0]) {
@@ -397,35 +468,19 @@ module cup() {
             translate([0, 0, -1]) cylinder(d = 6.6, h = tf + Hw - (cup_screw - 4.5 - lw_t) + 1);
             cylinder(d = m3_clear, h = tf + Hw + 1);
         }
-        // umbilical exits and service hole (bladder feed, LED-backpack USB,
-        // XT60H disconnect loop), with 1 mm chamfers so hoses don't rub
-        for (p = concat(umb, [svc])) let(d = p == svc ? 20 : 13) translate([p[0], p[1], 0]) {
-            translate([0, 0, -1]) cylinder(d = d, h = tf + 2);
-            translate([0, 0, -0.01]) cylinder(d1 = d + 2, d2 = d, h = 1);
-            translate([0, 0, tf - 0.99]) cylinder(d1 = d, d2 = d + 2, h = 1);
-        }
-        // umbilical tether anchors (paracord tie-off): two pairs of 5 mm holes in the
-        // outer wall, one pair beside each umbilical exit, 17 mm up so they can't be
-        // mistaken for drains. Loop the pack-end brick's inner cord in one hole and out
-        // the other, around the 7 mm web between them, so a dropped gun pulls on the cup
-        // (and its four screws), not on the hose or the solder joints. "1" and "2" are
-        // engraved above each pair to match the exits.
-        for (yc = tie_y, s = [-1, 1]) translate([Wi - 1, yc + s * 6, tie_z])
-            rotate([0, 90, 0]) cylinder(d = 5, h = t + 2);
-        for (k = [0, 1]) translate([Wi + t - 0.6, tie_y[k], tie_z + 9]) rotate([90, 0, 90])
-            linear_extrude(1) text(str(k + 1), size = 6, halign = "center", valign = "center",
-                                   font = "Liberation Sans:style=Bold");
-        // side drains: the same pair on all four walls (centred on each wall, flush with
-        // the floor), so whichever face the pack lies on, the cup empties instead of
-        // pooling up to the grommet
+        // gun port clusters (outer wall): XT30U well, hose pigtail, paracord tunnel
+        for (k = [0, 1]) gun_port_cuts(gun_y[k], k + 1);
+        // bladder IN pigtail (front wall, 45 degrees down)
+        translate([in_xz[0], Di + t, in_xz[1]]) rotate([-45, 0, 0]) rotate([-90, 0, 0])
+            translate([0, 0, -12]) cylinder(d = hose_hole, h = 20);
+        translate([in_xz[0], Di + t - 0.6, in_xz[1] + 12]) rotate([90, 0, 180]) linear_extrude(1)
+            text("IN", size = 5, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
+        // side drains, flush with the floor: front and back walls at the same x; the left wall
+        // and the outer wall in the gaps between the corner columns and the port bosses
         for (x = [Wi / 2 - 25, Wi / 2 + 25], y = [-t - 1, Di - 1]) translate([x, y, tf + 2])
             rotate([-90, 0, 0]) cylinder(d = 4, h = t + 2);
-        for (y = [Di / 2 - 20, Di / 2 + 20], x = [-t - 1, Wi - 1]) translate([x, y, tf + 2])
+        for (y = side_drain_y, x = [-t - 1, Wi - 1]) translate([x, y, tf + 2])
             rotate([0, 90, 0]) cylinder(d = 4, h = t + 2);
-        // exit numbers engraved on the underside, next to each umbilical exit
-        for (k = [0, 1]) translate([umb[k][0] + 11, umb[k][1], -0.01]) mirror([1, 0, 0])
-            linear_extrude(0.6) text(str(k + 1), size = 6, halign = "center", valign = "center",
-                                     font = "Liberation Sans:style=Bold");
         // drains under the pump: a row down the middle, plus the four pocket corners
         for (x = [20 : 10 : 55]) translate([x, Di / 2, -1]) cylinder(d = 4, h = tf + 2);
         for (x = [16, 56], y = [pp[1] + 6, pp[1] + pp[3] - 6]) translate([x, y, -1]) cylinder(d = 4, h = tf + 2);
@@ -436,10 +491,64 @@ module cup() {
         // tie slots: straps over the pump, and the fittings strip
         for (x = [22, 36, 50], y = [pp[1] - 4, pp[1] + pp[3] + 4])
             translate([x, y, tf / 2]) cross_slot(tf + 2);
-        for (p = [[88, 14], [88, 32], [68, 48], [90, 48]])
+        for (p = [[74, 16], [74, 40], [66, 52], [80, 52]])
             translate([p[0], p[1], tf / 2]) cross_slot(tf + 2);
     }
 }
+
+// ------------------------------------------------------------ gun port cluster (cup's outer wall)
+// From the top: a drip hood, an XT30U well pointing 45 degrees down and out, a hose pigtail
+// exit (also 45 degrees down), and a paracord tunnel that enters and leaves the outer face.
+//  - XT30U: the pack side is the FEMALE (sockets), so live pins are never exposed. It sits
+//    in a well sized for the umbilical's MALE shroud; the shroud slides in around it. Fit it
+//    with a spare male plugged in as a jig: push the pair in from inside the cup until the
+//    male's rim is flush with the outer face, then fill the well behind the female with hot
+//    glue (it pots the solder cups too). Pointing down, the well drains.
+//  - Hose pigtail: 60-80 mm of the 3.5 x 5.5 silicone tube pokes out; join the umbilical
+//    hose to it with a straight barbed connector from the assortment.
+//  - Paracord: in one opening, round the U-tunnel inside the boss, out the other; knot it.
+//    The cord is shorter than the wires and hose, so it takes a dropped gun's pull.
+sock_axis = [-cos(45), 0, sin(45)];          // from the mouth, inward and up
+module sock_frame(yc, z) translate([Wi + t, yc, z]) rotate([0, 45, 0]) children();
+module gun_port_solid(yc) {
+    // well sleeve (1.2 walls), trimmed at the outer face
+    intersection() {
+        sock_frame(yc, sock_z) translate([-xt30_len, -(xt30_well[0] / 2 + 1.2), -(xt30_well[1] / 2 + 1.2)])
+            cube([xt30_len + 6, xt30_well[0] + 2.4, xt30_well[1] + 2.4]);
+        translate([-1, -10, tf]) cube([Wi + t + 0.99 - 0.02, Di + 20, Hw]);
+    }
+    // hose boss
+    intersection() {
+        sock_frame(yc, hose_z) rotate([0, -90, 0]) translate([0, 0, -3]) cylinder(d = 9, h = 14);
+        translate([-1, -10, tf]) cube([Wi + t + 0.99 - 0.02, Di + 20, Hw]);
+    }
+    // paracord tunnel boss, standing on the floor
+    translate([Wi - 8.5, yc - 9, 0]) cube([8.6, 18, tie_z + 5.5]);
+    // drip hood over the well (45-degree underside)
+    translate([Wi + t - 0.01, yc - 8, sock_z + 6]) rotate([90, 0, 0]) translate([0, 0, -16])
+        linear_extrude(16) polygon([[0, -2.5], [2.5, 0], [2.5, 1.2], [0, 1.2]]);
+}
+module gun_port_cuts(yc, n) {
+    sock_frame(yc, sock_z) translate([-xt30_len - 1, -xt30_well[0] / 2, -xt30_well[1] / 2])
+        cube([xt30_len + 10, xt30_well[0], xt30_well[1]]);
+    // rear keeper: a zip tie across the sleeve between the female's solder cups, pushed
+    // against the back of its body (reach it with the cup off); stops the 12-34 N
+    // unplugging force pulling the socket out, so the hot glue only seals
+    sock_frame(yc, sock_z) translate([-23, -1.8, -(xt30_well[1] / 2 + 2)]) cube([8, 3.6, xt30_well[1] + 4]);
+    sock_frame(yc, hose_z) rotate([0, -90, 0]) translate([0, 0, -5]) cylinder(d = hose_hole, h = 25);
+    // U-tunnel: half torus inside the boss, both ends open on the outer face, chamfered
+    translate([Wi + t, yc, tie_z]) {
+        rotate([0, 0, 90]) rotate_extrude(angle = 180) translate([5.5, 0]) circle(d = 5.2);
+        for (s = [-1, 1]) translate([0.01, s * 5.5, 0]) rotate([0, -90, 0]) {
+            cylinder(d = 5.2, h = 2);
+            cylinder(d1 = 7.2, d2 = 5.2, h = 1);
+        }
+    }
+    // number above the hood
+    translate([Wi + t - 0.6, yc, sock_z + 13]) rotate([90, 0, 90]) linear_extrude(1)
+        text(str(n), size = 6, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
+}
+side_drain_y = [11, (gun_y[0] + gun_y[1]) / 2, 61.5];   // gaps: column | port 1 | port 2 | column
 
 // ============================================================ small parts
 // PRIME button: TPU boot + ASA guard bezel + TPU plunger.
@@ -580,6 +689,87 @@ module usbplug() {
     }
 }
 
+// Power key: an XT60H FEMALE with its two solder cups bridged by a short 12 AWG U-loop,
+// hot-glued into this ASA grip. In = ON, out = OFF (and the full battery disconnect for
+// storage; the charger still works with the key out). Lanyard hole so it can't get lost.
+module powerkey() {
+    w = xt60_body[0] + 3.4;  d = xt60_body[1] + 3.4;  h = 22;
+    difference() {
+        hull() for (sx = [-1, 1], sy = [-1, 1]) translate([sx * (w / 2 - 2), sy * (d / 2 - 2), 0]) cylinder(r = 2, h = h);
+        translate([-(xt60_body[0] - 0.4) / 2, -(xt60_body[1] - 0.4) / 2, -1]) cube([xt60_body[0] - 0.4, xt60_body[1] - 0.4, 15]);
+        translate([0, 0, h - 4.5]) rotate([90, 0, 0]) cylinder(d = 4, h = d + 2, center = true);   // lanyard
+        for (z = [4 : 3 : 13]) for (sx = [-1, 1]) translate([sx * w / 2, 0, z]) cube([1, d + 2, 1.2], center = true);   // grip ribs
+    }
+}
+// TPU USB-A plug for the LED 5 V port: fills the counterbore and the window, pull tab down
+module usbAplug() {
+    cb = usbA_cb + [0.2, 0.2];
+    linear_extrude(1.0) hull() {
+        offset(1.6) square(cb - [3.2, 3.2], center = true);
+        translate([-cb[0] / 2 - 3.5, 0]) circle(r = 2.2);
+    }
+    mirror([0, 0, 1]) {
+        linear_extrude(t - 0.8) offset(1.6) square(cb - [3.2, 3.2], center = true);
+        translate([0, 0, t - 0.8 - 0.01]) linear_extrude(0.8 + 0.01) offset(0.5) square(usbA_win - [1, 1], center = true);
+    }
+}
+// TPU gun-port cap: closes an unplugged XT30U well (an unused channel, or while the
+// umbilical is off). Water sitting across the two live sockets would leak current and
+// corrode them. A sleeve presses into the well around the female's nose; pull tab.
+module gunportcap() {
+    linear_extrude(1.0) hull() {
+        offset(1.2) square(xt30_well + [0.1, 0.1], center = true);
+        translate([xt30_well[0] / 2 + 4, 0]) circle(r = 2.2);
+    }
+    mirror([0, 0, 1]) difference() {
+        linear_extrude(5) offset(0.5) square(xt30_well + [0.1, 0.1] - [1, 1], center = true);
+        translate([0, 0, -0.01]) linear_extrude(6) square(xt30_well - [2.4, 2.4], center = true);
+    }
+}
+// TPU key blank: closes the key socket while the key is out (storage). One side of the
+// socket stays live with the key out, so keep water out of it. Lanyard hole: tie it to
+// the key's lanyard so one is always in the socket.
+module keyblank() {
+    win = [xt60_body[1] - 1.0, xt60_body[0] - 1.0];
+    linear_extrude(1.0) hull() {
+        offset(1.2) square(win, center = true);
+        translate([0, win[1] / 2 + 5]) circle(r = 3);
+    }
+    mirror([0, 0, 1]) {
+        linear_extrude(0.8) offset(0.1) square(win, center = true);
+        translate([0, 0, 0.79]) linear_extrude(1.5) offset(-0.3) square(win, center = true);
+    }
+}
+module keyblank_print() difference() {
+    translate([0, 0, 1.0]) rotate([180, 0, 0]) keyblank();
+    translate([0, -(xt60_body[0] - 1.0) / 2 - 5, -1]) cylinder(d = 2.5, h = 5);
+}
+// TPU key gasket: glue it under the key grip; it presses on the cap top round the socket
+// when the key is home (sand the grip or add a shim strip to get 0.2-0.3 mm squeeze).
+module keygasket() difference() {
+    hull() for (sx = [-1, 1], sy = [-1, 1])
+        translate([sx * ((xt60_body[0] + 3.4) / 2 - 2), sy * ((xt60_body[1] + 3.4) / 2 - 2), 0]) cylinder(r = 2, h = 1.5);
+    translate([0, 0, -1]) linear_extrude(4) square([xt60_body[0] - 0.4, xt60_body[1] - 0.4], center = true);
+}
+// Port fit coupon: a 2.4 mm wall with each port, so the real connectors can be checked
+// before the cup, cap and tube are printed. Left to right: XT30U well (with a 10 mm
+// sleeve), hose pigtail hole, USB-A window + counterbore, XT60H key socket with its lip.
+module coupon_ports() {
+    difference() {
+        union() {
+            cube([84, 26, t]);
+            translate([13 - xt30_well[0] / 2 - 1.2, 13 - xt30_well[1] / 2 - 1.2, 0]) cube([xt30_well[0] + 2.4, xt30_well[1] + 2.4, 10]);
+            translate([70 - xt60_body[0] / 2 - 1.2, 13 - xt60_body[1] / 2 - 1.2, 0]) cube([xt60_body[0] + 2.4, xt60_body[1] + 2.4, 10]);
+        }
+        translate([13 - xt30_well[0] / 2, 13 - xt30_well[1] / 2, -1]) cube([xt30_well[0], xt30_well[1], 12]);
+        translate([28, 13, -1]) cylinder(d = hose_hole, h = t + 2);
+        translate([45, 13, -1]) linear_extrude(t + 2) offset(0.5) square([usbA_win[0] - 1, usbA_win[1] - 1], center = true);
+        translate([45, 13, 0.8]) linear_extrude(t) offset(1.5) square([usbA_cb[0] - 3, usbA_cb[1] - 3], center = true);
+        translate([70 - xt60_body[0] / 2, 13 - xt60_body[1] / 2, 0.8]) cube([xt60_body[0], xt60_body[1], 12]);
+        translate([70, 13, -1]) linear_extrude(3) offset(0.8) square([xt60_body[0] - 2.6, xt60_body[1] - 2.6], center = true);
+    }
+}
+
 // TPU seal ring: stretches over the skirt into the groove
 module ring() {
     linear_extrude(ring_h) difference() { in2d(ring_sq); in2d(-sk_c - gr_d); }
@@ -596,9 +786,8 @@ module washer() {
 gm_holes = [   // [x, y, d] in slot coordinates (slot is gs[2] x gs[3])
     [5, 2.7, awg16_od - 0.2], [9, 2.7, awg16_od - 0.2],        // gun 1 pair
     [14.5, 2.7, awg16_od - 0.2], [18.5, 2.7, awg16_od - 0.2],  // gun 2 pair
-    [25, 2.7, pump_od - 0.2], [28, 2.7, pump_od - 0.2],        // pump leads
-    [6, 7.4, awg12_od - 0.2], [11.5, 7.4, awg12_od - 0.2],     // XT60H loop
-    [19, 7.4, usb_od - 0.2]];                                  // backpack USB
+    [25, 2.7, pump_od - 0.2], [28, 2.7, pump_od - 0.2]];       // pump leads
+// (the XT60H key and the LED-backpack USB no longer cross the bulkhead)
 gm_f = 2.0;   // grommet flange width
 sk_lip = 0.8; sk_wall = 1.0; sk_drop = 8;   // drip skirt under the bulkhead
 // extra = extra neck length (the lower half also passes the skirt's lip)
@@ -635,8 +824,10 @@ module ghost(i) {
     if (i == 3) color("gray", 0.5) translate([vm_xy[0], vm_xy[1], Zt - 30]) cylinder(d = 28.8, h = 30);  // voltmeter body, ~1 in+ deep
     if (i == 4) color("blue", 0.4) translate([usb_xy[0] - chg_sz[0] / 2, usb_xy[1] - chg_sz[1] / 2, Zt - chg_sz[2]]) cube(chg_sz);  // charger
     if (i == 5) color("purple", 0.4) translate([bay_x + 0.7, bms_y[0] + 0.3, base_t]) cube(bms_sz);  // BMS
-    if (i == 6) color("cyan", 0.4) for (k = [0:2]) let(p = pk[k], b = k < 2 ? buck_sz : acs_sz)   // bucks + ACS758
-        translate([p[0] + 0.5, pf + 0.2, p[2]]) cube(b);
+    if (i == 6) color("cyan", 0.4) {                                                              // bucks + ACS758
+        for (k = [0:1]) let(p = pk[k], b = k < 1 ? buck_sz : acs_sz) translate([p[0] + 0.5, pf + 0.2, p[2]]) cube(b);
+        translate([bb_x0, pf + 0.2, bb_z0]) cube([bb_sz[0], bb_sz[1], bb_sz[2]]);                 // Buck B
+    }
     if (i == 7) color("tan", 0.4) translate([pp[0] + 0.6, pp[1] + 0.75, -tb - Hw + mp_t]) cube(pump_sz);  // pump
 }
 
@@ -657,6 +848,12 @@ else if (part == "pumpmat") pumpmat();
 else if (part == "shim") shim();
 else if (part == "trimplug") translate([0, 0, 1.2]) rotate([180, 0, 0]) trimplug();
 else if (part == "usbplug") translate([0, 0, 1.0]) rotate([180, 0, 0]) usbplug();
+else if (part == "usbAplug") translate([0, 0, 1.0]) rotate([180, 0, 0]) usbAplug();
+else if (part == "powerkey") powerkey();
+else if (part == "keyblank") keyblank_print();
+else if (part == "keygasket") keygasket();
+else if (part == "gunportcap") for (k = [0, 1]) translate([k * 22, 0, 1.0]) rotate([180, 0, 0]) gunportcap();
+else if (part == "coupon_ports") coupon_ports();
 else if (part == "none") {}
 // Fit coupons for the stick in the real filament (ASA shrinks more than PETG): a 19 mm slice of the
 // tube rim (16 mm below the rim + the bulkhead offset), the matching slice of the cap skirt (groove, ring land, screw slot), and a bulkhead corner
@@ -705,5 +902,6 @@ module installed_tpu() {
         translate([pp[0] + 0.2, pp[1] + 0.2, -tb - Hw]) pumpmat();
         translate([rv_mid[0], rv_mid[1], Zt + tp]) trimplug();
         translate([usb_xy[0], usb_xy[1], Zt + tp]) usbplug();
+        translate([Wi + t, bb_port[0], bb_port[1]]) rotate([0, 90, 0]) rotate([0, 0, 90]) usbAplug();
     }
 }

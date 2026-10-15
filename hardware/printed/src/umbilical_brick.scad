@@ -1,6 +1,6 @@
-// Umbilical brick: strain-relief anchor where an umbilical meets the pack or
-// a gun. It replaces the separate pack-side block, gun-side block, and
-// pump/hose/tether block. Print 4 (one at each end of both umbilicals).
+// Umbilical brick: strain-relief anchor where an umbilical meets a GUN. Print 2
+// (one per umbilical). The pack end needs no brick: it plugs into a gun port
+// cluster on the stick's cup (XT30U well, hose pigtail, paracord tunnel).
 //
 // Layout, looking down (+x points toward the umbilical):
 //   y = +10  open groove for the 3.5 x 5.5 fluid tube (passes straight through)
@@ -9,12 +9,12 @@
 //            in, strap it with a zip tie, glue optional; its mating face
 //            points away from the umbilical)
 //   y = -13  two 5 mm vertical holes for 550 paracord: the umbilical tether
-//            ties to the +x hole, the pack or gun ties to the -x hole
+//            ties to the +x hole, the gun ties to the -x hole
 // Narrow zip ties through the vertical slots hold the tube and wires down.
 // The fluid hose is semi-permanent (canonical facts); the XT30U is the
 // disconnect.
 //
-// Print flat (base on the bed), PETG, no supports.
+// Print flat (base on the bed), ASA or PETG, no supports.
 
 include <params.scad>
 
