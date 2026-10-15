@@ -198,24 +198,17 @@ None of these parts has been test-fitted yet, so check fits as you go.
   - Four links joining cells 6–10 in parallel (row 2)
   - Spares for rework
 
-**Weld sequence (5 distributive series links, 4 per row parallel):**
+**Tab layout.** The rows face opposite ways, so each holder face carries one end of every cell:
+- **MID face:** row A's + ends and row B's − ends. This face is the series midpoint: join **all ten** terminals on it into one mesh. Every neighbour, in-row and across rows, is 19.9 mm centre to centre, so each 26 mm tab spans one pair. Use at least 13 tabs: the 4 in-row links in each row plus 5 cross-row links, so each row-A cell connects straight to the row-B cell it sits next to. The BMS balance wire (BM/B1) goes here.
+- **TERM face:** row A's − ends and row B's + ends. Join row A's five − ends with 4 tabs (pack −, BMS B−), and row B's five + ends with 4 tabs (pack +, BMS B+). **Keep these two buses apart:** no tab crosses between the rows on this face, and a strip of fish paper goes between them.
+- That's 21 tabs of the 30; double up the in-row links nearest the BMS leads if you have spares.
 
-1. **Row 1 parallel bus:** Weld four 2.6 cm tabs connecting the five positive terminals of cells 1–5 in a staggered pattern (avoid single point-of-failure bottleneck)
-   - Link 1: cells 1 + to 2 +
-   - Link 2: cells 2 + to 3 +
-   - Link 3: cells 4 + to 5 +
-   - Link 4: doubler or stagger to distribute current
+**Order:**
+1. Fit the fish-paper rings on the + ends, put the cells in the holders (check every row's direction twice), then fit the other holder.
+2. TERM face first: the pack − bus (row A), then the pack + bus (row B). Check with a meter that the two buses read about 3.6-4.2 V apart and that no tab bridges them.
+3. MID face: the full mesh. The TERM buses should now read about 7.2-8.4 V apart.
 
-2. **Row 2 parallel bus:** Weld four tabs connecting the five positive terminals of cells 6–10 the same way
-
-3. **Series connections (two rows):** Weld five separate single-cell-to-cell links connecting row 1 (+) to row 2 (−) at distributed points:
-   - Link A: cell 1 + to cell 6 −
-   - Link B: cell 2 + to cell 7 −
-   - Link C: cell 3 + to cell 8 −
-   - Link D: cell 4 + to cell 9 −
-   - Link E: cell 5 + to cell 10 −
-
-4. **Weld current:** ~80–100 A for 10–15 ms per spot (adjust for your welder calibration)
+4. **Weld current:** ~80–100 A for 10–15 ms per spot (adjust for your welder calibration). If you solder instead of welding: use flux, an iron of 80 W or more with a large tip, pre-tin the tab, and keep each joint on the cell under 3 s; let the cell cool between joints. Weld if you can: hot, slow joints damage cells
 
 5. **Post-weld inspection:**
    - No visible cracks or discoloration around welds

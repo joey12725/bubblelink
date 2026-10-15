@@ -2,7 +2,7 @@
 
 Parametric OpenSCAD sources are in `src/`; ready-to-slice STLs are in `stl/`. Rigid stick parts are **ASA** (see *Printing in ASA* below); the older cell holders, clamps and bricks can be ASA or PETG. The seals, the PRIME boot and plunger, and the cushions are TPU. Nothing needs supports.
 
-All STLs + this guide are also zipped at (link removed)
+All STLs + this guide are also zipped at (link removed) (STLs split into `stl/ASA/` and `stl/TPU/`). Just the battery parts (fit coupon + cell holders pre-built at all three bore sizes + build steps) are at (link removed)
 
 The whole pack, apart from the bladder, is one upright **stick**: outside about **99.6 × 77.8 × 220 mm** (3.9 × 3.1 × 8.7 in) for the body including the cup and the PRIME guard bezel (the tube, cap and cup alone are 215 mm tall; the bezel adds about 5 mm on top). Across the two cap screw heads it is about **87 mm deep**: each screw stands 4.5 mm proud of the front or back wall (5.5 mm DIN 912 head, 3 mm tall, plus a 0.5 mm steel flat washer and a 1 mm TPU washer), at the very top of the walls, 5.2 mm below the rim. The tube is 98.8 mm wide, plus 0.8 mm for the raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. It stands beside the bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) plug into ports on the cup's outer wall, and nothing exits underneath: the stick stands on its floor. That makes it easy to move into a different bag. The drip hoods stand 2.5 mm off the outer wall, so the stick is **101.3 mm (4.0 in) wide across the hoods**, and plugged connectors stick out further. Every model is designed around the parts in `docs/parts/ORDER_LEDGER.md` and the BubbleLink CTRL v1.2 board on order.
 
