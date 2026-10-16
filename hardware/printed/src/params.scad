@@ -21,7 +21,7 @@ ziptie_t    = 1.8;    // slot thickness
 // ---------------------------------------------------------------- 18650 cells
 cell_d      = 18.33;  // [VERIFIED] Samsung INR18650-25R, +/-0.07
 cell_h      = 64.85;  // [VERIFIED] +/-0.15
-cell_bore   = 18.80;  // pocket diameter; tune with fit_coupon (18.65/18.80/18.95)
+cell_bore   = 18.65;  // pocket diameter; fit_coupon says 18.65 for Joey's 25R cells in ASA (2026-10-15)
 cell_pitch  = 19.90;  // centre-to-centre. Gives a ~1.6 mm wrapper gap and a
                       // printable 1.1 mm rib. Keep <= 21 so the 26 mm nickel
                       // tabs still reach both cell centres.

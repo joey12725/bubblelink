@@ -33,7 +33,7 @@ if want("1"):
            cam((47, 36.5, 50), (350, 445, 276)),
            [("L", (42, 52.5, TOP), "KEY: power key (XT60H)", "key in = ON; pull it = OFF and full battery disconnect (charging still works)"),
             ("L", (23, 55, TOP), "CHG: USB-C charge input", "TPU plug when not charging"),
-            ("L", (Wi + t, 60.5, 50.5), "LED 5V: USB-A for the backpack", "Buck B's own port, behind a window; TPU plug when unused"),
+            ("L", (Wi + t, 66.55, 50.5), "LED 5V: USB-A for the backpack", "Buck B's own socket sits in the window; TPU plug when unused"),
             ("L", (Wi + t, 22, cz + 30), "GUN 1: XT30U well", "pack side is the female; the umbilical's male slides into the well"),
             ("L", (Wi + t, 22, cz + 18), "GUN 1: hose pigtail", "join the umbilical hose with a straight barbed connector"),
             ("L", (Wi + t, 16.5, cz + 8.5), "GUN 1: paracord tunnel", "in one opening, out the other; the cord takes the pull"),
@@ -65,7 +65,7 @@ if want("3"):
     cut = (f'difference() {{ tube(); translate([{Wi - 0.6}, -20, 0.01]) cube([30, 140, 200]); '
            f'translate([-20, {Di - 0.6}, 0.01]) cube([150, 30, 200]); }}')
     R.view("3_cap_off_front_cutaway",
-           f'color({TUBE}) {cut}; color({SLED}) sled(); color({CUP}) translate([0,0,-56]) cup(); {GROM} color("cyan", 0.45) translate([67.3, 56.1, 42]) cube([25.4, 8, 17]);',
+           f'color({TUBE}) {cut}; color({SLED}) sled(); color({CUP}) translate([0,0,-56]) cup(); {GROM} color("cyan", 0.45) translate([68.6, 63, 42]) cube([25.4, 8, 17]);',
            cam(C),
            [("L", (20, 40, 115.65), "What holds the sled down", "the cap's TPU pads press the battery, which clamps the sled base onto the bulkhead"),
             ("L", (43, 66.9, 108), "Spine", "zip-tie slots; lead channels at both ends"),
@@ -76,7 +76,7 @@ if want("3"):
             ("R", (70, 55.9, 96), "Cross panel", "breaker + BMS behind it (view 4)"),
             ("R", (55.5, 59.9, 62), "ACS758 compartment", "current sensor"),
             ("R", (54.5, 59.9, 21), "Buck A compartment", "5 V to the PCB (J1)"),
-            ("R", (80, 60, 59), "Buck B ledge (LED 5V)", "lies on its side, USB-A port against the outer wall's window"),
+            ("R", (80, 67, 59), "Buck B (LED 5V), on a shelf on the tube", "not on the sled: its USB-A socket sits in the outer wall's window"),
             ("R", (89.5, 55.9, 30), "Wire pass", "to the breaker / BMS side")],
            f"3 {DOT} Cap off: front of the sled (front and side walls cut away)",
            "The sled lifts straight out of the top. It takes no screws: bosses stop it sliding, the cap clamps it down. Dashed blue = battery.",

@@ -91,13 +91,14 @@ key_xy    = [42, 52.0];    // power-key socket on the cap (long side along y)
 gun_y     = [22, 48];      // gun port clusters on the cup's outer wall (y centres)
 sock_z    = 30;            // XT30U well mouth centre (cup coordinates)
 hose_z    = 18;            // hose pigtail exit
-hose_hole = 5.4;           // 3.5 x 5.5 silicone pigtail, 0.05 squeeze per side
+hose_hole = 6.0;           // 3.5 x 5.5 silicone pigtail (5.4 was too tight in ASA; coupon, 2026-10-15)
 in_xz     = [76, 18];      // bladder IN pigtail on the cup's front wall (x, z)
-usbA_win  = [13.2, 5.7];   // LED 5 V USB-A window (z x y on the tube's outer wall); plug shell 12 x 4.5
+usbA_win  = [14.0, 6.6];   // LED 5 V window: takes Buck B's USB-A receptacle shell (13.1 x 5.7) and any plug
 usbA_cb   = [17, 9];       // outside counterbore for the plug's overmold, leaves a 0.8 web
 bb_sz     = [25.4, 8, 17]; // Buck B: length (x, port end toward the wall), thickness (y), width (z)
-bb_z0     = 42;            // Buck B bottom edge on its ledge (sled coordinates)
-bb_x0     = 68.1;          // Buck B input end: its port end sits 0.5 mm from the wall (TPU shim at the input end)
+bb_z0     = 42;            // Buck B bottom edge on its shelf (tube coordinates)
+bb_x0     = Wi - 25.4;     // Buck B input end: the board is pushed up to the outer wall (receptacle into the window)
+bb_yb     = Di - 2;        // Buck B's PCB back face, 2 mm off the front wall
 
 // ------------------------------------------------------------ TPU cushions (replace foam)
 bp_t    = 3.8;    // battery pad cushion thickness (free, uncompressed)
@@ -190,9 +191,21 @@ module tube() {
                 translate([gs[0], gs[1], -tb - 1]) linear_extrude(tb + 2) rr(gs[2], gs[3], 2);
             }
             emboss();
+            // Buck B shelf on the front wall (45-degree underside): the board stands on it, PCB
+            // toward the wall, and slides along it until its USB-A receptacle sits in the outer
+            // wall's window; a lip stops it tipping in, and a zip tie through the two slots
+            // goes over its top edge
+            let(L = bb_yb - bb_sz[1] - 2) difference() {   // L: lip face, 2 mm in front of the board
+                translate([bb_x0 - 0.2, 0, 0]) rotate([90, 0, 90]) linear_extrude(Wi - bb_x0 + 0.21)
+                    polygon([[L - 1.2, bb_z0 + 4], [L - 1.2, bb_z0], [Di + 0.01, bb_z0 - (Di - L + 1.2)],
+                             [Di + 0.01, bb_z0], [L, bb_z0], [L, bb_z0 + 4]]);
+                for (x = [bb_x0 + 5, Wi - 6], y = [L + 1, Di - 1])
+                    translate([x, y, bb_z0 - 6]) cube([ziptie_w, ziptie_t, 20], center = true);
+            }
             // drip hood over the LED 5 V window (45-degree underside)
-            translate([Wi + t - 0.01, bb_port[0] - 9, bb_port[1] + usbA_cb[0] / 2 + 2]) rotate([90, 0, 0])
-                translate([0, 0, -18]) linear_extrude(18) polygon([[0, -2.5], [2.5, 0], [2.5, 1.2], [0, 1.2]]);
+            translate([Wi + t - 0.01, bb_port[0] - 8, bb_port[1] + usbA_cb[0] / 2 + 2]) rotate([90, 0, 0])
+                translate([0, 0, -(Di - 1 - (bb_port[0] - 8))]) linear_extrude(Di - 1 - (bb_port[0] - 8))
+                    polygon([[0, -2.5], [2.5, 0], [2.5, 1.2], [0, 1.2]]);   // stops before the corner radius
             // corner bosses on the dry side, so the nut holes stay blind
             for (p = cs) translate([p[0], p[1], 0]) cylinder(r = 4.5, h = base_t - 0.1);
         }
@@ -363,7 +376,7 @@ module cap_labels() {
 // supports. A board drops in from the top; a zip tie through the panel
 // slots holds it.
 pf = py0 + panel_t;      // panel front face
-bb_port = [pf + 0.2 + 1.6 + 2.85, bb_z0 + bb_sz[2] / 2];   // Buck B receptacle centre (y, z): board back on the panel
+bb_port = [bb_yb - 1.6 - 2.85, bb_z0 + bb_sz[2] / 2];   // Buck B receptacle centre (y, z): PCB back toward the front wall
 module pocket(x0, w, z0, z1, d = 4) {
     // local profile (u = y, v = z), extruded along x
     module prof(top) polygon([[pf - 0.01, z0 - d], [pf + d, z0], [pf + d, top], [pf - 0.01, top]]);
@@ -375,9 +388,9 @@ module pocket(x0, w, z0, z1, d = 4) {
 bay_x = sx0 + ts;        // breaker bay left edge
 pk = [[bay_x + 1.2, buck_sz[0] + 1, 8, 8 + buck_sz[2] + 2],             // Buck A
       [bay_x + 1.2, acs_sz[0] + 1, 40, 40 + acs_sz[2] + 2]];             // ACS758
-// Buck B (LED backpack 5 V) lies on its side right of the ACS758, its USB-A port facing
-// the outer wall, behind a window in the tube: the backpack cable plugs straight into
-// the buck's own port, so no USB plug or extension sits inside the stick.
+// Buck B (LED backpack 5 V) is NOT on the sled: it sits on a shelf on the tube's front wall
+// (see tube()), its USB-A receptacle in a window in the outer wall, so the sled lifts out
+// past it. Its two input wires reach the sled through a JST-XH plug.
 
 module sled() {
     difference() {
@@ -405,11 +418,6 @@ module sled() {
             translate([bay_x - 0.01, bms_y[1], 0]) cube([Wi - 0.5 - bay_x, 1.2, base_t + 25]);
             // compartments for Buck A and the ACS758
             for (p = pk) pocket(p[0], p[1], p[2], p[3]);
-            // Buck B ledge (45-degree underside): the ACS758's right rail is its left stop, the
-            // tube wall its right stop; a zip tie through the panel slots holds it on the ledge
-            translate([pk[1][0] + pk[1][1] + 1.6 - 0.01, 0, 0]) rotate([90, 0, 90])
-                linear_extrude(Wi - 0.5 - (pk[1][0] + pk[1][1] + 1.6))
-                    polygon([[pf - 0.01, bb_z0 - 4], [pf + 4, bb_z0], [pf - 0.01, bb_z0]]);
         }
         // clear the bulkhead's corner bosses
         // the four bulkhead bosses (r 4.5) locate the sled: 0.3 mm clearance all round
@@ -708,10 +716,7 @@ module usbAplug() {
         offset(1.6) square(cb - [3.2, 3.2], center = true);
         translate([-cb[0] / 2 - 3.5, 0]) circle(r = 2.2);
     }
-    mirror([0, 0, 1]) {
-        linear_extrude(t - 0.8) offset(1.6) square(cb - [3.2, 3.2], center = true);
-        translate([0, 0, t - 0.8 - 0.01]) linear_extrude(0.8 + 0.01) offset(0.5) square(usbA_win - [1, 1], center = true);
-    }
+    mirror([0, 0, 1]) linear_extrude(t - 0.8) offset(1.6) square(cb - [3.2, 3.2], center = true);
 }
 // TPU gun-port cap: closes an unplugged XT30U well (an unused channel, or while the
 // umbilical is off). Water sitting across the two live sockets would leak current and
@@ -826,7 +831,7 @@ module ghost(i) {
     if (i == 5) color("purple", 0.4) translate([bay_x + 0.7, bms_y[0] + 0.3, base_t]) cube(bms_sz);  // BMS
     if (i == 6) color("cyan", 0.4) {                                                              // bucks + ACS758
         for (k = [0:1]) let(p = pk[k], b = k < 1 ? buck_sz : acs_sz) translate([p[0] + 0.5, pf + 0.2, p[2]]) cube(b);
-        translate([bb_x0, pf + 0.2, bb_z0]) cube([bb_sz[0], bb_sz[1], bb_sz[2]]);                 // Buck B
+        translate([bb_x0, bb_yb - bb_sz[1], bb_z0]) cube([bb_sz[0], bb_sz[1], bb_sz[2]]);         // Buck B (tube shelf)
     }
     if (i == 7) color("tan", 0.4) translate([pp[0] + 0.6, pp[1] + 0.75, -tb - Hw + mp_t]) cube(pump_sz);  // pump
 }

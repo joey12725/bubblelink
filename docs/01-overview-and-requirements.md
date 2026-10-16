@@ -55,7 +55,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 - **Battery voltage display:** Two-wire DC 4–100 V round LED voltmeter in the top of the stick's cap, reading battery voltage, wired after the breaker so tripping it turns the meter off; printed reference label showing 8.4 V (full) and 6 V (cutoff) thresholds
 
-- **Accessory USB output:** 5 V regulated via Buck B converter (external, YxPC 6–20 V → 5 V module) providing power for LED backpack display and future accessory panels; Buck B lies on a ledge on the sled with its own USB-A port 1.3 mm behind a window in the tube's outer wall (labelled LED 5V), so the backpack cable plugs straight in (no extension cable, no USB plug inside the stick)
+- **Accessory USB output:** 5 V regulated via Buck B converter (external, YxPC 6–20 V → 5 V module) providing power for LED backpack display and future accessory panels; Buck B stands on a shelf on the tube's front wall with its own USB-A receptacle in (or right behind) a window in the tube's outer wall (labelled LED 5V), so the backpack cable plugs straight in (no extension cable, no USB plug inside the stick). Its input runs from the sled with a 2-pin JST-XH plug
 
 ### Fluid System
 
@@ -136,7 +136,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
   - Display is dual-use: serves as Tracer cosplay component and may provide BubbleLink status feedback
   - Required fit: room for the stick (about 99.6 × 77.8 × 220 mm) standing upright beside the 1 L bladder. Two umbilicals plug into ports on the cup's outer wall. The bag's internal geometry is unknown until measured
 
-- **Internal organization:** Everything except the bladder is one upright printed stick: a control-head cap (PCB hung underneath, voltmeter and USB-C charge port on top) over a dry tube holding a slide-out sled (battery, breaker, BMS, Buck A, Buck B, ACS758). The tube's floor is the bulkhead (wet/dry divider); cables cross it through a slit TPU grommet. Below it, a wet cup holds the pump and fittings and drains through its floor. See [docs/09-printed-parts.md](09-printed-parts.md).
+- **Internal organization:** Everything except the bladder is one upright printed stick: a control-head cap (PCB hung underneath, voltmeter and USB-C charge port on top) over a dry tube holding a slide-out sled (battery, breaker, BMS, Buck A, ACS758; Buck B stands on a shelf on the tube wall). The tube's floor is the bulkhead (wet/dry divider); cables cross it through a slit TPU grommet. Below it, a wet cup holds the pump and fittings and drains through its floor. See [docs/09-printed-parts.md](09-printed-parts.md).
 
 - **Printed components** (CAD in `hardware/printed/`; nothing printed yet):
   - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, the trimmer, USB-C and USB-A plugs, gun port caps, key blank and gasket, and the power key (31 STLs in all with the four stick fit coupons)

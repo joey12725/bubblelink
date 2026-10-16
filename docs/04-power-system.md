@@ -228,7 +228,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - Output: 5.0 V
 - Load: LED backpack (~500–700 mA peak during animation)
 
-**Installation:** Lies on a ledge on the front of the sled's cross panel, right of the ACS758, held with a zip tie through the panel slots. Its own USB-A port sits 1.3 mm behind a window in the tube's outer wall (LED 5V), so the backpack cable plugs straight into the buck: no extension cable and no USB plug inside. Unplug the backpack cable before lifting the sled. Measure the buck (width and where its USB-A sits) before printing the tube; the window assumes 25.4 × 17 × 8 mm with the receptacle centred on the 17 mm side. Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
+**Installation:** Stands on a shelf printed on the tube's front wall, in the corner by the outer wall, with its PCB facing the front wall (2 mm gap). It slides along the shelf until its USB-A receptacle sits in (or right behind) the outer wall's 14.0 × 6.6 mm window (LED 5V), then gets a zip tie over its top edge. The backpack cable plugs straight into the buck: no extension cable and no USB plug inside. The sled lifts out past it untouched; its two input wires (main + after the breaker, and P−) run from the sled with a 2-pin JST-XH plug. Unplug the backpack cable before lifting the sled. Measure the buck (width and where its USB-A sits) before printing the tube; the shelf assumes 25.4 × 17 × 8 mm with the receptacle centred on the 17 mm side. Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
 
 **Setting:** Same as Buck A—verify 5.0 V output with multimeter before connecting LED backpack.
 
@@ -367,8 +367,8 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 | Main red | Buck A input (Hi) | 12 AWG red | Solder | + | Pump + controller supply |
 | Buck A output | PCB +5V (J1) | Small wire | Soldered at buck; JST-XH 2-pin at PCB | + | Logic supply, TLV1822 comparator, LEDs |
 | Buck A output | G528 pump (+) | Small wire | JST-XH (J3) | + | Pump power @ 5V |
-| Main red | Buck B input (Hi) | 12 AWG red | Solder | + | LED backpack supply |
-| Buck B output | LED backpack +5V | Backpack's own USB cable | Buck B's USB-A port, through a window in the tube wall | + | Backpack power |
+| Main red (after the breaker) | Buck B input (Hi) | 12 AWG red | Soldered; 2-pin JST-XH plug at the sled so it can come out | + | LED backpack supply (Buck B is on the tube's front wall shelf) |
+| Buck B output | LED backpack +5V | Backpack's own USB cable | Buck B's USB-A receptacle, in a window in the tube wall | + | Backpack power |
 | Main red (after breaker) | Voltmeter (+) | Small wire | Connector | + | Battery voltage display; off when the breaker is tripped |
 | BMS P− | Voltmeter (−) | Small wire | Connector | − | Voltmeter return |
 | ACS758 (5V out) | PCB Vcc (J2 pin 2) | Small wire | JST-XH 3-pin | + | Sensor supply; low-current |

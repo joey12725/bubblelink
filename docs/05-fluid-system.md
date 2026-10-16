@@ -194,7 +194,7 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 - One 5 m roll provides four 4-foot (1.22 m) channel hoses plus spares
 
 **Hose routing**:
-- Outlet tee 2 → slide clamp → 3.5×5.5 mm hose (one per gun channel, 4 feet), leaving through a 5.4 mm hose pigtail at 45 degrees on the cup's outer wall (60-80 mm of tube; the umbilical hose joins it with a straight barbed connector)
+- Outlet tee 2 → slide clamp → 3.5×5.5 mm hose (one per gun channel, 4 feet), leaving through a 6.0 mm hose pigtail at 45 degrees on the cup's outer wall (60-80 mm of tube; the umbilical hose joins it with a straight barbed connector)
 - Field termination: nylon barb from car-hose assortment (pressed onto hose end, secured with narrow zip tie)
 - Gun-side termination: nylon barb from car-hose assortment; the tube runs in a groove of the gun-end umbilical brick
 

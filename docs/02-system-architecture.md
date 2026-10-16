@@ -84,7 +84,7 @@ The BubbleLink system integrates five major subsystems:
 
 **Buck B (Secondary):** LED backpack USB power (isolated)
 - Input: Unregulated 6.4–8.4 V from battery
-- Output: 5.0 V for LED display backpack, straight out of the buck's own USB-A port, which sits 1.3 mm behind a window in the tube's outer wall (LED 5V). The backpack cable plugs in there: no extension cable and no USB plug inside the stick. Buck A's output is soldered straight to the J1 lead
+- Output: 5.0 V for LED display backpack, straight out of the buck's own USB-A receptacle, which sits in (or right behind) a window in the tube's outer wall (LED 5V). Buck B stands on a shelf on the tube's front wall, not on the sled. The backpack cable plugs in there: no extension cable and no USB plug inside the stick. Buck A's output is soldered straight to the J1 lead. Buck B's input (main + after the breaker, and P−) runs from the sled with a 2-pin JST-XH plug
 - Load: ~0.5 A (LED pixel matrix)
 - Module: Separate step-down converter (dedicated, no cross-load coupling)
 - Rationale: Isolates LED and pump load transients from PCB logic supply
@@ -445,7 +445,7 @@ Everything except the bladder is one printed upright stick. CAD is in `hardware/
 2. **Tube and sled (dry section)**
    - The sled slides out of the top. The 2S5P block stands beside a central spine, cell axes front to back, TERM face toward the back
    - Breaker stands upright behind a cross panel, hung by zip ties through its plate holes and spine slots, 2 mm from the outer wall (the walls are solid; reset it with the sled out); BMS stands on edge in a slot along the back wall
-   - Buck A, Buck B and the ACS758 sit in open compartments on the front of the panel, each held with a zip tie (no mounting holes used)
+   - Buck A and the ACS758 sit in open compartments on the front of the panel, each held with a zip tie (no mounting holes used); Buck B stands on a shelf on the tube's front wall instead, so the sled lifts out past it
    - The cap's ribs press the cell holders through two TPU battery pads and pin the sled onto the bulkhead
    - Loose boards get TPU shim strips tucked into their compartments
 
@@ -471,7 +471,7 @@ Everything except the bladder is one printed upright stick. CAD is in `hardware/
 | Charge in | Cap top | dry | USB-C (charger's own receptacle), TPU plug | CHG |
 | Power key | Cap top | dry | XT60H male socket (17.0 × 9.8 mm sleeve, keeper) + XT60H female key (switches the + line; key out = all loads off, battery still on BMS, charger and one socket pin); TPU key blank when out | KEY |
 | Controls and status | Cap top | dry | PRIME (guarded), LEDs, voltmeter, trimmer plug | PRIME, PWR, GUN, PUMP, THR, DLY |
-| LED 5 V out | Tube outer wall | dry | USB-A (Buck B's own port) behind a window, TPU plug | LED 5V |
+| LED 5 V out | Tube outer wall | dry | USB-A (Buck B's own port, on a shelf on the tube wall) in a 14.0 × 6.6 mm window, TPU plug in the counterbore | LED 5V |
 | Gun 1, Gun 2 | Cup outer wall | wet | XT30U female well + hose pigtail + paracord U-tunnel each | 1, 2 |
 | Bladder IN | Cup front wall | wet | Hose pigtail joined to the bladder tube with a reducer | IN |
 | Drains | Cup floor and every wall | wet | 4 mm holes | none |
