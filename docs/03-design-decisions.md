@@ -540,7 +540,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (OpenSCAD sources and STL files provided).
 
-**Implications:** Nothing needs supports. Print the five fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt, nut and ports coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 31 STLs in all, including four stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
+**Implications:** Nothing needs supports. Print the five fit coupons first, in ASA (the cell/connector coupon plus stick rim, skirt, nut and ports coupons), and set the cell-bore, XT30U and skirt clearances from them, then the cell holders and slide clamps, then the stick parts and bricks. The LED windows are glue-filled through-holes, so any cap colour works. 32 STLs in all, including four stick fit coupons (see [hardware/printed/README.md](../hardware/printed/README.md)).
 
 ---
 

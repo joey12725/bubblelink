@@ -61,7 +61,7 @@ This repo is the single source of truth for the project. It records the final de
 | [`hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay_Complete.zip`](hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay_Complete.zip) | The same release as the original ZIP |
 | [`hardware/pcb/…/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip`](hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/fabrication/BubbleLink_CTRL_v1_2_Gerbers.zip) | **The file to upload to a fab.** Upload this, not the outer package |
 | [`hardware/pcb/pcbway-replacement-order/`](hardware/pcb/pcbway-replacement-order/) | Replacement-order review: checked BOM/CPL, QA JSON, assembly-review images, status |
-| [`hardware/printed/`](hardware/printed/README.md) | Printed parts: OpenSCAD sources (`src/`), 31 STLs (`stl/`; rigid parts in ASA, seals and cushions in TPU), `build.sh`, and the print guide. Not yet printed or test-fitted |
+| [`hardware/printed/`](hardware/printed/README.md) | Printed parts: OpenSCAD sources (`src/`), 32 STLs (`stl/`; rigid parts in ASA, seals and cushions in TPU), `build.sh`, and the print guide. Not yet printed or test-fitted |
 
 ## Archive
 

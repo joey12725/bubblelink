@@ -161,8 +161,11 @@ holes  = [for (sx = [-1, 1], sy = [-1, 1]) [sx * pcb_hole_dx / 2, sy * pcb_hole_
 led_h = 5.3; sw_h = 4.3;
 
 // ------------------------------------------------------------ cap panel features
-vm_xy  = [21, 28];   vm_hole = 29.2;   // body just over 1-1/8 in (~28.8 mm), bezel ~1-5/16 in
+vm_xy  = [21, 28];   vm_hole = 31.2;   // 29.2 printed 1-2 mm too small in ASA (Joey, 2026-10-16): +2 mm
 usb_xy = [23, 55];
+usbc_port_t = 3.3;            // [ESTIMATE] thickness of the charger's USB-C receptacle
+chg_slot_t  = 1.25 * usbc_port_t;   // charger slot thickness: snug round the board's thin top
+                              // end; its thick part (output pads, big parts) hangs below the slot
 usb_win = [9.8, 4.0]; usb_cbore = [13.5, 7.5]; usb_web = 0.8;
 
 // ============================================================ 2D helpers
@@ -272,21 +275,16 @@ module cap() {
             let(c = pxy([0, 16.7]))
                 translate([c[0] - 2.8, c[1] - 8.2, pcb_top_z + led_h + 1])
                     cube([5.6, 16.4, Zt - pcb_top_z - led_h - 1 + 0.01]);
-            // charger pocket: the board slides up into it, USB-C receptacle
-            // against the window (receptacle centred on the 17.5 mm side,
-            // confirmed by Joey 2026-10-15). Four 0.55 mm crush ribs on the two
-            // wide walls grip the board (0.15 mm interference per side), so
-            // jumping and plug-insertion force can't slide it down off its glue.
-            translate([usb_xy[0], usb_xy[1], Zt - 30]) {
-                difference() {
-                    translate([-(chg_sz[0] / 2 + 1.6), -(chg_sz[1] / 2 + 1.6), 0])
-                        cube([chg_sz[0] + 3.2, chg_sz[1] + 3.2, 30.01]);
-                    translate([-(chg_sz[0] / 2 + 0.4), -(chg_sz[1] / 2 + 0.4), -1])
-                        cube([chg_sz[0] + 0.8, chg_sz[1] + 0.8, 31]);
-                }
-                for (sx = [-1, 1], sy = [-1, 1])
-                    translate([sx * 4 - 0.6, sy > 0 ? chg_sz[1] / 2 + 0.4 - 0.55 : -(chg_sz[1] / 2 + 0.4) - 0.01, 2])
-                        cube([1.2, 0.56, 24]);
+            // charger slot: the board's thin top end (PCB + USB-C receptacle) slides up
+            // into a slot only 1.25x the receptacle's thickness, receptacle against the
+            // window, so the board can't wobble. The thick part of the board (output pads,
+            // big components) hangs below the slot. Receptacle centred on the 17.5 mm
+            // side (Joey, 2026-10-15); a dab of glue at the slot mouth.
+            translate([usb_xy[0], usb_xy[1], Zt - 30]) difference() {
+                translate([-(chg_sz[0] / 2 + 1.6), -(chg_slot_t / 2 + 1.2), 0])
+                    cube([chg_sz[0] + 3.2, chg_slot_t + 2.4, 30.01]);
+                translate([-(chg_sz[0] / 2 + 0.4), -chg_slot_t / 2, -1])
+                    cube([chg_sz[0] + 0.8, chg_slot_t, 31]);
             }
             // PRIME plunger sleeve
             let(c = pxy(sw_xy)) translate([c[0], c[1], Zt - 8]) cylinder(d = 8.2, h = 8.01);
@@ -403,6 +401,8 @@ module sled() {
                     translate([p[0] < Wi / 2 ? -2 : Wi - 3, p[1] < Di / 2 ? -2 : Di - 3]) square(5);
                 }
                 translate([gs[0] - 2.2, gs[1] - 2.2]) square([gs[2] + 4.4, gs[3] + 4.4]);
+                // notch for the Buck B shelf on the tube's front wall (the base slides down past it)
+                translate([bb_x0 - 0.2 - 0.6, bb_yb - bb_sz[1] - 2 - 1.2 - 0.6]) square([Wi, Di]);
             }
             // two stops behind the battery's back face (y < 2.65) so a hard jump can't drive it into the leads;
             // the holder's sawtooth outline reaches only one side of the base, so each stop is 5 mm wide
@@ -859,6 +859,13 @@ else if (part == "keyblank") keyblank_print();
 else if (part == "keygasket") keygasket();
 else if (part == "gunportcap") for (k = [0, 1]) translate([k * 22, 0, 1.0]) rotate([180, 0, 0]) gunportcap();
 else if (part == "coupon_ports") coupon_ports();
+// The part of the cap with the voltmeter hole and the charger slot, plate down: check
+// both with the real voltmeter and charger before printing a whole lid.
+else if (part == "coupon_cap")
+    translate([0, Di, Zt + tp]) rotate([180, 0, 0]) intersection() {
+        cap();
+        translate([3.5, 11, Zt - 31]) cube([34, 53.5, 40]);
+    }
 else if (part == "none") {}
 // Fit coupons for the stick in the real filament (ASA shrinks more than PETG): a 19 mm slice of the
 // tube rim (16 mm below the rim + the bulkhead offset), the matching slice of the cap skirt (groove, ring land, screw slot), and a bulkhead corner

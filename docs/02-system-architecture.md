@@ -92,7 +92,7 @@ The BubbleLink system integrates five major subsystems:
 **Battery Voltage Display:** External 4–100 V digital voltmeter
 - Input: 2S battery voltage (7.2–8.4 V nominal), wired after the breaker so tripping the breaker turns it off
 - Connector: Two-wire. Idle draw not measured (small LED meters typically draw tens of mA); check it once with a multimeter, and take the power key out (blank in) for storage
-- Display: Glued into a 29.2 mm hole in the top of the stick's cap (about 1 in deep or a bit more; the cap allows 30 mm)
+- Display: Glued into a 31.2 mm hole in the top of the stick's cap (about 1 in deep or a bit more; the cap allows 30 mm)
 - Accuracy: Sufficient for field battery estimation; accounts for voltage sag under load
 
 ---
@@ -439,7 +439,7 @@ Everything except the bladder is one printed upright stick. CAD is in `hardware/
 1. **Cap (control head)**
    - CTRL v1.2 PCB hangs under it, component side up, heat-staked onto four pins
    - LEDs shine through 3.6 mm through-holes filled with clear hot glue or UV resin; PRIME is a guarded, hard-stopped TPU plunger under a TPU boot; RV1/RV2 adjust through two windows closed by one TPU plug; the USB-C charger sits in a pocket under its window, and a TPU plug closes the port between charges
-   - Voltmeter (29.2 mm hole) and USB-C charge port (charger glued under the CHG window) on top
+   - Voltmeter (31.2 mm hole) and USB-C charge port (charger's thin top end in a slot under the CHG window, with a dab of glue) on top
    - A TPU ring seals radially against the tube; 2× M3×10 screws (TPU washer and M3 flat washer under each head, M3 nut in a slot behind the skirt) keep it on
 
 2. **Tube and sled (dry section)**

@@ -255,7 +255,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - 6.0 V: Minimum safe voltage (BMS cutoff threshold); if reached, stop operating and recharge
 - Below 6.0 V: Do not fire; BMS is actively protecting cells
 
-**Location:** Top of the stick's cap: the body drops through a 29.2 mm hole and is glued around its bezel. Measured 2026-10-14: bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm above the battery).
+**Location:** Top of the stick's cap: the body drops through a 31.2 mm hole (29.2 mm printed 1-2 mm too small in ASA) and is glued around its bezel. Measured 2026-10-14: bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm above the battery).
 
 ---
 

@@ -139,7 +139,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 - **Internal organization:** Everything except the bladder is one upright printed stick: a control-head cap (PCB hung underneath, voltmeter and USB-C charge port on top) over a dry tube holding a slide-out sled (battery, breaker, BMS, Buck A, ACS758; Buck B stands on a shelf on the tube wall). The tube's floor is the bulkhead (wet/dry divider); cables cross it through a slit TPU grommet. Below it, a wet cup holds the pump and fittings and drains through its floor. See [docs/09-printed-parts.md](09-printed-parts.md).
 
 - **Printed components** (CAD in `hardware/printed/`; nothing printed yet):
-  - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, the trimmer, USB-C and USB-A plugs, gun port caps, key blank and gasket, and the power key (31 STLs in all with the four stick fit coupons)
+  - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, the trimmer, USB-C and USB-A plugs, gun port caps, key blank and gasket, and the power key (32 STLs in all with the four stick fit coupons)
   - Cell holders MID and TERM (original 5×2 offset design, 19.9 mm pitch)
   - Slide clamps ×3 (bypass restrictor and both channel shutoffs)
   - Umbilical bricks ×2 (one at the gun end of each umbilical)
