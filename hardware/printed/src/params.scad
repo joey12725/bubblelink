@@ -26,7 +26,8 @@ cell_pitch  = 19.90;  // centre-to-centre. Gives a ~1.6 mm wrapper gap and a
                       // printable 1.1 mm rib. Keep <= 21 so the 26 mm nickel
                       // tabs still reach both cell centres.
 holder_t    = 10.0;   // spacer thickness along the cell axis
-holder_lip  = 2.0;    // retaining lip under each cell end
+holder_lip  = 0.8;    // retaining lip under each cell end. Was 2.0: the cell ends sat so deep that the
+                      // tabs had to bend down into every window and the block came out too long (2026-10-16)
 holder_wall = 2.4;    // outer wall around the cell group
 cap_window  = 12.5;   // opening in the lip for spot-welding the tabs
 

@@ -230,7 +230,7 @@ The whole pack apart from the bladder, as one upright printed column about 99.6 
 - **Cup:** the wet chamber (pump on a TPU mat, three tees, check valve, bypass slide clamp). Bolts on from below with 4× M3×12 (each with a lock washer) into nuts in the bulkhead; drains through its floor and walls. Carries the gun 1 and 2 port clusters (outer wall) and the IN hose pigtail (front wall).
 
 **Cell holders (MID and TERM)**  
-Printed 5×2 offset cell holders for the 2S5P block, 19.9 mm pitch, with flat end faces so the cap's pads bear across the full width. MID caps the series end; TERM carries the pack + and − buses. Replaces the earlier Cults3D spacer remix. Printed after the **fit coupon**, which sets the cell-bore and XT30U-pocket clearances.
+Printed 5×2 offset cell holders for the 2S5P block, 19.9 mm pitch, with flat end faces so the cap's pads bear across the full width, and a 0.8 mm lip so the tabs lie flat (block 113.0 × 40.68 × 67.45 mm). MID caps the series end; TERM carries the pack + and − buses. Replaces the earlier Cults3D spacer remix. Printed after the **fit coupon**, which sets the cell-bore and XT30U-pocket clearances.
 
 **Power key**  
 XT60H female with a short 12 AWG U-loop across its two cups, hot-glued into a printed ASA grip (part 26, lanyard hole). It plugs into the XT60H male socket on the cap top (label KEY; 17.0 × 9.8 mm sleeve with a rear zip-tie keeper): pin A is BMS P+ and pin B is the breaker input, so it switches the + line only. Key in is ON; key out is OFF (all loads off; the battery stays connected to the BMS, the charger and one pin of the key socket). A TPU key blank (part 43) closes the socket when the key is out, and a TPU gasket (part 44) seals under the grip.

@@ -113,9 +113,10 @@ emb_size = 12;
 // ------------------------------------------------------------ battery
 blk_l = 2 * (2.25 * cell_pitch + cell_bore / 2 + holder_wall);   // 113.15, along z
 blk_w = cell_pitch * sin(60) + cell_bore + 2 * holder_wall;      // 40.83, along x
-blk_d = cell_h + 2 * holder_lip + 1;                              // 69.85, along y
+blk_d = cell_h + 2 * holder_lip + 1;                              // 67.45, along y (holders + cells + fish paper)
 base_t = 2.5;
-bat = [0.5, Di - blk_d - 0.5, base_t];   // TERM face toward the back: 2.65 mm gap for the leads
+bat = [0.5, Di - blk_d - 2.0, base_t];   // MID face 2 mm off the front wall, TERM face 3.55 mm off the back:
+                                         // room for the tabs and solder on both faces
 bat_top = bat[2] + blk_l;
 bp_y = [bat[1] + holder_t / 2, bat[1] + blk_d - holder_t / 2];   // rib / pad centre lines (y)
 rib_z0 = bat_top - bp_ov + bp_t;                                  // rib bottom = pad pocket floor
@@ -406,7 +407,7 @@ module sled() {
             }
             // two stops behind the battery's back face (y < 2.65) so a hard jump can't drive it into the leads;
             // the holder's sawtooth outline reaches only one side of the base, so each stop is 5 mm wide
-            for (x = [12, 31]) translate([x, 0.6, base_t - 0.01]) cube([5, bat[1] - 0.6 - 0.3, 8]);   // 5 mm wide: the cell holder's rounded end only reaches one of them
+            for (x = [12, 31]) translate([x, 0.6, base_t - 0.01]) cube([5, bat[1] - 0.6 - 0.3, 2]);   // 2 mm tall: they meet the holder's flat bottom strip, below every cell and tab   // 5 mm wide: the cell holder's rounded end only reaches one of them
             // spine stops 6 mm short of both walls: lead channels front and back
             translate([sx0, 6, 0]) cube([ts, Di - 12, spine_h]);
             // cross panel

@@ -28,7 +28,7 @@ The whole pack, apart from the bladder, is one upright **stick**: about **99.6 �
 
 **Fit coupons (print first, in ASA):** `00_fit_coupon` plus five stick coupons (the cap coupon is optional): tube rim, cap skirt (with seal-ring groove, nut slot and screw hole), bulkhead nut corner, ports (XT30U well, hose hole, USB-A window, XT60H key socket in a 2.4 mm wall), and the optional cap coupon (voltmeter hole and charger slot, about 34 × 54 × 33 mm). The skirt slice must drop into the rim slice with the TPU ring on, and an M3 nut must press into both hex pockets. Total: 32 STLs.
 
-**Still in use from earlier:** the fit coupon, the two cell holders, the slide clamps (×3) and the umbilical bricks (×2, gun end only). The Tracer cosplay shells (L1, L2, L3, L6, R1–R6) were printed 2026-08-06 and are a separate project.
+**Still in use from earlier:** the fit coupon, the two cell holders (reprinted with a 0.8 mm lip and flat ends; block 113.0 × 40.68 × 67.45 mm), the slide clamps (×3) and the umbilical bricks (×2, gun end only). The Tracer cosplay shells (L1, L2, L3, L6, R1–R6) were printed 2026-08-06 and are a separate project.
 
 **Not designed yet:** mounts for the two dual-head guns. They need the teardown measurements.
 

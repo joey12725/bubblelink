@@ -80,7 +80,7 @@ if want("3"):
             ("R", (89.5, 55.9, 30), "Wire pass", "to the breaker / BMS side")],
            f"3 {DOT} Cap off: front of the sled (front and side walls cut away)",
            "The sled lifts straight out of the top. It takes no screws: bosses stop it sliding, the cap clamps it down. Dashed blue = battery.",
-           outlines=[box_edges((0.5, 2.65, 2.5), (41.33, 72.5, 115.65))])
+           outlines=[box_edges((0.5, 3.55, 2.5), (41.18, 71.0, 115.5))])
 
 if want("4"):
     cut = (f'difference() {{ tube(); translate([{Wi - 0.6}, -20, 0.01]) cube([30, 140, 200]); '
@@ -103,9 +103,9 @@ if want("5"):
     f = lambda p: (p[0], Di - p[1], Zt + tp - p[2])     # flipped cap coordinates
     capb = f'translate([0, {Di}, {Zt + tp}]) rotate([180, 0, 0])'
     R.view("5_cap_underside",
-           f'color({CAP}) {capb} cap(); color({TPU}) {capb} translate([0,0,{Zt - 12 + 2 + 0.4}]) ring(); color({TPU}) {capb} for (y = [7.65, 67.5]) translate([3.7, y - 1.35, 115.05]) batpad();',
+           f'color({CAP}) {capb} cap(); color({TPU}) {capb} translate([0,0,{Zt - 12 + 2 + 0.4}]) ring(); color({TPU}) {capb} for (y = [8.55, 66.0]) translate([3.7, y - 1.35, 114.9]) batpad();',
            cam((47, 36.5, 14), (170, 215, 230)),
-           [("L", f((20, 67.5, 118)), "Battery hold-down ribs (x2)", "a TPU pad slips over each rib end"),
+           [("L", f((20, 66.0, 118)), "Battery hold-down ribs (x2)", "a TPU pad slips over each rib end"),
             ("L", f(pxy((21.5, 16.5)) + (PCBZ,)), "PCB posts (x4)", "the CTRL board heat-stakes onto the pins"),
             ("L", f((50, 36.5, PCBZ)), "CTRL PCB hangs here (dashed)", "component side toward the plate"),
             ("L", f((21, 28, Zt)), "Voltmeter drops in here", "glue around the bezel on top"),

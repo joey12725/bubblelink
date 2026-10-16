@@ -8,7 +8,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - Spot welder or nickel-tab soldering rig
 - Multimeter (voltage, current, continuity)
 - Oscilloscope (recommended for PCB calibration)
-- Soldering iron + solder and solder wick
+- Soldering iron + solder and solder wick (for the battery tabs: the biggest chisel tip, flux paste, fine sandpaper, isopropyl alcohol)
 - Wire strippers, crimpers (for ring terminals)
 - Hot-water bath or heat gun (for hose warm-stretching)
 - Narrow 2.5 mm zip ties
@@ -158,7 +158,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 Follow the print order in [hardware/printed/README.md](../hardware/printed/README.md):
 
 1. Print the five **fit coupons** first, in ASA (plus the optional cap coupon, with the voltmeter hole and charger slot, to check the real voltmeter and charger before printing a new lid): `00_fit_coupon` plus the stick's rim, skirt, nut and ports coupons. Pick the tightest cell ring a 25R slides into by hand (done 2026-10-15: 18.65 mm, so `cell_bore` = 18.65) and the snug XT30U pocket, and check that the skirt slice drops into the rim slice with the TPU ring on that an M3 nut presses into both hex pockets, and, on the ports coupon, that the umbilical's XT30U male shroud slides into the well, the silicone tube goes through the 6.0 mm hose hole, a USB-A plug seats through the 14.0 × 6.6 mm window, and the XT60H male drops into its sleeve and stops under the lip. Set `cell_bore`, `fit_clear` or `sk_c` in `src/params.scad` (or use about 100.5% slicer shrink compensation on the K2 Plus) and rebuild the STLs with `build.sh`.
-2. Print the **tube**, **sled**, **cell holders** (MID and TERM; they now have flat ends, so reprint any older ones) and the **slide clamps** (×3). Then **measure** the tube rim height (156 mm above the bulkhead plus 3 mm) and the assembled battery block (113.0 mm nominal with the 18.65 bore): the coupons don't capture Z shrink. If the stack is off by more than 0.2 mm, edit `bp_ov` and rebuild only the cap and pads. Print the cap and battery pads after measuring.
+2. Print the **tube**, **sled**, **cell holders** (MID and TERM; they now have flat ends and a 0.8 mm lip, so reprint any older ones) and the **slide clamps** (×3). Then **measure** the tube rim height (156 mm above the bulkhead plus 3 mm) and the assembled battery block (113.0 mm nominal with the 18.65 bore): the coupons don't capture Z shrink. If the stack is off by more than 0.2 mm, edit `bp_ov` and rebuild only the cap and pads. Print the cap and battery pads after measuring.
 3. Print the **stick parts** (tube, cap, sled, cup, PRIME guard bezel, grommet drip skirt, power key) in ASA (tall parts on the K2 Plus; run the fit coupon in ASA first) and the TPU parts (cap ring, grommet halves, PRIME boot, PRIME plunger, two screw washers, two compliant battery pads, the pump mat, the shim strip set, trimmer plug, USB-C plug, USB-A plug, two gun port caps, key blank, key gasket), then the **umbilical bricks** (×2, gun end only). The LED windows are through-holes, so any cap colour works. Nothing needs supports.
 
 None of these parts has been test-fitted yet, so check fits as you go.
@@ -190,7 +190,7 @@ None of these parts has been test-fitted yet, so check fits as you go.
 ### 2.2 Spot-weld battery tabs
 
 **Setup:**
-- Printed cell holders, MID and TERM (original 5×2 offset design, 19.9 mm pitch, ~1.6 mm wrapper gap)
+- Printed cell holders, MID and TERM (original 5×2 offset design, 19.9 mm pitch, ~1.6 mm wrapper gap, 0.8 mm lip so the tabs lie flat; the block is 113.0 × 40.68 × 67.45 mm)
 - **MID** caps the series end (every tab on that face is the midpoint); **TERM** carries the separate pack + and − buses. Keep the two rows' strips on TERM apart, with fish paper between them. The holders are mirror images; if the A/B letters don't line up, rotate MID 180°
 - Nickel-plated steel tabs, 2.6 cm (qty 30 total); they reach both cell centres at the 19.9 mm pitch
   - Five independent series links connecting the two rows (positive of row 1 to negative of row 2)
@@ -208,7 +208,17 @@ None of these parts has been test-fitted yet, so check fits as you go.
 2. TERM face first: the pack − bus (row A), then the pack + bus (row B). Check with a meter that the two buses read about 3.6-4.2 V apart and that no tab bridges them.
 3. MID face: the full mesh. The TERM buses should now read about 7.2-8.4 V apart.
 
-4. **Weld current:** ~80–100 A for 10–15 ms per spot (adjust for your welder calibration). If you solder instead of welding: use flux, an iron of 80 W or more with a large tip, pre-tin the tab, and keep each joint on the cell under 3 s; let the cell cool between joints. Weld if you can: hot, slow joints damage cells
+4. **Weld current:** ~80–100 A for 10–15 ms per spot (adjust for your welder calibration). If you solder instead of welding, follow the soldering notes below. Weld if you can: hot, slow joints damage cells
+
+   **Soldering the tabs** (what to do if you solder instead of spot-weld; Joey's first attempt showed the problems):
+   - **Amber residue** means the rosin flux burned off before the solder wet: not enough heat is getting into the joint.
+   - **Iron:** the biggest chisel tip, clean and freshly tinned, at 400-450 C. Put a small blob of solder on the tip as a heat bridge and press firmly.
+   - **Prepare the surfaces:** scuff both the tab and the cell terminal with fine sandpaper and wipe with isopropyl alcohol. Use flux **paste**; rosin-core solder alone is not enough on nickel-plated steel.
+   - **Pre-tin the tabs off the battery** (they tin easily when they aren't stuck to a cell heat-sink). Tin each cell terminal with a 1-2 s touch, then join by reflowing through the tab.
+   - Still at most about 3 s per contact, alternating cells so each cools.
+   - **Never use hot glue (or tape) as the electrical connection.** Each joint carries up to about 5 A; a pressure or glue contact heats, the glue softens at about 60-80 C, and the joint opens or arcs. Hot glue is fine **over** a good solder joint as strain relief and insulation.
+   - If soldering keeps fighting you, a handheld 18650 spot welder makes these joints in seconds (an optional tool, not a part change).
+   - The new holders have a 0.8 mm lip, so the cell ends sit nearly flush with the holder face: the tabs lie flat on the terminals instead of arching down into each window.
 
 5. **Post-weld inspection:**
    - No visible cracks or discoloration around welds
@@ -680,7 +690,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 1. **Sled (slides out of the top of the tube):**
    - Battery: stands left of the spine on the base, cell axes front to back, **TERM face (pack + and −) toward the back**
    - Breaker: stands upright right of the spine, behind the cross panel, 2 mm from the outer wall. Run one zip tie through each plate hole and the tall slot in the spine behind it. Leave about 1.5 mm under the bottom stud for its lug. The gap between the spine and the breaker is a wire channel. The tube walls are solid, so the reset lever is only reachable with the sled out: leave enough wiring slack to lift the sled out
-   - BMS: stands on edge in the slot along the back wall; the TERM-face leads reach it through the channel behind the spine. Two small posts on the base (x = 12–17 and 31–36) stop the battery sliding into the leads: route the leads clear of them; the TERM-bus leads must run above z = 10.5 mm, since the posts fill the bottom 8 mm of the lead channel
+   - BMS: stands on edge in the slot along the back wall; the TERM-face leads reach it through the channel behind the spine. Two small 2 mm posts on the base (x = 12–17 and 31–36) stop the battery sliding into the leads (they meet the holder's flat bottom strip, below every cell and tab). The block sits 2.0 mm off the front wall and 3.55 mm off the back; the B+/B− leads leave at the right-hand edge of the TERM face into the space behind the spine's end
    - Buck A, ACS758: drop into the compartments on the front of the panel and get a zip tie each. Buck B is not on the sled (it stands on a shelf on the tube's front wall, step 4.2). Wires to the breaker/BMS side go through the 8 × 30 mm pass at the panel's right end
 
 2. **Cap (control head):**
