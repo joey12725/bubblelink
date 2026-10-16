@@ -13,7 +13,7 @@
 $fn = 64;
 
 // ---------------------------------------------------------------- printing
-fit_clear   = 0.30;   // clearance per side for a part dropping into a pocket
+fit_clear   = 0.20;   // clearance per side for a part dropping into a pocket; +0.2 held the XT30U snugly on the fit coupon (2026-10-15)
 slide_clear = 0.20;   // clearance per side for the slide-clamp dovetail
 ziptie_w    = 3.2;    // slot width for the narrow zip ties on hand
 ziptie_t    = 1.8;    // slot thickness
