@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BubbleLink battery: building the 2S5P block</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --ink:#1b2430; --muted:#5b6577; --card:#fff; --line:#dfe4ea;
+    --holder:#7f9db5; --holder-edge:#4f6d85; --wrap:#3f8f5a; --wrap-edge:#2d6a42;
+    --can:#b9c0c8; --button:#e6e9ed; --paper:#d9b06a;
+    --neg:#2f6fd0; --pos:#d6453d; --mid:#8a4fd1; --nickel:#cfd4da;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:24px 28px 6px;max-width:1100px;margin:0 auto}
+  h1{margin:0 0 6px;font-size:24px}
+  .sub{margin:0;color:var(--muted);font-size:15px;line-height:1.45}
+  main{max-width:1100px;margin:0 auto;padding:12px 28px 40px}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 14px 10px}
+  .scene{position:relative;width:100%;aspect-ratio:16/8.2}
+  .scene svg{position:absolute;inset:0;width:100%;height:100%;transition:opacity .5s ease}
+  .hidden{opacity:0;pointer-events:none}
+  .cap{min-height:96px;padding:10px 6px 2px}
+  .cap h2{margin:0 0 4px;font-size:19px}
+  .cap p{margin:0;color:#384353;font-size:15.5px;line-height:1.5}
+  .cap .warn{color:#a33a2c;font-weight:600}
+  .bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 4px 2px}
+  button{font:inherit;font-size:14px;border:1px solid #c9d2dc;background:#fff;border-radius:9px;padding:7px 14px;cursor:pointer;color:var(--ink)}
+  button.primary{background:#1f4fa3;border-color:#1f4fa3;color:#fff}
+  button:focus-visible{outline:3px solid #8fb4f3;outline-offset:2px}
+  .dots{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+  .dot{width:11px;height:11px;border-radius:50%;background:#cfd6de;border:none;padding:0}
+  .dot.on{background:#1f4fa3}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 2px 0;color:var(--muted);font-size:13.5px}
+  .sw{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .notes{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.5}
+  .note h3{margin:0 0 6px;font-size:15px}
+  a{color:#1f4fa3}
+  /* svg text */
+  .lbl{font:600 4.2px system-ui,"Segoe UI",sans-serif;fill:#27313d}
+  .small{font:500 3.3px system-ui,"Segoe UI",sans-serif;fill:#4a5565}
+  .term{font:700 3.6px system-ui,"Segoe UI",sans-serif;text-anchor:middle;dominant-baseline:central}
+  .pop{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.6);transition:opacity .45s ease,transform .45s ease}
+  .pop.in{opacity:1;transform:scale(1)}
+  .fade{opacity:0;transition:opacity .5s ease}
+  .fade.in{opacity:1}
+  .slide{transition:transform 1s cubic-bezier(.3,.7,.2,1)}
+  #faceFlip{transform-box:view-box;transform-origin:50% 50%;transition:transform .45s ease-in}
+  body.instant .pop,body.instant .fade,body.instant .slide,body.instant #faceFlip,body.instant .scene svg{transition:none !important}
+  @media (prefers-reduced-motion: reduce){
+    .pop,.fade,.slide,#faceFlip,.scene svg{transition:none !important}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Building the 2S5P battery block</h1>
+  <p class="sub">10 Samsung 25R cells, two printed holders (MID and TERM, the 0.8 mm-lip version from 2026-10-16), nickel tabs on both faces. Step through it, or press Play. The geometry matches the holders: 19.9 mm between neighbouring cells, 26 mm tabs.</p>
+</header>
+<main>
+  <div class="stage">
+    <div class="scene" id="scene" aria-live="polite">
+      <!-- ===================== side view ===================== -->
+      <svg id="side" viewBox="-85 -42 170 87" role="img" aria-label="Side view of the cells and holders">
+        <g id="sideCells"></g>
+        <g id="holderTerm" class="slide" style="transform:translateX(-38px)">
+          <rect x="-38" y="-27" width="10" height="54" rx="1.5" fill="var(--holder)" fill-opacity=".72" stroke="var(--holder-edge)" stroke-width=".5"/>
+          <text x="-33" y="33" class="lbl" text-anchor="middle">TERM</text>
+        </g>
+        <g id="holderMid" class="slide" style="transform:translateX(38px)">
+          <rect x="28" y="-27" width="10" height="54" rx="1.5" fill="var(--holder)" fill-opacity=".72" stroke="var(--holder-edge)" stroke-width=".5"/>
+          <text x="33" y="33" class="lbl" text-anchor="middle">MID</text>
+        </g>
+        <text x="0" y="-11" class="lbl" text-anchor="middle" dominant-baseline="central" fill="#fff" style="fill:#fff">Row A (one of five)</text>
+        <text x="0" y="11" class="lbl" text-anchor="middle" dominant-baseline="central" style="fill:#fff">Row B (one of five)</text>
+        <g id="sideNotes" class="fade">
+          <text x="0" y="-33" class="lbl" style="font-size:3.8px" text-anchor="middle">Row A: + toward MID  ·  Row B: + toward TERM  ·  opposite ways = 2S5P</text>
+        </g>
+        <g id="sidePaper" class="fade"></g>
+        <text x="0" y="41" class="small" text-anchor="middle">Seen from the side: row A in front, row B behind (drawn below it)</text>
+      </svg>
+
+      <!-- ===================== face view ===================== -->
+      <svg id="face" class="hidden" viewBox="-85 -40 170 87" role="img" aria-label="Holder face with tabs">
+        <g id="faceFlip">
+          <rect x="-56.5" y="-20.4" width="113" height="40.8" rx="2" fill="var(--holder)" stroke="var(--holder-edge)" stroke-width=".6"/>
+          <g id="facePaper" class="fade"></g>
+          <g id="faceCells"></g>
+          <g id="faceTabs"></g>
+          <g id="faceRowLabels"></g>
+        </g>
+        <text id="faceTitle" x="0" y="-34" class="lbl" text-anchor="middle" style="font-size:5.2px">TERM face (looking at it from outside)</text>
+        <g id="meter" class="fade"></g>
+        <g id="bms" class="fade"></g>
+      </svg>
+    </div>
+
+    <div class="cap" id="cap"><h2></h2><p></p></div>
+    <div class="bar">
+      <button id="prev" aria-label="Previous step">&larr; Back</button>
+      <button id="play" class="primary" aria-label="Play">&#9654; Play</button>
+      <button id="next" aria-label="Next step">Next &rarr;</button>
+      <div class="dots" id="dots" role="tablist" aria-label="Steps"></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--neg)"></span>pack − bus (row A, TERM face)</span>
+    <span><span class="sw" style="background:var(--pos)"></span>pack + bus (row B, TERM face)</span>
+    <span><span class="sw" style="background:var(--mid)"></span>midpoint mesh (MID face)</span>
+    <span><span class="sw" style="background:var(--paper)"></span>fish paper</span>
+  </div>
+
+  <div class="notes">
+    <div class="note"><h3>Soldering, if you're not spot-welding</h3>Scuff the tab and the cell end with fine sandpaper, then wipe with alcohol. Use flux <b>paste</b>: rosin-core solder alone won't wet nickel-plated steel. <b>Tin the tabs off the battery</b> first (they tin easily when no cell is soaking up the heat), then tin each cell end with a 1–2 s touch, and join by pressing the iron on the tab. Biggest chisel tip, 400–450 °C, a blob of solder on the tip as a heat bridge. Under 3 s per contact. Amber residue = burnt flux = not enough heat getting in. Never hot glue as the connection; it's fine over a good joint.</div>
+    <div class="note"><h3>The two meter checks</h3>After the TERM face, the two chains read <b>3.6–4.2 V</b> apart (0 V means a tab bridges them). After the MID face they read <b>7.2–8.4 V</b> (about 4 V means a row is in backwards).</div>
+    <div class="note"><h3>Tabs</h3>Every pair of neighbouring cells is 19.9 mm apart, in a row or across the rows, so each 26 mm tab bridges exactly one pair. TERM gets 8 tabs, MID gets 13: 21 of your 30.</div>
+  </div>
+  <p class="sub" style="margin-top:16px"><a href="index.html">&larr; Back to the stick views and downloads</a></p>
+</main>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const P = 19.9, RD = P * Math.sin(Math.PI / 3);        // pitch, row spacing
+  const A = [0,1,2,3,4].map(i => [(i - 2.25) * P, -RD / 2]);   // row A on the TERM face, seen from outside
+  const B = [0,1,2,3,4].map(i => [(i - 1.75) * P,  RD / 2]);
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  /* ---------------- side view ---------------- */
+  const sideCells = document.getElementById("sideCells"), sidePaper = document.getElementById("sidePaper");
+  function sideCell(y, plusRight) {
+    const g = el("g", {}, sideCells);
+    el("rect", {x:-32.5, y:y-9, width:65, height:18, rx:3, fill:"var(--wrap)", stroke:"var(--wrap-edge)", "stroke-width":.5}, g);
+    const nx = plusRight ? 32.5 : -34.5;
+    el("rect", {x:nx, y:y-3.5, width:2, height:7, rx:.6, fill:"var(--can)"}, g);
+    el("text", {x: plusRight ? 27 : -27, y:y, class:"term", fill:"#fff"}, g).textContent = "+";
+    el("text", {x: plusRight ? -27 : 27, y:y, class:"term", fill:"#fff"}, g).textContent = "−";
+    el("rect", {x: plusRight ? 31 : -33, y:y-6, width:2, height:12, rx:.5, fill:"var(--paper)"}, sidePaper);
+  }
+  sideCell(-11, true);   // row A: + toward MID (right)
+  sideCell( 11, false);  // row B: + toward TERM (left)
+
+  /* ---------------- face view ---------------- */
+  const faceCells = document.getElementById("faceCells"), faceTabs = document.getElementById("faceTabs"),
+        facePaper = document.getElementById("facePaper"), rowLbl = document.getElementById("faceRowLabels");
+  function drawFace(which) {             // which: "TERM" or "MID"
+    faceCells.innerHTML = ""; faceTabs.innerHTML = ""; facePaper.innerHTML = ""; rowLbl.innerHTML = "";
+    const mir = which === "MID" ? -1 : 1;              // the block is flipped left-right to see MID
+    const a = A.map(([x, y]) => [x * mir, y]), b = B.map(([x, y]) => [x * mir, y]);
+    // row A shows − on TERM and + on MID; row B the opposite
+    const showPlus = (row) => (which === "TERM") === (row === "B");
+    const cellEnd = ([x, y], plus) => {
+      const g = el("g", {}, faceCells);
+      el("circle", {cx:x, cy:y, r:6.25, fill:"#5e7d96"}, g);                 // window in the lip
+      el("circle", {cx:x, cy:y, r:6.0, fill:"var(--can)"}, g);
+      if (plus) {
+        el("circle", {cx:x, cy:y, r:5.4, fill:"none", stroke:"var(--paper)", "stroke-width":1.6}, g);
+        el("circle", {cx:x, cy:y, r:3.2, fill:"var(--button)", stroke:"#9aa3ad", "stroke-width":.3}, g);
+        el("text", {x, y, class:"term", fill:"#7a2f2a"}, g).textContent = "+";
+      } else {
+        el("text", {x, y, class:"term", fill:"#1c3f78"}, g).textContent = "−";
+      }
+    };
+    a.forEach(p => cellEnd(p, showPlus("A")));
+    b.forEach(p => cellEnd(p, showPlus("B")));
+    el("text", {x:-60, y:-RD / 2, class:"lbl", "text-anchor":"end", "dominant-baseline":"central"}, rowLbl).textContent = "Row A";
+    el("text", {x:-60, y: RD / 2, class:"lbl", "text-anchor":"end", "dominant-baseline":"central"}, rowLbl).textContent = "Row B";
+    const lab = document.getElementById("faceTitle");
+    lab.textContent = which === "TERM" ? "TERM face (looking at it from outside)" : "MID face (block flipped over, looking from outside)";
+    // fish paper strip between the rows on TERM
+    if (which === "TERM") el("rect", {x:-52, y:-1.1, width:104, height:2.2, rx:1, fill:"var(--paper)"}, facePaper);
+    return {a, b};
+  }
+  function tab(p, q, color, delay) {
+    const [x1, y1] = p, [x2, y2] = q, cx = (x1 + x2) / 2, cy = (y1 + y2) / 2;
+    const ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+    const g = el("g", {transform:`translate(${cx} ${cy}) rotate(${ang})`}, faceTabs);
+    const r = el("rect", {x:-13, y:-2.8, width:26, height:5.6, rx:2.8, fill:"var(--nickel)", "fill-opacity":.88, stroke:color, "stroke-width":1, class:"pop"}, g);
+    el("circle", {cx:-P/2, cy:0, r:1.1, fill:color, class:"pop"}, g);
+    el("circle", {cx: P/2, cy:0, r:1.1, fill:color, class:"pop"}, g);
+    return {g, delay};
+  }
+
+  /* ---------------- meter + BMS overlays ---------------- */
+  const meter = document.getElementById("meter"), bms = document.getElementById("bms");
+  function drawMeter(text, p1, p2, warn) {
+    meter.innerHTML = "";
+    const mx = 64, my = 27;
+    el("rect", {x:mx-14, y:my-8, width:28, height:16, rx:2.5, fill:"#ffd84a", stroke:"#7a6410", "stroke-width":.5}, meter);
+    el("rect", {x:mx-11.5, y:my-6, width:23, height:7.5, rx:1, fill:"#d9e7c9"}, meter);
+    el("text", {x:mx, y:my-2.2, class:"term", style:"font-size:4px", fill:"#1d2a12"}, meter).textContent = text;
+    el("text", {x:mx, y:my+4.4, class:"small", "text-anchor":"middle"}, meter).textContent = "V DC";
+    el("path", {d:`M${mx-6} ${my+8} C ${mx-10} ${my+18}, ${p1[0]} ${p1[1]+16}, ${p1[0]} ${p1[1]}`, fill:"none", stroke:"#d6453d", "stroke-width":.9}, meter);
+    el("path", {d:`M${mx+6} ${my+8} C ${mx+4} ${my+20}, ${p2[0]} ${p2[1]+22}, ${p2[0]} ${p2[1]}`, fill:"none", stroke:"#222", "stroke-width":.9}, meter);
+    if (warn) el("text", {x:0, y:37, class:"small", "text-anchor":"middle", fill:"#a33a2c"}, meter).textContent = warn;
+  }
+  function drawBMS(face) {
+    bms.innerHTML = "";
+    const wire = (bx, by, p, c, t) => {
+      el("path", {d:`M${bx} ${by + 3.8} L${bx} ${by + 7} L${p[0]} ${p[1] - 3}`, fill:"none", stroke:c, "stroke-width":1.1}, bms);
+      el("circle", {cx:p[0], cy:p[1] - 3, r:1.3, fill:c}, bms);
+      el("rect", {x:bx - 13, y:by - 3.8, width:26, height:7.6, rx:1.8, fill:"#fff", stroke:c, "stroke-width":.7}, bms);
+      el("text", {x:bx, y:by, class:"term", fill:c, style:"font-size:3.4px"}, bms).textContent = t;
+    };
+    if (face === "TERM") { wire(-64, -27, geo.a[0], css("--neg"), "BMS B−"); wire(64, -27, geo.b[4], css("--pos"), "BMS B+"); }
+    else wire(64, -27, geo.a[0], css("--mid"), "BMS BM / B1");
+  }
+
+  /* ---------------- steps ---------------- */
+  const side = document.getElementById("side"), face = document.getElementById("face"), flip = document.getElementById("faceFlip");
+  const hT = document.getElementById("holderTerm"), hM = document.getElementById("holderMid");
+  let geo = drawFace("TERM"), current = "TERM";
+  const show = (id) => { side.classList.toggle("hidden", id !== "side"); face.classList.toggle("hidden", id !== "face"); };
+  const fadeIn = (node, on) => node.classList.toggle("in", !!on);
+  let instant = false;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const popAll = (list, stagger) => list.forEach((t, i) => {
+      const on = () => t.g.querySelectorAll(".pop").forEach(n => n.classList.add("in"));
+      if (instant) on(); else setTimeout(on, (stagger ? i * stagger : 0) + 60); });
+  function setFace(which, animate, then) {
+    if (which === current) { then && then(); return; }
+    const go = () => { geo = drawFace(which); current = which; flip.style.transform = "scaleX(1)"; then && then(); };
+    if (!animate || instant || reduced) { go(); return; }
+    flip.style.transform = "scaleX(0)"; setTimeout(go, 460);
+  }
+  function termTabs(which, stagger) {
+    const t = [];
+    if (which.includes("A")) for (let i = 0; i < 4; i++) t.push(tab(geo.a[i], geo.a[i+1], css("--neg")));
+    if (which.includes("B")) for (let i = 0; i < 4; i++) t.push(tab(geo.b[i], geo.b[i+1], css("--pos")));
+    popAll(t, stagger);
+  }
+  function midTabs(stagger) {
+    const t = [], c = css("--mid");
+    for (let i = 0; i < 4; i++) t.push(tab(geo.a[i], geo.a[i+1], c));
+    for (let i = 0; i < 4; i++) t.push(tab(geo.b[i], geo.b[i+1], c));
+    // each row-A cell to the row-B cell beside it (on the MID face the rows are mirrored)
+    for (let i = 0; i < 5; i++) { const ai = geo.a[i]; let best = 0, bd = 1e9;
+      geo.b.forEach((bp, j) => { const d = Math.hypot(bp[0]-ai[0], bp[1]-ai[1]) + (j < i ? 0.01 : 0); if (d < bd) { bd = d; best = j; } });
+      t.push(tab(ai, geo.b[best], c)); }
+    popAll(t, stagger);
+  }
+
+  const steps = [
+    { title:"10 cells, two rows of five", text:"2S5P means two groups of five cells in parallel, connected in series. Lay the cells out as two rows. <b>Row A points + toward MID, row B points + toward TERM.</b> If every cell faces the same way you've built 10P, not 2S5P.",
+      run(){ show("side"); hT.style.transform="translateX(-38px)"; hM.style.transform="translateX(38px)"; fadeIn(sideNotes,1); fadeIn(sidePaper,0); } },
+    { title:"Fish paper on every + end", text:"A fish-paper ring goes round the + button of every cell. On a cylindrical cell the can's shoulder right next to the + button is −, so the ring stops a tab touching both.",
+      run(){ show("side"); hT.style.transform="translateX(-38px)"; hM.style.transform="translateX(38px)"; fadeIn(sideNotes,1); fadeIn(sidePaper,1); } },
+    { title:"Press the holders on", text:"Push all ten cells into one holder until they hit its lip, check every direction again, then press the other holder onto the other ends. <b>TERM</b> goes on the end where row A shows − and row B shows +; <b>MID</b> on the other. The block is now one piece with a 12.5 mm window over every cell end.",
+      run(){ show("side"); fadeIn(sideNotes,1); fadeIn(sidePaper,1); requestAnimationFrame(()=>{ hT.style.transform="translateX(0)"; hM.style.transform="translateX(0)"; }); } },
+    { title:"TERM face: what you see through the windows", text:"Row A's five − ends and row B's five + ends. These become the pack's two outputs, so they stay <b>separate</b>.",
+      run(){ show("face"); fadeIn(meter,0); fadeIn(bms,0); fadeIn(facePaper,0); setFace("TERM", false, ()=>{ faceTabs.innerHTML=""; }); } },
+    { title:"Row A chain: pack −", text:"Four tabs chain row A's five − ends together. Each 26 mm tab bridges two neighbouring windows (19.9 mm apart); solder or weld it through each window.",
+      run(){ show("face"); fadeIn(meter,0); fadeIn(bms,0); fadeIn(facePaper,0); setFace("TERM", false, ()=>{ faceTabs.innerHTML=""; termTabs("A", 350); }); } },
+    { title:"Fish paper between the rows", text:"Lay a strip of fish paper (or tape) on the plastic between the two rows. No tab ever crosses it on this face.",
+      run(){ show("face"); fadeIn(meter,0); fadeIn(bms,0); setFace("TERM", false, ()=>{ faceTabs.innerHTML=""; termTabs("A", 0); fadeIn(facePaper,1); }); } },
+    { title:"Row B chain: pack +", text:"Four more tabs chain row B's five + ends together. Two separate chains, nothing joining them.",
+      run(){ show("face"); fadeIn(meter,0); fadeIn(bms,0); fadeIn(facePaper,1); setFace("TERM", false, ()=>{ faceTabs.innerHTML=""; termTabs("A", 0); setTimeout(()=>termTabs("B", 350), 80); }); } },
+    { title:"Meter check 1", text:"Measure between the two chains: <b>3.6–4.2 V</b> (one cell's voltage). <span class='warn'>0 V means a tab or solder blob is bridging them: fix it before going on.</span>",
+      run(){ show("face"); fadeIn(bms,0); fadeIn(facePaper,1); setFace("TERM", false, ()=>{ faceTabs.innerHTML=""; termTabs("AB", 0); drawMeter("3.6–4.2", geo.a[0], geo.b[4], "0 V here = something bridges the two chains"); fadeIn(meter,1); }); } },
+    { title:"Flip the block over: MID face", text:"Now you see row A's + ends (with their fish paper) and row B's − ends. This face is the series midpoint: <b>everything on it gets joined</b>.",
+      run(){ show("face"); fadeIn(meter,0); fadeIn(bms,0); setFace("MID", true, ()=>{ faceTabs.innerHTML=""; fadeIn(facePaper,0); }); } },
+    { title:"MID mesh: 13 tabs", text:"Four tabs along row A, four along row B, and five across, each joining a row-A cell to the row-B cell beside it. One solid mesh carries the full pack current from row A to row B.",
+      run(){ show("face"); fadeIn(meter,0); fadeIn(bms,0); setFace("MID", true, ()=>{ faceTabs.innerHTML=""; midTabs(220); }); } },
+    { title:"Meter check 2", text:"Back on the TERM face, measure between the two chains again: <b>7.2–8.4 V</b> (two cells in series). <span class='warn'>About 4 V means one row went in backwards.</span>",
+      run(){ show("face"); fadeIn(bms,0); setFace("TERM", true, ()=>{ faceTabs.innerHTML=""; termTabs("AB", 0); fadeIn(facePaper,1); drawMeter("7.2–8.4", geo.a[0], geo.b[4], "about 4 V = a row is backwards"); fadeIn(meter,1); }); } },
+    { title:"BMS wires on the TERM face", text:"Solder the BMS wires to the tabs, never straight to a cell: <b>B−</b> to the row A chain, <b>B+</b> to the row B chain. The BMS's P+ / P− then go on to the power key and the rest of the stick.",
+      run(){ show("face"); fadeIn(meter,0); setFace("TERM", true, ()=>{ faceTabs.innerHTML=""; termTabs("AB", 0); fadeIn(facePaper,1); drawBMS("TERM"); fadeIn(bms,1); }); } },
+    { title:"Balance wire on the MID face", text:"The BMS's middle balance wire, <b>BM / B1</b>, goes to any tab on the MID mesh. That's the battery done: 21 tabs, three BMS wires, two meter checks passed.",
+      run(){ show("face"); fadeIn(meter,0); setFace("MID", true, ()=>{ faceTabs.innerHTML=""; midTabs(0); fadeIn(facePaper,0); drawBMS("MID"); fadeIn(bms,1); }); } },
+  ];
+  const sideNotes = document.getElementById("sideNotes");
+
+  /* ---------------- controls ---------------- */
+  const cap = document.getElementById("cap"), dots = document.getElementById("dots");
+  const playBtn = document.getElementById("play");
+  let idx = 0, timer = null;
+  steps.forEach((s, i) => { const d = document.createElement("button"); d.className = "dot"; d.setAttribute("aria-label", `Step ${i+1}: ${s.title}`);
+    d.onclick = () => { stop(); go(i); }; dots.appendChild(d); });
+  function go(i) {
+    idx = Math.max(0, Math.min(steps.length - 1, i));
+    cap.querySelector("h2").textContent = `${idx + 1}. ${steps[idx].title}`;
+    cap.querySelector("p").innerHTML = steps[idx].text;
+    [...dots.children].forEach((d, j) => d.classList.toggle("on", j === idx));
+    steps[idx].run();
+  }
+  function stop() { clearInterval(timer); timer = null; playBtn.innerHTML = "&#9654; Play"; playBtn.setAttribute("aria-label", "Play"); }
+  function play() {
+    if (timer) { stop(); return; }
+    if (idx === steps.length - 1) go(0);
+    playBtn.innerHTML = "&#10073;&#10073; Pause"; playBtn.setAttribute("aria-label", "Pause");
+    timer = setInterval(() => { if (idx >= steps.length - 1) { stop(); return; } go(idx + 1); }, 5200);
+  }
+  document.getElementById("prev").onclick = () => { stop(); go(idx - 1); };
+  document.getElementById("next").onclick = () => { stop(); go(idx + 1); };
+  playBtn.onclick = play;
+  document.addEventListener("keydown", e => { if (e.key === "ArrowRight") { stop(); go(idx + 1); } if (e.key === "ArrowLeft") { stop(); go(idx - 1); } });
+  // #step=N opens a step directly (no autoplay)
+  const hm = location.hash.match(/step=(\d+)/);
+  if (hm) { instant = true; document.body.classList.add("instant"); go(+hm[1] - 1); instant = false;
+            setTimeout(() => document.body.classList.remove("instant"), 50); }
+  else { go(0); if (!reduced) play(); }
+})();
+</script>
+</body>
+</html>

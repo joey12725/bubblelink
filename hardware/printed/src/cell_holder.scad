@@ -29,7 +29,12 @@ function cell_xy(i) = i < 5 ? [m * (i - 2.25) * p, -row_dy / 2]
 // No ears: the dry core's battery bay fence locates the block and ribs on
 // the lid hold it down.
 module outline() {
-    hull() for (i = [0:9]) translate(cell_xy(i)) circle(r = r_out);
+    hull() {
+        for (i = [0:9]) translate(cell_xy(i)) circle(r = r_out);
+        // flat end faces: the pack's top and bottom are flat across the full width, so the
+        // cap's TPU pads press evenly along their length instead of on one rounded crest
+        for (e = [-1, 1]) translate([e * span_x - (e > 0 ? 0.01 : -0.01) - (e > 0 ? 0 : 0.01), -row_dy / 2 - r_out]) square([0.01, row_dy + 2 * r_out]);
+    }
 }
 
 // Engraved on the lip face; mirrored so it reads correctly from outside.

@@ -13,7 +13,7 @@
 $fn = 64;
 
 // ---------------------------------------------------------------- printing
-fit_clear   = 0.30;   // clearance per side for a part dropping into a pocket
+fit_clear   = 0.20;   // clearance per side for a part dropping into a pocket; +0.2 held the XT30U snugly on the fit coupon (2026-10-15)
 slide_clear = 0.20;   // clearance per side for the slide-clamp dovetail
 ziptie_w    = 3.2;    // slot width for the narrow zip ties on hand
 ziptie_t    = 1.8;    // slot thickness
@@ -21,12 +21,13 @@ ziptie_t    = 1.8;    // slot thickness
 // ---------------------------------------------------------------- 18650 cells
 cell_d      = 18.33;  // [VERIFIED] Samsung INR18650-25R, +/-0.07
 cell_h      = 64.85;  // [VERIFIED] +/-0.15
-cell_bore   = 18.80;  // pocket diameter; tune with fit_coupon (18.65/18.80/18.95)
+cell_bore   = 18.65;  // pocket diameter; fit_coupon says 18.65 for Joey's 25R cells in ASA (2026-10-15)
 cell_pitch  = 19.90;  // centre-to-centre. Gives a ~1.6 mm wrapper gap and a
                       // printable 1.1 mm rib. Keep <= 21 so the 26 mm nickel
                       // tabs still reach both cell centres.
 holder_t    = 10.0;   // spacer thickness along the cell axis
-holder_lip  = 2.0;    // retaining lip under each cell end
+holder_lip  = 0.8;    // retaining lip under each cell end. Was 2.0: the cell ends sat so deep that the
+                      // tabs had to bend down into every window and the block came out too long (2026-10-16)
 holder_wall = 2.4;    // outer wall around the cell group
 cap_window  = 12.5;   // opening in the lip for spot-welding the tabs
 

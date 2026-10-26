@@ -107,8 +107,8 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 **Terminals:** M6 threaded studs (6 mm hole), not solder terminals  
 **Dimensions (measured 2026-10-14):** 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick, plate holes 1¼ in apart. The listing's 72 × 48 × 44 mm was wrong: it's longer (102 vs 72 mm) but slimmer.  
 **Form:** Inline type: studs at both ends, and a square plate in the middle carrying a red reset lever and a red push-to-trip button.  
-**Location:** Stands upright behind the sled's cross panel with its controls facing the right wall, 2 mm behind a 34 × 40 mm window covered by a glued TPU membrane, so you can trip or reset it through the wall. It hangs by zip ties through its two plate holes and slots in the spine.  
-**OFF switch:** Pressing the trip button through the membrane turns off the bucks, PCB, voltmeter and guns. For storage, unplug the XT60H loop (the full battery disconnect, outside below the stick). The BMS stays on the battery either way.
+**Location:** Stands upright behind the sled's cross panel, 2 mm from the outer wall, with a wire channel between it and the spine. It hangs by zip ties through its two plate holes and tall slots in the spine. The tube walls are solid, so its controls are only reachable with the sled out.  
+**OFF switch:** Pull the power key out of the KEY socket on the cap top. That turns off everything downstream (breaker, ACS758, bucks, PCB, voltmeter and guns): all loads off; the battery stays connected to the BMS, the charger and one pin of the key socket. The charger connects to BMS P+/P− upstream of the key, so it still works with the key out. For storage or transport, key out and key blank in. Wiring: socket pin A is BMS P+, pin B is the breaker input (12 AWG, soldered, slack for lifting the cap).
 
 **Wiring:** The breaker is in the **+ line only**. No negative wire goes to it.
 - Battery positive from BMS P+ → M6 stud via 12 AWG red silicone wire fitted with M6 closed-ring terminal
@@ -117,7 +117,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 **Ring terminals:** Use **SC10-6** copper ring lugs (10 mm² barrel, M6 hole, specified for 12 AWG wire). **Solder-fill the barrel** to eliminate crimp-only failures and improve current distribution. **Do NOT** solder wire directly to breaker studs—excessive heat risks damaging breaker internals and causes fatigue failures under load cycling. Procedure: solder 12 AWG wire into the ring barrel (away from the stud connection), allow solder to cool, then bolt the filled ring under breaker nut with strain relief.
 
-**Reset procedure:** Work the red reset lever through the TPU membrane in the stick's right wall (no need to open the cap). Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
+**Reset procedure:** A trip means a real fault (a short, a jammed motor), so find the cause first. Take the cap off (2 screws), lift the sled out (leave enough wiring slack for that) and work the red reset lever. Press firmly until click is heard. If breaker trips repeatedly, disconnect one gun at a time and test to isolate fault.
 
 ---
 
@@ -176,8 +176,8 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 **Per channel:**
 - **Wire:** 16 AWG silicone (red and black pair, tinned copper strands)
-- **Connector (pack end):** XT30U female receptacle (recessed, live power)
-- **Connector (gun end):** XT30U male plug (matches gun donor connector)
+- **Connector (pack end):** XT30U female receptacle (recessed, live power) potted in a well on the cup's outer wall; the umbilical's pack end is the XT30U male
+- **Connector (gun end):** XT30U **female** on the umbilical (power always comes from a female); it plugs onto the gun's XT30U male input
 - **Rated current:** 15 A continuous per XT30U (sufficient for one 3-head gun at full power, or two guns sharing a channel if total <15 A)
 
 **Umbilical construction (per four-foot channel):**
@@ -185,9 +185,9 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - Three additional mechanical elements bundled inside 8–10 mm PET braided sleeve:
   - One 3.5 mm ID × 5.5 mm OD silicone tube (fluid line to gun nozzles)
   - One 4 mm paracord or Dyneema cord (load-bearing tether, rated for gun drop)
-  - A printed umbilical brick at each end (PETG)
+  - A printed umbilical brick at the gun end (ASA or PETG); the pack end is an XT30U male, the hose end and a paracord loop
 
-**Strain relief:** XT30 connectors soldered with generous heat-shrink wrap, then strapped with a zip tie into the open-top pocket of the umbilical brick at each end. The paracord ties through the brick, so the load path transfers mechanical stress to paracord, not wire (wire carries power only). Tether prevents damage if gun is dropped during event.
+**Strain relief:** XT30 connectors soldered with generous heat-shrink wrap. At the gun end the connector is strapped with a zip tie into the open-top pocket of the umbilical brick; the paracord ties through the brick, so the load path transfers mechanical stress to paracord, not wire (wire carries power only). At the pack end the cord ties through a U-tunnel boss on the cup. Tether prevents damage if gun is dropped during event.
 
 **Termination:** Wires soldered to XT30 pins from rear (solder from back of connector, not from pin directly, to avoid cold-solder joints). Verify mechanical fit before final enclosure assembly.
 
@@ -212,7 +212,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 **Installation:**
 - Drops into a compartment on the front of the sled's cross panel and gets a zip tie
-- **Solder the output directly to the PCB J1 lead.** There's no room for USB plugs inside the stick
+- **Solder the output directly to the PCB J1 lead.**
 - **Verify output with multimeter before connecting any load.** Bench-test it under load before installing: it must stay below 5.25 V. Target output is 5.0 V; PCB accepts 4.75–5.25 V. Use onboard potentiometer to adjust; do not assume factory default.
 - Do not exceed 1 A total load on module (pump ~0.3 A + PCB <0.05 A)
 - Connect input to 12 AWG main red wire (post-breaker)
@@ -228,7 +228,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - Output: 5.0 V
 - Load: LED backpack (~500–700 mA peak during animation)
 
-**Installation:** In its own compartment on the front of the sled's cross panel, with a zip tie. Solder its output directly to a cut USB cable that runs to the backpack (no room for USB plugs inside). Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
+**Installation:** Stands on a shelf printed on the tube's front wall, in the corner by the outer wall, with its PCB facing the front wall (2 mm gap). It slides along the shelf until its USB-A receptacle sits in (or right behind) the outer wall's 14.0 × 6.6 mm window (LED 5V), then gets a zip tie over its top edge. The backpack cable plugs straight into the buck: no extension cable and no USB plug inside. The sled lifts out past it untouched; its two input wires (main + after the breaker, and P−) run from the sled with a 2-pin JST-XH plug. Unplug the backpack cable before lifting the sled. Measure the buck (width and where its USB-A sits) before printing the tube; the shelf assumes 25.4 × 17 × 8 mm with the receptacle centred on the 17 mm side. Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
 
 **Setting:** Same as Buck A—verify 5.0 V output with multimeter before connecting LED backpack.
 
@@ -247,7 +247,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 **Wiring:**
 - Positive (red): to the main positive **after the breaker**, so tripping the breaker turns the voltmeter off
 - Negative (black): to BMS P− (system ground)
-- It draws current whenever the breaker is closed; there's no push-button or standby mode. At 20 mA the 12.5 Ah pack would take weeks to drain, so overnight doesn't matter, but unplug the XT60H loop for storage
+- It draws current whenever the breaker is closed; there's no push-button or standby mode. At 20 mA the 12.5 Ah pack would take weeks to drain, so overnight doesn't matter, but take the power key out (blank in) for storage
 
 **Display reference:**
 - 8.4 V: Fully charged, ready for operation
@@ -255,7 +255,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - 6.0 V: Minimum safe voltage (BMS cutoff threshold); if reached, stop operating and recharge
 - Below 6.0 V: Do not fire; BMS is actively protecting cells
 
-**Location:** Top of the stick's cap: the body drops through a 29.2 mm hole and is glued around its bezel. Measured 2026-10-14: bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm above the battery).
+**Location:** Top of the stick's cap: the body drops through a 31.2 mm hole (29.2 mm printed 1-2 mm too small in ASA) and is glued around its bezel. Measured 2026-10-14: bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm above the battery).
 
 ---
 
@@ -341,7 +341,7 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 
 ### Storage
 
-- Unplug the XT60H loop for storage (the full battery disconnect). The BMS stays on the battery either way; its quiescent draw hasn't been measured but is typically tiny
+- Take the power key out, and put the key blank in, for storage and transport (all loads off; the battery stays connected to the BMS, the charger and one pin of the key socket). The BMS stays on the battery either way; its quiescent draw hasn't been measured but is typically tiny
 - Store fully charged packs at room temperature (~20°C) in dry location
 - For storage >1 month, discharge to 50% (7.2 V nominal) to reduce stress on BMS balancing circuit
 - Do not store in extreme heat (>35°C) or moisture (>85% RH)
@@ -352,7 +352,8 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 
 | From | To | Wire Gauge | Connector | Polarity | Notes |
 |------|----|-----------:|-----------|----------|-------|
-| BMS P+ | 30A Breaker stud | 12 AWG red | M6 ring terminal | + | High-current; use crimped ring, not solder to stud |
+| BMS P+ | Power key socket pin A | 12 AWG red | Soldered; slack to lift the cap | + | Key bridges A to B (key in = ON); the charger stays on BMS P+/P- upstream |
+| Power key socket pin B | 30A Breaker stud | 12 AWG red | Soldered at the socket; M6 ring terminal at the stud | + | High-current; use crimped ring, not solder to stud |
 | Breaker stud | Distribution point | 12 AWG red | Solder + heat-shrink | + | Short run (~6 inches), strain relief only |
 | Distribution | ACS758 in (conductor) | 12 AWG red | Sensor screw terminals | + | High-current sense path |
 | ACS758 out | XT30U split junction | 12 AWG red | Solder + heat-shrink | + | Exits high-current sensor |
@@ -366,8 +367,8 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 | Main red | Buck A input (Hi) | 12 AWG red | Solder | + | Pump + controller supply |
 | Buck A output | PCB +5V (J1) | Small wire | Soldered at buck; JST-XH 2-pin at PCB | + | Logic supply, TLV1822 comparator, LEDs |
 | Buck A output | G528 pump (+) | Small wire | JST-XH (J3) | + | Pump power @ 5V |
-| Main red | Buck B input (Hi) | 12 AWG red | Solder | + | LED backpack supply |
-| Buck B output | LED backpack +5V | Cut USB cable | Soldered at buck; USB plug at backpack | + | Backpack power |
+| Main red (after the breaker) | Buck B input (Hi) | 12 AWG red | Soldered; 2-pin JST-XH plug at the sled so it can come out | + | LED backpack supply (Buck B is on the tube's front wall shelf) |
+| Buck B output | LED backpack +5V | Backpack's own USB cable | Buck B's USB-A receptacle, in a window in the tube wall | + | Backpack power |
 | Main red (after breaker) | Voltmeter (+) | Small wire | Connector | + | Battery voltage display; off when the breaker is tripped |
 | BMS P− | Voltmeter (−) | Small wire | Connector | − | Voltmeter return |
 | ACS758 (5V out) | PCB Vcc (J2 pin 2) | Small wire | JST-XH 3-pin | + | Sensor supply; low-current |

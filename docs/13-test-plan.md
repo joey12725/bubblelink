@@ -218,18 +218,18 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ---
 
-### Test 3.2: XT60H and Ring Terminal Security
+### Test 3.2: Power Key (XT60H) and Ring Terminal Security
 
 **Objective:** Verify battery connector and ring terminals are secure and carry full system current without heating.
 
 **Procedure:**
 1. **Visual inspection:**
-   - Confirm XT60H female (recessed, safe) is on live battery pack
-   - Confirm XT60H male is on main harness (can be inserted into female safely)
+   - Confirm the XT60H male socket (17.0 × 9.8 mm sleeve) is potted in the cap, with its rear zip-tie keeper in place, (shroud under its 0.8 mm lip; pin A = BMS P+, pin B = breaker input) and the key is an XT60H female with its U-loop hot-glued into the grip
+   - Check that the lip stops the male being pulled up and the glue below it stops it being pushed down
    - Confirm both M6 ring terminals are fully seated on breaker studs with nuts snug (hand-tight + 1/8 turn)
 
 2. **Electrical test:**
-   - Apply 8.4 V from battery through XT60H to main harness
+   - Apply 8.4 V from battery through the power key to the main harness
    - Measure voltage at breaker output (should be ≥8.35 V, <0.05 V drop)
    - Load with 15A continuous; measure again (should remain ≥8.30 V)
    - Record voltage drop: _____ mV
@@ -259,20 +259,20 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ---
 
-### Test 3.3: OFF Switch Through the Membrane, and Idle Draw
+### Test 3.3: OFF via the Power Key, and Idle Draw
 
-**Objective:** Confirm the breaker's trip button, pressed through the TPU membrane in the stick's right wall, works as the OFF switch, and measure the voltmeter's idle current (not yet measured).
+**Objective:** Confirm that pulling the power key on the cap top works as the OFF switch (and that the charger still works with the key out; with the key out, the voltmeter, bucks and PCB must be off), and measure the voltmeter's idle current (not yet measured). The breaker has no wall window; its controls are only reachable with the sled out.
 
 **Procedure:**
-1. With the stick closed and the XT60H loop plugged in, press the trip button through the membrane
-2. Confirm everything downstream goes off: the voltmeter goes dark, the PCB's POWER LED goes out (Buck A off), the LED backpack goes off (Buck B off), and the guns don't fire
-3. Work the reset lever through the membrane and confirm everything comes back
-4. **Voltmeter idle current:** with a multimeter on the mA range in series with the voltmeter's + lead, read its draw. Small LED meters typically draw tens of mA
-5. Unplug the XT60H loop and confirm nothing downstream is live (that's the full battery disconnect for storage; the BMS stays on the battery either way)
+1. With the stick closed, the breaker armed and the key in, confirm the voltmeter, the PCB's POWER LED and the LED backpack are on
+2. Pull the power key out of the KEY socket on the cap top
+3. Confirm everything downstream goes off: the voltmeter goes dark, the PCB's POWER LED goes out (Buck A off), the LED backpack goes off (Buck B off), and the guns don't fire. The battery stays connected to the BMS, the charger and one pin of the key socket (it is not a full disconnect); for storage, key out and key blank in
+4. Put the key back in and confirm everything comes back
+5. **Voltmeter idle current:** with a multimeter on the mA range in series with the voltmeter's + lead, read its draw. Small LED meters typically draw tens of mA
 
 **Acceptance criteria:**
-- [ ] Trip button and reset lever both work through the membrane, with the cap on
-- [ ] Tripping turns off the bucks, PCB, voltmeter and guns (the voltmeter is wired after the breaker)
+- [ ] Pulling the power key with the stick closed turns off the bucks, PCB, voltmeter and guns
+- [ ] Everything comes back when the key is put back in
 - [ ] Voltmeter idle current recorded
 
 **Data logged:**
@@ -653,15 +653,16 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 **Objective:** Check that the stick's dry tube stays dry. The cap's TPU ring is a starting geometry for a seal, not a proven one, and the bulkhead grommet is only a splash baffle.
 
 **Procedure:**
-1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU washers. The RV1/RV2 windows are taped and the PRIME boot is glued down
+1. Close the stick: TPU ring in the cap skirt's groove, cap fitted, both M3×10 cap screws in with their TPU and flat washers (each screw should pass fully through its nut; snug, not over-torqued). The RV1/RV2 windows are closed with the TPU trimmer plug, the USB-C port with its plug, the LED holes are filled with clear glue, and the PRIME boot is clamped under its glued bezel
 2. Splash and spray water over the cap and the outside of the tube, as rain or spilled solution would in use (no submersion)
 3. Pour a little water into the cup and confirm it drains through the cup floor
 4. Open the cap and check the dry side (cap underside, PCB, sled, top of the grommet) for any water
 
 **Acceptance criteria:**
 - [ ] No water inside the dry tube
-- [ ] Cup drains through its floor; no standing water around the fittings
-- [ ] Grommet top face sealed with a thin bead of neutral-cure silicone once the wiring is final; every cable has a drip loop below the cup
+- [ ] Cup drains through its floor and wall drains; no standing water around the fittings
+- [ ] Grommet top face filled with neutral-cure silicone once the wiring is final; drip skirt fitted; every cable has a drip loop below the cup
+- [ ] Lay the closed, wet stick on each of its four sides for 5 minutes: water runs out of the down-facing wall's drains, and the dry side stays dry
 
 **Pass/Fail:** ____
 
@@ -675,7 +676,7 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 **Procedure:**
 1. **Backpack assembly (fully integrated):**
-   - Battery and electronics on the sled inside the stick's tube, cap screwed on (the cap's foam-padded ribs pin the sled)
+   - Battery and electronics on the sled inside the stick's tube, cap screwed on (the cap's TPU-padded ribs pin the sled)
    - PCB hung under the cap on its heat-staked pins
    - Pump strapped into its pocket in the cup
    - All hoses in place, clipped at ~1 m intervals
@@ -1011,7 +1012,8 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 ### Electrical Systems
 - [ ] Battery fully charged: 8.40 ± 0.10 V open-circuit
 - [ ] BMS balanced: voltage spread <0.05 V (cells matched)
-- [ ] Breaker tripped and reset through the membrane (Test 3.3); reset lever back to ON (armed)
+- [ ] Breaker reset lever ON (armed), checked with the sled out before the stick was closed
+- [ ] Power key pulled and replaced with the stick closed: everything goes off and comes back (Test 3.3)
 - [ ] All connectors (XT60H, XT30U, JST-XH) latched firmly; test by gentle pull
 - [ ] Controller (PCB) powered on; all three LEDs respond to PRIME
 - [ ] RV1 and RV2 calibration locked: dial positions marked
@@ -1031,14 +1033,14 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 - [ ] Umbilical bricks fitted at both ends of each umbilical (XT30U strapped in, paracord tied through)
 
 ### Backpack Integration
-- [ ] Sled pinned in the tube by the cap's foam-padded ribs (no rattle, no movement during shake)
+- [ ] Sled pinned in the tube by the cap's compliant TPU battery pads (no rattle, no movement during shake; shim strips in any pocket where a board moves; the cap seats fully)
 - [ ] Pump strapped into its 52 × 46 mm pocket in the cup
-- [ ] PCB hung under the cap, heat-staked on its pins (secure, no flexing); RV1/RV2 windows taped over
+- [ ] PCB hung under the cap, heat-staked on its pins (secure, no flexing); RV1/RV2 windows closed with the TPU trimmer plug; USB-C plug fitted when not charging
 - [ ] All internal hoses clipped at 1 m intervals (no dangling loops)
 - [ ] Loaded weight felt comfortable (wear for 2 minutes; feedback: ___________)
-- [ ] Umbilicals leave from the bottom of the stick with drip loops below the cup; no interference with arm movement
+- [ ] Umbilicals plug into the gun ports on the cup's outer wall with drip loops below; no interference with arm movement
 - [ ] USB-C charge port on top of the cap reachable; charge with the cap off until Test 2.2 has passed
-- [ ] XT60H loop and LED-backpack USB plug (in the wet zone below the stick) wrapped
+- [ ] Unplugged gun port wells closed with TPU port caps; USB-A plug fitted when the backpack is not connected; power key stored on its lanyard
 
 ### Testing & Documentation
 - [ ] All test results logged (Sections 1–13): PASS / FAIL status per test

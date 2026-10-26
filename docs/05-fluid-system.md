@@ -42,7 +42,7 @@ The fluid system transfers bubble solution from a 1 L reservoir to donor gun hea
 | Valves | Shutoff bite valve on outlet; double-seal seams |
 | Pressure rated | Leak-proof, designed for hiking use |
 
-**Installation note**: The bladder stands beside the printed stick in the bag. The factory 101 cm (40 in) tube should be cut short and enters the stick's wet cup through the 20 mm service hole in its floor. The bladder outlet connects through a car-hose reducer fitting to the 3.5×5.5 mm system tubing feeding the pump inlet.
+**Installation note**: The bladder stands beside the printed stick in the bag. The factory 101 cm (40 in) tube should be cut short and enters the stick's wet cup through a hose pigtail on the cup's front wall (labelled IN, 45 degrees down), joined to the bladder tube with a reducer. The bladder outlet connects through a car-hose reducer fitting to the 3.5×5.5 mm system tubing feeding the pump inlet.
 
 ### GROTHEN G528 6 V Peristaltic Transfer Pump
 
@@ -194,7 +194,7 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 - One 5 m roll provides four 4-foot (1.22 m) channel hoses plus spares
 
 **Hose routing**:
-- Outlet tee 2 → slide clamp → 3.5×5.5 mm hose (one per gun channel, 4 feet), leaving through a 13 mm hole in the cup's floor
+- Outlet tee 2 → slide clamp → 3.5×5.5 mm hose (one per gun channel, 4 feet), leaving through a 6.0 mm hose pigtail at 45 degrees on the cup's outer wall (60-80 mm of tube; the umbilical hose joins it with a straight barbed connector)
 - Field termination: nylon barb from car-hose assortment (pressed onto hose end, secured with narrow zip tie)
 - Gun-side termination: nylon barb from car-hose assortment; the tube runs in a groove of the gun-end umbilical brick
 
@@ -246,7 +246,7 @@ Each gun receives one four-foot umbilical containing:
 1. Cut lengths to exact 4 feet (48 inches / 1.22 m): two 16 AWG, one 3.5 mm tube, one paracord
 2. Gather into one 8–10 mm braided PET expandable sleeve
 3. Solder XT30 connectors to wire leads
-4. Fit a printed umbilical brick (PETG) at each end: drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside it; run the 16 AWG pair and the fluid tube in their grooves under narrow zip ties; tie the paracord through the outer hole, and tie the inner hole to the stick or the gun
+4. Fit a printed umbilical brick (ASA or PETG) at the gun end: drop the XT30U into the open-top pocket and strap it with a zip tie through the slots beside it; run the 16 AWG pair and the fluid tube in their grooves under narrow zip ties; tie the paracord through the outer hole, and tie the inner hole to the gun. At the pack end, the male XT30U plugs into the cup's port well, the hose joins the port's pigtail, and the paracord ties through the port's U-tunnel
 5. Press nylon barb from car-hose assortment onto fluid tube; secure with narrow zip tie
 6. Test for continuity (XT30 wires), fluid leak (at barb), and mechanical strength (paracord under load)
 
@@ -267,7 +267,7 @@ Identical to four-foot except:
 2. Close or unplug both gun XT30 connectors (no current draw; pump starts only on PRIME button or gun trigger)
 3. Apply power (close main XT60 battery connector)
 4. **LED indication**: POWER LED (green) lights; GUN ACTIVE (yellow) and PUMP (red) LEDs off
-5. Press the momentary PRIME button (SW1) through the plunger in the stick's cap to run the pump manually for priming
+5. Press the momentary PRIME button (SW1) through the boot in the stick's cap (a deliberate fingertip press inside the guard bezel) to run the pump manually for priming
 6. Hold PRIME button; observe hose outlets for solution flow
 7. Once solution reaches both outlet fittings, release PRIME button
 8. Connect both gun XT30 connectors
@@ -368,7 +368,7 @@ Before integrating a new donor gun head into the system:
    - Car-hose reducers (1/4" to 3/8") to adapt bladder factory hose to 3.5×5.5 mm
 
 2. **Connect pump inlet path**:
-   - Bladder factory tube (cut short) → car-hose reducer → 3.5×5.5 mm hose → inlet tee → pump inlet. The bladder feed enters the cup through its 20 mm service hole
+   - Bladder factory tube (cut short) → car-hose reducer → 3.5×5.5 mm hose → inlet tee → pump inlet. The bladder feed enters the cup through its IN pigtail on the front wall
    - Pump inlet tee merges fresh inlet with recirculation return flow
 
 3. **Connect pump outlet path**:
@@ -382,11 +382,11 @@ Before integrating a new donor gun head into the system:
    - Ensure check valve arrow points downstream (toward pump inlet)
 
 5. **Gun channel connections**:
-   - From outlet tee 2: one slide clamp and one 3.5×5.5 mm hose (4 feet) per gun channel, out through the cup floor's 13 mm holes
+   - From outlet tee 2: one slide clamp and one 3.5×5.5 mm hose (4 feet) per gun channel, out through the hose pigtails on the cup's outer wall (gun 1 and gun 2 ports)
    - Each hose terminates in nylon barb from car-hose assortment (pressed on and secured with narrow zip tie)
-   - Run the tube through the umbilical bricks at both ends
+   - Run the tube through the gun-end umbilical brick
 
-6. **Strap down** the pump in its 52 × 46 mm pocket and the tees, check valve and bypass clamp to the six floor slots on the cup's right-hand strip
+6. **Strap down** the pump in its 52 × 46 mm pocket and the tees, check valve and bypass clamp to the four tie slots on the cup's right-hand strip
 
 7. **Secure all connections**:
    - Use narrow zip ties at each barb connection; warm silicone tubing in hot water to stretch before assembly
