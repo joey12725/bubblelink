@@ -536,7 +536,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA, with TPU for the cap ring, the two grommet halves, the PRIME boot, the PRIME plunger, the cap-screw washers, the battery pads, the pump mat, the shim strips, the trimmer, USB-C and USB-A plugs two gun port caps, the key blank and the key gasket; the stick's power key (26) is also ASA; plus the fit coupons, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×2 (gun end only) in ASA (PETG also works for those older parts).
+**Decision:** 3D-printed parts: the stick (cap, tube, sled, cup, PRIME guard bezel, grommet drip skirt) in ASA, with TPU for the cap ring, the two grommet halves, the PRIME boot, the PRIME plunger, the cap-screw washers, the battery pads, the pump mat, the shim strips, the trimmer, USB-C and USB-A plugs two gun port caps, the key blank and the key gasket; the stick's power key (26) and the four PCB spacers (27) are also ASA; plus the fit coupons, cell holders MID/TERM, slide clamps ×3 and umbilical bricks ×2 (gun end only) in ASA (PETG also works for those older parts).
 
 **Why:** Eliminates injection-mold lead time. Allows rapid iteration. Cost-effective for small batches. End users can reprint spares (OpenSCAD sources and STL files provided).
 

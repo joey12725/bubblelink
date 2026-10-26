@@ -50,12 +50,13 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 24 | `24_stick_prime_bezel` | 1 | ASA | A1 (brim, draft shield) | Guard ring around the PRIME boot; exported top-down |
 | 25 | `25_stick_grommet_skirt` | 1 | ASA | A1 (brim, draft shield) | Drip skirt under the bulkhead grommet; lip on the bed |
 | 26 | `26_stick_power_key` | 1 | ASA | A1 (brim, draft shield) | The power key's grip, with a lanyard hole. The XT60H female and its U-loop are hot-glued into it. |
+| 27 | `27_stick_pcb_spacer_x6` | 4 (+2 spares) | ASA | K2 Plus or A1 (brim) | Drops the PCB 5.8 mm so the LEDs clear the light tunnel. Socket on the bed, pin up. Each one slips over a cap post's stake pin (CA it there); the board goes on the spacers' pins and gets heat-staked as before. |
 | 30 | `30_TPU_cap_ring` | 1 | TPU | A1 | The cap seal. Flat, slow. |
 | 31 | `31_TPU_grommet_lower` | 1 | TPU | A1 | Bulkhead grommet, cup side |
 | 32 | `32_TPU_grommet_upper` | 1 | TPU | A1 | Bulkhead grommet, dry side (a mirror image of the lower half) |
 | 33 | `33_TPU_prime_boot` | 1 | TPU | A1 | Seals the PRIME bore; its flange is clamped under the bezel |
 | 34 | `34_TPU_screw_washer_x2` | 2 | TPU | A1 | Seals the two cap screw holes |
-| 35 | `35_TPU_prime_plunger` | 1 | TPU | A1 | Head on the bed. TPU so a hard press can't load the PCB. |
+| 35 | `35_TPU_prime_plunger` | 1 | TPU | A1 | Head on the bed. TPU so a hard press can't load the PCB. 5.8 mm longer since the PCB spacers (2026-10-20): **reprint one printed before then**, or PRIME won't reach SW1. |
 | 36 | `36_TPU_battery_pad_x2` | 2 | TPU | A1 | Compliant pad over the end of each of the cap's two battery ribs. Print slow, opening up. |
 | 37 | `37_TPU_pump_mat` | 1 | TPU | A1 | 2 mm mat under the pump, 8 drain holes, drain grooves on the underside |
 | 38 | `38_TPU_shim_strip_set` | 1 | TPU | A1 | One STL with six 5 × 30 mm strips: 2× 0.6, 2× 1.0 and 2× 1.5 mm thick. Cut to length and tuck where a board rattles. |
@@ -190,7 +191,7 @@ Then rebuild with `./build.sh /path/to/openscad`. It regenerates every STL in a 
 - **Tube:** plain shell, 94 × 73 mm inside, 2.4 mm walls, 3 mm bulkhead floor, 156 mm of inside height above the bulkhead. **BubbleLink** is raised 0.8 mm on the outer right-hand (+x) wall, reading upward, so the tube is 99.6 mm wide instead of 98.8. The top half of each letter is inset 0.3 mm (a stepped bevel) so the lettering prints without a flat overhang; it is fine detail only. Print with the bulkhead on the bed; the lettering is on a vertical wall and needs no supports. The outer wall also carries the **LED 5V** USB-A window (a 0.8 mm web, an outside counterbore for the plug's overmold, a drip hood above and the label below), at mid-height beside Buck B.
 - **Cap (control head):**
   - **Outline:** 98.8 mm wide; the lettering is on the tube only.
-  - **PCB:** hangs under the cap, component side up, 22 mm below the plate. Push it onto the four pins and heat-stake the tips (heads under 5 mm, because J2 sits 2.7 mm from H3).
+  - **PCB:** hangs under the cap, component side up, on four ASA spacers (part 27) that put it 27.8 mm below the plate (5.8 mm lower than the posts alone, because the LEDs hit the light tunnel). CA a spacer onto each post's stake pin, push the board onto the spacers' pins and heat-stake the tips (heads under 5 mm, because J2 sits 2.7 mm from H3).
   - **LEDs:** LED1–3 shine up 3.6 mm holes that go all the way through the cap, inside a light-tunnel block that stops one LED bleeding into the next. With the PCB fitted, fill each hole from the top with clear hot glue or UV resin; that seals it and passes the light. Any cap colour works.
   - **PRIME (guarded, hard-stopped):** a TPU plunger in a sleeve, under a TPU boot.
     - The boot's D-shaped flange sits on the cap and is clamped under the ASA **guard bezel**, which is glued to the cap (ASA to ASA: acetone slurry is best, CA works). Put a thin ring of silicone under the flange first. Nothing relies on glue holding TPU.

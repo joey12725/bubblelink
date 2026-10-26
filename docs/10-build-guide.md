@@ -694,7 +694,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
    - Buck A, ACS758: drop into the compartments on the front of the panel and get a zip tie each. Buck B is not on the sled (it stands on a shelf on the tube's front wall, step 4.2). Wires to the breaker/BMS side go through the 8 × 30 mm pass at the panel's right end
 
 2. **Cap (control head):**
-   - PCB: hangs under the cap, component side up. Push it onto the four pins and heat-stake the tips (heads under 5 mm, because J2 sits 2.7 mm from H3)
+   - PCB: hangs under the cap, component side up, on four ASA spacers (part 27). CA a spacer onto each post's stake pin, push the board onto the spacers' pins and heat-stake the tips (heads under 5 mm, because J2 sits 2.7 mm from H3). Use the longer PRIME plunger (35, reprinted 2026-10-20)
    - PRIME: TPU plunger in its sleeve, head up. Put a thin ring of silicone around the bore, lay the boot's D-shaped flange on it (flat side toward the LEDs), then glue the ASA bezel down over the flange (acetone slurry, or CA)
    - LEDs: once the PCB is staked, fill each 3.6 mm LED hole from the top with clear hot glue or UV resin
    - Voltmeter: body through the 31.2 mm hole (29.2 mm printed too small in ASA), glued around its bezel

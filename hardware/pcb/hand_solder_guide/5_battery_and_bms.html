@@ -1,0 +1,190 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BubbleLink · battery and BMS solder map</title>
+<style>:root{--background:#0f1115;--foreground:#e8e8e8;--muted-foreground:#9aa0a6;--border:#2a2f36;--radius:10px;--warning:#f0a500;--destructive:#ff5a4f;--info:#6cb6ff;--font-sans:'Segoe UI',system-ui,sans-serif;--font-mono:Consolas,monospace}
+html,body{background:var(--background)} body{padding:20px; max-width:980px; margin:0 auto !important;}</style>
+<style>
+  body { font-family: var(--font-sans); color: var(--foreground); margin:0; }
+  .wrap { display:flex; flex-direction:column; gap:14px; }
+  h3 { margin:0 0 4px; font-size:16px; } p { margin:0; }
+  .sub { color: var(--muted-foreground); font-size:12.5px; line-height:1.45; }
+  svg.bat { width:100%; height:auto; display:block; font-family: var(--font-sans); }
+  .holder { fill:#7f9db533; stroke:#7f9db5; stroke-width:1.5; }
+  .paper { fill:#c9a66b; opacity:.85; }
+  .papert { font-size:10px; fill:#3a2a10; font-weight:700; }
+  .cn { fill:#3b4350; stroke:#8b949e; stroke-width:1.5; }
+  .cp { fill:#3b4350; stroke:#e5372f; stroke-width:2; }
+  .btn { fill:#9aa3ad; stroke:#e5372f; stroke-width:1.5; }
+  .tab { stroke:#555; stroke-width:1; opacity:.92; }
+  .tabA { fill:#9aa7b5; } .tabB { fill:#d8c48a; } .tabM { fill:#b9c2cc; }
+  .eng { font-size:13px; font-weight:900; fill:#0f1115; }
+  .pol { font-size:15px; font-weight:800; fill:#cfd6dd; }
+  .ft { font-size:15px; font-weight:800; fill:#f2f4f6; }
+  .fs { font-size:11px; font-weight:500; fill:#9aa3ad; }
+  .halo { stroke:#8b949e; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .r { stroke:#e5372f; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .k { stroke:#111; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .yl { stroke:#f2c200; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .bms { fill:#1b3326; stroke:#3fb950; stroke-width:1.5; }
+  .bt { font-size:14px; font-weight:800; fill:#f2f4f6; }
+  .bs { font-size:10.5px; fill:#9aa3ad; }
+  .pad rect { fill:#d8b25a; stroke:#fff; stroke-width:1; } .pad text { font-size:12px; font-weight:800; fill:#111; }
+  .pad.dim rect { fill:none; stroke:#9aa3ad; stroke-dasharray:3 2; } .pad.dim text { fill:#9aa3ad; }
+  .tag rect { fill:#f0a500; stroke:#000; } .tag text { font-size:11px; font-weight:800; fill:#111; }
+  .lab { font-size:11px; fill:#d8dde3; font-weight:600; } .labm { font-size:10.5px; fill:#9aa3ad; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; font-weight:600; color:var(--muted-foreground); border-bottom:1px solid var(--border); padding:5px 6px; font-size:11.5px; }
+  td { border-bottom:1px solid var(--border); padding:6px; vertical-align:top; }
+  .sw { display:inline-block; width:22px; border-radius:3px; vertical-align:middle; margin-right:6px; box-shadow:0 0 0 1px #8b949e; }
+  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap:12px; }
+  .card { border:1px solid var(--border); border-radius:var(--radius); padding:13px 15px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; gap:6px; }
+  .card h4 { margin:0; font-size:13.5px; }
+  .card.warn { border-color: var(--destructive); } .card.warn h4 { color: var(--destructive); }
+  ol, ul { margin:0; padding-left:18px; } li { margin:2px 0; }
+</style></head>
+<body><div class="wrap">
+<div>
+  <h3>Battery and BMS: where every battery wire is soldered</h3>
+  <p class="sub">Both holder faces, looking straight at them from outside. Find the engraved letters: <b>A</b> marks row A, <b>B</b> row B, <b>T</b> the TERM face and <b>M</b> the MID face. Dots show where each wire lands. Solder to a <b>tab</b>, never straight onto a cell.</p>
+</div>
+
+<svg class="bat" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
+
+<text x="68" y="62" class="ft">TERM face <tspan class="fs">(engraved T) · row A shows −, row B shows +</tspan></text>
+<text x="68" y="463" class="ft">MID face <tspan class="fs">(engraved M) · all ten ends joined: the series midpoint</tspan></text>
+<text x="68" y="332" class="fs">Row A (bottom): pack − bus, 4 tabs · Row B (top): pack + bus, 4 tabs</text><text x="68" y="347" class="fs">No tab crosses between them; the tan strip is fish paper.</text>
+<text x="68" y="637" class="fs">13 tabs: 4 + 4 in-row and 5 across. Flip the block left-to-right to see this face.</text>
+
+<rect x="69.2" y="149.9" width="361.6" height="130.2" rx="37.5" class="holder"/>
+<rect x="77.2" y="211.0" width="345.6" height="8" rx="2" class="paper"/>
+<circle cx="106.7" cy="242.6" r="29.3" class="cn"/>
+<circle cx="170.4" cy="242.6" r="29.3" class="cn"/>
+<circle cx="234.1" cy="242.6" r="29.3" class="cn"/>
+<circle cx="297.8" cy="242.6" r="29.3" class="cn"/>
+<circle cx="361.4" cy="242.6" r="29.3" class="cn"/>
+<circle cx="138.6" cy="187.4" r="29.3" class="cp"/><circle cx="138.6" cy="187.4" r="12.3" class="btn"/>
+<circle cx="202.2" cy="187.4" r="29.3" class="cp"/><circle cx="202.2" cy="187.4" r="12.3" class="btn"/>
+<circle cx="265.9" cy="187.4" r="29.3" class="cp"/><circle cx="265.9" cy="187.4" r="12.3" class="btn"/>
+<circle cx="329.6" cy="187.4" r="29.3" class="cp"/><circle cx="329.6" cy="187.4" r="12.3" class="btn"/>
+<circle cx="393.3" cy="187.4" r="29.3" class="cp"/><circle cx="393.3" cy="187.4" r="12.3" class="btn"/>
+<rect x="97.0" y="231.4" width="83.2" height="22.4" rx="3" class="tab tabA" transform="rotate(0.0 138.6 242.6)"/>
+<rect x="128.8" y="176.2" width="83.2" height="22.4" rx="3" class="tab tabB" transform="rotate(0.0 170.4 187.4)"/>
+<rect x="160.6" y="231.4" width="83.2" height="22.4" rx="3" class="tab tabA" transform="rotate(0.0 202.2 242.6)"/>
+<rect x="192.5" y="176.2" width="83.2" height="22.4" rx="3" class="tab tabB" transform="rotate(0.0 234.1 187.4)"/>
+<rect x="224.3" y="231.4" width="83.2" height="22.4" rx="3" class="tab tabA" transform="rotate(0.0 265.9 242.6)"/>
+<rect x="256.2" y="176.2" width="83.2" height="22.4" rx="3" class="tab tabB" transform="rotate(0.0 297.8 187.4)"/>
+<rect x="288.0" y="231.4" width="83.2" height="22.4" rx="3" class="tab tabA" transform="rotate(0.0 329.6 242.6)"/>
+<rect x="319.8" y="176.2" width="83.2" height="22.4" rx="3" class="tab tabB" transform="rotate(0.0 361.4 187.4)"/>
+<text x="138.6" y="247.6" class="eng" text-anchor="middle">A</text>
+<text x="202.2" y="247.6" class="eng" text-anchor="middle">T</text>
+<text x="361.4" y="192.4" class="eng" text-anchor="middle">B</text>
+<text x="106.7" y="284.9" class="pol" text-anchor="middle">−</text>
+<text x="170.4" y="284.9" class="pol" text-anchor="middle">−</text>
+<text x="234.1" y="284.9" class="pol" text-anchor="middle">−</text>
+<text x="297.8" y="284.9" class="pol" text-anchor="middle">−</text>
+<text x="361.4" y="284.9" class="pol" text-anchor="middle">−</text>
+<text x="138.6" y="153.1" class="pol" text-anchor="middle">+</text>
+<text x="202.2" y="153.1" class="pol" text-anchor="middle">+</text>
+<text x="265.9" y="153.1" class="pol" text-anchor="middle">+</text>
+<text x="329.6" y="153.1" class="pol" text-anchor="middle">+</text>
+<text x="393.3" y="153.1" class="pol" text-anchor="middle">+</text>
+<rect x="69.2" y="479.9" width="361.6" height="130.2" rx="37.5" class="holder"/>
+<circle cx="393.3" cy="572.6" r="29.3" class="cp"/><circle cx="393.3" cy="572.6" r="12.3" class="btn"/>
+<circle cx="329.6" cy="572.6" r="29.3" class="cp"/><circle cx="329.6" cy="572.6" r="12.3" class="btn"/>
+<circle cx="265.9" cy="572.6" r="29.3" class="cp"/><circle cx="265.9" cy="572.6" r="12.3" class="btn"/>
+<circle cx="202.2" cy="572.6" r="29.3" class="cp"/><circle cx="202.2" cy="572.6" r="12.3" class="btn"/>
+<circle cx="138.6" cy="572.6" r="29.3" class="cp"/><circle cx="138.6" cy="572.6" r="12.3" class="btn"/>
+<circle cx="361.4" cy="517.4" r="29.3" class="cn"/>
+<circle cx="297.8" cy="517.4" r="29.3" class="cn"/>
+<circle cx="234.1" cy="517.4" r="29.3" class="cn"/>
+<circle cx="170.4" cy="517.4" r="29.3" class="cn"/>
+<circle cx="106.7" cy="517.4" r="29.3" class="cn"/>
+<rect x="128.8" y="561.4" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 170.4 572.6)"/>
+<rect x="97.0" y="506.2" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 138.6 517.4)"/>
+<rect x="192.5" y="561.4" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 234.1 572.6)"/>
+<rect x="160.6" y="506.2" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 202.2 517.4)"/>
+<rect x="256.2" y="561.4" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 297.8 572.6)"/>
+<rect x="224.3" y="506.2" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 265.9 517.4)"/>
+<rect x="319.8" y="561.4" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 361.4 572.6)"/>
+<rect x="288.0" y="506.2" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(0.0 329.6 517.4)"/>
+<rect x="335.8" y="533.8" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(-120.0 377.4 545.0)"/>
+<rect x="272.1" y="533.8" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(-120.0 313.7 545.0)"/>
+<rect x="208.4" y="533.8" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(-120.0 250.0 545.0)"/>
+<rect x="144.7" y="533.8" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(-120.0 186.3 545.0)"/>
+<rect x="81.0" y="533.8" width="83.2" height="22.4" rx="3" class="tab tabM" transform="rotate(-120.0 122.6 545.0)"/>
+<text x="361.4" y="577.6" class="eng" text-anchor="middle">A</text>
+<text x="297.8" y="577.6" class="eng" text-anchor="middle">M</text>
+<text x="138.6" y="522.4" class="eng" text-anchor="middle">B</text>
+<text x="393.3" y="614.9" class="pol" text-anchor="middle">+</text>
+<text x="329.6" y="614.9" class="pol" text-anchor="middle">+</text>
+<text x="265.9" y="614.9" class="pol" text-anchor="middle">+</text>
+<text x="202.2" y="614.9" class="pol" text-anchor="middle">+</text>
+<text x="138.6" y="614.9" class="pol" text-anchor="middle">+</text>
+<text x="361.4" y="483.1" class="pol" text-anchor="middle">−</text>
+<text x="297.8" y="483.1" class="pol" text-anchor="middle">−</text>
+<text x="234.1" y="483.1" class="pol" text-anchor="middle">−</text>
+<text x="170.4" y="483.1" class="pol" text-anchor="middle">−</text>
+<text x="106.7" y="483.1" class="pol" text-anchor="middle">−</text>
+<path d="M265.9,187.4 V95 H835" class="halo" stroke-width="9.5"/><path d="M265.9,187.4 V95 H835" class="r" stroke-width="7"/><path d="M329.6,187.4 V122 H835" class="halo" stroke-width="6.5"/><path d="M329.6,187.4 V122 H835" class="r" stroke-width="4"/><path d="M393.3,187.4 V150 H600 V312 H615" class="halo" stroke-width="5.0"/><path d="M393.3,187.4 V150 H600 V312 H615" class="r" stroke-width="2.5"/><path d="M234.1,242.6 V292 H580 V352 H615" class="halo" stroke-width="9.5"/><path d="M234.1,242.6 V292 H580 V352 H615" class="k" stroke-width="7"/><path d="M377.4,545.0 H592 V407 H615" class="halo" stroke-width="5.0"/><path d="M377.4,545.0 H592 V407 H615" class="yl" stroke-width="2.5"/><path d="M760,385 H790 V140 H835" class="halo" stroke-width="6.5"/><path d="M760,385 H790 V140 H835" class="k" stroke-width="4"/><path d="M760,410 H835" class="halo" stroke-width="9.5"/><path d="M760,410 H835" class="k" stroke-width="7"/>
+<circle cx="265.9" cy="187.4" r="6" fill="#e5372f" stroke="#fff" stroke-width="2"/><circle cx="329.6" cy="187.4" r="6" fill="#e5372f" stroke="#fff" stroke-width="2"/><circle cx="393.3" cy="187.4" r="6" fill="#e5372f" stroke="#fff" stroke-width="2"/><circle cx="234.1" cy="242.6" r="6" fill="#222" stroke="#fff" stroke-width="2"/><circle cx="377.4" cy="545.0" r="6" fill="#f2c200" stroke="#fff" stroke-width="2"/>
+
+<rect x="615" y="262" width="145" height="175" rx="10" class="bms"/>
+<text x="687.5" y="284" class="bt" text-anchor="middle">BMS · 2S 40 A</text>
+<g class="pad"><rect x="621" y="302" width="40" height="20" rx="4"/><text x="641" y="316.5" text-anchor="middle">B+</text></g>
+<g class="pad"><rect x="621" y="342" width="40" height="20" rx="4"/><text x="641" y="356.5" text-anchor="middle">B−</text></g>
+<g class="pad"><rect x="621" y="397" width="40" height="20" rx="4"/><text x="641" y="411.5" text-anchor="middle">BM</text></g>
+<g class="pad"><rect x="714" y="386" width="40" height="34" rx="4"/><text x="734" y="407.5" text-anchor="middle">P−</text></g>
+<g class="pad dim"><rect x="714" y="302" width="40" height="20" rx="4"/><text x="734" y="316.5" text-anchor="middle">P+?</text></g>
+<text x="687.5" y="455" class="bs" text-anchor="middle">P+, if it has one, is the same as B+:</text>
+<text x="687.5" y="469" class="bs" text-anchor="middle">leave it empty</text>
+
+
+<g class="tag"><rect x="840" y="85" width="62" height="20" rx="4" style="fill:#c9d1d9"/><text x="871" y="99" text-anchor="middle">solder</text></g>
+<text x="908" y="92" class="lab">main +</text><text x="908" y="105" class="labm">to KEY pin A</text>
+<g class="tag"><rect x="840" y="121" width="62" height="20" rx="4"/><text x="871" y="135" text-anchor="middle">XT30</text></g>
+<text x="908" y="128" class="lab">charger</text><text x="908" y="141" class="labm">+ and − pair</text>
+<text x="842" y="405" class="lab">main − (12 AWG)</text><text x="842" y="419" class="labm">to the − splice</text>
+
+
+<text x="440" y="88" class="lab">12 AWG red</text>
+<text x="440" y="117" class="lab">16 AWG red</text>
+<text x="420" y="146" class="lab">thin red · sense only</text>
+<text x="400" y="309" class="lab">12 AWG black · carries everything</text>
+<text x="420" y="538" class="lab">thin · balance</text>
+
+</svg>
+
+<table>
+  <thead><tr><th>Wire</th><th>Starts at</th><th>Goes to</th><th>Size</th></tr></thead>
+  <tbody>
+    <tr><td><span class="sw" style="height:7px;background:#111"></span><b>BMS B−</b></td><td>TERM face, row A (− bus), tab over the middle cell</td><td>BMS <b>B−</b> pad</td><td>12 AWG black. All the current flows through it.</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#f2c200"></span><b>BMS BM</b></td><td>MID face, any tab</td><td>BMS <b>BM</b> pad</td><td>thin</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#e5372f"></span><b>BMS B+</b></td><td>TERM face, row B (+ bus), any tab</td><td>BMS <b>B+</b> pad</td><td>thin; it only senses voltage</td></tr>
+    <tr><td><span class="sw" style="height:7px;background:#e5372f"></span><b>Main +</b></td><td>TERM face, row B, tab over the middle cell</td><td>Power KEY socket pin A, soldered</td><td>12 AWG red</td></tr>
+    <tr><td><span class="sw" style="height:7px;background:#111"></span><b>Main −</b></td><td>BMS <b>P−</b> pad</td><td>the − splice (every return in the stick)</td><td>12 AWG black</td></tr>
+    <tr><td><span class="sw" style="height:4px;background:#e5372f"></span><b>Charger +</b></td><td>TERM face, row B, next tab along</td><td>XT30 (female on this side) → charger</td><td>16 AWG red</td></tr>
+    <tr><td><span class="sw" style="height:4px;background:#111"></span><b>Charger −</b></td><td>BMS <b>P−</b> pad</td><td>the same XT30</td><td>16 AWG black</td></tr>
+  </tbody>
+</table>
+
+<div class="cards">
+  <div class="card warn">
+    <h4>Main − comes off P−, never the battery</h4>
+    <p>Every return in the stick goes to the BMS <b>P−</b> pad. If anything is wired straight to the row A − bus, the BMS can't cut it off in a short or a flat battery. The build guide's line <i>"P− (row 1 −)"</i> is misleading: P− is the BMS pad, not the battery's − bus.</p>
+  </div>
+  <div class="card">
+    <h4>Order and checks</h4>
+    <ol>
+      <li>Tabs first (TERM, then MID), then the two meter checks from the battery guide.</li>
+      <li>BMS wires in this order: <b>B−</b>, then <b>BM</b>, then <b>B+</b>.</li>
+      <li>Then main +, main − and the charger pair.</li>
+      <li>Check: main + to P− reads 7.2–8.4 V. If it reads 0 V, many BMS boards need a few seconds on the charger to wake up.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h4>Why the middle cell</h4>
+    <p>With the thick wires on the middle cell's tab, current reaches it from both directions, so no single tab carries more than about two cells' worth. If you have spare tabs, double up the two links on each side of those points.</p>
+    <p>If your BMS has a <b>P+</b> pad, beep it to B+. On these 2S boards they're the same point, so leave P+ empty and take main + off the bus as shown. If P+ <i>doesn't</i> beep to B+, stop and check before going further.</p>
+  </div>
+</div>
+</div></body></html>

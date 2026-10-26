@@ -40,7 +40,7 @@
 // the trimmer windows (one plug for both), USB-C, LED 5V, unused gun ports and the key
 // socket.
 //
-// part = tube | cap | sled | cup | plunger | ring | boot | grommet_lo | grommet_hi |
+// part = tube | cap | sled | cup | plunger | pcbspacer | ring | boot | grommet_lo | grommet_hi |
 //        skirt | bezel | washer | batpad | pumpmat | shim | trimplug | usbplug | usbAplug |
 //        gunportcap | powerkey | keyblank | keygasket | coupon_rim | coupon_skirt |
 //        coupon_nut | coupon_ports | assembly
@@ -153,7 +153,12 @@ gs = [47, 58.3, 34, 10];      // x, y, w, h
 
 // ------------------------------------------------------------ PCB (hangs from the cap, rotated 90 deg)
 pcb_cxy = [70, 36.5];
-pcb_top_z = Zt - 22;          // component face
+pcb_post_z = Zt - 22;         // end of the cap's PCB posts, as printed
+// The LEDs came out taller than led_h and hit the light tunnel (Joey, 2026-10-20). Four ASA
+// spacers (part 27) slip over the posts' stake pins and drop the board by one board thickness
+// plus one stake pin plus 1 mm. The cap doesn't change; the PRIME plunger grows to match.
+pcb_drop = 1.6 + 3.2 + 1;     // 5.8
+pcb_top_z = pcb_post_z - pcb_drop;   // component face
 function pxy(p) = [pcb_cxy[0] - p[1], pcb_cxy[1] + p[0]];   // board (x,y) -> stick (x,y)
 led_xy = [[-5.2, 16.7], [0, 16.7], [5.2, 16.7]];
 rv_xy  = [[-5.2, 10.1], [6.2, 10.1]];
@@ -269,13 +274,13 @@ module cap() {
                 }
             // PCB posts with heat-stake pins
             for (h = holes) let(p = pxy(h)) translate([p[0], p[1], 0]) {
-                translate([0, 0, pcb_top_z]) cylinder(d = 4.5, h = Zt - pcb_top_z + 0.01);
-                translate([0, 0, pcb_top_z - 3.2]) cylinder(d = pcb_hole_d - 0.25, h = 3.3);
+                translate([0, 0, pcb_post_z]) cylinder(d = 4.5, h = Zt - pcb_post_z + 0.01);
+                translate([0, 0, pcb_post_z - 3.2]) cylinder(d = pcb_hole_d - 0.25, h = 3.3);
             }
             // light-tunnel block over LED1-3
             let(c = pxy([0, 16.7]))
-                translate([c[0] - 2.8, c[1] - 8.2, pcb_top_z + led_h + 1])
-                    cube([5.6, 16.4, Zt - pcb_top_z - led_h - 1 + 0.01]);
+                translate([c[0] - 2.8, c[1] - 8.2, pcb_post_z + led_h + 1])
+                    cube([5.6, 16.4, Zt - pcb_post_z - led_h - 1 + 0.01]);
             // charger slot: the board's thin top end (PCB + USB-C receptacle) slides up
             // into a slot only 1.25x the receptacle's thickness, receptacle against the
             // window, so the board can't wobble. The thick part of the board (output pads,
@@ -312,8 +317,8 @@ module cap() {
         }
         // LED windows: punched through. Fill each from the top with clear
         // hot glue or UV resin; that seals it and passes the light.
-        for (l = led_xy) let(p = pxy(l)) translate([p[0], p[1], pcb_top_z])
-            cylinder(d = 3.6, h = Zt + tp - pcb_top_z + 1);
+        for (l = led_xy) let(p = pxy(l)) translate([p[0], p[1], pcb_post_z])
+            cylinder(d = 3.6, h = Zt + tp - pcb_post_z + 1);
         // trimmer windows over each 3296W screw. Per the KiCad Bourns
         // footprint the screw sits 0.955 mm beyond pin 1 (the square pad),
         // i.e. 3.5 mm from the trimmer centre on the side away from SW1.
@@ -603,6 +608,21 @@ module plunger() {
     cylinder(d = 9, h = 1.2);
     cylinder(d = 5.8, h = 1.2 + pl_len);
 }
+// ASA PCB spacer (part 27): one per cap post, so the board hangs pcb_drop lower. Its socket
+// slips over the post's stake pin (CA it there); its own pin goes through the board hole and
+// gets heat-staked like the original. 5 mm OD because H3 sits 2.75 mm from J2's body.
+// Modelled with its top face at z = pcb_drop, pin down.
+sp_od = 5.0;
+sp_sock = pcb_hole_d - 0.25 + 2 * 0.15;   // 3.25 bore on the 2.95 stake pin
+module pcb_spacer() {
+    difference() {
+        cylinder(d = sp_od, h = pcb_drop);
+        translate([0, 0, pcb_drop - 3.5]) cylinder(d = sp_sock, h = 3.6);
+        // mouth chamfer: it prints on the bed, so this eats the elephant's foot
+        translate([0, 0, pcb_drop - 0.4]) cylinder(d1 = sp_sock, d2 = sp_sock + 0.8, h = 0.41);
+    }
+    translate([0, 0, -3.2]) cylinder(d = pcb_hole_d - 0.25, h = 3.3);
+}
 // TPU battery pad: a compliant cap that slips over the end of a cap rib. Printed
 // opening-up. The pocket is 0.1 mm tight per side and two 0.4 mm beads on its long
 // walls click into grooves cut in the rib, so retention is mechanical (a dab of hot
@@ -842,6 +862,8 @@ else if (part == "cap")  translate([0, 0, Zt + tp]) rotate([180, 0, 0]) cap();
 else if (part == "sled") sled();
 else if (part == "cup")  cup();
 else if (part == "plunger") plunger();
+// four spacers plus two spares, socket down so the pin prints upright
+else if (part == "pcbspacer") for (k = [0:5]) translate([k * 9, 0, pcb_drop]) rotate([180, 0, 0]) pcb_spacer();
 else if (part == "ring") ring();
 else if (part == "grommet_lo") grommet_half(sk_lip);
 else if (part == "skirt") skirt();
@@ -892,6 +914,7 @@ else {
     tube(); %cap(); sled();
     translate([0, 0, -tb - Hw - tf]) cup();
     for (i = [0:7]) ghost(i);
+    for (h = holes) let(p = pxy(h)) color("#6f9fbd") translate([p[0], p[1], pcb_top_z]) pcb_spacer();
     installed_tpu();
 }
 

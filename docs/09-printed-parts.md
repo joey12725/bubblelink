@@ -22,11 +22,13 @@ The whole pack, apart from the bladder, is one upright **stick**: about **99.6 �
 
 **Foam is gone.** Three TPU parts replace it: two compliant battery pads that click onto the cap's ribs (36; about 0.6 mm of compression, roughly 70-140 N/mm per pad), a 2 mm pump mat with eight drain holes (37), and a set of six 5 × 30 mm shim strips (0.6, 1.0 and 1.5 mm thick, two of each) to cut and tuck where a board rattles (38).
 
+**PCB spacers (2026-10-20):** `27_stick_pcb_spacer_x6` (ASA, four plus two spares) drops the CTRL board 5.8 mm below the cap's posts, because the LEDs hit the light tunnel. The cap doesn't change. The PRIME plunger (35) is 5.8 mm longer to match, so reprint it if yours is older.
+
 **New parts this round:** `00_stick_coupon_ports`, `26_stick_power_key` (ASA), and `41_TPU_usbA_plug`, `42_TPU_gun_port_cap_x2`, `43_TPU_key_blank` and `44_TPU_key_gasket` (TPU).
 
 **TPU parts (15 STLs, 23 pieces; the shim set is one STL):** cap ring (30), grommet lower and upper halves (31, 32), PRIME boot (33), screw washers ×2 (34), PRIME plunger (35), battery pads ×2 (36), pump mat (37), shim strip set (38), trimmer plug (39), USB-C plug (40), USB-A plug (41), gun port caps ×2 (42), key blank (43), key gasket (44).
 
-**Fit coupons (print first, in ASA):** `00_fit_coupon` plus five stick coupons (the cap coupon is optional): tube rim, cap skirt (with seal-ring groove, nut slot and screw hole), bulkhead nut corner, ports (XT30U well, hose hole, USB-A window, XT60H key socket in a 2.4 mm wall), and the optional cap coupon (voltmeter hole and charger slot, about 34 × 54 × 33 mm). The skirt slice must drop into the rim slice with the TPU ring on, and an M3 nut must press into both hex pockets. Total: 32 STLs.
+**Fit coupons (print first, in ASA):** `00_fit_coupon` plus five stick coupons (the cap coupon is optional): tube rim, cap skirt (with seal-ring groove, nut slot and screw hole), bulkhead nut corner, ports (XT30U well, hose hole, USB-A window, XT60H key socket in a 2.4 mm wall), and the optional cap coupon (voltmeter hole and charger slot, about 34 × 54 × 33 mm). The skirt slice must drop into the rim slice with the TPU ring on, and an M3 nut must press into both hex pockets. Total: 33 STLs.
 
 **Still in use from earlier:** the fit coupon, the two cell holders (reprinted with a 0.8 mm lip and flat ends; block 113.0 × 40.68 × 67.45 mm), the slide clamps (×3) and the umbilical bricks (×2, gun end only). The Tracer cosplay shells (L1, L2, L3, L6, R1–R6) were printed 2026-08-06 and are a separate project.
 

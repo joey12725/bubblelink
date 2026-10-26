@@ -32,6 +32,7 @@ render 23_stick_cup.stl               stick.scad          -D 'part="cup"'
 render 24_stick_prime_bezel.stl       stick.scad          -D 'part="bezel"'
 render 25_stick_grommet_skirt.stl     stick.scad          -D 'part="skirt"'
 render 26_stick_power_key.stl         stick.scad          -D 'part="powerkey"'
+render 27_stick_pcb_spacer_x6.stl     stick.scad          -D 'part="pcbspacer"'   # 4 + 2 spares in one file
 render 30_TPU_cap_ring.stl            stick.scad          -D 'part="ring"'
 render 31_TPU_grommet_lower.stl       stick.scad          -D 'part="grommet_lo"'
 render 32_TPU_grommet_upper.stl       stick.scad          -D 'part="grommet_hi"'

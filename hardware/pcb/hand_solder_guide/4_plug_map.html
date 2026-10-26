@@ -1,0 +1,179 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BubbleLink · plug map</title>
+<style>:root{--background:#0f1115;--foreground:#e8e8e8;--muted-foreground:#9aa0a6;--border:#2a2f36;--radius:10px;--warning:#f0a500;--destructive:#ff5a4f;--info:#6cb6ff;--font-sans:'Segoe UI',system-ui,sans-serif;--font-mono:Consolas,monospace}
+html,body{background:var(--background)} body{padding:20px; max-width:980px; margin:0 auto !important;}</style>
+<style>
+  body { font-family: var(--font-sans); color: var(--foreground); margin:0; }
+  .wrap { display:flex; flex-direction:column; gap:14px; }
+  h3 { margin:0 0 4px; font-size:16px; } p { margin:0; }
+  .sub { color: var(--muted-foreground); font-size:12.5px; line-height:1.45; }
+  svg.map { width:100%; height:auto; display:block; font-family: var(--font-sans); }
+  .zone { stroke-width:1.2; } .zl { font-size:12px; font-weight:800; letter-spacing:.08em; fill:#9aa0a6; }
+  .node { fill:#1b2129; stroke:#5b6673; stroke-width:1.5; }
+  .nt { font-size:14px; font-weight:750; fill:#f2f4f6; } .ns { font-size:11px; fill:#aab3bd; }
+  .e { stroke:#cfd6dd; stroke-width:3; fill:none; stroke-linejoin:round; }
+  .ch rect { stroke:#000; stroke-width:1; } .ch text { font-size:10.5px; font-weight:800; fill:#111; }
+  .xt30 rect { fill:#f0a500; } .xt60 rect { fill:#ff7b54; } .jst rect { fill:#6cb6ff; } .sol rect { fill:#c9d1d9; }
+  .port rect { fill:#a371f7; } .port text { fill:#fff; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; font-weight:600; color:var(--muted-foreground); border-bottom:1px solid var(--border); padding:5px 6px; font-size:11.5px; }
+  td { border-bottom:1px solid var(--border); padding:6px; vertical-align:top; }
+  .c { display:inline-block; padding:1px 7px; border-radius:4px; font-size:11px; font-weight:800; color:#111; margin:1px 2px 1px 0; white-space:nowrap; }
+  .c.xt30 { background:#f0a500; } .c.xt60 { background:#ff7b54; } .c.jst { background:#6cb6ff; } .c.sol { background:#c9d1d9; } .c.port { background:#a371f7; color:#fff; }
+  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap:12px; }
+  .card { border:1px solid var(--border); border-radius:var(--radius); padding:13px 15px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; gap:6px; }
+  .card h4 { margin:0; font-size:13.5px; }
+  ul { margin:0; padding-left:18px; } li { margin:2px 0; }
+  .th4 { margin:6px 0 0; font-size:14.5px; }
+  table.ports td.comp { font-weight:750; vertical-align:top; white-space:nowrap; }
+  table.ports tr.grp td { border-top:2px solid var(--border); }
+  .sex { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px; font-weight:800; }
+  .sex.m { background:#2f81f733; color:#79b8ff; box-shadow: inset 0 0 0 1px #2f81f7; }
+  .sex.f { background:#db61a233; color:#f0a6d0; box-shadow: inset 0 0 0 1px #db61a2; }
+  .sex.n { color:#6e7681; }
+  table.ports tr.sec td { background:#ffffff0d; font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--muted-foreground); padding:7px 6px; border-top:2px solid var(--border); }
+</style></head>
+<body><div class="wrap">
+<div>
+  <h3>Plug map: what connects to what</h3>
+  <p class="sub">Every connection is drawn as one line, whether it's two wires or three. The chip on each line says how it joins: <span class="c xt30">XT30</span> for power-only runs, <span class="c jst">JST-XH</span> for everything off the control board, <span class="c xt60">XT60H</span> where the full gun current flows, <span class="c sol">solder</span> where two parts are joined for good. <span class="c port">purple</span> chips are the ports on the outside of the case.</p>
+</div>
+
+<svg class="map" viewBox="0 0 1000 612" xmlns="http://www.w3.org/2000/svg">
+  <rect class="zone" x="10" y="10" width="980" height="150" rx="14" fill="#6c7bff14" stroke="#6c7bff55"/>
+  <text class="zl" x="22" y="152">CAP</text>
+  <rect class="zone" x="10" y="175" width="980" height="295" rx="14" fill="#3fb95014" stroke="#3fb95055"/>
+  <text class="zl" x="22" y="462">SLED  ·  plus Buck B on the tube wall</text>
+  <rect class="zone" x="10" y="485" width="980" height="118" rx="14" fill="#2f81f714" stroke="#2f81f755"/>
+  <text class="zl" x="22" y="503">CUP</text>
+  <line x1="10" y1="477" x2="990" y2="477" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="8 5"/>
+  <text x="16" y="473" font-size="10.5" fill="#9aa3ad" font-style="italic">bulkhead</text>
+
+  <path class="e" d="M110,240 V112"/>
+  <path class="e" d="M190,262 H220 V75 H250"/>
+  <path class="e" d="M330,112 V250"/>
+  <path class="e" d="M410,280 H470"/>
+  <path class="e" d="M190,318 H470"/>
+  <path class="e" d="M545,215 V112"/>
+  <path class="e" d="M545,335 V370"/>
+  <path class="e" d="M620,244 H700"/>
+  <path class="e" d="M620,318 H700"/>
+  <path class="e" d="M775,215 V140"/>
+  <path class="e" d="M620,402 H875 V140"/>
+  <path class="e" d="M945,140 V530 H850"/>
+  <path class="e" d="M505,430 V446 H330 V500"/>
+  <path class="e" d="M550,430 V500"/>
+
+  <rect class="node" x="30" y="42" width="160" height="70" rx="10"/>
+  <text class="nt" x="110" y="72" text-anchor="middle">USB-C charger</text><text class="ns" x="110" y="90" text-anchor="middle">charges the battery</text>
+  <g class="ch port"><rect x="44" y="22" width="132" height="18" rx="4"/><text x="110" y="35" text-anchor="middle">port: CHG · USB-C</text></g>
+  <rect class="node" x="250" y="42" width="160" height="70" rx="10"/>
+  <text class="nt" x="330" y="72" text-anchor="middle">Power KEY socket</text><text class="ns" x="330" y="90" text-anchor="middle">key in = ON</text>
+  <g class="ch port"><rect x="264" y="22" width="132" height="18" rx="4"/><text x="330" y="35" text-anchor="middle">port: KEY · XT60H</text></g>
+  <rect class="node" x="470" y="42" width="150" height="70" rx="10"/>
+  <text class="nt" x="545" y="72" text-anchor="middle">Voltmeter</text><text class="ns" x="545" y="90" text-anchor="middle">display on the cap top</text>
+  <rect class="node" x="700" y="30" width="270" height="110" rx="10" style="fill:#16382a;stroke:#3fb950"/>
+  <text class="nt" x="835" y="56" text-anchor="middle">CTRL PCB</text><text class="ns" x="835" y="73" text-anchor="middle">PRIME, LEDs and trimmers on the cap top</text>
+  <g class="ch jst"><rect x="752" y="112" width="46" height="18" rx="4"/><text x="775" y="125" text-anchor="middle">J1</text></g>
+  <g class="ch jst"><rect x="852" y="112" width="46" height="18" rx="4"/><text x="875" y="125" text-anchor="middle">J2</text></g>
+  <g class="ch jst"><rect x="922" y="112" width="46" height="18" rx="4"/><text x="945" y="125" text-anchor="middle">J3</text></g>
+
+  <rect class="node" x="30" y="240" width="160" height="100" rx="10" style="fill:#3a2a12;stroke:#d29922"/>
+  <text class="nt" x="110" y="276" text-anchor="middle">Battery + BMS</text><text class="ns" x="110" y="294" text-anchor="middle">soldered together:</text><text class="ns" x="110" y="309" text-anchor="middle">see page 5</text>
+  <rect class="node" x="250" y="250" width="160" height="60" rx="10"/>
+  <text class="nt" x="330" y="277" text-anchor="middle">30 A breaker</text><text class="ns" x="330" y="294" text-anchor="middle">wire clamps</text>
+  <rect class="node" x="470" y="215" width="150" height="120" rx="10"/>
+  <text class="nt" x="545" y="248" text-anchor="middle">Splice point</text>
+  <text class="ns" x="545" y="268" text-anchor="middle">+ : breaker output</text>
+  <text class="ns" x="545" y="284" text-anchor="middle">− : BMS P−</text>
+  <text class="ns" x="545" y="304" text-anchor="middle">soldered, heat-shrunk</text>
+  <rect class="node" x="470" y="370" width="150" height="60" rx="10"/>
+  <text class="nt" x="545" y="396" text-anchor="middle">ACS758 sensor</text><text class="ns" x="545" y="413" text-anchor="middle">gun + passes through it</text>
+  <rect class="node" x="700" y="215" width="150" height="58" rx="10"/>
+  <text class="nt" x="775" y="241" text-anchor="middle">Buck A</text><text class="ns" x="775" y="258" text-anchor="middle">5 V for the PCB</text>
+  <rect class="node" x="700" y="290" width="150" height="58" rx="10"/>
+  <text class="nt" x="775" y="316" text-anchor="middle">Buck B</text><text class="ns" x="775" y="333" text-anchor="middle">on the tube wall</text>
+  <g class="ch port"><rect x="709" y="352" width="132" height="18" rx="4"/><text x="775" y="365" text-anchor="middle">port: LED 5V · USB-A</text></g>
+
+  <rect class="node" x="250" y="500" width="160" height="60" rx="10"/>
+  <text class="nt" x="330" y="527" text-anchor="middle">Gun port 1</text><text class="ns" x="330" y="544" text-anchor="middle">XT30U female in the wall</text>
+  <g class="ch port"><rect x="264" y="566" width="132" height="18" rx="4"/><text x="330" y="579" text-anchor="middle">port: GUN 1 · XT30U</text></g>
+  <rect class="node" x="470" y="500" width="160" height="60" rx="10"/>
+  <text class="nt" x="550" y="527" text-anchor="middle">Gun port 2</text><text class="ns" x="550" y="544" text-anchor="middle">XT30U female in the wall</text>
+  <g class="ch port"><rect x="484" y="566" width="132" height="18" rx="4"/><text x="550" y="579" text-anchor="middle">port: GUN 2 · XT30U</text></g>
+  <rect class="node" x="700" y="500" width="150" height="60" rx="10"/>
+  <text class="nt" x="775" y="527" text-anchor="middle">G528 pump</text><text class="ns" x="775" y="544" text-anchor="middle">cap + diode on its tabs</text>
+
+  <g class="ch xt30"><rect x="88" y="124" width="44" height="18" rx="4"/><text x="110" y="137" text-anchor="middle">XT30</text></g>
+  <g class="ch sol"><rect x="194" y="150" width="52" height="18" rx="4"/><text x="220" y="163" text-anchor="middle">solder</text></g>
+  <g class="ch sol"><rect x="304" y="190" width="52" height="18" rx="4"/><text x="330" y="203" text-anchor="middle">clamp</text></g>
+  <g class="ch sol"><rect x="414" y="262" width="52" height="18" rx="4"/><text x="440" y="275" text-anchor="middle">clamp</text></g>
+  <g class="ch sol"><rect x="300" y="309" width="52" height="18" rx="4"/><text x="326" y="322" text-anchor="middle">solder</text></g>
+  <g class="ch xt30"><rect x="523" y="150" width="44" height="18" rx="4"/><text x="545" y="163" text-anchor="middle">XT30</text></g>
+  <g class="ch xt60"><rect x="519" y="343" width="52" height="18" rx="4"/><text x="545" y="356" text-anchor="middle">XT60H</text></g>
+  <g class="ch xt30"><rect x="638" y="235" width="44" height="18" rx="4"/><text x="660" y="248" text-anchor="middle">XT30</text></g>
+  <g class="ch xt30"><rect x="638" y="309" width="44" height="18" rx="4"/><text x="660" y="322" text-anchor="middle">XT30</text></g>
+  <g class="ch jst"><rect x="741" y="168" width="68" height="18" rx="4"/><text x="775" y="181" text-anchor="middle">JST-XH 2</text></g>
+  <g class="ch jst"><rect x="841" y="200" width="68" height="18" rx="4"/><text x="875" y="213" text-anchor="middle">JST-XH 3</text></g>
+  <g class="ch jst"><rect x="911" y="300" width="68" height="18" rx="4"/><text x="945" y="313" text-anchor="middle">JST-XH 2</text></g>
+  <g class="ch xt30"><rect x="308" y="468" width="44" height="18" rx="4"/><text x="330" y="481" text-anchor="middle">XT30</text></g>
+  <g class="ch xt30"><rect x="528" y="468" width="44" height="18" rx="4"/><text x="550" y="481" text-anchor="middle">XT30</text></g>
+  <text x="562" y="456" font-size="10.5" fill="#9aa3ad">gun pairs: + from the sensor's IP− wire, black from the splice −</text>
+</svg>
+
+<h4 class="th4">Ports on each component</h4>
+<p class="sub">Build each part's leads from this list, then plug things together at the end. The plug-only components are listed first, then the ones with soldered or clamp connections. Every plug pairs a male with a female of the same type. The rule: whichever side stays live when unplugged gets the <b>female</b>. On JST, you soldered wires straight onto the board's J1, J2 and J3 pads and ended each in a female plug, so whatever they plug into is male: Buck A's output lead, the pump lead and the ACS758's pin header. There are no cables in between. Solder joints and clamps have no male or female.</p>
+<table class="ports">
+  <thead><tr><th>Component</th><th>Port</th><th>Connector</th><th>Plugs into</th></tr></thead>
+  <tbody>
+    <tr class="sec"><td colspan="4">Plug-only components: build these first</td></tr>
+    <tr class="grp"><td class="comp" rowspan="2">USB-C charger</td><td>Output lead</td><td><span class="c xt30">XT30 male</span></td><td>Battery + BMS charger lead</td></tr><tr><td>Charge input (outside)</td><td><span class="c port">USB-C</span></td><td>CHG port on the cap top</td></tr><tr class="grp"><td class="comp" rowspan="1">Power key (part 26)</td><td>Key</td><td><span class="c xt60">XT60H female</span></td><td>Power KEY socket</td></tr><tr class="grp"><td class="comp" rowspan="1">Voltmeter</td><td>Lead</td><td><span class="c xt30">XT30 male</span></td><td>Splice point voltmeter lead</td></tr><tr class="grp"><td class="comp" rowspan="2">Buck A</td><td>Input lead</td><td><span class="c xt30">XT30 male</span></td><td>Splice point Buck A lead</td></tr><tr><td>Output lead (the points you probed)</td><td><span class="c jst">2-pin JST male</span></td><td>CTRL PCB J1</td></tr><tr class="grp"><td class="comp" rowspan="2">Buck B</td><td>Input lead</td><td><span class="c xt30">XT30 male</span></td><td>Splice point Buck B lead</td></tr><tr><td>Output (outside)</td><td><span class="c port">USB-A</span></td><td>LED 5V port: the backpack plugs in</td></tr><tr class="grp"><td class="comp" rowspan="2">ACS758 sensor</td><td>Big terminals (IP+ in, IP− out)</td><td><span class="c xt60">XT60H male</span></td><td>Splice point sensor lead</td></tr><tr><td>Signal header (VCC, GND, OUT)</td><td><span class="c jst">3-pin JST male (header pins)</span></td><td>CTRL PCB J2 plug</td></tr><tr class="grp"><td class="comp" rowspan="3">CTRL PCB</td><td>J1 · 5 V in (wires soldered to the J1 pads)</td><td><span class="c jst">2-pin JST female</span></td><td>Buck A output lead</td></tr><tr><td>J2 · sensor (wires soldered to the J2 pads)</td><td><span class="c jst">3-pin JST female</span></td><td>ACS758 signal header, directly</td></tr><tr><td>J3 · pump (wires soldered to the J3 pads)</td><td><span class="c jst">2-pin JST female</span></td><td>Pump lead</td></tr><tr class="grp"><td class="comp" rowspan="2">Gun port 1 · Gun port 2</td><td>Inside pigtail (up through the grommet)</td><td><span class="c xt30">XT30 male</span></td><td>Splice point gun lead</td></tr><tr><td>Outer wall (the port)</td><td><span class="c xt30">XT30U (well in the wall) female</span></td><td>Umbilical pack end (male)</td></tr><tr class="grp"><td class="comp" rowspan="1">G528 pump</td><td>Lead (twisted, cap and diode at the tabs)</td><td><span class="c jst">2-pin JST male</span></td><td>CTRL PCB J3</td></tr>
+
+    <tr class="sec"><td colspan="4">Components with soldered or clamp connections</td></tr>
+    <tr class="grp"><td class="comp" rowspan="3">Battery + BMS</td><td>Main + (row B bus)</td><td><span class="c sol">solder</span></td><td>Power KEY socket pin A</td></tr><tr><td>Main − (BMS P−)</td><td><span class="c sol">solder</span></td><td>Splice point −</td></tr><tr><td>Charger lead (pack + and P−)</td><td><span class="c xt30">XT30 female</span></td><td>USB-C charger</td></tr><tr class="grp"><td class="comp" rowspan="3">Power KEY socket</td><td>Pin A</td><td><span class="c sol">solder</span></td><td>Battery main +</td></tr><tr><td>Pin B lead</td><td><span class="c sol">clamp (bare wire)</span></td><td>30 A breaker input terminal</td></tr><tr><td>Key face (cap top)</td><td><span class="c xt60">XT60H male</span></td><td>Power key (part 26)</td></tr><tr class="grp"><td class="comp" rowspan="2">30 A breaker</td><td>Input terminal</td><td><span class="c sol">clamp (bare wire)</span></td><td>Power KEY socket pin B lead</td></tr><tr><td>Output terminal</td><td><span class="c sol">clamp (bare wire)</span></td><td>Splice point + lead</td></tr><tr class="grp"><td class="comp" rowspan="8">Splice point (main + and −)</td><td>+ in</td><td><span class="c sol">clamp (bare wire)</span></td><td>30 A breaker output terminal</td></tr><tr><td>− in</td><td><span class="c sol">solder</span></td><td>BMS P−</td></tr><tr><td>Voltmeter lead</td><td><span class="c xt30">XT30 female</span></td><td>Voltmeter</td></tr><tr><td>Buck A lead</td><td><span class="c xt30">XT30 female</span></td><td>Buck A input</td></tr><tr><td>Buck B lead</td><td><span class="c xt30">XT30 female</span></td><td>Buck B input</td></tr><tr><td>Sensor lead: red wire (IP+) to splice +, orange wire (IP−) to the gun breakout</td><td><span class="c xt60">XT60H female</span></td><td>ACS758 sensor</td></tr><tr><td>Gun 1 lead: + wire to the gun breakout, − wire to splice −</td><td><span class="c xt30">XT30 female</span></td><td>Gun port 1 pigtail</td></tr><tr><td>Gun 2 lead: + wire to the gun breakout, − wire to splice −</td><td><span class="c xt30">XT30 female</span></td><td>Gun port 2 pigtail</td></tr><tr class="grp"><td class="comp" rowspan="1">Gun breakout (gun + junction)</td><td>The orange wire from the sensor's IP− terminal, plus the + wire of each gun lead</td><td><span class="c sol">solder</span></td><td>Joined together and heat-shrunk. Keep it off the main + splice</td></tr>
+  </tbody>
+</table>
+<h4 class="th4">Connections, from and to</h4>
+<table>
+  <thead><tr><th>From</th><th>To</th><th>How it joins</th><th>Wire</th></tr></thead>
+  <tbody>
+    <tr><td>Battery pack + (row B bus)</td><td>Power KEY pin A</td><td><span class="c sol">solder</span> at the socket</td><td>12 AWG</td></tr>
+    <tr><td>Power KEY pin B</td><td>Breaker input terminal</td><td><span class="c sol">clamp (bare wire)</span> (the wire is soldered to the socket and clamped at the breaker)</td><td>12 AWG</td></tr>
+    <tr><td>Breaker output terminal</td><td>Splice +</td><td><span class="c sol">clamp (bare wire)</span>: the wire goes straight into the breaker's built-in clamp</td><td>12 AWG</td></tr>
+    <tr><td>BMS P−</td><td>Splice −</td><td><span class="c sol">solder</span></td><td>12 AWG</td></tr>
+    <tr><td>Battery + / BMS P−</td><td>USB-C charger</td><td><span class="c xt30">XT30</span></td><td>16 AWG</td></tr>
+    <tr><td>Splice</td><td>Voltmeter</td><td><span class="c xt30">XT30</span></td><td>16 AWG or thinner</td></tr>
+    <tr><td>Splice +</td><td>ACS758 (both big terminals)</td><td><span class="c xt60">XT60H</span>: in on one pin, out on the other</td><td>12 AWG</td></tr>
+    <tr><td>ACS758 out (+) · splice − (black)</td><td>Gun port 1 · Gun port 2</td><td><span class="c xt30">XT30</span> each, just above the bulkhead</td><td>16 AWG pair each</td></tr>
+    <tr><td>Splice</td><td>Buck A input</td><td><span class="c xt30">XT30</span></td><td>16 AWG</td></tr>
+    <tr><td>Buck A output (the points you probed)</td><td>PCB J1</td><td><span class="c jst">JST-XH 2</span></td><td>thin</td></tr>
+    <tr><td>Splice</td><td>Buck B input</td><td><span class="c xt30">XT30</span></td><td>16 AWG</td></tr>
+    <tr><td>ACS758 3-pin header</td><td>PCB J2</td><td><span class="c jst">JST-XH 3</span>: the board's female J2 plug pushes straight onto the header pins</td><td>thin</td></tr>
+    <tr><td>PCB J3</td><td>Pump</td><td><span class="c jst">JST-XH 2</span></td><td>thin, twisted</td></tr>
+  </tbody>
+</table>
+
+<div class="cards">
+  <div class="card">
+    <h4>How to read the chips</h4>
+    <p>Each line has exactly one chip: the plug where those two parts come apart, or <b>solder</b> where they're joined for good. A part's own soldered leads aren't drawn separately. For example, Buck A's two output wires are part of Buck A, and the line to the PCB is just the JST-XH that goes into J1.</p>
+    <p>On XT30 and XT60H, the side that stays live when unplugged gets the <b>female</b>. On JST, your board's wires end in female plugs, so what they plug into is male.</p>
+  </div>
+  <div class="card">
+    <h4>Connector count</h4>
+    <ul>
+      <li><b>XT30: all 10 of your 10 pairs.</b> In the case: charger, voltmeter, Buck A, Buck B and the two gun plugs (6). Gun ports: 2 females in the wells plus 2 males on the umbilicals. Umbilical gun ends: 2 pairs. There's no spare, so solder carefully.</li>
+      <li><b>XT60H: 2 of 10.</b> The key socket with the key, and the sensor.</li>
+      <li><b>JST-XH:</b> the board's three female plugs are already done. You need two male 2-pin plugs from the kit: Buck A's output and the pump. The ACS758 uses its own header pins.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Taking it apart</h4>
+    <ul>
+      <li><b>Cap off:</b> pull J1, J2 and J3, and unplug the charger and the voltmeter. The two key wires stay connected, so the cap sits beside the stick on that tether.</li>
+      <li><b>Sled out:</b> also unplug the two gun XT30s at the bulkhead and Buck B's XT30, and unplug the backpack from LED 5V first. The pump lead stays with the pump and slides out of the grommet slit.</li>
+    </ul>
+  </div>
+</div>
+</div></body></html>

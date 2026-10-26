@@ -1,0 +1,213 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BubbleLink · system wiring (detailed)</title>
+<style>:root{--background:#0f1115;--foreground:#e8e8e8;--muted-foreground:#9aa0a6;--border:#2a2f36;--radius:10px;--warning:#f0a500;--destructive:#ff5a4f;--info:#6cb6ff;--font-sans:'Segoe UI',system-ui,sans-serif;--font-mono:Consolas,monospace}
+html,body{background:var(--background)} body{padding:20px; max-width:980px; margin:0 auto !important;}</style>
+<style>
+  body { font-family: var(--font-sans); color: var(--foreground); margin:0; }
+  .wrap { display:flex; flex-direction:column; gap:14px; }
+  h3 { margin:0 0 4px; font-size:16px; } p { margin:0; }
+  .sub { color: var(--muted-foreground); font-size:12.5px; line-height:1.45; }
+  svg.sys { width:100%; height:auto; display:block; font-family: var(--font-sans); }
+  .zone { stroke-width:1.2; } .zl { font-size:12px; font-weight:800; letter-spacing:.08em; fill:#9aa0a6; }
+  .box { fill:#1b2129; stroke:#5b6673; stroke-width:1.4; }
+  .bt { font-size:14px; font-weight:750; fill:#f2f4f6; } .bs { font-size:11px; fill:#aab3bd; }
+  .tl { font-size:10.5px; fill:#d8dde3; font-weight:700; }
+  .halo { stroke:#8b949e; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .w12 { stroke:#e5372f; stroke-width:6; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .bus { stroke:#111; stroke-width:6; fill:none; stroke-linejoin:round; stroke-linecap:round; }
+  .w16 { stroke:#e5372f; stroke-width:3.6; fill:none; stroke-linejoin:round; } .w16k { stroke:#111; stroke-width:3.6; fill:none; stroke-linejoin:round; }
+  .th { stroke-width:2.2; fill:none; stroke-linejoin:round; } .r { stroke:#e5372f; } .k { stroke:#111; } .y { stroke:#f2c200; }
+  .tag rect { stroke:#000; stroke-width:1; } .tag text { font-size:9.5px; font-weight:800; fill:#111; }
+  .xt30 rect { fill:#f0a500; } .xt60 rect { fill:#ff7b54; } .jst rect { fill:#6cb6ff; } .sol rect { fill:#c9d1d9; }
+  .port rect { fill:#a371f7; stroke:#000; } .port text { font-size:9.5px; font-weight:800; fill:#fff; }
+  .lab { font-size:10.5px; fill:#cfd6dd; } .labm { font-size:10.5px; fill:#9aa3ad; font-style:italic; }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 18px; font-size:12px; color:var(--muted-foreground); align-items:center; }
+  .sw { display:inline-block; width:30px; border-radius:3px; vertical-align:middle; margin-right:6px; box-shadow:0 0 0 1px #8b949e; }
+  .c { display:inline-block; padding:1px 7px; border-radius:4px; font-size:11px; font-weight:800; color:#111; margin-right:4px; }
+  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap:12px; }
+  .card { border:1px solid var(--border); border-radius:var(--radius); padding:13px 15px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; gap:6px; }
+  .card h4 { margin:0; font-size:13.5px; }
+  .card.warn { border-color: var(--destructive); } .card.warn h4 { color: var(--destructive); }
+  .card.caut { border-color: var(--warning); } .card.caut h4 { color: var(--warning); }
+  ul { margin:0; padding-left:18px; } li { margin:2px 0; }
+</style></head>
+<body><div class="wrap">
+<div>
+  <h3>Stick wiring: every wire, in detail</h3>
+  <p class="sub">Everything inside the case, from the battery to the ports on its outside walls. Each wire is drawn on its own. Thick red is the main 12 AWG feed, and every return goes back to the BMS P− bus (black). The coloured tags are plugs: <span class="c" style="background:#f0a500">XT30</span><span class="c" style="background:#6cb6ff">JST-XH</span><span class="c" style="background:#ff7b54">XT60H</span> and <span class="c" style="background:#a371f7;color:#fff">ports</span> on the outside of the case. For one line per connection, see page 4. For the battery's solder points, see page 5.</p>
+</div>
+
+<svg class="sys" viewBox="0 0 1000 648" xmlns="http://www.w3.org/2000/svg">
+  <rect class="zone" x="10" y="10" width="980" height="165" rx="14" fill="#6c7bff14" stroke="#6c7bff55"/>
+  <text class="zl" x="168" y="31">CAP</text>
+  <rect class="zone" x="10" y="190" width="765" height="295" rx="14" fill="#3fb95014" stroke="#3fb95055"/>
+  <text class="zl" x="46" y="208">SLED · lifts out</text>
+  <rect class="zone" x="790" y="190" width="200" height="295" rx="14" fill="#a371f714" stroke="#a371f755"/>
+  <text class="zl" x="804" y="208">TUBE WALL</text>
+  <rect class="zone" x="10" y="505" width="980" height="135" rx="14" fill="#2f81f714" stroke="#2f81f755"/>
+  <text class="zl" x="22" y="525">CUP · wet side</text>
+  <line x1="10" y1="495" x2="990" y2="495" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="8 5"/>
+  <text class="labm" x="548" y="491">bulkhead · wires pass through the TPU grommet</text>
+
+  <!-- charger pair: + from the pack + bus, − from BMS P- -->
+  <path class="halo" stroke-width="4.5" d="M40,85 H24 V245 H40"/><path class="th r" stroke-width="3" d="M40,85 H24 V245 H40"/>
+  <path class="halo" stroke-width="4.5" d="M40,110 H32 V372 H40"/><path class="th k" stroke-width="3" d="M40,110 H32 V372 H40"/>
+  <g class="tag xt30"><rect x="12" y="150" width="34" height="16" rx="3"/><text x="29" y="161.5" text-anchor="middle">XT30</text></g>
+
+  <!-- battery to BMS -->
+  <path class="halo" stroke-width="4" d="M70,277 V315"/><path class="th k" stroke-width="3" d="M70,277 V315"/>
+  <path class="halo" stroke-width="4" d="M105,277 V315"/><path class="th y" d="M105,277 V315"/>
+  <path class="halo" stroke-width="4" d="M140,277 V315"/><path class="th r" d="M140,277 V315"/>
+  <text class="tl" x="74" y="301">B−</text><text class="tl" x="109" y="301">BM</text><text class="tl" x="144" y="301">B+</text>
+
+  <!-- main +: pack + bus soldered to KEY pin A; pin B soldered, clamped at the breaker -->
+  <path class="halo" stroke-width="8" d="M170,245 H215 V95 H250"/><path class="w12" d="M170,245 H215 V95 H250"/>
+  <path class="halo" stroke-width="8" d="M362,135 V230"/><path class="w12" d="M362,135 V230"/>
+  <!-- breaker -> + splice -> ACS IP+ -->
+  <path class="halo" stroke-width="8" d="M380,262 H480"/><path class="w12" d="M380,262 H480"/>
+  <g class="tag sol"><rect x="252" y="296" width="52" height="15" rx="3"/><text x="278" y="307" text-anchor="middle">clamps</text></g>
+
+  <!-- P- return bus -->
+  <path class="halo" stroke-width="8" d="M170,372 H200 V455 H760"/><path class="bus" d="M170,372 H200 V455 H760"/>
+  <text class="lab" x="478" y="449">BMS P− return bus (12 AWG black)</text>
+
+  <!-- Buck A input pair (XT30) -->
+  <path class="halo" stroke-width="4" d="M430,262 V352 H480"/><path class="th r" d="M430,262 V352 H480"/>
+  <path class="halo" stroke-width="4" d="M442,455 V372 H480"/><path class="th k" stroke-width="2.6" d="M442,455 V372 H480"/>
+  <g class="tag xt30"><rect x="452" y="344" width="22" height="36" rx="3"/><text x="463" y="362" text-anchor="middle" transform="rotate(-90 463 362)" dy="3.5">XT30</text></g>
+
+  <!-- Buck B input pair (XT30) -->
+  <path class="halo" stroke-width="4" d="M430,262 V232 H452 V205 H805 V243 H820"/><path class="th r" d="M430,262 V232 H452 V205 H805 V243 H820"/>
+  <path class="halo" stroke-width="4" d="M760,455 V275 H820"/><path class="th k" stroke-width="2.6" d="M760,455 V275 H820"/>
+  <g class="tag xt30"><rect x="794" y="238" width="22" height="44" rx="3"/><text x="805" y="260" text-anchor="middle" transform="rotate(-90 805 260)" dy="3.5">XT30</text></g>
+
+  <!-- voltmeter pair (JST-XH 2) -->
+  <path class="halo" stroke-width="4" d="M500,130 V182 H444 V232 H430"/><path class="th r" d="M500,130 V182 H444 V232 H430"/>
+  <path class="halo" stroke-width="4" d="M512,130 V188 H752 V455"/><path class="th k" stroke-width="2.6" d="M512,130 V188 H752 V455"/>
+  <g class="tag xt30"><rect x="488" y="140" width="36" height="16" rx="3"/><text x="506" y="151.5" text-anchor="middle">XT30</text></g>
+  <circle cx="430" cy="262" r="8" fill="#e5372f" stroke="#fff" stroke-width="1.5"/>
+  <text class="lab" x="398" y="290">+ splice</text>
+
+  <!-- gun pairs: + from ACS IP-, - from the bus; XT30 just above the bulkhead -->
+  <path class="halo" stroke-width="6" d="M620,262 H700 V430 H315 V540"/><path class="w16" d="M620,262 H700 V430 H315 V540"/>
+  <path class="halo" stroke-width="6" d="M445,430 V540"/><path class="w16" d="M445,430 V540"/>
+  <path class="halo" stroke-width="6" d="M329,455 V540"/><path class="w16k" d="M329,455 V540"/>
+  <path class="halo" stroke-width="6" d="M459,455 V540"/><path class="w16k" d="M459,455 V540"/>
+  <g class="tag xt30"><rect x="303" y="469" width="38" height="16" rx="3"/><text x="322" y="480.5" text-anchor="middle">XT30</text></g>
+  <g class="tag xt30"><rect x="433" y="469" width="38" height="16" rx="3"/><text x="452" y="480.5" text-anchor="middle">XT30</text></g>
+  <text class="lab" x="598" y="424">16 AWG gun pairs</text>
+
+  <!-- Buck A out -> J1 (soldered at the buck, JST at the PCB) -->
+  <path class="halo" stroke-width="4" d="M620,352 H664 V156"/><path class="th r" d="M620,352 H664 V156"/>
+  <path class="halo" stroke-width="4" d="M620,372 H674 V156"/><path class="th k" stroke-width="2.6" d="M620,372 H674 V156"/>
+  <g class="tag jst"><rect x="653" y="160" width="32" height="16" rx="3"/><text x="669" y="171.5" text-anchor="middle">JST</text></g>
+  <text class="lab" x="482" y="406">Buck A → J1: soldered to the</text><text class="lab" x="482" y="419">points you probed</text>
+
+  <!-- ACS header <-> J2 (JST-XH 3 at both ends) -->
+  <path class="halo" stroke-width="4" d="M772,156 V198 H572 V222"/><path class="th r" d="M772,156 V198 H572 V222"/>
+  <path class="halo" stroke-width="4" d="M762,156 V193 H562 V222"/><path class="th k" stroke-width="2.6" d="M762,156 V193 H562 V222"/>
+  <path class="halo" stroke-width="4" d="M752,156 V188 H552 V222"/><path class="th y" d="M752,156 V188 H552 V222"/>
+  <g class="tag jst"><rect x="546" y="210" width="32" height="14" rx="3"/><text x="562" y="220.5" text-anchor="middle">JST</text></g>
+
+  <!-- J3 -> pump (JST at the PCB, JST inline above the bulkhead, solder at the tabs) -->
+  <path class="halo" stroke-width="4" d="M866,156 V176 H782 V572 H730"/><path class="th r" d="M866,156 V176 H782 V572 H730"/>
+  <path class="halo" stroke-width="4" d="M876,156 V181 H787 V590 H730"/><path class="th k" stroke-width="2.6" d="M876,156 V181 H787 V590 H730"/>
+  <g class="tag jst"><rect x="860" y="160" width="32" height="16" rx="3"/><text x="876" y="171.5" text-anchor="middle">JST</text></g>
+  <text class="lab" x="796" y="400" transform="rotate(-90 796 400)">pump pair, twisted</text>
+
+  <!-- ===== boxes ===== -->
+  <rect class="box" x="40" y="50" width="130" height="80" rx="8"/>
+  <text class="bt" x="105" y="78" text-anchor="middle">USB-C charger</text>
+  <text class="bs" x="105" y="96" text-anchor="middle">charges the battery</text><text class="bs" x="105" y="111" text-anchor="middle">works with key out</text>
+  <g class="port"><rect x="58" y="20" width="94" height="16" rx="3"/><text x="105" y="31.5" text-anchor="middle">CHG · USB-C</text></g>
+
+  <rect class="box" x="250" y="55" width="150" height="80" rx="8"/>
+  <text class="bt" x="330" y="82" text-anchor="middle">Power KEY</text>
+  <text class="bs" x="330" y="100" text-anchor="middle">XT60H socket</text><text class="bs" x="330" y="115" text-anchor="middle">key in = ON</text>
+  <text class="tl" x="257" y="91">A</text><text class="tl" x="355" y="128">B</text>
+  <g class="port"><rect x="283" y="25" width="94" height="16" rx="3"/><text x="330" y="36.5" text-anchor="middle">KEY · XT60H</text></g>
+
+  <rect class="box" x="445" y="55" width="140" height="75" rx="8"/>
+  <text class="bt" x="515" y="85" text-anchor="middle">Voltmeter</text><text class="bs" x="515" y="103" text-anchor="middle">display on the cap top</text>
+  <text class="tl" x="489" y="124">+</text><text class="tl" x="517" y="124">−</text>
+
+  <rect class="box" x="640" y="40" width="300" height="116" rx="8" style="fill:#16382a;stroke:#3fb950"/>
+  <text class="bt" x="790" y="64" text-anchor="middle">CTRL PCB v1.2</text>
+  <text class="bs" x="790" y="81" text-anchor="middle">PRIME, LEDs and trimmers show on the cap top</text>
+  <rect x="650" y="96" width="40" height="36" rx="4" fill="#0e2219" stroke="#3fb950"/><text class="tl" x="670" y="111" text-anchor="middle">J1</text><text class="bs" x="670" y="126" text-anchor="middle">5 V in</text>
+  <rect x="742" y="96" width="40" height="36" rx="4" fill="#0e2219" stroke="#3fb950"/><text class="tl" x="762" y="111" text-anchor="middle">J2</text><text class="bs" x="762" y="126" text-anchor="middle">sensor</text>
+  <rect x="851" y="96" width="40" height="36" rx="4" fill="#0e2219" stroke="#3fb950"/><text class="tl" x="871" y="111" text-anchor="middle">J3</text><text class="bs" x="871" y="126" text-anchor="middle">pump</text>
+
+  <rect class="box" x="40" y="222" width="130" height="55" rx="8" style="fill:#3a2a12;stroke:#d29922"/>
+  <text class="bt" x="105" y="245" text-anchor="middle">2S5P battery</text><text class="bs" x="105" y="263" text-anchor="middle">solder map: page 5</text>
+
+  <rect class="box" x="40" y="315" width="130" height="75" rx="8"/>
+  <text class="bt" x="105" y="345" text-anchor="middle">BMS</text><text class="bs" x="105" y="363" text-anchor="middle">2S · 40 A</text>
+  <text class="tl" x="148" y="377">P−</text><text class="tl" x="46" y="377">P−</text>
+
+  <rect class="box" x="250" y="230" width="130" height="64" rx="8"/>
+  <text class="bt" x="315" y="256" text-anchor="middle">30 A breaker</text><text class="bs" x="315" y="274" text-anchor="middle">in the + line only</text>
+
+  <rect class="box" x="480" y="222" width="140" height="80" rx="8"/>
+  <text class="bt" x="550" y="252" text-anchor="middle">ACS758 sensor</text><text class="bs" x="550" y="269" text-anchor="middle">gun current only</text>
+  <text class="tl" x="486" y="294">IP+ in</text><text class="tl" x="577" y="294">IP− out</text>
+  <g class="tag xt60"><rect x="446" y="254" width="32" height="16" rx="3"/><text x="462" y="265.5" text-anchor="middle" style="font-size:8.5px">XT60H</text></g>
+  <g class="tag xt60"><rect x="623" y="254" width="32" height="16" rx="3"/><text x="639" y="265.5" text-anchor="middle" style="font-size:8.5px">XT60H</text></g>
+
+  <rect class="box" x="480" y="332" width="140" height="58" rx="8"/>
+  <text class="bt" x="550" y="356" text-anchor="middle">Buck A</text><text class="bs" x="550" y="374" text-anchor="middle">5.0 V for the PCB</text>
+
+  <rect class="box" x="820" y="225" width="150" height="70" rx="8"/>
+  <text class="bt" x="895" y="252" text-anchor="middle">Buck B</text><text class="bs" x="895" y="270" text-anchor="middle">5 V out its own USB-A</text><text class="bs" x="895" y="285" text-anchor="middle">input only is wired</text>
+  <g class="port"><rect x="848" y="302" width="94" height="16" rx="3"/><text x="895" y="313.5" text-anchor="middle">LED 5V · USB-A</text></g>
+
+  <rect class="box" x="260" y="540" width="110" height="60" rx="8"/>
+  <text class="bt" x="315" y="565" text-anchor="middle">Gun port 1</text><text class="bs" x="315" y="583" text-anchor="middle">XT30U female</text>
+  <g class="port"><rect x="268" y="610" width="94" height="16" rx="3"/><text x="315" y="621.5" text-anchor="middle">GUN 1 · outer wall</text></g>
+  <rect class="box" x="390" y="540" width="110" height="60" rx="8"/>
+  <text class="bt" x="445" y="565" text-anchor="middle">Gun port 2</text><text class="bs" x="445" y="583" text-anchor="middle">XT30U female</text>
+  <g class="port"><rect x="398" y="610" width="94" height="16" rx="3"/><text x="445" y="621.5" text-anchor="middle">GUN 2 · outer wall</text></g>
+
+  <rect class="box" x="560" y="540" width="170" height="78" rx="8"/>
+  <text class="bt" x="645" y="564" text-anchor="middle">G528 pump</text>
+  <text class="bs" x="645" y="582" text-anchor="middle">100 nF + Schottky diode</text><text class="bs" x="645" y="597" text-anchor="middle">soldered across its tabs</text>
+  <text class="tl" x="716" y="568">+</text><text class="tl" x="716" y="603">−</text>
+</svg>
+
+<div class="legend">
+  <span><span class="sw" style="height:6px;background:#e5372f"></span>12 AWG main +</span>
+  <span><span class="sw" style="height:6px;background:#111"></span>P− return bus</span>
+  <span><span class="sw" style="height:4px;background:#e5372f"></span><span class="sw" style="height:4px;background:#111;width:18px"></span>16 AWG pairs</span>
+  <span><span class="sw" style="height:2px;background:#e5372f"></span>thin: 5 V, sensor, pump, voltmeter, balance</span>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <h4>The main + path</h4>
+    <ul>
+      <li><b>Pack + bus</b> (battery row B) soldered to <b>KEY pin A</b>. Pin B soldered to a lead that clamps into the <b>breaker</b>. These two 12 AWG wires stay connected, so the cap lifts off on a tether: leave enough slack to set it beside the stick.</li>
+      <li><b>Breaker out → + splice.</b> The ACS758, Buck A, Buck B and the voltmeter all tap off here.</li>
+      <li><b>ACS758 IP+ in → IP− out → the two gun + leads.</b> Only gun current goes through the sensor. Both of its big wires go on one XT60H (in on one pin, out on the other), so the sensor unplugs in one go.</li>
+      <li>The charger plugs straight into the pack, before the key, so it charges with the key out.</li>
+    </ul>
+  </div>
+  <div class="card warn">
+    <h4>Every − goes to BMS P−</h4>
+    <p>The return bus starts at the BMS <b>P−</b> pad, not the battery's − bus. That includes the charger's black. Otherwise the BMS can't protect the pack. Page 5 shows the pads.</p>
+  </div>
+  <div class="card caut">
+    <h4>Wiring the current sensor</h4>
+    <p>The sensor itself measures both directions, but the control board only reacts when its signal rises above the resting 2.5 V, which is current flowing in at <b>IP+</b> and out at <b>IP−</b>. Both big wires are on the <b>+ line</b> (red and red): one in from the splice, one out toward the guns. No black wire touches the big terminals.</p><p>The wire from <b>IP−</b> goes to the <b>gun breakout</b>, where the two guns' + wires meet. It never goes to the main + splice, or the current would bypass the sensor and it would read nothing.</p><p>If the guns run but the yellow <b>GUN</b> LED never lights, swap the two big wires. With RV1's range starting at 2.50 V, a backwards sensor can't be tuned around.</p>
+  </div>
+  <div class="card">
+    <h4>The control board's plugs</h4>
+    <p>J1, J2 and J3 are wires soldered straight onto the board's pads, each ending in a female plug. They plug directly into male ones.</p>
+    <ul>
+      <li><b>J1:</b> red +5 V on pin 1, black GND on pin 2, soldered at Buck A. Set the buck to 5.0 V before you plug it in.</li>
+      <li><b>J2:</b> red +5 V out to the sensor, black GND, yellow OUT. The plug pushes straight onto the ACS758's signal header pins.</li>
+      <li><b>J3:</b> red PUMP+, black PUMP−. The pump's black is <b>switched</b> by the board: never join it to the P− bus.</li>
+    </ul>
+  </div>
+</div>
+</div></body></html>
