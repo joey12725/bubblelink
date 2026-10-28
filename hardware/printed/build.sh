@@ -51,5 +51,21 @@ render 41_TPU_usbA_plug.stl           stick.scad          -D 'part="usbAplug"'
 render 42_TPU_gun_port_cap_x2.stl     stick.scad          -D 'part="gunportcap"'
 render 43_TPU_key_blank.stl           stick.scad          -D 'part="keyblank"'
 render 44_TPU_key_gasket.stl          stick.scad          -D 'part="keygasket"'
+# donor blower heads (2026-10-28): print the gauge first, set ringA_d, then the collar
+render 50_head_gauge_x5.stl           blower_head.scad    -D 'part="gauge"'
+render 51_head_collar_test.stl        blower_head.scad    -D 'part="collar"'
+render REF_blower_head.stl            blower_head.scad    -D 'part="head"'     # reference only, don't print
+# gun docks (2026-10-28): the standard umbilical panel for every gun shell. Coupon first, then
+# set out_peak in gun_dock.scad if 3.0 isn't the size that fits the head hose
+render 60_dock_barb_coupon.stl        gun_dock.scad       -D 'part="coupon"'
+render 61_gun_dock_1head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=1
+render 62_gun_dock_2head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=2
+render 63_gun_dock_3head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=3
+render 64_gun_dock_4head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=4
+render 65_gun_dock_5head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=5
+render 66_gun_dock_6head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=6
+render 67_gun_dock_7head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=7
+render 68_gun_dock_8head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=8
+render 69_dock_mount_plate.stl        gun_dock.scad       -D 'part="plate"'
 # Superseded by the stick, kept for reference (not built):
 #   dry_core.scad, pump_module.scad, port_insert.scad
