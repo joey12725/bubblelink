@@ -67,10 +67,25 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 42 | `42_TPU_gun_port_cap_x2` | 2 | TPU | A1 | Closes an unplugged XT30U well. Flange down. |
 | 43 | `43_TPU_key_blank` | 1 | TPU | A1 | Closes the KEY socket when the key is out. Tie it to the key's lanyard. |
 | 44 | `44_TPU_key_gasket` | 1 | TPU | A1 | Glued under the key grip; presses on the cap top round the socket when the key is home. |
+| 50 | `50_head_gauge_x5` | 1 | ASA or PETG | any | Five 4 mm C-rings, ID 48.5 / 49.25 / 50.0 / 50.75 / 51.5 mm (1-5 bumps), for the donor blower head's front wheel ring (photo estimate 49.5). Slip each over the face; the smallest one that goes on without its gap spreading is ring A's size. Set `ringA_d` in `src/blower_head.scad` and rebuild part 51. |
+| 51 | `51_head_collar_test` | 1 | ASA or PETG | any | Test mount for a donor blower head: a C-collar over the front 9 mm of ring A, a 2 mm lip on the stationary rim, crush ribs, a gap for the yellow-gear housing, a notch for the hose-barb bracket, and a flat pad with two zip-tie tunnels. Lip on the bed, no supports. `REF_blower_head.stl` is the head reference model (not for printing); `renders/13_blower_head_photo_vs_model.png` compares it with the photos. |
+| 60 | `60_dock_barb_coupon` | 1 | ASA | any | **Print before any dock.** Four head-hose barbs: 2.8 / 2.9 / 3.0 / 3.2 mm (1-4 dots), each with a 0.25 mm ridge step. Push the head hose onto each; pick the biggest one that still goes on by hand and set `out_peak` in `src/gun_dock.scad` (default 3.0) before printing docks. |
+| 61-68 | `6N_gun_dock_Nhead` | 1 per gun | ASA, 100% infill (or 6 walls) | K2 Plus | The standard umbilical panel for a gun shell; N = heads fed (61 = 1 head ... 68 = 8). **Face on the bed, no supports.** Outside: XT30U window, recessed 4.8 mm hose barb, carabiner bar. Inside: N × 3.0 mm barbs. Clear the 1.2 mm outlet bores with a 1.2 mm drill or a guitar string if they print shut. See *Gun dock* below. |
+| 69 | `69_dock_mount_plate` | as needed | ASA | any | A 2.4 mm "shell wall" with the standard dock hole and four M3 holes. Use it to test-fit a dock, or to mount one on a gun that has no printed shell yet. Outer face on the bed. |
 
-That is 32 STLs: 5 older parts (the brick file is now x2), 5 stick coupons (one optional), 7 rigid stick parts and 15 TPU parts (each file counts as one STL, whatever the copy count).
+That is 32 STLs: 5 older parts (the brick file is now x2), 5 stick coupons (one optional), 7 rigid stick parts and 15 TPU parts (each file counts as one STL, whatever the copy count). On top of those: the three hose adapters (11), the two donor-head test parts (50-51) and the ten gun-dock files (60-69). `REF_blower_head.stl` is a reference model, not a print.
 
 The older wide-box design (`dry_core.scad`, `pump_module.scad`, `port_insert.scad`) is superseded and no longer built. **Don't print those.**
+
+## Gun dock
+
+Every gun shell gets the same dock (`src/gun_dock.scad`), so any umbilical fits any gun. Outside, it is a flat strip **65.5 × 20 mm**, flush with the shell. It reaches **24 mm** into the gun, plus 7 mm of barbs. Keep the space in `gun_dock_envelope()` clear inside the shell.
+
+- **Docking a gun:** clip the carabiner onto the bar and lock it, plug the umbilical's XT30U female into the window, then push the hose into the socket until it bottoms on the barb. To undock, do the same in reverse; nothing gets tied. The carabiner lives on the umbilical: tie a fixed loop in the paracord's gun end (figure-8 on a bight) once, and leave the carabiner on it. **Keep that loop shorter than the hose and wire tails**, so a dropped or yanked gun pulls on the bar, never the XT30U or the hose.
+- **Power:** solder the gun's XT30U **male** first, then push it in from the back until its shroud stops on the 0.8 mm lip at the face. Pot it with hot glue from behind. The lip carries the unplugging pull; the glue only stops it being pushed in.
+- **Fluid:** one 4.8 mm inlet barb (the size that fits the 3.5 × 5.5 umbilical silicone), with a long 3.2 mm lead-in. It sits recessed in a socket so a drop can't snap it off. It feeds N 3.0 mm outlet barbs inside: 1 = straight, 2 = Y, 3-8 = manifold. Dots on the back face count the heads.
+- **Carabiner:** the pocket fits a carabiner rod up to **8 mm** thick; the bar is 7 × 6 mm, so the gate has to open more than 7 mm. For a bigger carabiner, set `cb_rod` (and `bar_w`/`bar_t` if the gate is small) and rebuild. The bar is good for roughly 1 kN in ASA.
+- **In a shell:** design the wall at the dock **2.4 mm** thick and subtract `gun_dock_hole()`. That is the face outline plus 0.2 mm, with a 45° × 1.5 mm chamfer on the inside edge. The dock goes in from inside, and its 45° collar seats in the chamfer, so an outward pull presses the collar into the wall (compression, not glue or screws). Acetone-weld it (both ASA) or run hot glue round the collar. Or `use <gun_dock.scad>` and union `gun_dock(n)` straight into a shell model. Coordinates: face at z = 0, +z into the gun, XT30U at the origin, hose at x = 12 (the same spacing as the umbilical brick).
 
 **Not designed yet:** mounts for the dual-head guns. They need the teardown measurements.
 
