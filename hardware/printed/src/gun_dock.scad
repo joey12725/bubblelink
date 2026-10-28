@@ -119,7 +119,7 @@ module outline(grow = 0) {
 function in_profile() = [
     [in_tip / 2, 0], [in_peak / 2, in_lead], [in_valley / 2, in_lead],
     [in_peak / 2, in_lead + in_ridge], [in_valley / 2, in_lead + in_ridge],
-    [in_valley / 2, sock_d + 2]];
+    [in_valley / 2, sock_d + sock_dia / 2 + 1]];   // root runs up past the socket ceiling
 
 // outlet: root at z = 0 (on the back face), tip up. 45-degree backs so nothing overhangs.
 function out_profile(peak = out_peak, valley = out_valley, tip = out_tip) = let(
@@ -168,9 +168,13 @@ module dock_cuts(n) {
 
     // hose socket round the inlet barb: flared mouth, 45-degree ceiling
     translate([in_x, 0, 0]) {
-        translate([0, 0, -1]) cylinder(d = sock_dia, h = sock_d + 1);
-        translate([0, 0, -0.01]) cylinder(d1 = sock_dia + 2 * sock_mouth, d2 = sock_dia, h = sock_mouth);
-        translate([0, 0, sock_d - 0.01]) cylinder(d1 = sock_dia, d2 = in_valley, h = (sock_dia - in_valley) / 2);
+        // one profile (mouth chamfer, bore, 45-degree ceiling ending inside the barb root),
+        // so there are no seam ledges between separately faceted pieces
+        rr = in_valley / 2 - 0.3;
+        rm = sock_dia / 2 + sock_mouth;
+        rotate_extrude() polygon([[0, -1], [rm + 1, -1], [rm, 0], [sock_dia / 2, sock_mouth],
+                                  [sock_dia / 2, sock_d], [rr, sock_d + sock_dia / 2 - rr],
+                                  [0, sock_d + sock_dia / 2 - rr]]);
     }
 
     // carabiner pocket: two openings, a tunnel behind the bar, 45-degree gable roof
@@ -200,6 +204,7 @@ module dock_flow(n) {
     o = outlets(n);
     // inlet bore, up to the manifold
     translate([in_x, 0, -1]) cylinder(d = in_bore, h = chan_z + 1, $fn = 24);
+    translate([in_x, 0, chan_z]) cylinder(d1 = in_bore, d2 = 0.2, h = in_bore / 2, $fn = 24);   // 45-degree top, no flat ceiling
     if (n > 1) {
         chan_y(-out_row, out_row, in_x, chan_z);
         last = max([for (p = o) p[0]]);

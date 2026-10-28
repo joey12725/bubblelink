@@ -79,7 +79,7 @@ The older wide-box design (`dry_core.scad`, `pump_module.scad`, `port_insert.sca
 
 ## Gun dock
 
-Every gun shell gets the same dock (`src/gun_dock.scad`), so any umbilical fits any gun. Outside, it is a flat strip **65.5 × 20 mm**, flush with the shell. It reaches **24 mm** into the gun, plus 7 mm of barbs. Keep the space in `gun_dock_envelope()` clear inside the shell.
+Every gun shell gets the same dock (`src/gun_dock.scad`), so any umbilical fits any gun. **No supports anywhere:** every face of parts 50, 51 and 60-69 that isn't on the bed is 45° or shallower, with no bridges (the socket ceiling, the carabiner tunnel roof, the collar and the zip-tie tunnels are all 45°, and the manifold channels are teardrops). `python check_stl.py 5 6` re-checks them after a rebuild. Outside, it is a flat strip **65.5 × 20 mm**, flush with the shell. It reaches **24 mm** into the gun, plus 7 mm of barbs. Keep the space in `gun_dock_envelope()` clear inside the shell.
 
 - **Docking a gun:** clip the carabiner onto the bar and lock it, plug the umbilical's XT30U female into the window, then push the hose into the socket until it bottoms on the barb. To undock, do the same in reverse; nothing gets tied. The carabiner lives on the umbilical: tie a fixed loop in the paracord's gun end (figure-8 on a bight) once, and leave the carabiner on it. **Keep that loop shorter than the hose and wire tails**, so a dropped or yanked gun pulls on the bar, never the XT30U or the hose.
 - **Power:** solder the gun's XT30U **male** first, then push it in from the back until its shroud stops on the 0.8 mm lip at the face. Pot it with hot glue from behind. The lip carries the unplugging pull; the glue only stops it being pushed in.
