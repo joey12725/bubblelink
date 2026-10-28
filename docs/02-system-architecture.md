@@ -91,7 +91,7 @@ The BubbleLink system integrates five major subsystems:
 
 **Battery Voltage Display:** External 4–100 V digital voltmeter
 - Input: 2S battery voltage (7.2–8.4 V nominal), wired after the breaker so tripping the breaker turns it off
-- Connector: Two-wire. Idle draw not measured (small LED meters typically draw tens of mA); check it once with a multimeter, and take the power key out (blank in) for storage
+- Connector: Two-wire. Idle draw under 50 mA (the whole system idles at 50 mA with the LED backpack unplugged, 2026-10-27); take the power key out (blank in) for storage
 - Display: Glued into a 31.2 mm hole in the top of the stick's cap (about 1 in deep or a bit more; the cap allows 30 mm)
 - Accuracy: Sufficient for field battery estimation; accounts for voltage sag under load
 
@@ -306,7 +306,7 @@ In the stick, the PCB hangs component-side up under the cap, heat-staked onto fo
 **Current Distribution:**
 - Main 12 AWG path: Entire system current (pump + both guns) up to 30 A breaker limit
 - Per-gun branch 16 AWG: Each gun channel carries up to 15 A (XT30U rated limit)
-- Six-head configuration (3 heads per gun): ~17 mA per head at 8.4 V (~3 V per head), combined ~51 mV per gun on ACS758 output (above 10 mV noise floor)
+- Measured donor head (2026-10-27): ~1.39 A per head firing, so ~56 mV per head on the ACS758 output (40 mV/A); two heads per gun ≈ 2.8 A ≈ 111 mV
 - Dual-gun simultaneous firing: Both channels active, total system current flows through ACS758 and main 12 AWG
 
 ### Low-Current PCB Logic and Signal Paths

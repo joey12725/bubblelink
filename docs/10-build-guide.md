@@ -149,7 +149,7 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 24. **COB LED strip 5V 2 m ice-blue** (KISUFU Lighting, [price]) [OPTIONAL]
     - For Tracer cosplay side panel; NOT part of bubble system
 
-**Other measured parts (2026-10-14):** BMS 2½ × 1⅞ × ¼ in; ACS758 module 1½ × ~¾ × ⅛ in; USB-C charger 1½ in (plug direction) × 11/16 × ⅜ in, receptacle centred on the 17.5 mm short side (confirmed by Joey, 2026-10-15); voltmeter bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm). **Measure the voltmeter's idle current once** with a multimeter on the mA range (unmeasured; small LED meters typically draw tens of mA).
+**Other measured parts (2026-10-14):** BMS 2½ × 1⅞ × ¼ in; ACS758 module 1½ × ~¾ × ⅛ in; USB-C charger 1½ in (plug direction) × 11/16 × ⅜ in, receptacle centred on the 17.5 mm short side (confirmed by Joey, 2026-10-15); voltmeter bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm). Voltmeter idle current: under 50 mA (the whole system idles at 50 mA with the LED backpack unplugged, 2026-10-27).
 
 **Mark any missing or incorrect variants in an "Incoming Issues" list; do NOT proceed with assembly until verified.**
 
@@ -580,7 +580,7 @@ OUTLET TEE 2
 
 ### 7.1 Identify and prepare donor guns
 
-**the target festival plan:** a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week: strip them, pick **4 matched heads**, and keep the spares. Record the teardown measurements; the gun/head mounts aren't designed yet and need them. Rough estimate (unmeasured): ~12 A with all 4 heads firing (~6 A per channel), about 2–2.5 h of heavy firing, about 2 h per 1 L.
+**the target festival plan:** a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week: strip them, pick **4 matched heads**, and keep the spares. Record the teardown measurements; the gun/head mounts aren't designed yet and need them. Measured (2026-10-27): each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under 30 A); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27).
 
 **Earlier design note:** Four-AA 10-hole rocket-style gun
 - Compact mechanical head

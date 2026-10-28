@@ -45,15 +45,15 @@ html,body{background:var(--background)} body{padding:20px; max-width:980px; marg
 <body><div class="wrap">
 <div>
   <h3>Battery and BMS: where every battery wire is soldered</h3>
-  <p class="sub">Both holder faces, looking straight at them from outside. Find the engraved letters: <b>A</b> marks row A, <b>B</b> row B, <b>T</b> the TERM face and <b>M</b> the MID face. Dots show where each wire lands. Solder to a <b>tab</b>, never straight onto a cell.</p>
+  <p class="sub">Both holder faces, looking straight at them from outside. The <b>top</b> of the battery (engraved <b>T</b>) has two separate rails: the <b>negative rail</b> (letter <b>A</b>) and the <b>positive rail</b> (letter <b>B</b>). The <b>bottom</b> (engraved <b>M</b>) is where everything is interconnected. Dots show where each wire lands. Solder to a <b>tab</b>, never straight onto a cell.</p>
 </div>
 
 <svg class="bat" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
 
-<text x="68" y="62" class="ft">TERM face <tspan class="fs">(engraved T) · row A shows −, row B shows +</tspan></text>
-<text x="68" y="463" class="ft">MID face <tspan class="fs">(engraved M) · all ten ends joined: the series midpoint</tspan></text>
-<text x="68" y="332" class="fs">Row A (bottom): pack − bus, 4 tabs · Row B (top): pack + bus, 4 tabs</text><text x="68" y="347" class="fs">No tab crosses between them; the tan strip is fish paper.</text>
-<text x="68" y="637" class="fs">13 tabs: 4 + 4 in-row and 5 across. Flip the block left-to-right to see this face.</text>
+<text x="68" y="62" class="ft">Top of the battery <tspan class="fs">· TERM face (engraved T): the negative and positive rails</tspan></text>
+<text x="68" y="463" class="ft">Bottom of the battery <tspan class="fs">· MID face (engraved M): everything interconnected</tspan></text>
+<text x="68" y="332" class="fs">Negative rail (lower row, letter A) and positive rail (upper row, letter B): 4 tabs each</text><text x="68" y="347" class="fs">No tab crosses between them; the tan strip is fish paper.</text>
+<text x="68" y="637" class="fs">13 tabs join all ten ends. Flip the block over, left to right, to see this face.</text>
 
 <rect x="69.2" y="149.9" width="361.6" height="130.2" rx="37.5" class="holder"/>
 <rect x="77.2" y="211.0" width="345.6" height="8" rx="2" class="paper"/>
@@ -125,66 +125,101 @@ html,body{background:var(--background)} body{padding:20px; max-width:980px; marg
 <text x="234.1" y="483.1" class="pol" text-anchor="middle">−</text>
 <text x="170.4" y="483.1" class="pol" text-anchor="middle">−</text>
 <text x="106.7" y="483.1" class="pol" text-anchor="middle">−</text>
-<path d="M265.9,187.4 V95 H835" class="halo" stroke-width="9.5"/><path d="M265.9,187.4 V95 H835" class="r" stroke-width="7"/><path d="M329.6,187.4 V122 H835" class="halo" stroke-width="6.5"/><path d="M329.6,187.4 V122 H835" class="r" stroke-width="4"/><path d="M393.3,187.4 V150 H600 V312 H615" class="halo" stroke-width="5.0"/><path d="M393.3,187.4 V150 H600 V312 H615" class="r" stroke-width="2.5"/><path d="M234.1,242.6 V292 H580 V352 H615" class="halo" stroke-width="9.5"/><path d="M234.1,242.6 V292 H580 V352 H615" class="k" stroke-width="7"/><path d="M377.4,545.0 H592 V407 H615" class="halo" stroke-width="5.0"/><path d="M377.4,545.0 H592 V407 H615" class="yl" stroke-width="2.5"/><path d="M760,385 H790 V140 H835" class="halo" stroke-width="6.5"/><path d="M760,385 H790 V140 H835" class="k" stroke-width="4"/><path d="M760,410 H835" class="halo" stroke-width="9.5"/><path d="M760,410 H835" class="k" stroke-width="7"/>
+<path d="M265.9,187.4 V95 H835" class="halo" stroke-width="9.5"/><path d="M265.9,187.4 V95 H835" class="r" stroke-width="7"/><path d="M329.6,187.4 V122 H835" class="halo" stroke-width="6.5"/><path d="M329.6,187.4 V122 H835" class="r" stroke-width="4"/><path d="M393.3,187.4 V150 H600 V275 H615" class="halo" stroke-width="5.0"/><path d="M393.3,187.4 V150 H600 V275 H615" class="r" stroke-width="2.5"/><path d="M234.1,242.6 V292 H580 V320 H615" class="halo" stroke-width="9.5"/><path d="M234.1,242.6 V292 H580 V320 H615" class="k" stroke-width="7"/><path d="M377.4,545.0 H584 V405 H615" class="halo" stroke-width="5.0"/><path d="M377.4,545.0 H584 V405 H615" class="yl" stroke-width="2.5"/><path d="M760,400 H790 V140 H835" class="halo" stroke-width="6.5"/><path d="M760,400 H790 V140 H835" class="k" stroke-width="4"/><path d="M760,418 H835" class="halo" stroke-width="9.5"/><path d="M760,418 H835" class="k" stroke-width="7"/>
 <circle cx="265.9" cy="187.4" r="6" fill="#e5372f" stroke="#fff" stroke-width="2"/><circle cx="329.6" cy="187.4" r="6" fill="#e5372f" stroke="#fff" stroke-width="2"/><circle cx="393.3" cy="187.4" r="6" fill="#e5372f" stroke="#fff" stroke-width="2"/><circle cx="234.1" cy="242.6" r="6" fill="#222" stroke="#fff" stroke-width="2"/><circle cx="377.4" cy="545.0" r="6" fill="#f2c200" stroke="#fff" stroke-width="2"/>
 
-<rect x="615" y="262" width="145" height="175" rx="10" class="bms"/>
-<text x="687.5" y="284" class="bt" text-anchor="middle">BMS · 2S 40 A</text>
-<g class="pad"><rect x="621" y="302" width="40" height="20" rx="4"/><text x="641" y="316.5" text-anchor="middle">B+</text></g>
-<g class="pad"><rect x="621" y="342" width="40" height="20" rx="4"/><text x="641" y="356.5" text-anchor="middle">B−</text></g>
-<g class="pad"><rect x="621" y="397" width="40" height="20" rx="4"/><text x="641" y="411.5" text-anchor="middle">BM</text></g>
-<g class="pad"><rect x="714" y="386" width="40" height="34" rx="4"/><text x="734" y="407.5" text-anchor="middle">P−</text></g>
-<g class="pad dim"><rect x="714" y="302" width="40" height="20" rx="4"/><text x="734" y="316.5" text-anchor="middle">P+?</text></g>
-<text x="687.5" y="455" class="bs" text-anchor="middle">P+, if it has one, is the same as B+:</text>
-<text x="687.5" y="469" class="bs" text-anchor="middle">leave it empty</text>
+<text x="700" y="240" class="bt" text-anchor="middle">BMS · 2S 40 A</text>
+<rect x="615" y="250" width="145" height="230" rx="10" class="bms"/>
+<path d="M661,438 H700 V275 H661" fill="none" stroke="#8b949e" stroke-width="5" stroke-linejoin="round"/>
+<path d="M661,438 H700 V275 H661" fill="none" stroke="#e5372f" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M661,372 H688 V320 H679" fill="none" stroke="#8b949e" stroke-width="5" stroke-linejoin="round"/>
+<path d="M661,372 H688 V320 H679" fill="none" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/>
+<g class="pad"><rect x="621" y="265" width="40" height="20" rx="10"/><text x="641" y="279.5" text-anchor="middle">B+</text></g>
+<g class="pad"><rect x="621" y="303" width="58" height="34" rx="4"/><text x="650" y="324.5" text-anchor="middle">B− big</text></g>
+<rect x="618" y="356" width="52" height="96" rx="6" fill="none" stroke="#9aa3ad" stroke-dasharray="4 3"/>
+<g class="pad"><rect x="621" y="362" width="40" height="20" rx="4"/><text x="641" y="376.5" text-anchor="middle">B−</text></g>
+<g class="pad"><rect x="621" y="395" width="40" height="20" rx="4"/><text x="641" y="409.5" text-anchor="middle">B1</text></g>
+<g class="pad"><rect x="621" y="428" width="40" height="20" rx="4"/><text x="641" y="442.5" text-anchor="middle">B2</text></g>
+<text x="651" y="468" class="bs" text-anchor="middle">balance plug</text>
+<g class="pad dim"><rect x="714" y="265" width="40" height="20" rx="10"/><text x="734" y="279.5" text-anchor="middle">P+</text></g>
+<text x="734" y="300" class="bs" text-anchor="middle">empty</text>
+<g class="pad"><rect x="712" y="392" width="42" height="34" rx="4"/><text x="733" y="413.5" text-anchor="middle">P−</text></g>
+<text x="733" y="444" class="bs" text-anchor="middle">big</text>
+<text x="687.5" y="500" class="bs" text-anchor="middle">P+: leave it empty</text>
+<text x="687.5" y="514" class="bs" text-anchor="middle">(same point as B+, beep it to check)</text>
+<text x="687.5" y="528" class="bs" text-anchor="middle">red jumper: B2 to B+</text>
+<text x="687.5" y="542" class="bs" text-anchor="middle">black jumper: B− to big B−</text>
 
 
 <g class="tag"><rect x="840" y="85" width="62" height="20" rx="4" style="fill:#c9d1d9"/><text x="871" y="99" text-anchor="middle">solder</text></g>
 <text x="908" y="92" class="lab">main +</text><text x="908" y="105" class="labm">to KEY pin A</text>
 <g class="tag"><rect x="840" y="121" width="62" height="20" rx="4"/><text x="871" y="135" text-anchor="middle">XT30</text></g>
 <text x="908" y="128" class="lab">charger</text><text x="908" y="141" class="labm">+ and − pair</text>
-<text x="842" y="405" class="lab">main − (12 AWG)</text><text x="842" y="419" class="labm">to the − splice</text>
+<text x="842" y="414" class="lab">main − (12 AWG)</text><text x="842" y="428" class="labm">to the − splice</text>
 
 
 <text x="440" y="88" class="lab">12 AWG red</text>
 <text x="440" y="117" class="lab">16 AWG red</text>
-<text x="420" y="146" class="lab">thin red · sense only</text>
-<text x="400" y="309" class="lab">12 AWG black · carries everything</text>
-<text x="420" y="538" class="lab">thin · balance</text>
+<text x="420" y="146" class="lab">thin red · to the B+ pad</text>
+<text x="292" y="314" class="lab">12 AWG black to the big B−</text>
+<text x="420" y="538" class="lab">thin · balance B1</text>
 
 </svg>
 
 <table>
   <thead><tr><th>Wire</th><th>Starts at</th><th>Goes to</th><th>Size</th></tr></thead>
   <tbody>
-    <tr><td><span class="sw" style="height:7px;background:#111"></span><b>BMS B−</b></td><td>TERM face, row A (− bus), tab over the middle cell</td><td>BMS <b>B−</b> pad</td><td>12 AWG black. All the current flows through it.</td></tr>
-    <tr><td><span class="sw" style="height:3px;background:#f2c200"></span><b>BMS BM</b></td><td>MID face, any tab</td><td>BMS <b>BM</b> pad</td><td>thin</td></tr>
-    <tr><td><span class="sw" style="height:3px;background:#e5372f"></span><b>BMS B+</b></td><td>TERM face, row B (+ bus), any tab</td><td>BMS <b>B+</b> pad</td><td>thin; it only senses voltage</td></tr>
-    <tr><td><span class="sw" style="height:7px;background:#e5372f"></span><b>Main +</b></td><td>TERM face, row B, tab over the middle cell</td><td>Power KEY socket pin A, soldered</td><td>12 AWG red</td></tr>
-    <tr><td><span class="sw" style="height:7px;background:#111"></span><b>Main −</b></td><td>BMS <b>P−</b> pad</td><td>the − splice (every return in the stick)</td><td>12 AWG black</td></tr>
-    <tr><td><span class="sw" style="height:4px;background:#e5372f"></span><b>Charger +</b></td><td>TERM face, row B, next tab along</td><td>XT30 (female on this side) → charger</td><td>16 AWG red</td></tr>
-    <tr><td><span class="sw" style="height:4px;background:#111"></span><b>Charger −</b></td><td>BMS <b>P−</b> pad</td><td>the same XT30</td><td>16 AWG black</td></tr>
+    <tr><td><span class="sw" style="height:7px;background:#111"></span><b>Big B−</b></td><td>Top, negative rail, tab over the middle cell</td><td>BMS big <b>B−</b> pad</td><td>12 AWG black. All the current flows through it.</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#111"></span><b>Balance B−</b></td><td>(nothing: cut it short)</td><td>the BMS's big <b>B−</b> pad: shorten the black wire and solder it there</td><td>thin (already on the plug)</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#f2c200"></span><b>Balance B1</b></td><td>Bottom (the interconnected side), any tab</td><td>the middle red wire of the balance plug</td><td>thin (already on the plug)</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#e5372f"></span><b>Balance B2</b></td><td>(nothing: cut it short)</td><td>the BMS's B+ pad: shorten the outer red wire and solder it there</td><td>thin (already on the plug)</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#e5372f"></span><b>B+ pad</b></td><td>Top, positive rail, end tab</td><td>BMS round <b>B+</b> pad (B2's short wire lands here too)</td><td>thin red, 22–24 AWG</td></tr>
+    <tr><td><span class="sw" style="height:7px;background:#e5372f"></span><b>Main +</b></td><td>Top, positive rail, tab over the middle cell</td><td>Power KEY socket pin A, soldered</td><td>12 AWG red</td></tr>
+    <tr><td><span class="sw" style="height:7px;background:#111"></span><b>Main −</b></td><td>BMS big <b>P−</b> pad</td><td>the − splice (every return in the stick)</td><td>12 AWG black</td></tr>
+    <tr><td><span class="sw" style="height:4px;background:#e5372f"></span><b>Charger +</b></td><td>Top, positive rail, the next tab along</td><td>XT30 (female on this side) → charger</td><td>16 AWG red</td></tr>
+    <tr><td><span class="sw" style="height:4px;background:#111"></span><b>Charger −</b></td><td>BMS big <b>P−</b> pad</td><td>the same XT30</td><td>16 AWG black</td></tr>
+    <tr><td><span class="sw" style="height:3px;background:#555"></span><b>P+ pad</b></td><td colspan="2">nothing</td><td>leave empty</td></tr>
   </tbody>
 </table>
 
 <div class="cards">
   <div class="card warn">
     <h4>Main − comes off P−, never the battery</h4>
-    <p>Every return in the stick goes to the BMS <b>P−</b> pad. If anything is wired straight to the row A − bus, the BMS can't cut it off in a short or a flat battery. The build guide's line <i>"P− (row 1 −)"</i> is misleading: P− is the BMS pad, not the battery's − bus.</p>
+    <p>Every return in the stick goes to the BMS's big <b>P−</b> pad. If anything is wired straight to the negative rail, the BMS can't cut it off in a short or a flat battery. The build guide's line <i>"P− (row 1 −)"</i> is misleading: P− is the BMS pad, not the battery's − bus.</p>
+  </div>
+  <div class="card">
+    <h4>Your BMS's six connections</h4>
+    <ul>
+      <li><b>Big B−</b> (pad with a hole): the negative rail, 12 AWG. The whole load current flows through it.</li>
+      <li><b>Big P−</b> (the other pad with a hole): main − and the charger's −. The BMS switches between B− and P− to cut everything off, so never join them.</li>
+      <li><b>B+</b> (round pad by the connector): a thin red to the positive rail. B2's short wire joins it.</li>
+      <li><b>P+</b> (round pad next to it): leave empty. Main + goes straight from the positive rail to KEY pin A.</li>
+      <li><b>Balance plug</b> (3-pin JST): black = little B−, cut short and soldered to the big B− pad; middle red = B1 to the bottom; outer red = B2, cut short and soldered to the B+ pad.</li>
+    </ul>
+    <p>The label's 同口（带均衡） means "common port, with balancing": charging and the loads share P−, exactly as wired here.</p>
   </div>
   <div class="card">
     <h4>Order and checks</h4>
     <ol>
-      <li>Tabs first (TERM, then MID), then the two meter checks from the battery guide.</li>
-      <li>BMS wires in this order: <b>B−</b>, then <b>BM</b>, then <b>B+</b>.</li>
+      <li>Tabs first (top, then bottom), then the two meter checks from the battery guide.</li>
+      <li>Before you cut anything, beep the end of the B2 wire to the B+ pad, and the end of the black wire to the big B− pad. Beeps mean they're already the same points on the board, so the short wires just keep live wires from dangling.</li>
+      <li>Cut both short and solder them to those pads.</li>
+      <li><b>Connect from lowest to highest.</b> First the big B− (negative rail), then the middle red, B1 (bottom). Check before going on: the negative rail to the bottom reads one cell, 3.6–4.2 V.</li>
+      <li><b>The B+ pad's thin red goes last</b> (positive rail). Then the negative rail to the B+ pad reads the whole pack, 7.2–8.4 V. The balance plug can go into the BMS any time before this step.</li>
       <li>Then main +, main − and the charger pair.</li>
       <li>Check: main + to P− reads 7.2–8.4 V. If it reads 0 V, many BMS boards need a few seconds on the charger to wake up.</li>
+      <li>Beep B+ to P+ on the board. A beep means they're one point and the BMS only switches the − side, as drawn. If it doesn't beep, stop and tell me.</li>
     </ol>
+  </div>
+  <div class="card">
+    <h4>Joining B2 to B+ and the little B− to the big B−</h4>
+    <p>Both are fine, and they save two wires to the battery. B2 and B+ are both the top of the stack, and the little B− and the big B− are both the bottom, so the BMS gets the same signals either way.</p>
+    <p>Neither connects the BMS to the battery by itself: the big B− and the B+ pad each still need their own wire to the rails, and now carry the sensing too, so make those joints solid and keep them from being pulled.</p>
+    <p><b>One difference for B−:</b> the big B− wire carries the whole load current, so the BMS now senses the bottom cell at the pad instead of at the battery. A few thousandths of an ohm in the wire and joints at 30 A is tens of millivolts. It reads in the safe direction (the low-voltage cutoff comes slightly early, never late), so it's harmless. Keep that wire short and thick.</p>
   </div>
   <div class="card">
     <h4>Why the middle cell</h4>
     <p>With the thick wires on the middle cell's tab, current reaches it from both directions, so no single tab carries more than about two cells' worth. If you have spare tabs, double up the two links on each side of those points.</p>
-    <p>If your BMS has a <b>P+</b> pad, beep it to B+. On these 2S boards they're the same point, so leave P+ empty and take main + off the bus as shown. If P+ <i>doesn't</i> beep to B+, stop and check before going further.</p>
   </div>
 </div>
 </div></body></html>

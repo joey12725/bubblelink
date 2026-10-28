@@ -19,6 +19,9 @@ render 01_cell_holder_MID.stl         cell_holder.scad    -D 'part="mid"'
 render 02_cell_holder_TERM.stl        cell_holder.scad    -D 'part="term"'
 render 09_slide_clamp_x3.stl          slide_clamp.scad    -D 'part="both"'
 render 10_umbilical_brick_x2.stl      umbilical_brick.scad
+render 11_hose_adapter_8.5mm.stl      hose_adapter.scad   -D big_peak=8.5   # bladder tube -> 3.5 mm silicone
+render 11_hose_adapter_8.0mm.stl      hose_adapter.scad   -D big_peak=8.0   # alternate, looser
+render 11_hose_adapter_9.0mm.stl      hose_adapter.scad   -D big_peak=9.0   # alternate, tighter
 # the stick (dry core v2): print the three fit coupons first, in the real filament
 render 00_stick_coupon_rim.stl        stick.scad          -D 'part="coupon_rim"'
 render 00_stick_coupon_skirt.stl      stick.scad          -D 'part="coupon_skirt"'

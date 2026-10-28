@@ -86,7 +86,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 **Size (measured 2026-10-14):** 1½ in (plug direction) × 11/16 × ⅜ in.
 
-**Installation:** Glued under the CHG window in the stick's cap, receptacle up. Connect its output to the BMS load terminals (P− and P+) through an XT30 pair so the cap stays removable; do not connect directly to battery slab, which bypasses BMS protection. Do not charge while fluid system is pressurized.
+**Installation:** Glued under the CHG window in the stick's cap, receptacle up. Connect its output to the BMS load terminals (P− and P+) through an XT30 pair so the cap stays removable; do not connect directly to battery slab, which bypasses BMS protection.
 
 **Charging procedure:**
 1. Disconnect pack from backpack if possible. **Take the cap off** until the first enclosed charge has been checked: charger and BMS temperatures inside the closed tube haven't been measured (at 4 A the charger alone may give off around 3–4 W), and pressure relief if a cell fails isn't verified
@@ -226,7 +226,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 **Configuration:**
 - Input: 2S battery (post-breaker)
 - Output: 5.0 V
-- Load: LED backpack (~500–700 mA peak during animation)
+- Load: LED backpack. Measured 2026-10-27: 66 mA at the battery with a simple design (~10% of pixels lit); scaling with lit pixels, up to ~0.66 A at the battery fully lit
 
 **Installation:** Stands on a shelf printed on the tube's front wall, in the corner by the outer wall, with its PCB facing the front wall (2 mm gap). It slides along the shelf until its USB-A receptacle sits in (or right behind) the outer wall's 14.0 × 6.6 mm window (LED 5V), then gets a zip tie over its top edge. The backpack cable plugs straight into the buck: no extension cable and no USB plug inside. The sled lifts out past it untouched; its two input wires (main + after the breaker, and P−) run from the sled with a 2-pin JST-XH plug. Unplug the backpack cable before lifting the sled. Measure the buck (width and where its USB-A sits) before printing the tube; the shelf assumes 25.4 × 17 × 8 mm with the receptacle centred on the 17 mm side. Separate from Buck A to prevent pump current transients (0.3 A inrush) from resetting backpack logic or causing brief display flicker.
 
@@ -240,14 +240,14 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 **Specifications:**
 - Display: Red LED 0.56-inch digits
 - Input: Two wires (positive, negative)
-- Supply current: Not measured. Small LED meters like this typically draw tens of mA; check it once with a multimeter on the mA range
+- Supply current: Not measured on its own. It's under 50 mA: the whole system idles at 50 mA with the backpack unplugged (2026-10-27), voltmeter included
 - Accuracy: ±1 V typical across range
 - Protection: Reverse-polarity protected
 
 **Wiring:**
 - Positive (red): to the main positive **after the breaker**, so tripping the breaker turns the voltmeter off
 - Negative (black): to BMS P− (system ground)
-- It draws current whenever the breaker is closed; there's no push-button or standby mode. At 20 mA the 12.5 Ah pack would take weeks to drain, so overnight doesn't matter, but take the power key out (blank in) for storage
+- It draws current whenever the breaker is closed; there's no push-button or standby mode. Left on with the backpack unplugged, the whole system (voltmeter included) drains the pack in about 10 days, so overnight doesn't matter, but take the power key out (blank in) for storage
 
 **Display reference:**
 - 8.4 V: Fully charged, ready for operation
@@ -261,6 +261,55 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 ## Runtime & Power Budget
 
+### Measured System Current (Joey, 2026-10-27)
+
+Whole-system current from the battery, on the built BubbleLink:
+
+| State | Current |
+|-------|--------:|
+| Idle, LED backpack showing a simple design (~10% of pixels lit) | 116 mA |
+| Idle, LED backpack unplugged | 50 mA |
+| One head firing at full power (pump, PCB and backpack included) | 1.51 A |
+
+What that breaks down to:
+- **Base idle (50 mA):** bucks, PCB, ACS758 and voltmeter together. The voltmeter is in this figure, so on its own it draws less than 50 mA.
+- **LED backpack:** 66 mA at ~10% of pixels. Assuming it scales with lit pixels, that's about 66 mA per 10% lit, so up to ~0.66 A fully lit. That's an upper bound, since part of the 66 mA is the backpack's controller and doesn't scale.
+- **Each head firing:** 1.51 − 0.116 ≈ **1.39 A**. The budget counts this per head, which is conservative: the 1.39 A includes the pump, and one pump serves every head. Heads ≈ 1.39 A × N, so four heads ≈ 5.7 A (~2.8 A per channel) and eight heads ≈ 11.3 A, all well under the 15 A XT30U and 30 A breaker ratings.
+
+**Usable capacity:** 12.0 Ah from full charge (8.4 V) to the BMS cutoff, taken as ~96% of the 12.5 Ah rating. The BMS's exact over-discharge voltage isn't on record; Li-ion 2S boards usually cut at 2.5–3.0 V per cell, and 25R cells have very little capacity left below 3.0 V.
+
+**Idle runtime (key in, not firing):**
+- Simple design on the backpack: 12.0 Ah ÷ 0.116 A ≈ **103 h (~4.3 days)**
+- Backpack unplugged: 12.0 Ah ÷ 0.050 A ≈ **240 h (~10 days)**
+
+So idle barely matters: each hour of a festival day costs ~1% of the pack.
+
+**Nonstop firing from full charge:**
+
+| Heads | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|-------|--:|--:|--:|--:|--:|--:|--:|--:|
+| System current | 1.51 A | 2.90 A | 4.30 A | 5.69 A | 7.09 A | 8.48 A | 9.87 A | 11.27 A |
+| Time to BMS cutoff | 7:57 | 4:08 | 2:48 | 2:06 | 1:42 | 1:25 | 1:13 | 1:04 |
+
+**Festival day: total trigger-on time.** The pack is on (key in, backpack showing a simple design) for the whole day; the table gives how many hours and minutes of full-power firing the battery covers, in total over the day. "All day" means it can fire nonstop for the whole day.
+
+| Day length | 1 head | 2 heads | 3 heads | 4 heads | 5 heads | 6 heads | 7 heads | 8 heads |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2 h | all day | all day | all day | all day | 1:41 | 1:24 | 1:12 | 1:03 |
+| 3 h | all day | all day | 2:47 | 2:05 | 1:40 | 1:24 | 1:12 | 1:03 |
+| 4 h | all day | all day | 2:46 | 2:04 | 1:39 | 1:23 | 1:11 | 1:02 |
+| 5 h | all day | 4:06 | 2:44 | 2:03 | 1:38 | 1:22 | 1:10 | 1:01 |
+| 6 h | all day | 4:03 | 2:42 | 2:02 | 1:37 | 1:21 | 1:10 | 1:01 |
+| 7 h | all day | 4:01 | 2:41 | 2:00 | 1:36 | 1:20 | 1:09 | 1:00 |
+| 8 h | 7:57 | 3:58 | 2:39 | 1:59 | 1:35 | 1:19 | 1:08 | 1:00 |
+
+Formula: firing hours = (12.0 Ah − 0.116 A × day hours) ÷ (1.39 A × heads). For a brighter backpack design, add ~66 mA to the idle figure for every extra 10% of pixels lit.
+
+Caveats:
+- The pump isn't counted as shared, so multi-head times are slightly low (by roughly 10–15% at 8 heads, if the pump is ~0.2 A of the 1.39 A).
+- The buck loads draw a little more current as the battery sags, and the heads (straight on the battery) draw a little less. Those roughly cancel.
+- **Fluid probably runs out first.** The 1 L bladder at the baseline gun's ~5.6 mL/min per head (16.9 mL/min for three heads) lasts ~3 h on one head and ~22 min on eight. The donor heads' own flow hasn't been measured yet.
+
 ### Measured Baseline (2S1P Test)
 
 **Test data:** One 2S1P Samsung 25R pair (18 Wh nominal), tested at the target festival event
@@ -271,6 +320,8 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - **Energy per liter: ~69 Wh/L** (0.069 Wh/mL, measured across both continuous full-fire and event scenarios)
 
 ### 2S5P Extrapolation
+
+These estimates scale the old baseline gun (~70 W firing). The donor heads measured on 2026-10-27 draw far less per head (~1.39 A, roughly 10 W), so use [Measured System Current](#measured-system-current-joey-2026-10-27) for battery runtime. The per-liter figures still need the donor heads' flow measured.
 
 **Pack energy:** 90 Wh nominal (5× parallel = 5× energy of 2S1P)
 
@@ -288,12 +339,12 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 
 ### Power Budget (Instantaneous)
 
-**Typical load composition at full power:**
-- Three-head gun @ 8.4 V: ~17 mL/min (measured flow), current depends on head design (~1–3 A typical 6V toy gun)
-- Two three-head guns: ~34 mL/min, ~2–6 A total
-- G528 pump @ 5V: ~0.3 A
-- PCB + LEDs: <0.05 A
-- **Total continuous:** 3–7 A (highly variable by donor gun)
+**Typical load composition at full power** (measured 2026-10-27, see [Measured System Current](#measured-system-current-joey-2026-10-27)):
+- Each donor head firing: ~1.39 A at the battery (pump share included)
+- Two dual-head guns (4 heads): ~5.7 A total system current
+- Base idle (bucks, PCB, ACS758, voltmeter): 50 mA
+- LED backpack: 66 mA at ~10% of pixels lit
+- **Total continuous:** 1.5 A (one head) to 11.3 A (eight heads)
 
 **Peak (startup + motor inrush):** Up to 15–20 A briefly; 30 A breaker protects against sustained faults.
 
@@ -333,7 +384,6 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 
 ### Charging Safety
 
-- Never charge the pack while it is installed in a pressurized fluid system (active pump running). Disconnect fluid lines or vent bladder.
 - Charge with the stick's cap off until the first enclosed charge has been checked (charger and BMS temperatures inside the closed tube are unverified).
 - Charge on flat, non-flammable surface (wood table, concrete, not carpet or paper).
 - If BMS cuts off charging (thermal or voltage cutoff), allow pack to cool to room temperature before resuming. Do not force discharge through parallel load.

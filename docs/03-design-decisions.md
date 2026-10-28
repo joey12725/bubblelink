@@ -118,7 +118,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Two-wire passive display shows battery state without firmware. No percentage fuel gauge; operator reads voltage and estimates runtime from experience. 4–100 V range covers 2S (2.8 V min to 8.4 V max).
 
-**Implications:** A 7 V reading with full fluid suggests ~5 min firing left; below 5 V, gun loses output. Spares prevent broken display from blocking deployment. Wire it after the breaker so tripping the breaker turns it off. Its idle draw is unmeasured (small LED meters typically draw tens of mA); measure it once, and pull the power key (blank in) for storage.
+**Implications:** A 7 V reading with full fluid suggests ~5 min firing left; below 5 V, gun loses output. Spares prevent broken display from blocking deployment. Wire it after the breaker so tripping the breaker turns it off. Its idle draw is under 50 mA (the whole system idles at 50 mA with the LED backpack unplugged, 2026-10-27); pull the power key (blank in) for storage.
 
 ---
 
@@ -408,7 +408,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Joey is extracting pump/fan/wetting mechanisms from random toy guns. Each donor may have different motor voltage, current, tubing, bubble pattern. Standardizing one head would require buying many identical toys (hard to find) or redesigning (out of scope for MVP).
 
-**Implications:** For the target festival, the plan is a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week to strip for heads: pick 4 matched heads and keep spares. Each gun's two head motors run in parallel on its XT30U, and both donor pumps are fed from its umbilical through one assortment tee. Rough estimate (unmeasured): ~12 A with all 4 heads firing (~6 A per channel, well under 30 A), about 2–2.5 h of heavy firing, about 2 h per 1 L. Post-assembly, each gun is characterized (current draw, flow rate, runtime, bubble quality). Head selection is data-driven.
+**Implications:** For the target festival, the plan is a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week to strip for heads: pick 4 matched heads and keep spares. Each gun's two head motors run in parallel on its XT30U, and both donor pumps are fed from its umbilical through one assortment tee. Measured (2026-10-27): each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under 30 A); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27). Post-assembly, each gun is characterized (current draw, flow rate, runtime, bubble quality). Head selection is data-driven.
 
 ---
 

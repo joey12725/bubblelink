@@ -120,13 +120,13 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 ### System Integration
 
-- **Heads per channel:** 1–4 heads per gun, each head drawing 3–12 A depending on motor type and voltage
-  - Single one-head gun: ~3–5 A nominal draw (at 2S 7.2–8.4 V)
-  - Two-head gun: ~6–10 A nominal draw
-  - Three-head gun (Joey's baseline): ~10–14 A nominal draw (measured at overvolted operation)
-  - Four-head gun (per-channel ceiling): ~12 A continuous rated
+- **Heads per channel:** 1–4 heads per gun
+  - Measured (2026-10-27): each the target festival donor head firing at full power adds ~1.39 A (1.51 A whole system with one head)
+  - Two-head gun: ~2.8 A; four-head gun: ~5.6 A
+  - Three-head gun (Joey's baseline, a different, overvolted gun): ~10–14 A nominal draw
+  - Per-channel ceiling: 15 A (XT30U)
 
-- **Dual-channel loading:** Two guns simultaneously, 12 A per channel continuous (24 A total gun load). Eight-head wand concept (four per channel) rated for ≤26 A continuous system load; ≤40 A brief motor-start surge.
+- **Dual-channel loading:** Two guns simultaneously. With the measured heads, eight heads (four per channel) draw ~11.3 A whole system (~5.6 A per channel); the design still allows ≤26 A continuous and ≤40 A brief motor-start surge for hungrier heads. Battery runtime per head count: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27).
 
 - **Power distribution:** Single 30 A main breaker (all gun channels + pump + accessories); no individual channel breakers initially installed (retrofit space available if commissioning tests exceed 18–20 A sustained single-channel fault current)
 

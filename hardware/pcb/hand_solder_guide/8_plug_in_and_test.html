@@ -1,0 +1,137 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BubbleLink · plug in and test</title>
+<style>:root{--background:#0f1115;--foreground:#e8e8e8;--muted-foreground:#9aa0a6;--border:#2a2f36;--radius:10px;--warning:#f0a500;--destructive:#ff5a4f;--info:#6cb6ff;--font-sans:'Segoe UI',system-ui,sans-serif;--font-mono:Consolas,monospace}
+html,body{background:var(--background)} body{padding:20px; max-width:980px; margin:0 auto !important;}</style>
+<style>
+  body { font-family: var(--font-sans); color: var(--foreground); margin:0; }
+  .wrap { display:flex; flex-direction:column; gap:14px; }
+  h3 { margin:0 0 4px; font-size:16px; } p { margin:0; }
+  .sub { color: var(--muted-foreground); font-size:12.5px; line-height:1.45; }
+  svg.map { width:100%; height:auto; display:block; font-family: var(--font-sans); }
+  .zone { stroke-width:1.2; } .zl { font-size:12px; font-weight:800; letter-spacing:.08em; fill:#9aa0a6; }
+  .node { fill:#1b2129; stroke:#5b6673; stroke-width:1.5; }
+  .nt { font-size:14px; font-weight:750; fill:#f2f4f6; } .ns { font-size:11px; fill:#aab3bd; }
+  .e { stroke:#cfd6dd; stroke-width:3; fill:none; stroke-linejoin:round; }
+  .ch rect { stroke:#000; stroke-width:1; } .ch text { font-size:10.5px; font-weight:800; fill:#111; }
+  .xt30 rect { fill:#f0a500; } .xt60 rect { fill:#ff7b54; } .jst rect { fill:#6cb6ff; } .sol rect { fill:#c9d1d9; }
+  .port rect { fill:#a371f7; } .port text { fill:#fff; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; font-weight:600; color:var(--muted-foreground); border-bottom:1px solid var(--border); padding:5px 6px; font-size:11.5px; }
+  td { border-bottom:1px solid var(--border); padding:6px; vertical-align:top; }
+  .c { display:inline-block; padding:1px 7px; border-radius:4px; font-size:11px; font-weight:800; color:#111; margin:1px 2px 1px 0; white-space:nowrap; }
+  .c.xt30 { background:#f0a500; } .c.xt60 { background:#ff7b54; } .c.jst { background:#6cb6ff; } .c.sol { background:#c9d1d9; } .c.port { background:#a371f7; color:#fff; }
+  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap:12px; }
+  .card { border:1px solid var(--border); border-radius:var(--radius); padding:13px 15px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; gap:6px; }
+  .card h4 { margin:0; font-size:13.5px; }
+  ul { margin:0; padding-left:18px; } li { margin:2px 0; }
+  .th4 { margin:6px 0 0; font-size:14.5px; }
+  table.ports td.comp { font-weight:750; vertical-align:top; white-space:nowrap; }
+  table.ports tr.grp td { border-top:2px solid var(--border); }
+  .sex { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px; font-weight:800; }
+  .sex.m { background:#2f81f733; color:#79b8ff; box-shadow: inset 0 0 0 1px #2f81f7; }
+  .sex.f { background:#db61a233; color:#f0a6d0; box-shadow: inset 0 0 0 1px #db61a2; }
+  .sex.n { color:#6e7681; }
+  table.ports tr.sec td { background:#ffffff0d; font-size:11.5px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--muted-foreground); padding:7px 6px; border-top:2px solid var(--border); }
+</style><style>
+  .bdg { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:#ffd24a; color:#111; font-weight:900; font-size:13px; margin-right:8px; vertical-align:-3px; }
+  .bdg.ok { background:#3fb950; color:#fff; }
+  .card .k { font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--muted-foreground); margin-top:2px; }
+  .card.donecard { border-color:#3fb95088; }
+  .badline { font-size:12.5px; color:#ffb4ad; }
+  .rule { border:1px solid var(--warning); border-radius:var(--radius); padding:11px 15px; font-size:13.5px; line-height:1.5; }
+  .rule b { color: var(--warning); }
+  .cards { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)) !important; }
+</style>
+</head><body><div class="wrap">
+<div>
+  <h3>Plug in and test, one step at a time</h3>
+  <p class="sub">Everything soldered is done, so the rest is plugging in. Same plug map as page 4: <b style="color:#3fb950">green ✓</b> marks what already works, and the <b style="color:#ffd24a">yellow numbers</b> are the order to plug in the rest. Each step has a quick check before you move on, so if something's wrong you know exactly which plug did it.</p>
+</div>
+<div class="rule"><b>Every time:</b> key out before you plug or unplug anything, then key in to test. If anything gets hot, smells, or the breaker trips, pull the key first and look second.</div>
+<svg class="map" viewBox="0 0 1000 612" xmlns="http://www.w3.org/2000/svg">
+  <rect class="zone" x="10" y="10" width="980" height="150" rx="14" fill="#6c7bff14" stroke="#6c7bff55"/>
+  <text class="zl" x="22" y="152">CAP</text>
+  <rect class="zone" x="10" y="175" width="980" height="295" rx="14" fill="#3fb95014" stroke="#3fb95055"/>
+  <text class="zl" x="22" y="462">SLED  ·  plus Buck B on the tube wall</text>
+  <rect class="zone" x="10" y="485" width="980" height="118" rx="14" fill="#2f81f714" stroke="#2f81f755"/>
+  <text class="zl" x="22" y="503">CUP</text>
+  <line x1="10" y1="477" x2="990" y2="477" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="8 5"/>
+  <text x="16" y="473" font-size="10.5" fill="#9aa3ad" font-style="italic">bulkhead</text>
+
+  <path class="e" d="M110,240 V112"/>
+  <path class="e" d="M190,262 H220 V75 H250"/>
+  <path class="e" d="M330,112 V250"/>
+  <path class="e" d="M410,280 H470"/>
+  <path class="e" d="M190,318 H470"/>
+  <path class="e" d="M545,215 V112"/>
+  <path class="e" d="M545,335 V370"/>
+  <path class="e" d="M620,244 H700"/>
+  <path class="e" d="M620,318 H700"/>
+  <path class="e" d="M775,215 V140"/>
+  <path class="e" d="M620,402 H875 V140"/>
+  <path class="e" d="M945,140 V530 H850"/>
+  <path class="e" d="M505,430 V446 H330 V500"/>
+  <path class="e" d="M550,430 V500"/>
+
+  <rect class="node" x="30" y="42" width="160" height="70" rx="10"/>
+  <text class="nt" x="110" y="72" text-anchor="middle">USB-C charger</text><text class="ns" x="110" y="90" text-anchor="middle">charges the battery</text>
+  <g class="ch port"><rect x="44" y="22" width="132" height="18" rx="4"/><text x="110" y="35" text-anchor="middle">port: CHG · USB-C</text></g>
+  <rect class="node" x="250" y="42" width="160" height="70" rx="10"/>
+  <text class="nt" x="330" y="72" text-anchor="middle">Power KEY socket</text><text class="ns" x="330" y="90" text-anchor="middle">key in = ON</text>
+  <g class="ch port"><rect x="264" y="22" width="132" height="18" rx="4"/><text x="330" y="35" text-anchor="middle">port: KEY · XT60H</text></g>
+  <rect class="node" x="470" y="42" width="150" height="70" rx="10"/>
+  <text class="nt" x="545" y="72" text-anchor="middle">Voltmeter</text><text class="ns" x="545" y="90" text-anchor="middle">display on the cap top</text>
+  <rect class="node" x="700" y="30" width="270" height="110" rx="10" style="fill:#16382a;stroke:#3fb950"/>
+  <text class="nt" x="835" y="56" text-anchor="middle">CTRL PCB</text><text class="ns" x="835" y="73" text-anchor="middle">PRIME, LEDs and trimmers on the cap top</text>
+  <g class="ch jst"><rect x="752" y="112" width="46" height="18" rx="4"/><text x="775" y="125" text-anchor="middle">J1</text></g>
+  <g class="ch jst"><rect x="852" y="112" width="46" height="18" rx="4"/><text x="875" y="125" text-anchor="middle">J2</text></g>
+  <g class="ch jst"><rect x="922" y="112" width="46" height="18" rx="4"/><text x="945" y="125" text-anchor="middle">J3</text></g>
+
+  <rect class="node" x="30" y="240" width="160" height="100" rx="10" style="fill:#3a2a12;stroke:#d29922"/>
+  <text class="nt" x="110" y="276" text-anchor="middle">Battery + BMS</text><text class="ns" x="110" y="294" text-anchor="middle">soldered together:</text><text class="ns" x="110" y="309" text-anchor="middle">see page 5</text>
+  <rect class="node" x="250" y="250" width="160" height="60" rx="10"/>
+  <text class="nt" x="330" y="277" text-anchor="middle">30 A breaker</text><text class="ns" x="330" y="294" text-anchor="middle">wire clamps</text>
+  <rect class="node" x="470" y="215" width="150" height="120" rx="10"/>
+  <text class="nt" x="545" y="248" text-anchor="middle">Splice point</text>
+  <text class="ns" x="545" y="268" text-anchor="middle">+ : breaker output</text>
+  <text class="ns" x="545" y="284" text-anchor="middle">− : BMS P−</text>
+  <text class="ns" x="545" y="304" text-anchor="middle">soldered, heat-shrunk</text>
+  <rect class="node" x="470" y="370" width="150" height="60" rx="10"/>
+  <text class="nt" x="545" y="396" text-anchor="middle">ACS758 sensor</text><text class="ns" x="545" y="413" text-anchor="middle">gun + passes through it</text>
+  <rect class="node" x="700" y="215" width="150" height="58" rx="10"/>
+  <text class="nt" x="775" y="241" text-anchor="middle">Buck A</text><text class="ns" x="775" y="258" text-anchor="middle">5 V for the PCB</text>
+  <rect class="node" x="700" y="290" width="150" height="58" rx="10"/>
+  <text class="nt" x="775" y="316" text-anchor="middle">Buck B</text><text class="ns" x="775" y="333" text-anchor="middle">on the tube wall</text>
+  <g class="ch port"><rect x="709" y="352" width="132" height="18" rx="4"/><text x="775" y="365" text-anchor="middle">port: LED 5V · USB-A</text></g>
+
+  <rect class="node" x="250" y="500" width="160" height="60" rx="10"/>
+  <text class="nt" x="330" y="527" text-anchor="middle">Gun port 1</text><text class="ns" x="330" y="544" text-anchor="middle">XT30U female in the wall</text>
+  <g class="ch port"><rect x="264" y="566" width="132" height="18" rx="4"/><text x="330" y="579" text-anchor="middle">port: GUN 1 · XT30U</text></g>
+  <rect class="node" x="470" y="500" width="160" height="60" rx="10"/>
+  <text class="nt" x="550" y="527" text-anchor="middle">Gun port 2</text><text class="ns" x="550" y="544" text-anchor="middle">XT30U female in the wall</text>
+  <g class="ch port"><rect x="484" y="566" width="132" height="18" rx="4"/><text x="550" y="579" text-anchor="middle">port: GUN 2 · XT30U</text></g>
+  <rect class="node" x="700" y="500" width="150" height="60" rx="10"/>
+  <text class="nt" x="775" y="527" text-anchor="middle">G528 pump</text><text class="ns" x="775" y="544" text-anchor="middle">cap + diode on its tabs</text>
+
+  <g class="ch xt30"><rect x="88" y="124" width="44" height="18" rx="4"/><text x="110" y="137" text-anchor="middle">XT30</text></g>
+  <g class="ch sol"><rect x="194" y="150" width="52" height="18" rx="4"/><text x="220" y="163" text-anchor="middle">solder</text></g>
+  <g class="ch sol"><rect x="304" y="190" width="52" height="18" rx="4"/><text x="330" y="203" text-anchor="middle">clamp</text></g>
+  <g class="ch sol"><rect x="414" y="262" width="52" height="18" rx="4"/><text x="440" y="275" text-anchor="middle">clamp</text></g>
+  <g class="ch sol"><rect x="300" y="309" width="52" height="18" rx="4"/><text x="326" y="322" text-anchor="middle">solder</text></g>
+  <g class="ch xt30"><rect x="523" y="150" width="44" height="18" rx="4"/><text x="545" y="163" text-anchor="middle">XT30</text></g>
+  <g class="ch xt60"><rect x="519" y="343" width="52" height="18" rx="4"/><text x="545" y="356" text-anchor="middle">XT60H</text></g>
+  <g class="ch xt30"><rect x="638" y="235" width="44" height="18" rx="4"/><text x="660" y="248" text-anchor="middle">XT30</text></g>
+  <g class="ch xt30"><rect x="638" y="309" width="44" height="18" rx="4"/><text x="660" y="322" text-anchor="middle">XT30</text></g>
+  <g class="ch jst"><rect x="741" y="168" width="68" height="18" rx="4"/><text x="775" y="181" text-anchor="middle">JST-XH 2</text></g>
+  <g class="ch jst"><rect x="841" y="200" width="68" height="18" rx="4"/><text x="875" y="213" text-anchor="middle">JST-XH 3</text></g>
+  <g class="ch jst"><rect x="911" y="300" width="68" height="18" rx="4"/><text x="945" y="313" text-anchor="middle">JST-XH 2</text></g>
+  <g class="ch xt30"><rect x="308" y="468" width="44" height="18" rx="4"/><text x="330" y="481" text-anchor="middle">XT30</text></g>
+  <g class="ch xt30"><rect x="528" y="468" width="44" height="18" rx="4"/><text x="550" y="481" text-anchor="middle">XT30</text></g>
+  <text x="562" y="456" font-size="10.5" fill="#9aa3ad">gun pairs: + from the sensor's IP− wire, black from the splice −</text>
+<g><circle cx="408" cy="31" r="11" fill="#3fb950" stroke="#0b2b14" stroke-width="1.5"/><text x="408" y="35.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">✓</text></g><g><circle cx="258" cy="159" r="11" fill="#3fb950" stroke="#0b2b14" stroke-width="1.5"/><text x="258" y="163.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">✓</text></g><g><circle cx="368" cy="199" r="11" fill="#3fb950" stroke="#0b2b14" stroke-width="1.5"/><text x="368" y="203.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">✓</text></g><g><circle cx="440" cy="250" r="11" fill="#3fb950" stroke="#0b2b14" stroke-width="1.5"/><text x="440" y="254.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">✓</text></g><g><circle cx="326" cy="341" r="11" fill="#3fb950" stroke="#0b2b14" stroke-width="1.5"/><text x="326" y="345.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">✓</text></g><g><circle cx="579" cy="159" r="11" fill="#3fb950" stroke="#0b2b14" stroke-width="1.5"/><text x="579" y="163.5" text-anchor="middle" font-size="13" font-weight="900" fill="#fff">✓</text></g><g><circle cx="660" cy="222" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="660" y="226.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">1</text></g><g><circle cx="821" cy="177" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="821" y="181.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">2</text></g><g><circle cx="899" cy="309" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="899" y="313.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">3</text></g><g><circle cx="583" cy="352" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="583" y="356.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">4</text></g><g><circle cx="921" cy="209" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="921" y="213.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">4</text></g><g><circle cx="364" cy="477" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="364" y="481.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">5</text></g><g><circle cx="584" cy="477" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="584" y="481.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">5</text></g><g><circle cx="408" cy="575" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="408" y="579.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">5</text></g><g><circle cx="628" cy="575" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="628" y="579.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">5</text></g><g><circle cx="660" cy="296" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="660" y="300.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">6</text></g><g><circle cx="144" cy="133" r="11" fill="#ffd24a" stroke="#111" stroke-width="1.5"/><text x="144" y="137.5" text-anchor="middle" font-size="13" font-weight="900" fill="#111">7</text></g></svg>
+<div class="cards">
+<div class="card donecard"><h4><span class="bdg ok">✓</span>Already done</h4><p class="k">Plug</p><ul><li>Battery and BMS, the KEY socket and key, the breaker, the splice and the gun breakout.</li><li>Voltmeter: its <span class="c xt30">XT30 male</span> into the splice's <span class="c xt30">XT30 female</span>. It reads the pack with the key in, so the key, the breaker and the + side of the splice all work.</li></ul></div><div class="card "><h4><span class="bdg ">1</span>Buck A input</h4><p class="k">Plug</p><ul><li>Buck A's input <span class="c xt30">XT30 male</span> into the splice's Buck A lead (<span class="c xt30">XT30 female</span>).</li><li>Leave its output lead loose: <b>don't plug J1 yet.</b></li></ul><p class="k">Then check</p><ul><li>Key in. Meter Buck A's output lead (the male JST pins): <b>4.75–5.25 V</b>, ideally 5.0 V. If it has a trimmer, set it now.</li><li>Key out.</li></ul><p class="badline"><b>If not:</b> Over 5.25 V: don't go on. The control board's ceiling is 5.25 V.</p></div><div class="card "><h4><span class="bdg ">2</span>Control board power</h4><p class="k">Plug</p><ul><li>Buck A's output <span class="c jst">2-pin JST male</span> into the board's <b>J1</b> pigtail (<span class="c jst">2-pin JST female</span>).</li><li>J2 and J3 stay unplugged.</li></ul><p class="k">Then check</p><ul><li>Key in. <b>Green POWER on, yellow GUN off, red PUMP off.</b></li><li>TP2 reads about 5.0 V. TP11 (pump gate) reads <b>under 0.05 V</b>.</li><li>Press PRIME: yellow and red come on. Let go: red stays on for a moment (the delay), then goes off.</li></ul><p class="badline"><b>If not:</b> TP11 over 0.05 V at rest, or red PUMP on by itself: key out and stop.</p></div><div class="card "><h4><span class="bdg ">3</span>Pump</h4><p class="k">Plug</p><ul><li>The pump lead's <span class="c jst">2-pin JST male</span> into the board's <b>J3</b> pigtail (<span class="c jst">2-pin JST female</span>).</li></ul><p class="k">Then check</p><ul><li>Key in. The pump stays off at rest.</li><li>Hold PRIME: it runs. Let go: it runs on for the delay, then stops.</li><li>Check it pumps from intake to outlet. Set the run-on with <b>RV2 (DELAY)</b>: clockwise is longer, about 350 ms to start.</li></ul><p class="badline"><b>If not:</b> Pumps backwards: swap the two wires at the motor tabs, and move the diode so its band stays on the tab the red wire now goes to.</p></div><div class="card "><h4><span class="bdg ">4</span>Current sensor</h4><p class="k">Plug</p><ul><li>The sensor's <span class="c xt60">XT60H male</span> into the splice's sensor lead (<span class="c xt60">XT60H female</span>).</li><li>The board's <b>J2</b> plug (<span class="c jst">3-pin JST female</span>) onto the sensor's signal pins (<span class="c jst">3-pin male header</span>).</li></ul><p class="k">Then check</p><ul><li>Key in, no guns plugged in: yellow GUN stays off.</li><li>TP5 (the sensor signal) reads about <b>2.50 V</b>.</li><li>Set <b>RV1 (THRESH)</b> so TP6 reads about 50 mV above TP5 to start. Clockwise raises it.</li></ul><p class="badline"><b>If not:</b> GUN on with nothing plugged in: turn RV1 clockwise until it goes off.</p></div><div class="card "><h4><span class="bdg ">5</span>Gun ports and a gun</h4><p class="k">Plug</p><ul><li>Inside, at the bulkhead: each gun port's <span class="c xt30">XT30 male</span> pigtail into its splice gun lead (<span class="c xt30">XT30 female</span>).</li><li>Outside: the umbilical's pack-end male into the port, its gun-end female onto the gun.</li></ul><p class="k">Then check</p><ul><li>Key in. Fire the gun: TP5 rises, yellow GUN and red PUMP come on, and the pump runs. Let go: the pump stops after the delay.</li><li>Tune RV1: put TP6 between the resting and firing TP5 readings, at least 10 mV from each (30–50 mV apart is better).</li></ul><p class="badline"><b>If not:</b> GUN never lights: watch TP5 while firing. If it <i>drops</i> below 2.5 V, the sensor is backwards: swap the two big wires at its terminals.</p></div><div class="card "><h4><span class="bdg ">6</span>Buck B and the LED backpack</h4><p class="k">Plug</p><ul><li>Buck B's input <span class="c xt30">XT30 male</span> into the splice's Buck B lead (<span class="c xt30">XT30 female</span>).</li></ul><p class="k">Then check</p><ul><li>Key in. The LED 5V USB-A port on the tube wall gives 5 V. Plug the backpack in from outside.</li></ul></div><div class="card "><h4><span class="bdg ">7</span>Charger</h4><p class="k">Plug</p><ul><li>The charger's output <span class="c xt30">XT30 male</span> into the battery's charger lead (<span class="c xt30">XT30 female</span>).</li></ul><p class="k">Then check</p><ul><li>Plug USB-C into the CHG port: the charger's light comes on. It works with the key out.</li><li>With the key in, the voltmeter climbs slowly while it charges.</li></ul></div>
+</div>
+<p class="sub">Test points are the small labelled holes on the control board: TP2 is the 5 V logic rail, TP5 the sensor signal, TP6 the RV1 threshold, and TP11 the pump gate. Meter them against any ground, such as the − splice or the board's J1 black wire. Page 2 shows where each one is.</p>
+</div></body></html>

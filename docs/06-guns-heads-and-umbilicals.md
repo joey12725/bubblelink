@@ -33,7 +33,7 @@ An existing three-head gun has been used for all benchmarking and performance re
 - **Two guns × two donor blower heads.** Joey is picking up ~20 bubble guns this week to strip for heads. Pick 4 matched heads and keep the spares.
 - **Wiring:** each gun's two head motors run in parallel on that gun's XT30U.
 - **Fluid:** both donor pumps in a gun are fed from its umbilical through one assortment tee.
-- **Rough estimates (not measured):** ~12 A with all 4 heads firing (~6 A per channel, well under the 30 A breaker); about 2–2.5 h of heavy firing; about 2 h per 1 L of fluid.
+- **Current (measured 2026-10-27):** each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under the 30 A breaker); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27).
 - **Mounts:** gun/head mounts are not designed yet. They need the teardown measurements.
 
 ---
@@ -337,7 +337,7 @@ The Tracer gun shells are hollow with an internal cavity designed to accept:
 
 - **Exact donor gun models:** Joey is picking up ~20 bubble guns this week to strip; the 4 matched heads for the two dual-head guns are chosen at teardown
 - **Gun/head mounts:** Not designed yet; they need the teardown measurements
-- **Motor current by head type:** Individual motor current draw for various common donor heads has not been systematically measured; field measurements during commissioning will establish accurate per-head budgets
+- **Motor current by head type:** The the target festival donor heads measured ~1.39 A each at full power (2026-10-27). Other head types haven't been measured; measure each new type before budgeting it
 - **Tracer shell final integration:** Exact hose routing, LED placement, and drainage design for the Tracer cosplay guns will be confirmed during build-out in October 2026
 
 ---

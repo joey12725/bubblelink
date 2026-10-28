@@ -43,6 +43,7 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 02 | `02_cell_holder_TERM` | 1 | ASA or PETG | K2 | |
 | 09 | `09_slide_clamp_x3` | 3 | ASA or PETG | A1 (brim, draft shield if ASA) | Bypass restrictor and both channel shutoffs |
 | 10 | `10_umbilical_brick_x2` | 2 | ASA or PETG | A1 (brim, draft shield if ASA) | Strain relief at the gun end of each umbilical (no brick at the pack end) |
+| 11 | `11_hose_adapter_8.5mm` | 1 | ASA or PETG | A1 or K2 (brim) | Straight barbed reducer: bladder drinking tube (8.5 mm barb) to the 3.5 × 5.5 mm IN pigtail (4.8 mm barb). Big barb down, 100% infill, zip-tie both ends. `_8.0mm` and `_9.0mm` are looser/tighter alternates; collar notches mark the size (1 = 8.0, 2 = 8.5, 3 = 9.0). 3MF copies carry explicit mm units. |
 | 20 | `20_stick_tube` | 1 | ASA | K2 Plus (159 mm tall) | Bulkhead on the bed. 99.6 mm wide with the raised lettering. |
 | 21 | `21_stick_cap` | 1 | ASA | K2 Plus | Plate on the bed |
 | 22 | `22_stick_sled` | 1 | ASA | K2 Plus | Base on the bed. **Check the breaker's lug clearance first** (below). The base has a notch at the front-right corner so it slides down past the Buck B shelf; **a sled printed before 2026-10-16 needs that corner cut off** (Joey used wire cutters). |

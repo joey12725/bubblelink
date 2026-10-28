@@ -1,0 +1,188 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BubbleLink · how the BMS cuts power</title>
+<style>:root{--background:#0f1115;--foreground:#e8e8e8;--muted-foreground:#9aa0a6;--border:#2a2f36;--radius:10px;--warning:#f0a500;--destructive:#ff5a4f;--info:#6cb6ff;--font-sans:'Segoe UI',system-ui,sans-serif;--font-mono:Consolas,monospace}
+html,body{background:var(--background)} body{padding:20px; max-width:980px; margin:0 auto !important;}</style>
+<style>
+  body { font-family: var(--font-sans); color: var(--foreground); margin:0; }
+  .wrap { display:flex; flex-direction:column; gap:14px; }
+  h3 { margin:0 0 4px; font-size:16px; } h4 { margin:0; font-size:13.5px; } p { margin:0; }
+  .sub { color: var(--muted-foreground); font-size:12.5px; line-height:1.45; }
+  .states { display:flex; flex-wrap:wrap; gap:8px; }
+  .states button { font: inherit; font-size:13px; font-weight:650; color:var(--foreground); background:#1b2129; border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer; }
+  .states button.on { border-color:#ffd24a; background:#2a2614; color:#ffe58a; }
+  .states button.bad.on { border-color:var(--destructive); background:#2b1615; color:#ffb4ad; }
+  .caption { min-height:44px; font-size:13.5px; line-height:1.45; border-left:3px solid #ffd24a; padding:6px 12px; background:#ffffff08; border-radius:0 8px 8px 0; }
+  .caption.bad { border-left-color: var(--destructive); }
+  svg.loop { width:100%; height:auto; display:block; font-family: var(--font-sans); }
+  .box { fill:#1b2129; stroke:#5b6673; stroke-width:1.4; }
+  .bt { font-size:15px; font-weight:750; fill:#f2f4f6; } .bs { font-size:11.5px; fill:#aab3bd; }
+  .lab { font-size:12px; fill:#d8dde3; font-weight:650; } .labm { font-size:11px; fill:#9aa3ad; font-style:italic; }
+  .halo { fill:none; stroke:#8b949e; stroke-linecap:round; stroke-linejoin:round; }
+  .wr { fill:none; stroke:#e5372f; stroke-linecap:round; stroke-linejoin:round; }
+  .wk { fill:none; stroke:#111; stroke-linecap:round; stroke-linejoin:round; }
+  .sw { stroke:#f2f4f6; stroke-width:5; stroke-linecap:round; }
+  .swdot { fill:#d8b25a; stroke:#fff; stroke-width:1.5; }
+  .flow { fill:none; stroke-width:4; stroke-dasharray:7 11; stroke-linecap:round; stroke-linejoin:round; animation: flow 0.9s linear infinite; }
+  .fd { stroke:#ffd24a; } .fc { stroke:#6cb6ff; } .fb { stroke:#ff5a4f; }
+  @keyframes flow { to { stroke-dashoffset: -36; } }
+  .chip rect { stroke:#000; } .chip text { font-size:10.5px; font-weight:800; fill:#111; }
+  .t { display:none; }
+  svg[data-s="run"] .s-run, svg[data-s="key"] .s-key, svg[data-s="bms"] .s-bms,
+  svg[data-s="chg"] .s-chg, svg[data-s="wrong"] .s-wrong { display:inline; }
+  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap:12px; }
+  .card { border:1px solid var(--border); border-radius:var(--radius); padding:13px 15px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; gap:6px; }
+  .card.warn { border-color: var(--destructive); } .card.warn h4 { color: var(--destructive); }
+  ul { margin:0; padding-left:18px; } li { margin:3px 0; }
+</style></head>
+<body><div class="wrap">
+<div>
+  <h3>How the BMS cuts power</h3>
+  <p class="sub">The whole stick is one loop: out of the battery's positive rail, through the loads, and back into its negative rail. There are two switches in that loop. The <b>key</b> breaks the + side by hand. The <b>BMS</b> breaks the − side automatically. Either one opens the loop, and no current flows anywhere. Pick a state:</p>
+</div>
+
+<div class="states">
+  <button data-s="run" class="on">Running</button>
+  <button data-s="key">Key out</button>
+  <button data-s="bms">BMS tripped</button>
+  <button data-s="chg">Charging</button>
+  <button data-s="wrong" class="bad">Wrong: return to the negative rail</button>
+</div>
+<div class="caption" id="cap"></div>
+
+<svg class="loop" id="loop" data-s="run" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg">
+  <!-- ===== battery ===== -->
+  <rect class="box" x="40" y="60" width="110" height="400" rx="14" style="fill:#3a2a12;stroke:#d29922"/>
+  <text class="bt" x="95" y="250" text-anchor="middle">2S</text>
+  <text class="bt" x="95" y="270" text-anchor="middle">battery</text>
+  <rect x="60" y="120" width="70" height="90" rx="8" fill="#ffffff10" stroke="#d2992266"/>
+  <text class="bs" x="95" y="170" text-anchor="middle">cell group B</text>
+  <rect x="60" y="310" width="70" height="90" rx="8" fill="#ffffff10" stroke="#d2992266"/>
+  <text class="bs" x="95" y="360" text-anchor="middle">cell group A</text>
+  <text class="lab" x="160" y="76">positive rail</text>
+  <text class="lab" x="156" y="452">negative</text><text class="lab" x="156" y="466">rail</text>
+
+  <!-- ===== wrong-wiring bypass (only in that state) ===== -->
+  <g class="t s-wrong">
+    <path class="halo" stroke-width="7" d="M600,430 V505 H95 V460"/>
+    <path fill="none" stroke="#ff5a4f" stroke-width="4" stroke-dasharray="9 6" d="M600,430 V505 H95 V460"/>
+    <text x="350" y="527" text-anchor="middle" font-size="12.5" font-weight="800" fill="#ff8a80">WRONG: a return wired straight to the negative rail skips the BMS</text>
+  </g>
+
+  <!-- ===== + side ===== -->
+  <path class="halo" stroke-width="9" d="M150,90 H270"/><path class="wr" stroke-width="6" d="M150,90 H270"/>
+  <path class="halo" stroke-width="9" d="M330,90 H400"/><path class="wr" stroke-width="6" d="M330,90 H400"/>
+  <path class="halo" stroke-width="9" d="M480,90 H810 V170"/><path class="wr" stroke-width="6" d="M480,90 H810 V170"/>
+  <!-- charger + -->
+  <path class="halo" stroke-width="6" d="M205,90 V255 H470"/><path class="wr" stroke-width="3.6" d="M205,90 V255 H470"/>
+
+  <!-- ===== − side ===== -->
+  <path class="halo" stroke-width="9" d="M810,340 V430 H440"/><path class="wk" stroke-width="6" d="M810,340 V430 H440"/>
+  <path class="halo" stroke-width="9" d="M220,430 H150"/><path class="wk" stroke-width="6" d="M220,430 H150"/>
+  <!-- charger − -->
+  <path class="halo" stroke-width="6" d="M540,290 V430"/><path class="wk" stroke-width="3.6" d="M540,290 V430"/>
+
+  <!-- ===== current-flow overlays ===== -->
+  <path class="flow fd t s-run" d="M150,90 H810 V340 V430 H150 H95 V90 H150"/>
+  <path class="flow fc t s-chg" d="M470,255 H205 V90 H150 H95 V430 H150 H540 V290"/>
+  <path class="flow fb t s-wrong" d="M150,90 H810 V340 V430 H600 V505 H95 V90 H150"/>
+
+  <!-- ===== KEY ===== -->
+  <rect x="252" y="62" width="96" height="56" rx="10" fill="none" stroke="#8b949e" stroke-dasharray="5 4"/>
+  <text class="lab" x="300" y="52" text-anchor="middle">Power KEY</text>
+  <text class="labm" x="300" y="136" text-anchor="middle">pin A → U-loop → pin B</text>
+  <g class="t s-run s-bms s-wrong"><line class="sw" x1="270" y1="90" x2="330" y2="90"/></g>
+  <g class="t s-key s-chg"><line class="sw" x1="270" y1="90" x2="322" y2="62"/>
+    <text x="300" y="112" text-anchor="middle" font-size="11" font-weight="800" fill="#ffb4ad">OPEN</text></g>
+  <circle class="swdot" cx="270" cy="90" r="6"/><circle class="swdot" cx="330" cy="90" r="6"/>
+
+  <!-- ===== breaker ===== -->
+  <rect class="box" x="400" y="68" width="80" height="44" rx="8"/>
+  <text class="lab" x="440" y="94" text-anchor="middle">breaker</text>
+
+  <!-- + splice -->
+  <circle cx="600" cy="90" r="8" fill="#e5372f" stroke="#fff" stroke-width="1.5"/>
+  <text class="lab" x="600" y="70" text-anchor="middle">+ splice</text>
+  <circle cx="205" cy="90" r="5.5" fill="#e5372f" stroke="#fff" stroke-width="1.3"/>
+
+  <!-- ===== loads ===== -->
+  <rect class="box" x="700" y="170" width="230" height="170" rx="12"/>
+  <text class="bt" x="815" y="198" text-anchor="middle">Loads</text>
+  <text class="bs" x="815" y="216" text-anchor="middle">each through its own plug</text>
+  <text class="bs" x="716" y="246">• Buck A → control PCB → pump</text>
+  <text class="bs" x="716" y="268">• Buck B → LED backpack</text>
+  <text class="bs" x="716" y="290">• voltmeter</text>
+  <text class="bs" x="716" y="312">• sensor → gun ports → guns</text>
+
+  <!-- − splice -->
+  <circle cx="600" cy="430" r="8" fill="#222" stroke="#fff" stroke-width="1.5"/>
+  <text class="lab" x="612" y="454">− splice</text>
+  <circle cx="540" cy="430" r="5.5" fill="#222" stroke="#fff" stroke-width="1.3"/>
+
+  <!-- ===== charger ===== -->
+  <rect class="box" x="470" y="220" width="140" height="70" rx="10"/>
+  <text class="lab" x="540" y="250" text-anchor="middle">USB-C charger</text>
+  <text class="bs" x="540" y="268" text-anchor="middle">on its XT30 lead</text>
+  <text class="labm" x="215" y="243">charger + (straight to the rail)</text>
+  <text class="labm" x="548" y="370">charger − to P−</text>
+
+  <!-- ===== BMS ===== -->
+  <rect class="box" x="220" y="385" width="220" height="95" rx="12" style="fill:#16382a;stroke:#3fb950"/>
+  <text class="bt" x="330" y="405" text-anchor="middle">BMS</text>
+  <path class="wk" stroke-width="4" d="M220,430 H290"/><path class="wk" stroke-width="4" d="M370,430 H440"/>
+  <path fill="none" stroke="#9aa3ad" stroke-width="1" d="M220,430 H290"/><path fill="none" stroke="#9aa3ad" stroke-width="1" d="M370,430 H440"/>
+  <g class="t s-run s-key s-chg"><line class="sw" x1="290" y1="430" x2="370" y2="430"/></g>
+  <g class="t s-bms s-wrong"><line class="sw" x1="290" y1="430" x2="362" y2="398"/>
+    <text x="330" y="452" text-anchor="middle" font-size="11" font-weight="800" fill="#ffb4ad">OPEN</text></g>
+  <circle class="swdot" cx="290" cy="430" r="6"/><circle class="swdot" cx="370" cy="430" r="6"/>
+  <text class="lab" x="236" y="420">B−</text><text class="lab" x="424" y="420" text-anchor="end">P−</text>
+  <text class="bs" x="330" y="470" text-anchor="middle">switch (MOSFETs)</text>
+</svg>
+
+<div class="cards">
+  <div class="card">
+    <h4>Two switches, one loop</h4>
+    <ul>
+      <li><b>The key</b> sits on the + side and you work it by hand.</li>
+      <li><b>The BMS</b> sits on the − side and works automatically: a cell too low, a short, too much current, or overcharging.</li>
+      <li>Current needs the whole circle, so opening <b>either one</b> stops it everywhere.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Why the BMS is on the − side</h4>
+    <p>Breaking the loop anywhere stops the current, and nearly all small lithium BMS boards break it on the negative side. The switches they use (N-channel MOSFETs) are cheaper and more efficient there. So the + side never goes through the BMS: the positive rail goes straight to the key, and the charger's + goes straight to the rail.</p>
+  </div>
+  <div class="card warn">
+    <h4>What this means while you wire</h4>
+    <ul>
+      <li>The + side is <b>always live</b>, even when the BMS has shut off: the positive rail, KEY pin A, and the charger lead.</li>
+      <li><b>Every − goes to P−.</b> A return wired to the negative rail skips the BMS. Try the last button.</li>
+      <li>Keep + wires off the negative rail and the cell cans. An 18650's can is its negative terminal, so a short there has no BMS protection.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>P− means "pack minus"</h4>
+    <p>It's the negative that everything outside the battery sees: the − splice for the loads, and the charger. Your BMS label says 同口 ("common port"): charging and the loads share P−, so the same switch protects both.</p>
+  </div>
+</div>
+</div>
+<script>
+  const caps = {
+    run: 'Key in, BMS happy. Current leaves the positive rail, goes through the key and breaker to the loads, comes back to the − splice, into P−, through the BMS switch to B− and the negative rail.',
+    key: 'Key out: the + side is broken by hand, so nothing downstream gets power. The positive rail, KEY pin A and the charger lead are still live.',
+    bms: 'BMS tripped (a cell too low, a short, too much current, or overcharging): it opens its switch between P− and B−. Every return goes through P−, so the loop is broken even though + is still connected.',
+    chg: 'Charging, key out: the charger\'s + feeds the positive rail directly and its − comes back through P− and the BMS switch. Charging doesn\'t use the key, and the same BMS switch stops it if a cell overcharges.',
+    wrong: 'If a return is wired to the negative rail instead of P−, the BMS can open its switch and current still flows around it. That\'s why every − goes to P−.'
+  };
+  const svg = document.getElementById('loop'), cap = document.getElementById('cap');
+  const btns = [...document.querySelectorAll('.states button')];
+  function set(s) {
+    svg.dataset.s = s; cap.textContent = caps[s];
+    cap.classList.toggle('bad', s === 'wrong');
+    btns.forEach(b => b.classList.toggle('on', b.dataset.s === s));
+  }
+  btns.forEach(b => b.addEventListener('click', () => set(b.dataset.s)));
+  const q = new URLSearchParams(location.search).get('s');
+  set(q in caps ? q : 'run');
+</script>
+</body></html>
