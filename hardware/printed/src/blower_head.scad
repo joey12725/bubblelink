@@ -42,7 +42,8 @@ ringB_h   = 13.5;  // 3543: 750 -> 875 px = 13.2; 3553: 13.5
 fan_r     = 18.5;  // fan visible through ring B's open back (3540, 3542)
 
 // Gear housing alongside ring A at +X (3547 left bump, 3543 right tab)
-gh_y0 = -3.8; gh_y1 = 7.6;     // 3547: y 480-660 px -> Y +7.6..-3.8
+gh_y0 = -7.0; gh_y1 = 7.0;     // 3547 read 11.4 wide; part 51 fit test (2026-10-28) showed the
+                               // gear section wider than its 15 mm gap on both sides, so ~14 centred
 gh_r1 = 30.0;                  // 3543: tab to 1660 px -> 30.0 from the axis
 gh_z0 = 1.5;                   // 3543: 620 px (face at 605)
 // yellow spur gear that drives the wheel (3553 edge-on, 3547/3548 at the rim)
@@ -95,8 +96,8 @@ wall      = 2.4;
 coll_h    = 9;       // grips the front 9 of ring A's 15
 lip_t     = 1.6;     // front lip
 lip_w     = 2.0;     // reach over the 3 mm rim, stays clear of the wheel
-gap_clr   = 1.8;     // each side of the gear housing tab (Y -3.8..+7.6)
-gap_w     = gh_y1 - gh_y0 + 2*gap_clr;   // 15.0
+gap_clr   = 5.0;     // each side of the gear housing tab; v1 (1.8 off a photo guess) was too tight
+gap_w     = gh_y1 - gh_y0 + 2*gap_clr;   // 24
 rib_n     = 8;
 rib_h     = 0.5;
 rib_w     = 1.6;
@@ -302,6 +303,10 @@ module gauge_ring(id, n) {
   for (k = [0:n-1]) rotate([0,0,90 + (k - (n-1)/2)*9]) translate([r_out - 0.5, 0, 0]) cylinder(d = 2.4, h = 4, $fn = 24);
 }
 module gauge() { for (i = [0:4]) translate([(i % 3)*60, floor(i / 3)*60, 0]) gauge_ring(gauge_ids[i], i + 1); }
+
+// ================= for gun shells (`use <blower_head.scad>`) =================
+// [ring A dia, ring A length, ring B dia, stationary rim width]
+function head_rings() = [ringA_d, ringA_h, ringB_d, rim_w];
 
 // ================= dispatch =================
 if (part == "head")          head();
