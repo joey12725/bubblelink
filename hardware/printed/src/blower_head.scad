@@ -283,7 +283,8 @@ module collar() {
     // barb + bracket notch, open at the back edge so the head slides in face-first
     rotate([0,0,barb_ang]) translate([R_in - 1, -notch_w/2, barb_z0 - 0.8]) cube([wall + 10, notch_w, 50]);
     rotate([0,0,pad_ang]) for (z = [3, pad_len - lip_t - 8])
-      translate([R_out + (pad_t - tie_t)/2, -pad_w, z]) cube([tie_t, 2*pad_w, tie_w]);
+      translate([R_out + (pad_t - tie_t)/2, pad_w, z]) rotate([90,0,0])   // 45-degree peaked roof: no bridge
+        linear_extrude(2*pad_w) polygon([[0,0], [tie_t,0], [tie_t,tie_w], [tie_t/2, tie_w + tie_t/2], [0,tie_w]]);
   }
   for (i = [0:rib_n-1]) let(a = 360/rib_n*i + 360/rib_n/2)
     if (abs(a) > 25 && abs(a - 180) > 25 && abs(a - 360) > 25)
