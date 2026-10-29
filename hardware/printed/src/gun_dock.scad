@@ -237,6 +237,9 @@ module gun_dock_hole() {
     }
 }
 
+// [x0, x1, W, body depth Hb, collar overhang, barb height] for shells that `use` this file
+function gun_dock_size() = [x0, x1, W, Hb, collar_x, out_height()];
+
 // Keep this clear inside the shell: body, collar, barbs + 15 mm of hose bend room behind
 // them, and the XT30U wires.
 module gun_dock_envelope(n = n_out) {

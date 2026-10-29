@@ -72,8 +72,12 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 60 | `60_dock_barb_coupon` | 1 | ASA | any | **Print before any dock.** Four head-hose barbs: 2.8 / 2.9 / 3.0 / 3.2 mm (1-4 dots), each with a 0.25 mm ridge step. Push the head hose onto each; pick the biggest one that still goes on by hand and set `out_peak` in `src/gun_dock.scad` (default 3.0) before printing docks. |
 | 61-68 | `6N_gun_dock_Nhead` | 1 per gun | ASA, 100% infill (or 6 walls) | K2 Plus | The standard umbilical panel for a gun shell; N = heads fed (61 = 1 head ... 68 = 8). **Face on the bed, no supports.** Outside: XT30U window, recessed 4.8 mm hose barb, carabiner bar. Inside: N × 3.0 mm barbs. Clear the 1.2 mm outlet bores with a 1.2 mm drill or a guitar string if they print shut. See *Gun dock* below. |
 | 69 | `69_dock_mount_plate` | as needed | ASA | any | A 2.4 mm "shell wall" with the standard dock hole and four M3 holes. Use it to test-fit a dock, or to mount one on a gun that has no printed shell yet. Outer face on the bed. |
+| 00 | `00_duo_test_main`, `00_duo_test_cover` | 1 each | ASA (purple) | any | **Print first.** The Duo's trigger housing region from each half: check the switch fit, the nut stack, the trigger and its stop, and where the button bottoms out. Hold them together with rubber bands. |
+| 70, 72 | `70_duo_main_L`, `72_duo_main_R` | 1 per gun | ASA (purple) | A1 or K2 Plus | **Duo** main half with the grip and the umbilical dock built in (see *Duo* below). L = left gun, R = its mirror image; a pair is one of each. Grip-side face down, no supports. |
+| 71, 73 | `71_duo_cover_L`, `73_duo_cover_R` | 1 per gun | ASA (purple) | A1 or K2 Plus | Duo cover half. Outer face down. |
+| 74 | `74_duo_trigger` | 1 per gun | ASA (purple) | any | Duo trigger. Lies flat. |
 
-That is 32 STLs: 5 older parts (the brick file is now x2), 5 stick coupons (one optional), 7 rigid stick parts and 15 TPU parts (each file counts as one STL, whatever the copy count). On top of those: the three hose adapters (11), the two donor-head test parts (50-51) and the ten gun-dock files (60-69). `REF_blower_head.stl` is a reference model, not a print.
+That is 32 STLs: 5 older parts (the brick file is now x2), 5 stick coupons (one optional), 7 rigid stick parts and 15 TPU parts (each file counts as one STL, whatever the copy count). On top of those: the three hose adapters (11), the two donor-head test parts (50-51), the ten gun-dock files (60-69), and the Duo files (70-74). `REF_blower_head.stl` is a reference model, not a print.
 
 The older wide-box design (`dry_core.scad`, `pump_module.scad`, `port_insert.scad`) is superseded and no longer built. **Don't print those.**
 
@@ -87,7 +91,43 @@ Every gun shell gets the same dock (`src/gun_dock.scad`), so any umbilical fits 
 - **Carabiner:** the pocket fits a carabiner rod up to **8 mm** thick; the bar is 7 × 6 mm, so the gate has to open more than 7 mm. For a bigger carabiner, set `cb_rod` (and `bar_w`/`bar_t` if the gate is small) and rebuild. The bar is good for roughly 1 kN in ASA.
 - **In a shell:** design the wall at the dock **2.4 mm** thick and subtract `gun_dock_hole()`. That is the face outline plus 0.2 mm, with a 45° × 1.5 mm chamfer on the inside edge. The dock goes in from inside, and its 45° collar seats in the chamfer, so an outward pull presses the collar into the wall (compression, not glue or screws). Acetone-weld it (both ASA) or run hot glue round the collar. Or `use <gun_dock.scad>` and union `gun_dock(n)` straight into a shell model. Coordinates: face at z = 0, +z into the gun, XT30U at the origin, hose at x = 12 (the same spacing as the umbilical brick).
 
-**Not designed yet:** mounts for the dual-head guns. They need the teardown measurements.
+## Duo (compact two-head gun)
+
+`src/duo_gun.scad`, parts 70-74. Renders `renders/15_duo_gun_*.png` (rebuild with `python renders/duo_gun_views.py`). 3D parts viewer: (link removed) A small, rounded gun for two donor heads, made as a **left/right pair**. **Three printed pieces per gun, all purple, nothing else:** main half (with the grip and the umbilical dock built in), cover half, trigger.
+
+- **Size:** body **88 long × 123.5 tall × 55.6 mm thick**; about 102 × 200 mm with the grip. The heads sit one above the other behind round windows, axes 57 mm apart, each turned 20° about its axis.
+- **Shell:** split on the centre plane through both head axes and **glued shut**. The **main half** (70/72) carries everything: the grip (solid, half the gun thick, flush with its face), the umbilical dock, the switch bulkhead, half the trigger housing and one pivot peg, the head sleeves with crush ribs, and the pegs. The **cover half** (71/73) is the other side, with the other pivot peg. The switch, its bores and the trigger slot sit on the seam plane, so both halves print outer face down with no supports. Two glue pads (plates that meet face to face, on posts fused to the walls) add area to the rim, and a 4 mm peg on each main-half pad drops into a hole in the cover's pad.
+- **Heads:** ring A's face sits on the 2 mm lip of a 3.4 mm front wall. The main half's sleeves have three crush ribs per head whose tips just touch the modelled ring. The cover half's sleeves have no ribs and **0.8 mm of clearance**, so the cover closes even if a ring is a little bigger than modelled. Hot-glue the heads in. Each gear tab gets a 1 mm clearance pocket.
+- **Switch:** a **Gardner Bender GSW-21** push-on/push-off maintained SPST (rated 8 A at 125 V DC; spec sheet: https://www.gardnerbender.com/-/media/inriver/GSW-21_SPEC.pdf). All sizes are from the spec sheet and checked against the photo: body 24.9 × 15.3 × 15.6, 15/32-32 bushing, 12.2 mm keyed panel hole, 10.3 mm button. It hangs on a full-width bulkhead inside the body, 45° down and forward, its button in a short housing just ahead of the grip. The nut pockets are generous: the hex nut pocket also takes a 5/8" nut, the knurled nut has 2 mm of room, and the switch body can sit 1.4 mm further back.
+- **Fitting the switch:**
+  1. Run the hex nut all the way down to the switch body, and the knurled nut on loosely.
+  2. Lay the switch in the main half, with the bulkhead half-plate between the nuts, the key tab in the keyway and the leads toward the open side.
+  3. Spin the knurled nut snug.
+  4. Drop the trigger on its peg. Its nub should just touch the button tip. If the trigger sits pushed forward off the button instead, back the hex nut off a turn (0.8 mm) and re-snug.
+
+  The cover's half of the bulkhead is 0.25 mm thinner each side round the hole, so it slides in between the nuts. If the real keyway isn't where the key tab is, trim the tab off: the body's pocket stops the switch turning anyway. Measure your hex nut: the design assumes 2.6 mm, and a thicker one costs push travel (see below).
+- **Umbilical dock (built into the main half):** the standard gun dock's connections, down the back face. All of them stay in the main half and print without supports with the half lying on its outer face.
+  - **XT30U window:** the male goes in from inside and stops on a 0.8 mm lip; the umbilical's female plugs in from behind. The pocket stands on edge with a 45° peak.
+  - **Hose inlet:** a 4.8 mm barb, recessed in its socket. It points **45° toward the outer side**, so the umbilical hose comes in from behind and a little from the outside. A barb pointing straight back would stick out sideways, with nothing under it, as the half prints.
+  - **Carabiner bar:** two openings with the bar between, and a tunnel behind it. The bar prints as an upright post, anchored at both ends, under a 45° roof.
+  - **Outlets:** inside, two 3.0 mm outlet barbs point up out of the open half. Push the head hoses on from above before closing.
+  - Same sizes as `gun_dock.scad`, so any umbilical fits. No part 62 needed.
+- **Wiring:** XT30U + → switch → both motor + (parallel); XT30U − → both motor −. The 18 AWG leads leave the switch toward the cover side and bend toward the dock. The switch is rated 8 A, so fuse each gun at 8 A or less.
+- **Trigger (74):** hangs in a slot on the seam and pivots on two **5 mm pegs**, one printed into each half (no pin), with root fillets and chamfered tips.
+  - **Fit:** the main-side hole is 5.6 mm and locates the trigger. The cover-side hole is 6.2 mm, and both ends are countersunk, so the cover's peg finds its way in blind.
+  - **Action:** its nub pushes the button cap directly, and the switch's spring pushes it back. A full pull (23.8°, about 8.4 mm at the finger) pushes the button **7.0 mm**. It latches at 5 mm (measured), reached at 16.5°, and 6.5 mm is reached at 22°.
+  - **Stop:** at full pull, the back of the blade lands on a **stop boss** on the grip's front strap. The stop sits at finger height, so a hard squeeze goes into the grip, not through the pivot pegs.
+  - **Margin:** if the switch ends up 0.5 mm further back (a thicker hex nut), it still pushes 6.5 mm.
+  - **Glue:** a 1 mm moat round the slot and the button tip at the seam catches squeeze-out. Keep glue 5 mm clear of them, and try the trigger with the halves held by rubber bands before gluing.
+  - **Loose when on:** with the switch on, the button stays partway in, so the trigger hangs loose until the next press.
+  - **Floor:** the hub pokes 1.8 mm up through the floor. Being round, it plugs its own opening, so wires can't drop into the slot. A low hump on the floor wraps the button bore where it passes under.
+- **Test pieces (00):** the trigger housing region of each half (switch, nuts, bulkhead, pegs, stop boss). Print these first in the real filament. They confirm the switch fits, the nuts tighten, the trigger swings and stops, and the button latches before it bottoms out.
+- **One hand, two guns:** the left gun's grip is on its right, the right gun's on its left. The buttons latch, so switch both on, then hold the guns grip to grip: the grips make one 56 mm handle. Optional 6 × 3 mm magnets in the grip-side faces (two in the body, two in the grip) hold the pair together: **left gun north out, right gun south out.**
+- **Checks:**
+  - `python check_stl.py 7 00_duo`: watertight, one body, nothing over 45°.
+  - `python check_duo_fit.py`: trigger kinematics, plus interference with manifold3d between the halves, heads (both hands), the XT30U male in its pocket, the head hoses on the outlets, switch (released, pushed and set back), nuts (5/8" hex, knurled nut loose), and the trigger at rest, at 6.5 mm and at full pull. It confirms both stops (`-v` shows the full-pull stop is the boss on the strap), and reports clearances and the thinnest walls (1.6 mm round the switch pockets). Everything is 0 except the head-hose model brushing the outlet barbs' bases (about 1 mm³).
+  - `build.sh` runs `clean_stl.py` to drop a few stray zero-area triangles the shells' unions leave.
+  - The head model is photo-measured: check the part 50/51 results before printing a full shell.
 
 ## Inputs and outputs
 

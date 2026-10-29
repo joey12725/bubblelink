@@ -69,3 +69,16 @@ render 68_gun_dock_8head.stl         gun_dock.scad       -D 'part="dock"' -D n_o
 render 69_dock_mount_plate.stl        gun_dock.scad       -D 'part="plate"'
 # Superseded by the stick, kept for reference (not built):
 #   dry_core.scad, pump_module.scad, port_insert.scad
+# Duo (2026-10-28): compact two-head gun, made as a left/right pair (R = mirror of L). All purple.
+# Per gun: main half (with the grip), cover half, trigger (74), dock 62.
+# print the two test pieces first: the trigger housing region of each half (switch fit, nut
+# stack, trigger, stop, button bottom-out). Hold them together with rubber bands.
+render 00_duo_test_main.stl           duo_gun.scad        -D 'part="test_main"'
+render 00_duo_test_cover.stl          duo_gun.scad        -D 'part="test_cover"'
+render 70_duo_main_L.stl              duo_gun.scad        -D 'part="main"'        -D 'hand="L"'
+render 71_duo_cover_L.stl             duo_gun.scad        -D 'part="cover"'       -D 'hand="L"'
+render 72_duo_main_R.stl              duo_gun.scad        -D 'part="main"'        -D 'hand="R"'
+render 73_duo_cover_R.stl             duo_gun.scad        -D 'part="cover"'       -D 'hand="R"'
+render 74_duo_trigger.stl             duo_gun.scad        -D 'part="trigger"'     # 1 per gun
+# the Duo shells' unions leave a few stray zero-area triangles; drop them (needs python + trimesh)
+python clean_stl.py stl/7[0-4]_duo_*.stl stl/00_duo_test_*.stl
