@@ -153,7 +153,8 @@ module ringA() {
       cylinder(r = RA, h = ringA_h);
     }
     translate([0,0,-e]) cylinder(r = RA - rim_w, h = well_dep + e);        // wheel well
-    translate([0,0,-e]) cylinder(r1 = RA + 0.6, r2 = RA - 0.4, h = 1.0);  // front edge chamfer
+    translate([0,0,-e]) difference() {                                   // front edge chamfer (outer edge only;
+      cylinder(r = RA + 1, h = 1.0); cylinder(r1 = RA - 0.4, r2 = RA + 0.6, h = 1.0); }  // it used to remove the whole face)
     translate([0,0,-1]) difference() { cylinder(r = RA + 1, h = 1.0 + 0.4); cylinder(r = RA - 0.4, h = 3); }
   }
 }
@@ -227,7 +228,7 @@ module gearbox() {
   color("mediumpurple") translate([pump_x - 6, gb_y0 - 1.5, pump_z - 6]) rotate([90,0,0]) cylinder(d = 8, h = 1.5, $fn = 24);
 }
 
-module hose() {
+module hose(inlet = true) {
   // U-bracket + barb on ring A at -X; tube runs back along ring A/B to the pump outlet
   rotate([0,0,barb_ang]) {
     color("ivory") difference() {
@@ -241,8 +242,8 @@ module hose() {
     // outlet: barb -> back along the housing -> round the -Y side -> pump outlet
     tube_path([[-rt, 0, barb_z0 + 2], [-rt, 0, 24], [-RB - 2, -6, 31], [-16, -16, 40],
                [-2, -15, 47], [pump_x - 8, gb_y0 - 3, pump_z + 4]]);
-    // inlet: pump -> off the head toward -X
-    tube_path([[pump_x - 9, gb_y0 - 3, pump_z + 7], [-6, -13, 52], [-24, -13, 56], [-45, -13, 60]]);
+    // inlet: pump -> off the head toward -X (illustrative; a gun shell supplies its own hose)
+    if (inlet) tube_path([[pump_x - 9, gb_y0 - 3, pump_z + 7], [-6, -13, 52], [-24, -13, 56], [-45, -13, 60]]);
   }
 }
 
@@ -263,9 +264,9 @@ module led_parts() {
   }
 }
 
-module head() {
+module head(inlet = true) {
   ringA(); wheel(); ringB();
-  gear_housing(); motor_and_cradle(); gearbox(); hose(); led_parts();
+  gear_housing(); motor_and_cradle(); gearbox(); hose(inlet); led_parts();
 }
 
 // ================= collar =================
@@ -307,6 +308,10 @@ module gauge() { for (i = [0:4]) translate([(i % 3)*60, floor(i / 3)*60, 0]) gau
 // ================= for gun shells (`use <blower_head.scad>`) =================
 // [ring A dia, ring A length, ring B dia, stationary rim width]
 function head_rings() = [ringA_d, ringA_h, ringB_d, rim_w];
+// gear-housing tab beside ring A, in the head frame: a box from x = ringA_d/2 - 3 to gh_r1,
+// y = gh_y0 .. gh_y1, z = gh_z0 .. the back of ring B. Grown by c on every side.
+module head_gear_tab(c = 0) translate([ringA_d / 2 - 3, gh_y0 - c, gh_z0 - c])
+  cube([gh_r1 - ringA_d / 2 + 3 + c, gh_y1 - gh_y0 + 2 * c, ringA_h + ringB_h - gh_z0 + c]);
 
 // ================= dispatch =================
 if (part == "head")          head();
