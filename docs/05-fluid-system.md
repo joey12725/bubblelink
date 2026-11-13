@@ -29,7 +29,6 @@ The fluid system transfers bubble solution from a 1 L reservoir to donor gun hea
 ### 1 L Hydration Bladder
 
 **Part**: Water Bladder for Hydration Pack (1 L), Blue, UWWWMM Official Store  
-**Listing**: [`docs/parts/listings/water-bladder-1l.md`](parts/listings/water-bladder-1l.md)
 
 | Specification | Value |
 |---|---|
@@ -47,8 +46,6 @@ The fluid system transfers bubble solution from a 1 L reservoir to donor gun hea
 ### GROTHEN G528 6 V Peristaltic Transfer Pump
 
 **Part**: 6V Low Voltage Peristaltic Pump 150 mL/min DIY Dosing Head, GROTHEN Official Store  
-**Listing**: [`docs/parts/listings/pump-grothen-g528-6v.md`](parts/listings/pump-grothen-g528-6v.md)  
-**Order reference**: [order ref removed] (ordered 2026-08-06)
 
 | Specification | Value |
 |---|---|
@@ -170,7 +167,6 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 
 **Car-hose fitting assortment**:
 - **Part**: Plastic car-hose connector set, Shop1103411025 Store
-- **Listing**: [`docs/parts/listings/car-hose-fitting-assortment.md`](parts/listings/car-hose-fitting-assortment.md)
 - **Includes**: reducers (1/4" to 3/8" to mate bladder's large factory hose to 3.5×5.5 mm silicone), tees, Y-splitters, straight connectors
 - **Material**: Polypropylene (plastic), rated <850 kPa (124 psi)
 - **Exact contents**: Assortment may vary; select pieces as needed for manifold construction
@@ -185,8 +181,6 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 
 **3.5 mm ID × 5.5 mm OD food-grade silicone tubing**:
 - **Part**: Transparent Flexible Silicone Tube, Shop1105214603 Store
-- **Listing**: [`docs/parts/listings/silicone-tube-3.5x5.5mm.md`](parts/listings/silicone-tube-3.5x5.5mm.md)
-- **Order reference**: [order ref removed] (ordered 2026-08-06, 5 m roll)
 - Material: Food-grade silicone gel, transparent
 - Flexibility: excellent; easy to bundle in umbilical sleeve
 - Temperature rated: -20°C to +60°C storage, -20°C to +45°C operation
@@ -202,8 +196,6 @@ The recirculation loop allows the pack pump to run continuously without dumping 
 
 **4 mm one-way plastic check valve**:
 - **Part**: Plastic Check Valve One-Way Pagoda Inline, BigBigBear Tech Store
-- **Listing**: [`docs/parts/listings/check-valve-4mm-bigbigbear.md`](parts/listings/check-valve-4mm-bigbigbear.md)
-- **Order reference**: [order ref removed] (ordered 2026-08-06)
 
 | Specification | Value |
 |---|---|
@@ -315,8 +307,6 @@ Before integrating a new donor gun head into the system:
 ### JOYFY Concentrate Mixing
 
 **Product**: JOYFY 32 oz (946 mL) concentrated bubble solution, JOYFY US Store  
-**Listing**: [`docs/parts/listings/joyfy-bubble-concentrate.md`](parts/listings/joyfy-bubble-concentrate.md)  
-**Order reference**: [order ref removed] (ordered 2026-08-06; order status "Completed")
 
 **Mixing ratio** (from JOYFY label):
 - Concentrate: 1 part
@@ -338,7 +328,7 @@ Before integrating a new donor gun head into the system:
 
 ### Germall Plus Preservative (Optional, Not Included)
 
-**Status**: Ordered (Liquid Germall Plus, 100 g, Shop1105380267 Store; order reference [order ref removed]), but use is conditional.
+**Status**: Optional (Liquid Germall Plus, 100 g); use is conditional.
 
 **Germall Plus** (sodium methylisothiazolinone + sodium methylchloroisothiazolinone blend):
 - **Purpose**: Biocide preservative for mixed bubble solutions to prevent mold and bacterial growth in stored solution

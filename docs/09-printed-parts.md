@@ -1,6 +1,6 @@
 # 3D-Printed Parts
 
-**Status (2026-10-15):** CAD exists for every functional part. Sources, STLs and the full print guide are in [`hardware/printed/`](../hardware/printed/README.md). **Nothing has been printed or test-fitted yet.**
+CAD exists for every functional part. Sources, STLs and the full print guide are in [`hardware/printed/`](../hardware/printed/README.md).
 
 ## Design: the stick
 
@@ -14,11 +14,11 @@ The whole pack, apart from the bladder, is one upright **stick**: about **99.6 �
 | **Bulkhead** | Only the two 16 AWG gun pairs and the two pump leads cross, through a two-piece TPU grommet with an ASA drip skirt below it. The cup's 4 nuts sit in hex pockets, fitted from the dry side. |
 | **Cup** (wet) | Pump (on a TPU mat), three tees, check valve and bypass slide clamp. Bolts on from below with 4 M3 × 12 screws. Drains through its floor and through the same pair of 4 mm holes in every wall. On the outer wall, two numbered port clusters (1 and 2) each have an XT30U female well, a hose pigtail, a paracord U-tunnel and a drip hood; the bladder IN pigtail is on the front wall. |
 
-**History:** Joey approved combining parts on 2026-10-14. The first combined design was a wide box (about 157 × 171 × 52 mm). It was replaced the same day because it couldn't sit beside the bladder. Its sources (`dry_core.scad`, `pump_module.scad`, `port_insert.scad`) are kept for reference only.
+**History:** The first combined design was a wide box (about 157 × 171 × 52 mm). It was replaced by the stick because it couldn't sit beside the bladder.
 
 **Superseded (don't design or print):** the separate battery cartridge, the wet/dry divider and electronics tray, the PCB mount bracket, buck pads, the breaker bracket, the voltmeter and control-panel faceplates, the pump cradle, the pump/hose/tether block, the Cults3D spacer remix (replaced by original 5×2 offset cell holders, MID and TERM, 19.9 mm pitch), and the intermediate "dry core" wide box.
 
-**Hardware:** 6 M3 stainless DIN 912 socket-head screws from Joey's HVAKHVA kit (2× M3×10 for the cap, each with an M3 flat washer on top of the TPU washer under the head; 4× M3×12 for the cup, each with an M3 split lock washer), 6 M3 nuts captured in the printed pockets and glued (4 in hex pockets dropped into the bulkhead from the dry side, 2 in slots in the cap's nut blocks), 2 TPU washers, zip ties, glue, clear hot glue or UV resin for the LED windows, and tape. No self-tapping: the nuts carry the threads and the clearance holes are 3.4 mm. Both screw lengths pass fully through their nuts (the M3×12 shows 0.7 mm past the nut with its lock washer, the M3×10 shows 0.8 mm). No anaerobic threadlocker (Loctite 242/243) near ASA, since it can crack it; a tiny drop of CA on the screw tip is the plastic-safe alternative. Tool: a 2.5 mm hex key, long enough to reach about 46 mm up the cup columns. None of the kit's M4/M5/M6 parts are needed. Earlier "no screws" statements are superseded.
+**Hardware:** 6 M3 stainless DIN 912 socket-head screws from a stainless DIN 912 M3 assortment (2× M3×10 for the cap, each with an M3 flat washer on top of the TPU washer under the head; 4× M3×12 for the cup, each with an M3 split lock washer), 6 M3 nuts captured in the printed pockets and glued (4 in hex pockets dropped into the bulkhead from the dry side, 2 in slots in the cap's nut blocks), 2 TPU washers, zip ties, glue, clear hot glue or UV resin for the LED windows, and tape. No self-tapping: the nuts carry the threads and the clearance holes are 3.4 mm. Both screw lengths pass fully through their nuts (the M3×12 shows 0.7 mm past the nut with its lock washer, the M3×10 shows 0.8 mm). No anaerobic threadlocker (Loctite 242/243) near ASA, since it can crack it; a tiny drop of CA on the screw tip is the plastic-safe alternative. Tool: a 2.5 mm hex key, long enough to reach about 46 mm up the cup columns. None of the kit's M4/M5/M6 parts are needed. Earlier "no screws" statements are superseded.
 
 **Foam is gone.** Three TPU parts replace it: two compliant battery pads that click onto the cap's ribs (36; about 0.6 mm of compression, roughly 70-140 N/mm per pad), a 2 mm pump mat with eight drain holes (37), and a set of six 5 × 30 mm shim strips (0.6, 1.0 and 1.5 mm thick, two of each) to cut and tuck where a board rattles (38).
 

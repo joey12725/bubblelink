@@ -28,9 +28,9 @@ BubbleLink uses donor bubble-gun heads stripped from retail toy guns rather than
 
 An existing three-head gun has been used for all benchmarking and performance reference. This gun remains the only one "actually proven to survive [Joey's] usage," though its original solder contacts were creating unintended voltage drop and current limiting.
 
-### the target festival plan: a pair of dual-head guns
+### Reference build: a pair of dual-head guns
 
-- **Two guns × two donor blower heads.** Joey is picking up ~20 bubble guns this week to strip for heads. Pick 4 matched heads and keep the spares.
+- **Two guns × two donor blower heads.** Strip a batch of toy bubble guns for heads. Pick 4 matched heads and keep the spares.
 - **Wiring:** each gun's two head motors run in parallel on that gun's XT30U.
 - **Fluid:** both donor pumps in a gun are fed from its umbilical through one assortment tee.
 - **Current (measured 2026-10-27):** each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under the 30 A breaker); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27).
@@ -164,10 +164,10 @@ The electrical and fluid "umbilical" connects the pack to each gun head. It is a
 
 | Item | Specification | Source |
 |---|---|---|
-| **Electrical power connectors** | XT30U male/female pair (15 A rated, 1 per channel) | AliExpress order ref [order ref removed] |
-| **Hose (fluid)** | ID 3.5 mm, OD 5.5 mm silicone tube, food-grade | 5 m spool; order ref [order ref removed] |
-| **Tether (mechanical load-bearing)** | 550 paracord, 7-strand, 4 mm diameter, black | 15 m spool; order ref [order ref removed] |
-| **Wire protection** | 10 mm braided PET sleeving | 5 m spool; order ref [order ref removed] |
+| **Electrical power connectors** | XT30U male/female pair (15 A rated, 1 per channel) | |
+| **Hose (fluid)** | ID 3.5 mm, OD 5.5 mm silicone tube, food-grade | 5 m spool; |
+| **Tether (mechanical load-bearing)** | 550 paracord, 7-strand, 4 mm diameter, black | 15 m spool; |
+| **Wire protection** | 10 mm braided PET sleeving | 5 m spool; |
 | **Umbilical bricks** | Printed ASA (or PETG), one at the gun end of each umbilical (×2 total; no brick at the pack end) | `hardware/printed/` (`10_umbilical_brick_x2`) |
 
 ### Hose length—default 4 feet
@@ -225,7 +225,7 @@ Each umbilical has a **3D-printed ASA (or PETG) brick** at the gun end (two in a
 
 ### Wand configuration options
 
-For the target festival the plan is option 2 below, with each gun a dual-head gun.
+The reference build uses option 2 below, with each gun a dual-head gun.
 
 1. **Single wand + two heads (3 + 3 split):** One print-molded wand body holds two XT30U sockets and connects to two parallel three-head gun blocks. Total: 6 heads, each channel at ~10.9 A at 6.4 V (typical), leaving margin below 15 A limit.
 2. **Dual handheld guns:** Joey wields one gun per hand, each connected to a single XT30U umbilical. Simplest configuration; no wand block needed.
@@ -250,7 +250,7 @@ The pack has a **30 A manual-reset main breaker** protecting the entire system. 
 - **Combined current:** up to 25 A (typical; some headroom below 30 A limit)
 - **Combined power:** 25 A × 6.4 V ≈ 160 W (within budget for 2S5P battery under moderate load)
 - **Supported configuration:** 6 standard heads (3 + 3 split) at full power
-- **the target festival estimate:** ~12 A with all 4 heads of the two dual-head guns firing (~6 A per channel); not measured
+- **Reference-build estimate:** ~12 A with all 4 heads of the two dual-head guns firing (~6 A per channel); not measured
 
 ### Expansion ceiling
 
@@ -269,7 +269,7 @@ In practice, Joey's current builds support:
 
 ## Gun teardown and qualification
 
-For the target festival, strip the ~20 bubble guns Joey is picking up this week, pick 4 matched heads, and keep the spares. Record the teardown measurements: the gun/head mounts aren't designed yet and are drawn from them.
+The reference build uses strip a batch of toy bubble guns, pick 4 matched heads, and keep the spares. Record the teardown measurements: the gun/head mounts aren't designed yet and are drawn from them.
 
 Before integrating a donor gun into the system, it must be qualified for:
 
@@ -335,9 +335,9 @@ The Tracer gun shells are hollow with an internal cavity designed to accept:
 
 ## Open items
 
-- **Exact donor gun models:** Joey is picking up ~20 bubble guns this week to strip; the 4 matched heads for the two dual-head guns are chosen at teardown
+- **Exact donor gun models:** the 4 matched heads for the two dual-head guns are chosen at teardown from a batch of toy guns
 - **Gun/head mounts:** Not designed yet; they need the teardown measurements
-- **Motor current by head type:** The the target festival donor heads measured ~1.39 A each at full power (2026-10-27). Other head types haven't been measured; measure each new type before budgeting it
+- **Motor current by head type:** reference-build donor heads measured ~1.39 A each at full power (2026-10-27). Other head types haven't been measured; measure each new type before budgeting it
 - **Tracer shell final integration:** Exact hose routing, LED placement, and drainage design for the Tracer cosplay guns will be confirmed during build-out in October 2026
 
 ---
@@ -348,4 +348,3 @@ The Tracer gun shells are hollow with an internal cavity designed to accept:
 - [docs/04-power-system.md](04-power-system.md) — Battery, BMS, breaker, and 2S pack voltage specifications
 - [docs/05-fluid-system.md](05-fluid-system.md) — Pump, hose, and reservoir design
 - [docs/07-pcb/overview.md](07-pcb/overview.md) — ACS758 current sensing and pump trigger logic
-- [docs/parts/ORDER_LEDGER.md](parts/ORDER_LEDGER.md) — XT30U connectors, paracord, hose, and sleeving part references

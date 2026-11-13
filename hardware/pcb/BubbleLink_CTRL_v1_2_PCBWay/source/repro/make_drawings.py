@@ -17,7 +17,7 @@ def text(x,y,s,size=10,color=navy):c.setFillColor(color);c.setFont('DejaVu',size
 def header(title,sub):
  text(38,797,'BUBBLELINK / CTRL v1.2',12,blue);text(38,771,title,21);text(38,749,sub,9)
 def footer(page):
- text(38,29,'[assembly order]  |  ECO 2026-09-09  |  Dimensions in mm  |  Top view',8,gray);text(536,29,str(page),8,gray)
+ text(38,29,'ECO 2026-09-09  |  Dimensions in mm  |  Top view',8,gray);text(536,29,str(page),8,gray)
 header('Assembly and polarity reference','41 top-side SMT placements. THT, test points, mounting holes and DNP parts are not assembly items.')
 ox,oy,scale=72,334,9
 # Final board outline and all physical lands, no inferred pin-1 corner flags.

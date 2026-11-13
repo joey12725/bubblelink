@@ -507,7 +507,7 @@ If failures occur during bring-up:
 3. **Inspect the suspect component(s)** visually under magnification
 4. **Reflow suspect solder joints** if cold or insufficient coverage
 5. **Measure continuity** of suspected open circuits (remove power first)
-6. **Replace** failed or incorrect components (order exact part numbers from ORDER_LEDGER)
+6. **Replace** failed or incorrect components (order exact part numbers from the [BOM](../bom.md))
 7. **Repeat the relevant test section** from this procedure
 8. **Do not proceed to field integration** until all bench gates pass
 

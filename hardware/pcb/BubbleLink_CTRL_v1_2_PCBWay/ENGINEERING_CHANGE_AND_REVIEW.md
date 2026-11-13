@@ -1,6 +1,6 @@
 # BubbleLink CTRL v1.2 engineering change
 
-Order **[assembly order]**. Issued **2026-09-09**.
+Revision **v1.2**. Issued **2026-09-09**.
 
 ## Decision and rationale
 

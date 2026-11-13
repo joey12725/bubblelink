@@ -8,7 +8,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Pack-fed, two-channel modular system with one shared transfer pump.
 
-**Why:** Joey's existing 2S1P gun proved the concept (a summer festival 2026-08-02, a convention 2026-09-04 to 06): 473.6 mL solution in ~75 min at 37% duty, ~26 W average, ~0.069 Wh/mL. The 2S5P pack has five times the baseline's energy (90 Wh vs 18 Wh). At ~0.069 Wh/mL that's roughly 1.2–1.3 L of solution for one EGU-class gun, which matches the 1 L reservoir (1 L budgets 71–74 Wh including pump assistance). Two independent XT30U channels allow flexible head deployment: one gun per channel, or both channels feeding one large wand. A single GROTHEN G528 at 150 mL/min nominal is ~9× one baseline gun's 16.9 mL/min continuous demand (~4.4× for two).
+**Why:** Joey's existing 2S1P gun proved the concept at a summer festival and a three-day convention: 473.6 mL solution in ~75 min at 37% duty, ~26 W average, ~0.069 Wh/mL. The 2S5P pack has five times the baseline's energy (90 Wh vs 18 Wh). At ~0.069 Wh/mL that's roughly 1.2–1.3 L of solution for one EGU-class gun, which matches the 1 L reservoir (1 L budgets 71–74 Wh including pump assistance). Two independent XT30U channels allow flexible head deployment: one gun per channel, or both channels feeding one large wand. A single GROTHEN G528 at 150 mL/min nominal is ~9× one baseline gun's 16.9 mL/min continuous demand (~4.4× for two).
 
 **Implications:** Both channels share supply pressure and response time. Umbilicals are semi-permanent (XT30U remains the disconnect). Donors are test hardware, not a frozen design.
 
@@ -210,7 +210,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Black nylon car-hose connector assortment: #68401 1/8" straight unions, #68409 5/32" tees, larger reducers.
 
-**Why:** One assortment ([price]) supplies the unions, tees, and reducers. Nylon tolerates bubble solution, glycerin, detergents.
+**Why:** One assortment supplies the unions, tees, and reducers. Nylon tolerates bubble solution, glycerin, detergents.
 
 **Implications:** The pack plumbing uses three tees (inlet tee, outlet tees 1 and 2), so check the assortment has three; each dual-head gun needs one more to feed its two donor pumps. Use #68401 for pump inlet/outlet, #68409 for manifold tees. Save extras for prototyping.
 
@@ -408,7 +408,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Joey is extracting pump/fan/wetting mechanisms from random toy guns. Each donor may have different motor voltage, current, tubing, bubble pattern. Standardizing one head would require buying many identical toys (hard to find) or redesigning (out of scope for MVP).
 
-**Implications:** For the target festival, the plan is a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week to strip for heads: pick 4 matched heads and keep spares. Each gun's two head motors run in parallel on its XT30U, and both donor pumps are fed from its umbilical through one assortment tee. Measured (2026-10-27): each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under 30 A); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27). Post-assembly, each gun is characterized (current draw, flow rate, runtime, bubble quality). Head selection is data-driven.
+**Implications:** The reference build uses a pair of dual-head guns (2 guns × 2 donor blower heads). Strip a batch of toy bubble guns for heads: pick 4 matched heads and keep spares. Each gun's two head motors run in parallel on its XT30U, and both donor pumps are fed from its umbilical through one assortment tee. Measured (2026-10-27): each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under 30 A); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27). Post-assembly, each gun is characterized (current draw, flow rate, runtime, bubble quality). Head selection is data-driven.
 
 ---
 
@@ -456,7 +456,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** Tracer (Overwatch) cosplay is separate project sharing the pack.
 
-**Why:** Target event (the target festival 2026-10-30 to 31) includes cosplay contest. Hollow printed gun shells house actual bubble guns, everything white, with 2 m ice-blue 5 V COB LED strip for lighting.
+**Why:** Festival cosplay is part of the use case. Hollow printed gun shells house actual bubble guns, everything white, with 2 m ice-blue 5 V COB LED strip for lighting.
 
 **Implications:** MVP shell is bubble gun hardware only (XT30U channels, umbilicals). Cosplay shells are future work contingent on MVP success.
 
@@ -464,15 +464,15 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ## Manufacturing & Schedule
 
-**Decision:** PCBWay order [PCB order] (v1.2, replaces v1.1 [original PCB order]): 5 boards fabricated, 2 assembled, 3 bare spares.
+**Decision:** PCBWay v1.2 run: 5 boards fabricated, 2 assembled, 3 bare spares.
 
-**Why:** v1.1 held after U1 footprint error discovered. v1.2 corrects footprint per TI D0008A. PCBWay replaced order at no cost. 2026-09-24 balance paid, 2026-10-03 assembly photos approved, 2026-10-08–11 dispatched. Boards in transit; ETA 2026-10-15–18.
+**Why:** v1.1 held after U1 footprint error discovered. v1.2 corrects footprint per TI D0008A. PCBWay rebuilt the boards from the corrected v1.2 data.
 
 **Implications:** Bare boards are spares. Two assembled boards sufficient for MVP; one held as unit spare.
 
 ---
 
-**Decision:** Assembly is [assembly order] within group [order group]; 41 top-side SMT placements, J4 and R22 DNP, C9 and R18 fitted, U1 is TI TLV1822QDRQ1 with corrected footprint.
+**Decision:** Assembly: 41 top-side SMT placements, J4 and R22 DNP, C9 and R18 fitted, U1 is TI TLV1822QDRQ1 with corrected footprint.
 
 **Why:** Confirms correct placement of all components.
 
@@ -482,9 +482,9 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Decision:** First build sequence: rig with one converted gun, then fluid/power proof, then donor characterization, then wrist/cosplay/UV/progressive-trigger options, then larger battery if real use justifies.
 
-**Why:** De-risks project. Working single-gun system deployable within deadline. Multi-head and cosplay happen post-event if MVP succeeds.
+**Why:** De-risks project. A working two-channel system comes first; multi-head and cosplay builds follow once the MVP is proven.
 
-**Implications:** the target festival 2026-10-30–31 deployment is one gun per channel (a pair of dual-head guns), 1 L reservoir. Wrist emitter, six/sixteen-head stick, 180 Wh cartridge are future work (roadmap only, not MVP).
+**Implications:** The first deployment is one gun per channel (a pair of dual-head guns), 1 L reservoir. Wrist emitter, six/sixteen-head stick, 180 Wh cartridge are future work (roadmap only, not MVP).
 
 ---
 
@@ -492,7 +492,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 **Why:** Actual part sizes were unknown from listings alone, and several listing figures turned out wrong. Premature CAD would guess and require rework.
 
-**Implications:** Joey measured the breaker, BMS, bucks, ACS758, charger, voltmeter and pump with a tape measure on 2026-10-14, and the printed-part CAD now exists (OpenSCAD in `hardware/printed/src`, STLs in `hardware/printed/stl`, built with `hardware/printed/build.sh`). Nothing has been printed or test-fitted yet. Still unknown: the bucks' width (17 mm assumed). The earlier battery cartridge, pump cradle, divider/tray, brackets, breaker fence, buck pads, faceplates, pump/hose/tether block, Cults3D spacer remix and connector blocks are superseded. 6–8 day build estimate assumes printing is done before board arrival.
+**Implications:** Joey measured the breaker, BMS, bucks, ACS758, charger, voltmeter and pump with a tape measure on 2026-10-14, and the printed-part CAD now exists (OpenSCAD in `hardware/printed/src`, STLs in `hardware/printed/stl`, built with `hardware/printed/build.sh`). The bucks' width is assumed at 17 mm; measure yours. The earlier battery cartridge, pump cradle, divider/tray, brackets, breaker fence, buck pads, faceplates, pump/hose/tether block, Cults3D spacer remix and connector blocks are superseded.
 
 ---
 
@@ -512,7 +512,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Decision:** Hard deadline: 2026-10-29 (one day before the target festival opens 2026-10-30).
+**Decision:** A fixed completion date ahead of the first event.
 
 **Why:** Target event 2026-10-30–31. One day allows final checks without event-day panic.
 
@@ -528,7 +528,7 @@ This document records every final design choice in BubbleLink, organized by doma
 
 ---
 
-**Decision:** BMS, charger, breaker sourced from AliExpress (2S 40 A BMS ~[price], SZHJW 2S 4A charger ~[price], YONGRUN 30 A breaker ~[price]).
+**Decision:** BMS, charger, breaker sourced from AliExpress (2S 40 A BMS, SZHJW 2S 4A charger, YONGRUN 30 A breaker).
 
 **Why:** Lowest cost, readily available. Typical delivery 2–4 weeks acceptable for development.
 

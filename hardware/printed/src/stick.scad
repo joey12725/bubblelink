@@ -1,6 +1,5 @@
 // BubbleLink stick (dry core v2): the whole pack except the bladder, in one
-// upright column that stands beside the bladder in any bag. Supersedes
-// dry_core.scad, pump_module.scad and port_insert.scad.
+// upright column that stands beside the bladder in any bag.
 //
 // Worn orientation: +z up, y = 0 against the wearer's back, x across.
 //

@@ -432,7 +432,7 @@ Each gun receives a four-foot "umbilical" bundle containing:
 
 ### Internal Assembly (Pack Interior)
 
-Everything except the bladder is one printed upright stick. CAD is in `hardware/printed/` ([print guide](../hardware/printed/README.md)); nothing has been printed or test-fitted yet.
+Everything except the bladder is one printed upright stick. CAD is in `hardware/printed/` ([print guide](../hardware/printed/README.md)).
 
 **Internal sub-assemblies:**
 
@@ -523,7 +523,6 @@ The following documents detail each subsystem:
 | PCB Bringup & Test | [07-pcb/bringup-and-acceptance-test.md](07-pcb/bringup-and-acceptance-test.md) | Power-on checklist, calibration procedures, acceptance criteria, troubleshooting |
 | Printed Parts | [09-printed-parts.md](09-printed-parts.md) | The upright stick (cap, tube, sled, bulkhead grommet, cup), cell holders, slide clamps, umbilical bricks; CAD in `hardware/printed/` |
 | Build Guide | [10-build-guide.md](10-build-guide.md) | Step-by-step assembly sequence, hand-solder procedures, fluid system priming, harness routing, first-time setup |
-| Parts Order Ledger | [parts/ORDER_LEDGER.md](parts/ORDER_LEDGER.md) | Complete AliExpress and PCBWay orders, delivery status, part variants, pricing |
 
 ---
 

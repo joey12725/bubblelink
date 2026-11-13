@@ -1005,9 +1005,9 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 ---
 
-## 14. Pre-Event Final Checklist (the target festival 2026-10-30/31)
+## 14. Pre-Event Final Checklist
 
-**To be completed 1 day before festival departure (2026-10-29):**
+**Complete the day before the event:**
 
 ### Electrical Systems
 - [ ] Battery fully charged: 8.40 ± 0.10 V open-circuit
@@ -1073,6 +1073,6 @@ Complete acceptance test procedures for BubbleLink bubble-gun system. This plan 
 
 All tests completed: __________ (date)
 Tester name: ____________________________
-Festival/event: **the target festival**
-Festival dates: **2026-10-30 to 10-31**
-Completion deadline: **2026-10-29** (day before event)
+Festival/event: **________**
+Festival dates: **________**
+Completion deadline: **________** (day before event)

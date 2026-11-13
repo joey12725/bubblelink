@@ -1,0 +1,22 @@
+BubbleLink is open hardware. Copyright (c) 2026 Joey Hersh.
+
+Different parts of this repository are released under different licenses,
+each chosen for the kind of work it covers:
+
+  Hardware design files                                  CERN-OHL-P-2.0
+    hardware/pcb/        KiCad source, Gerbers, drills, BOM/CPL, drawings
+    hardware/printed/    OpenSCAD sources (src/), STL and 3MF files (stl/)
+
+  Software                                               MIT
+    Python, JavaScript/TypeScript and shell scripts anywhere in the repo
+    (verification, release QA, reproduction, rendering and STL tooling)
+
+  Documentation and images                               CC-BY-4.0
+    docs/, README files, hand-solder guides, renders and other images
+
+Full license texts are in LICENSES/. Attribution: "BubbleLink by Joey Hersh",
+with a link to this repository.
+
+Third-party trademarks and part numbers (Texas Instruments, Amass XT30/XT60,
+JST, Samsung and others) belong to their owners and are used only to identify
+compatible parts.

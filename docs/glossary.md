@@ -13,22 +13,22 @@ Two cells in series, five cells in parallel. BubbleLink uses 10× Samsung INR186
 7.4 V nominal (3.7 V per cell, two cells in series). Fully charged is 8.4 V (4.2 V per cell); discharge floor is 6.0 V (3.0 V per cell).
 
 **BMS**  
-Battery Management System. 40 A lithium BMS with cell balancing and temperature cutoff (~55–60°C discharge stop). Ordered variant: IC GOGOGO Store, 2S 8.4V 40A, Li-ion (not LiFePO₄). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 2.
+Battery Management System. 40 A lithium BMS with cell balancing and temperature cutoff (~55–60°C discharge stop). Ordered variant: IC GOGOGO Store, 2S 8.4V 40A, Li-ion (not LiFePO₄). See the [BOM](bom.md).
 
 **Buck A**  
-First (primary) voltage regulator module. Converts battery 2S voltage (6–8.4 V) down to regulated 5 V for the PCB and pump. Generic YxPC Store 5V USB buck module (2 units ordered, [price] each; the second is **Buck B**, for the LED backpack). Both outputs are soldered directly (Buck A to PCB J1, Buck B to a cut USB cable); there's no room for USB plugs inside the stick. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 4. Design ceiling: 5.25 V maximum (PCB spec). Backup upgrade: Pololu S13V30F5 (not ordered).
+First (primary) voltage regulator module. Converts battery 2S voltage (6–8.4 V) down to regulated 5 V for the PCB and pump. Generic YxPC Store 5V USB buck module (2 units ordered; the second is **Buck B**, for the LED backpack). Both outputs are soldered directly (Buck A to PCB J1, Buck B to a cut USB cable); there's no room for USB plugs inside the stick. See the [BOM](bom.md). Design ceiling: 5.25 V maximum (PCB spec). Backup upgrade: Pololu S13V30F5 (not ordered).
 
 **USB-C charger (2S boost)**  
-USB Power Delivery input module (SZHJW Technology Store, 2S 4A boost converter, order ref [order ref removed]). Steps up USB-C input to 8.4 V for battery charging. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 3.
+USB Power Delivery input module (SZHJW Technology Store, 2S 4A boost converter). Steps up USB-C input to 8.4 V for battery charging. See the [BOM](bom.md).
 
 **Circuit breaker (main)**  
-30 A manual-reset breaker (Type B-30A, YONGRUN Store, 12–48 V DC, M6 terminal studs). Inline type: studs at both ends, a 1⅝ in square plate in the middle with a red reset lever and a red push-to-trip button; 4 in (102 mm) long (measured 2026-10-14). Mounted immediately after BMS, in the + line only, for catastrophic overcurrent protection on the main 12 AWG power rails. In the stick the walls are solid, so its controls are only reachable with the cap off and the sled out; the **power key** on the cap is the OFF switch. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 5.
+30 A manual-reset breaker (Type B-30A, YONGRUN Store, 12–48 V DC, M6 terminal studs). Inline type: studs at both ends, a 1⅝ in square plate in the middle with a red reset lever and a red push-to-trip button; 4 in (102 mm) long (measured 2026-10-14). Mounted immediately after BMS, in the + line only, for catastrophic overcurrent protection on the main 12 AWG power rails. In the stick the walls are solid, so its controls are only reachable with the cap off and the sled out; the **power key** on the cap is the OFF switch. See the [BOM](bom.md).
 
 **Ring lug (SC10-6)**  
-M6 closed-ring terminal, 10 mm² barrel (~8 AWG), 10 pcs ordered. Connects 12 AWG main power wire to circuit breaker M6 studs. Barrel is oversized; requires solder-fill and strain relief. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 6.
+M6 closed-ring terminal, 10 mm² barrel (~8 AWG), 10 pcs ordered. Connects 12 AWG main power wire to circuit breaker M6 studs. Barrel is oversized; requires solder-fill and strain relief. See the [BOM](bom.md).
 
 **Voltmeter (battery gauge)**  
-DC 4–100V circular two-wire LED voltmeter display (Stlxy Store, red, 5 pcs). One in use, four spares. Shows battery voltage on top of the stick's cap. Wired after the breaker, so tripping the breaker turns it off; idle draw not yet measured. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 12.
+DC 4–100V circular two-wire LED voltmeter display (Stlxy Store, red, 5 pcs). One in use, four spares. Shows battery voltage on top of the stick's cap. Wired after the breaker, so tripping the breaker turns it off; idle draw not yet measured. See the [BOM](bom.md).
 
 ---
 
@@ -50,7 +50,7 @@ Diodes Incorporated P-channel logic-level MOSFETs, SOT-23 package (two units). Q
 Vishay 3 A 40 V Schottky diode, SMA DO-214AC package. Reverse-biased (anode to Q2 drain, cathode to 5 V rail). Suppresses pump motor back-EMF transients during Q2 shutoff, clamping to the 5 V supply rail.
 
 **ACS758 (current sensor)**  
-Hall-effect current-sense module (Great IT Electronic Components Store, ACS758LCB-050B variant). 5 V supply, 40 mV/A output, ±50 A bidirectional. Detects combined gun current draw on main high-current path; output signal feeds U1A (gun-current comparator) non-inverting input via R1/C5 sensor filter. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 21.
+Hall-effect current-sense module (Great IT Electronic Components Store, ACS758LCB-050B variant). 5 V supply, 40 mV/A output, ±50 A bidirectional. Detects combined gun current draw on main high-current path; output signal feeds U1A (gun-current comparator) non-inverting input via R1/C5 sensor filter. See the [BOM](bom.md).
 
 **RV1 (2 kΩ, 25-turn trimmer, gun-detection threshold)**  
 Bourns 3296W potentiometer. Sets the threshold voltage for U1A comparator (inverting input), controlling the ACS758 gun-current detection point. Typical range ~2.21–2.80 V; final calibration TBD during field commissioning. R19 (220 kΩ) biases threshold toward the safe (high) direction if RV1 wiper opens.
@@ -58,7 +58,7 @@ Bourns 3296W potentiometer. Sets the threshold voltage for U1A comparator (inver
 **RV2 (100 kΩ, 25-turn trimmer, pump off-delay)**  
 Bourns 3296W potentiometer. Controls the discharge resistor for the HOLD capacitor after gun current stops, setting the pump shutoff delay. Target 350 ms nominal; range ~35–574 ms adjustable via RV2. Calibrated during commissioning. R21 (1 MΩ) provides a safe discharge path if RV2 wiper opens.
 
-Both Bourns 3296W trimmers are hand-soldered THT components; horizontal orientation preferred. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), PCB THT BOM.
+Both Bourns 3296W trimmers are hand-soldered THT components; horizontal orientation preferred. See the [BOM](bom.md), PCB THT BOM.
 
 **R18 (ACS pulldown, 100 kΩ)**  
 Yageo RC0805FR-07100KL, 1% tolerance, 0805 package, SMT. Must be fitted. Pulls the ACS_OUT signal low if the ACS758 module is unplugged, forcing the system into a safe (pump off) state. Specified in PCBWAY_SMT_BOM with "MUST BE FITTED" requirement.
@@ -90,23 +90,23 @@ Functional unit: Q2 MOSFET gate driven by U1B (timer) output through Q3 buffer a
 - **LED2 (yellow, L-934YD):** GUN ACTIVE indicator. Illuminated when U1A (gun-current comparator) output goes low and pulls DET_N down (ACS758 detects gun current above RV1 threshold).
 - **LED3 (red, L-934ID):** PUMP ACTIVE indicator. Illuminated when Q2 MOSFET gate is high (pump running).
 
-All 3 mm through-hole, current-limited via series resistors (typical 1–2 kΩ for 5 V, 10–20 mA per LED). Kingbright OEM. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), PCB THT BOM.
+All 3 mm through-hole, current-limited via series resistors (typical 1–2 kΩ for 5 V, 10–20 mA per LED). Kingbright OEM. See the [BOM](bom.md), PCB THT BOM.
 
 **PRIME button (SW1, momentary manual pump trigger)**  
-Omron B3F-1000, 6×6 mm tactile switch. Momentary pushbutton; grounds the DET_N signal when pressed, forcing Q1 to charge the HOLD capacitor and Q2 to turn on the pump (same delay-timer logic as normal gun detection). Released → comparator resumes control based on ACS758. Manual pump-start function for reservoir priming, line clearing, or override. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), PCB THT BOM.
+Omron B3F-1000, 6×6 mm tactile switch. Momentary pushbutton; grounds the DET_N signal when pressed, forcing Q1 to charge the HOLD capacitor and Q2 to turn on the pump (same delay-timer logic as normal gun detection). Released → comparator resumes control based on ACS758. Manual pump-start function for reservoir priming, line clearing, or override. See the [BOM](bom.md), PCB THT BOM.
 
 **J4 (AUTO/FORCE-ON jumper)**  
 2-pin, 2.50 mm-pitch position, DNP. No-respin fallback if the ACS758 can't detect a low-current head. Open = automatic sensing; shorted = pump forced on through the normal protected timer/driver path. Wire it to a maintained `AUTO / FORCE ON` switch, or to dry-contact trigger poles in parallel. Never connect a motor lead or PWM node directly.
 
 **Connectors (power)**
 
-- **XT60H (10 pairs):** High-current DC connector (60 A rated), gold-plated. Used for the **power key**: a male XT60H potted in the cap is the socket (BMS P+ to the breaker), and the key is a female XT60H with a 12 AWG U-loop in a printed grip. Key out = all loads off (the BMS, charger and one socket pin stay live); for storage, key out and key blank in. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 9.
-- **XT30U (gun channels):** 30 A rated connector pair for XT30 (upgrade variant U for improved contact). Connects main PCB / power distribution to individual gun heads. 10 pair ordered. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 23.
+- **XT60H (10 pairs):** High-current DC connector (60 A rated), gold-plated. Used for the **power key**: a male XT60H potted in the cap is the socket (BMS P+ to the breaker), and the key is a female XT60H with a 12 AWG U-loop in a printed grip. Key out = all loads off (the BMS, charger and one socket pin stay live); for storage, key out and key blank in. See the [BOM](bom.md).
+- **XT30U (gun channels):** 30 A rated connector pair for XT30 (upgrade variant U for improved contact). Connects main PCB / power distribution to individual gun heads. 10 pair ordered. See the [BOM](bom.md).
 - **JST-XH 2.54 mm:** Connector family for low-power signal and power distribution. Used for PCB interfaces:
   - **J1:** 2-pin JST-XH header, 5V and GND from Buck A.
   - **J2:** 3-pin JST-XH header, ACS758 interface (GND, Vcc 5V, signal output).
   - **J3:** 2-pin JST-XH header, pump output (PUMP+, PUMP_SW_NEG).
-  - See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 10.
+  - See the [BOM](bom.md).
 
 **C1 (electrolytic capacitor, through-hole)**  
 Rubycon 100 µF, 16 V, low-ESR, radial D5 P2.0 footprint. Smoothing / bulk capacitance on 5 V Buck A output (handles pump start transient current).
@@ -115,10 +115,10 @@ Rubycon 100 µF, 16 V, low-ESR, radial D5 P2.0 footprint. Smoothing / bulk capac
 Timing and filtering capacitors for comparator and gate-drive networks. Tight placement (C7/U2 spacing 0.02 mm) requires high manufacturing tolerance; flagged in manufacturing QA.
 
 **Nickel-plated steel tabs (battery interconnect)**  
-Welding tabs for 18650 cell interconnection in 2S5P pack. 2.6 cm tabs, 10 pcs per unit, 3 units ordered (30 total, allowing 5 distributed bridges per cell in each series string). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 11.
+Welding tabs for 18650 cell interconnection in 2S5P pack. 2.6 cm tabs, 10 pcs per unit, 3 units ordered (30 total, allowing 5 distributed bridges per cell in each series string). See the [BOM](bom.md).
 
 **Fish-paper insulators (18650 cell gaskets)**  
-Barley-paper insulation rings for isolating 18650 cells in pack. Prevent accidental shorts and manage current distribution. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 24.
+Barley-paper insulation rings for isolating 18650 cells in pack. Prevent accidental shorts and manage current distribution. See the [BOM](bom.md).
 
 **PCB dimensions**  
 50 × 40 mm, two-layer, 1.6 mm thick, 1 oz copper, green solder mask, white silkscreen, lead-free HASL finish.
@@ -134,10 +134,8 @@ Components designated DNP are not populated by factory; left as bare pads. Inclu
 
 **PCBWay**  
 Vendor for custom PCB fabrication and SMT assembly. Orders:
-- **Original:** [original PCB order] (v1.1, defective U1 footprint, fabricated but not assembled).
-- **Replacement:** [PCB order] (v1.2, corrected U1 footprint, 5 boards; 2 assembled, 3 bare).
-- **Group order:** [order group] (consolidates all components and stencil).
-- **Assembly reference:** [assembly order] (group assembly tag).
+- **Original:** (v1.1, defective U1 footprint, fabricated but not assembled).
+- **Replacement:** (v1.2, corrected U1 footprint, 5 boards; 2 assembled, 3 bare).
 
 **Gerber**  
 Industry-standard format for PCB fabrication artwork. Contains layers: F_Cu (top copper), B_Cu (bottom copper), F_Mask (top solder mask), F_Paste (paste-layer for SMT stencil), F_SilkScreen (legend), Edge_Cuts (board outline). Delivered to PCBWay as compressed ZIP archive.
@@ -156,25 +154,25 @@ Metal frame with apertures matching paste-layer (F_Paste.gbr), used to apply sol
 ## Fluid System & Pump
 
 **Peristaltic pump (G528)**  
-GROTHEN G528, 6 V DC nominal, 150 mL/min flow, 3×5 mm tubing (pump inlet/outlet barb sizes). Self-priming, low-shear design suitable for bubble solution without foaming. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 1.
+GROTHEN G528, 6 V DC nominal, 150 mL/min flow, 3×5 mm tubing (pump inlet/outlet barb sizes). Self-priming, low-shear design suitable for bubble solution without foaming. See the [BOM](bom.md).
 
 **G528 transfer pump**  
 Alternative name for GROTHEN G528 (emphasis on "transfer" role: moves bubble solution from reservoir through gun heads).
 
 **Bubble concentrate**  
-Commercial concentrate (JOYFY 32 OZ, US Store, order ref [order ref removed]) diluted per manufacturer instructions for bubble solution. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 16. Also called "bubble solution" when mixed.
+Commercial concentrate (JOYFY 32 OZ, US Store) diluted per manufacturer instructions for bubble solution. See the [BOM](bom.md). Also called "bubble solution" when mixed.
 
 **Hydration bladder (1 L)**  
-Food-grade TPU flexible water reservoir, 1 L capacity, with detachable 101 cm factory hose and auto-sealing bite valve. UWWWMM Official Store, blue color. Repurposed as BubbleLink bubble-solution reservoir. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 15.
+Food-grade TPU flexible water reservoir, 1 L capacity, with detachable 101 cm factory hose and auto-sealing bite valve. UWWWMM Official Store, blue color. Repurposed as BubbleLink bubble-solution reservoir. See the [BOM](bom.md).
 
 **Silicone tube (3.5 × 5.5 mm)**  
-Transparent food-grade tubing, ID 3.5 mm, OD 5.5 mm, 5 meters per spool. Used throughout fluid path (pump inlet, outlet, distribution to guns, recirculation bypass). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 13.
+Transparent food-grade tubing, ID 3.5 mm, OD 5.5 mm, 5 meters per spool. Used throughout fluid path (pump inlet, outlet, distribution to guns, recirculation bypass). See the [BOM](bom.md).
 
 **Hose fitting assortment (nylon barbs, tees, reducers)**  
-Assortment of plastic barbed connectors for coupling silicone tubing. Includes tees (Y-splitters), reducers (ID steps), and straight connectors. The pack plumbing uses three tees (inlet tee, outlet tee 1, outlet tee 2), and each dual-head gun uses one more. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 14.
+Assortment of plastic barbed connectors for coupling silicone tubing. Includes tees (Y-splitters), reducers (ID steps), and straight connectors. The pack plumbing uses three tees (inlet tee, outlet tee 1, outlet tee 2), and each dual-head gun uses one more. See the [BOM](bom.md).
 
 **Check valve (4 mm)**  
-One-way plastic valve, 4 mm barb ID, manual opening pressure 0.003 MPa. Installed in recirculation bypass line to prevent reverse flow from gun outlet back toward pump. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 22.
+One-way plastic valve, 4 mm barb ID, manual opening pressure 0.003 MPa. Installed in recirculation bypass line to prevent reverse flow from gun outlet back toward pump. See the [BOM](bom.md).
 
 **Recirculation loop (bypass)**  
 Tubing path: outlet tee 1's side branch → printed slide clamp (restrictor) → check valve (arrow toward the inlet) → inlet tee → pump inlet. The main flow continues from outlet tee 1 to outlet tee 2 and the two gun channels. Maintains constant low-pressure circulation when guns are not firing (primes lines, keeps pump cool). Target bypass pressure 0.2–0.5 psi (opens when gun outlet backs up).
@@ -208,20 +206,20 @@ ASA (or PETG) tube clamp, ×3. One design serves as the bypass restrictor and bo
 1 L hydration bladder's fluid-discharge port. Factory hose (101 cm, detachable) is cut short inside pack and reduced to 3.5 × 5.5 mm silicone tubing via assortment reducer fitting.
 
 **Germall Plus**  
-Liquid antimicrobial preservative (100 g bottle, Shop1105380267 Store, order ref [order ref removed]). Prevents mold/algae growth in stored bubble solution (dosage TBD, estimated 0.1–0.2% by weight). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 17.
+Liquid antimicrobial preservative (100 g bottle, Shop1105380267 Store). Prevents mold/algae growth in stored bubble solution (dosage TBD, estimated 0.1–0.2% by weight). See the [BOM](bom.md).
 
 ---
 
 ## Wearable Pack & Integration
 
 **Hydration pack (MAX LED M Style backpack)**  
-MAX LED Official Store "M Style" LED pixel backpack (48.16 USD). Carries the BubbleLink system: the printed **stick** (battery, electronics and pump) standing upright beside the 1 L reservoir. Interior geometry not yet measured (the "~34 × 20 × 7 cm" figure is an AI estimate of the exterior). Exterior LED matrix programmable via Bluetooth (secondary feature; not part of core bubble functionality). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 20.
+MAX LED Official Store "M Style" LED pixel backpack. Carries the BubbleLink system: the printed **stick** (battery, electronics and pump) standing upright beside the 1 L reservoir. Interior geometry not yet measured (the "~34 × 20 × 7 cm" figure is an AI estimate of the exterior). Exterior LED matrix programmable via Bluetooth (secondary feature; not part of core bubble functionality). See the [BOM](bom.md).
 
 **LED pixel backpack (M Style)**  
 Alternative name for the MAX LED M Style backpack. "Pixel" refers to individually-addressable LED array on exterior.
 
 **Stick (printed pack unit)**  
-The whole pack apart from the bladder, as one upright printed column about 99.6 × 77.8 × 220 mm (3.9 × 3.1 × 8.7 in), standing beside the bladder. CAD in `hardware/printed/` (designed 2026-10-14; not yet printed or test-fitted). Two umbilicals plug into ports on the cup's outer wall; nothing exits underneath. Sections, top to bottom:
+The whole pack apart from the bladder, as one upright printed column about 99.6 × 77.8 × 220 mm (3.9 × 3.1 × 8.7 in), standing beside the bladder. CAD in `hardware/printed/`. Two umbilicals plug into ports on the cup's outer wall; nothing exits underneath. Sections, top to bottom:
 - **Cap:** the control head. The CTRL PCB hangs underneath; LEDs shine through glue-filled 3.6 mm through-holes; PRIME is a TPU plunger under a TPU boot, guarded by an ASA bezel and hard-stopped after 0.75 mm; RV1/RV2 adjust through two windows closed by a TPU plug; the voltmeter, the USB-C charge port and the power key socket (KEY) are on top. A TPU ring seals radially against the tube (not yet wet-tested); 2× M3×10 socket-head screws with a TPU washer and a flat washer (nuts in slots behind the skirt) keep it on; a TPU plug closes the USB-C port between charges; two compliant TPU battery pads on its ribs press the cell holders.
 - **Tube:** the dry section, with raised BubbleLink lettering on its right-hand wall (98.8 mm wide, 99.6 with the lettering). Its floor is the **bulkhead**, the wet/dry divider.
 - **Sled:** slides out of the top. The 2S5P block stands beside a central spine; the breaker stands behind a cross panel, 2 mm from the outer wall (reset it with the sled out), the BMS on edge along the back wall, and Buck A and the ACS758 in compartments on the front of the panel, while Buck B is not on the sled: it stands on a shelf on the tube's front wall with its USB-A receptacle in the LED 5V window in the outer wall.
@@ -242,10 +240,10 @@ Pulling the **power key** (an XT60H female key in the KEY socket on the cap top)
 Reference to Overwatch character Tracer armor shell + integrated bubble guns (aesthetic context for the LED integration and gun cosplay skins).
 
 **Braided PET sleeving (umbilical sleeve)**  
-Insulation wrap for umbilical bundles. 5 meters, 10 mm width, black color. Protects power and fluid lines from abrasion. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 18.
+Insulation wrap for umbilical bundles. 5 meters, 10 mm width, black color. Protects power and fluid lines from abrasion. See the [BOM](bom.md).
 
 **550 paracord (load-bearing tether)**  
-Mil-spec nylon cord, 7-strand, 4 mm diameter (550 lb tensile strength nominal; "550" is the spec number). 15 meters ordered. Each gun umbilical includes one 4-foot section (mechanical tether, load-bearing). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 19.
+Mil-spec nylon cord, 7-strand, 4 mm diameter (550 lb tensile strength nominal; "550" is the spec number). 15 meters ordered. Each gun umbilical includes one 4-foot section (mechanical tether, load-bearing). See the [BOM](bom.md).
 
 **Donor head (bubble gun head)**  
 Bubble-producing mechanism extracted from donated children's toy bubble guns. Typically contains a motor-driven wand or rotor. Variable current draw (estimated 3–6 A peak) depending on design, speed, and bubble concentration.
@@ -352,10 +350,10 @@ Physical shake test to confirm connector/harness mechanical integrity under fest
 ## Wire & Cable Nomenclature
 
 **12 AWG silicone wire (main power bus)**  
-Red and black silicone-insulated copper conductor, 12 AWG gauge (2.08 mm diameter nominal), 3 meters each color. High-temperature rated for pump/gun current. See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 7.
+Red and black silicone-insulated copper conductor, 12 AWG gauge (2.08 mm diameter nominal), 3 meters each color. High-temperature rated for pump/gun current. See the [BOM](bom.md).
 
 **16 AWG silicone wire (gun branch)**  
-Red and black silicone-insulated, 16 AWG gauge, 5 meters each color. Used for umbilical branches (smaller gauge than main 12 AWG for weight savings; each gun XT30U rated 15 A continuous, 16 AWG adequate). See [ORDER_LEDGER](parts/ORDER_LEDGER.md), item 8.
+Red and black silicone-insulated, 16 AWG gauge, 5 meters each color. Used for umbilical branches (smaller gauge than main 12 AWG for weight savings; each gun XT30U rated 15 A continuous, 16 AWG adequate). See the [BOM](bom.md).
 
 **M6 stud (circuit breaker terminal)**  
 6 mm metric threaded post (male) protruding from circuit breaker terminal block. Ring lugs (SC10-6) bolt onto these studs with washers and nuts.
@@ -368,13 +366,13 @@ Short length of wire or twisted pair connecting a component directly to another;
 ## Design Versions & Release History
 
 **v1.1 (initial release, superseded)**  
-First PCB release by PCBWay (order [original PCB order]). Defective U1 footprint (4.3 mm row spacing vs. required 5.4 mm); fabricated 5 boards but assembly held pending correction. Frozen 2026-08-18.
+First PCB release, built by PCBWay. Defective U1 footprint (4.3 mm row spacing vs. required 5.4 mm); fabricated 5 boards but assembly held pending correction. Frozen 2026-08-18.
 
 **v1.2 (current, corrected)**  
-Replacement PCB release (order [PCB order]) with corrected U1 footprint (TI D0008A, 5.4 mm row spacing). Rerouted nearby traces, regenerated ground pour. All functionality unchanged vs. v1.1. Frozen 2026-09-09. Ordered 5 boards; 2 assembled by PCBWay, 3 bare (waiting for 2026-10-29 deadline).
+Replacement PCB release with corrected U1 footprint (TI D0008A, 5.4 mm row spacing). Rerouted nearby traces, regenerated ground pour. All functionality unchanged vs. v1.1. Frozen 2026-09-09. Ordered 5 boards; 2 assembled by PCBWay, 3 bare spares.
 
 **Release package (v1.2 complete)**  
-`BubbleLink_CTRL_v1_2_PCBWay_Complete.zip` (or `BubbleLink_CTRL_v1_2_PCBWay_RELEASE`): complete design handoff with Gerbers, BOM, CPL, assembly notes, verification reports, and source files. SHA-256 `3c64f97583e2ebbbbe63c5a76e57f49cb4ee16553018ccf1ec2cc02d671e801c`. 66 files, 50 automated QA checks PASS.
+`hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/`: complete design handoff with Gerbers, BOM, CPL, assembly notes, verification reports, and source files. 50 automated QA checks PASS.
 
 **Manufacturing gates**  
 Verification checkpoints:
@@ -385,7 +383,7 @@ Verification checkpoints:
 
 ## Related Documentation
 
-- **[ORDER_LEDGER.md](parts/ORDER_LEDGER.md):** Authoritative list of all 25 purchased items, part numbers, sellers, quantities, prices.
+- **[bom.md](bom.md):** Full bill of materials with part numbers and generic supplier search links.
 - **[07-pcb/overview.md](07-pcb/overview.md):** Functional circuit topology, power flow, current sensing, control behavior.
 - **[07-pcb/bringup-and-acceptance-test.md](07-pcb/bringup-and-acceptance-test.md):** Step-by-step bring-up procedure and 9 bench-gate specifications.
 

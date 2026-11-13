@@ -170,5 +170,4 @@ TP3, TP4, TP7, TP13, TP15 are reserved for future use or internal test sequencin
 - **Bill of materials and parts:** [bom-and-parts.md](bom-and-parts.md)
 - **Fabrication and assembly:** [fabrication-and-assembly.md](fabrication-and-assembly.md)
 - **Bring-up and acceptance test:** [bringup-and-acceptance-test.md](bringup-and-acceptance-test.md)
-- **Manufacturing order history:** [../08-manufacturing/pcbway-order-history.md](../08-manufacturing/pcbway-order-history.md)
 - **Electrical power system:** [../04-power-system.md](../04-power-system.md)

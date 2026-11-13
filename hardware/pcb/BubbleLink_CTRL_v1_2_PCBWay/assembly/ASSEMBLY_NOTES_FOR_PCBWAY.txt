@@ -1,4 +1,4 @@
-BUBBLELINK CTRL v1.2 - REPLACEMENT DATA FOR ORDER [assembly order]
+BUBBLELINK CTRL v1.2 - ASSEMBLY DATA (v1.2 ENGINEERING CHANGE)
 Issued 2026-09-09. Supersedes v1.1 manufacturing and assembly references.
 
 DISPOSITION

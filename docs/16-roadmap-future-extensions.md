@@ -1,6 +1,6 @@
 # BubbleLink v1 roadmap: Future extensions and planned directions
 
-This document describes the intended future directions beyond the current MVP build—clearly labeled as not built, not ordered, and not scheduled for completion before the target festival 2026-10-30. The roadmap follows the established v1 architecture and design philosophy but reserves complexity for later iterations.
+This document describes the intended future directions beyond the current MVP build. Everything here builds on the v1 hardware. The roadmap follows the established v1 architecture and design philosophy but reserves complexity for later iterations.
 
 ## Build sequence and phase structure
 
@@ -10,7 +10,7 @@ The v1 MVP follows a measured development path:
 2. **Phase 2: Fluid and power proof.** Verify GROTHEN G528 pump performance at actual solution viscosity. Measure battery thermal behavior under sustained eight-head equivalent load. Establish pump pressure setpoint and recirculation restrictor calibration.
 3. **Phase 3: Donor characterization.** Test retail donor cohort (rocket-style 10-hole, windmill, large-bubble) against selection criteria. Measure bubbles-per-watt, throw in still air, reliability over 10+ consecutive bursts, motor noise, internal temperature, fluid tolerance (thick vs. thin solution).
 4. **Phase 4: Add-on options.** Build wrist emitter, UV torch, or cosplay integration as side projects without redesigning the core pack.
-5. **Phase 5 (future): Larger battery if justified.** Field experience at the target festival and other events will determine whether the 180 Wh cartridge justifies the extra weight for normal use.
+5. **Phase 5 (future): Larger battery if justified.** Field experience will determine whether the 180 Wh cartridge justifies the extra weight for normal use.
 
 ---
 
@@ -57,7 +57,7 @@ The v1 MVP follows a measured development path:
 
 ## Master disconnect (XT60 loop key with pull handle)
 
-**Status (2026-10-15): the basic version is now in the MVP** as the XT60H power KEY on the stick's cap (see `hardware/printed/README.md`, Inputs and outputs). What's left for the roadmap is the pull-handle variant reachable under the pack straps without opening the bag.
+**The basic version is in v1** as the XT60H power KEY on the stick's cap (see `hardware/printed/README.md`, Inputs and outputs). What's left for the roadmap is the pull-handle variant reachable under the pack straps without opening the bag.
 
 **Intended purpose:** Emergency power cutoff, safely accessible under pack straps while wearable.
 
@@ -271,7 +271,7 @@ The v1 MVP follows a measured development path:
 - Residue on pump tubing (visual inspection post-test, 24 hour soak in distilled water)
 - Cleanup time (time to rinse tubing, manifold, reservoir until clear)
 
-**Schedule:** Baseline commercial reference in field use at the target festival. Stream matrix testing during winter off-season (January–March 2027) with data review for summer event planning.
+**Schedule:** Baseline commercial reference in field use. Stream matrix testing during winter off-season (January–March 2027) with data review for summer event planning.
 
 ---
 
@@ -352,7 +352,7 @@ The v1 MVP follows a measured development path:
 
 ## Explicitly out of scope for v1
 
-The following features are **not** designed into v1 and will not be pursued before the target festival 2026-10-30:
+The following features are **not** designed into v1 and are not part of v1:
 
 - **Body-wide RGB lighting** controlled by pack firmware or music synchronization
 - **BPM detection** and music-reactive bubble output modulation
@@ -367,12 +367,12 @@ The following features are **not** designed into v1 and will not be pursued befo
 
 ## Summary and completion timeline
 
-**Completed/in progress (by 2026-10-29):**
+**v1 (built):**
 - v1 MVP: two-channel 90 Wh wearable pack with GROTHEN G528 pump, 1 L bladder, existing three-head donor, two standard umbilicals
 - Initial donor characterization (test cohort measured vs. selection criteria)
 - Basic progressive trigger (potentiometer + PWM controller prototype)
 
-**Planned after the target festival (winter 2026–2027):**
+**Planned next:**
 - 2S10P 180 Wh cartridge build and field validation
 - Enclosed swappable battery cartridge with XT60 interface
 - Master disconnect: pull-handle key reachable under the straps (the cap KEY is already in the MVP)

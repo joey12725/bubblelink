@@ -2,10 +2,6 @@
 
 BubbleLink is Joey's custom bubble-gun backpack system, designed for sustained bubble production at music festivals and raves. The core platform consists of a 2S5P (90 Wh) battery, one-liter solution reservoir, automatic transfer pump, two independent gun channels, and a pump-controller PCB with USB-C charging—all integrated inside a MAX LED "M Style" LED pixel backpack, where everything except the bladder lives in one printed upright "stick" standing beside the bladder. The system supports multiple concurrent bubble guns (donor mechanisms from uncharacterized children's toy guns) with dual-channel operation, fixed full-power output, and festival-compliant form factors.
 
-**Hard deadline:** 2026-10-29 (event target: the target festival, 2026-10-30 to 31).
-
-**Project status (2026-10-14):** Existing three-head baseline gun is a working reference only, not a finished BubbleLink. AliExpress parts are on hand; PCBs are in transit (ETA Oct 15–18). Printed-part CAD exists (the "stick", see [docs/09-printed-parts.md](09-printed-parts.md)), but nothing has been printed or test-fitted. No complete 90 Wh battery, pack integration, or field trial exists yet. See [docs/15-baseline-gun-and-field-history.md](15-baseline-gun-and-field-history.md) and the roadmap ([docs/16-roadmap-future-extensions.md](16-roadmap-future-extensions.md)) for context.
-
 ---
 
 ## Table of Contents
@@ -21,12 +17,12 @@ BubbleLink is Joey's custom bubble-gun backpack system, designed for sustained b
 
 ## Who It's For and How Joey Uses It
 
-Joey uses bubble guns at music festivals (multi-hour events such as a summer festival and a convention; next target the target festival) and raves, dancing continuously with the pack as a wearable system. Key usage patterns:
+Joey uses bubble guns at music festivals (multi-hour events) and raves, dancing continuously with the pack as a wearable system. Key usage patterns:
 
 - **Festival runtime:** 10 pm to 3:30 am (~5 hour block) with light-to-moderate bubble production, punctuated by high-intensity dance peaks during drop moments.
 - **Consumption baseline (measured):** Three-head gun at ~70 W draws approximately 16.9 mL/min of bubble solution (measured under overvolted operation).
 - **Actual field consumption:** Approximately 37% duty cycle (37 minutes of firing per 100 minutes elapsed) during "very dance heavy" usage; lower 12–20% duty during typical nights.
-- **Portability:** Worn as a backpack while dancing. Must fit within venue bag restrictions for the target event (hydration packs permitted at the target festival; larger rigid backpacks not). Battery, pump, and electronics live in one printed upright stick (about 99.6 × 77.8 × 220 mm) beside the bladder; two umbilicals plug into ports on the cup's outer wall (nothing exits underneath), so it can move to a different bag easily.
+- **Portability:** Worn as a backpack while dancing. Must fit within typical venue bag rules (hydration packs are usually allowed; large rigid backpacks often are not). Battery, pump, and electronics live in one printed upright stick (about 99.6 × 77.8 × 220 mm) beside the bladder; two umbilicals plug into ports on the cup's outer wall (nothing exits underneath), so it can move to a different bag easily.
 - **Weight sensitivity:** Loaded festival config (1 L solution + 1 L drinking water + battery + pump + electronics + bag) targets 6.8–7.7 lb (3.1–3.5 kg); without added drinking water ~4.4–5.3 lb (2.0–2.4 kg).
 - **Camelback experience:** Joey previously used hydration bladders; BubbleLink is a hybrid system allowing both bubble solution and drinking water (optionally) in same pack.
 
@@ -114,14 +110,14 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 ### Bubble Gun Heads
 
 - **Donor strategy:** Retail toy-gun heads extracted from random available toys and mounted on sleds connected to BubbleLink channels. Donor motors are uncharacterized and may have unknown original voltage ratings, but tolerance is permissive post-measurement.
-- **Baseline hardware (not a finished BubbleLink):** Joey's existing three-head overvolted bubble gun (2S1P 18 Wh, ~70 W firing power, ~16.9 mL/min continuous flow) serves as the performance reference and is the intended first donor head for one channel. See [docs/15-baseline-gun-and-field-history.md](15-baseline-gun-and-field-history.md) for existing gun details.
+- **Baseline hardware (not a finished BubbleLink):** Joey's existing three-head overvolted bubble gun (2S1P 18 Wh, ~70 W firing power, ~16.9 mL/min continuous flow) serves as the performance reference and is the intended first donor head for one channel. See the baseline gun section of [canonical facts](canonical-facts.md) for existing gun details.
 - **Future variants:** Additional donor heads will be selected post-measurement based on bubbles-per-watt, throw distance, reliability, size, and thermal behavior
 - **Head output rating:** Each head is powered at raw 2S bus voltage (~6.0–8.4 V depending on discharge and dual-gun loading). No per-gun PWM or voltage regulation in MVP; voltage floor and ceiling are determined by battery discharge state and total system load.
 
 ### System Integration
 
 - **Heads per channel:** 1–4 heads per gun
-  - Measured (2026-10-27): each the target festival donor head firing at full power adds ~1.39 A (1.51 A whole system with one head)
+  - Measured (2026-10-27): each donor head firing at full power adds ~1.39 A (1.51 A whole system with one head)
   - Two-head gun: ~2.8 A; four-head gun: ~5.6 A
   - Three-head gun (Joey's baseline, a different, overvolted gun): ~10–14 A nominal draw
   - Per-channel ceiling: 15 A (XT30U)
@@ -138,7 +134,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 - **Internal organization:** Everything except the bladder is one upright printed stick: a control-head cap (PCB hung underneath, voltmeter and USB-C charge port on top) over a dry tube holding a slide-out sled (battery, breaker, BMS, Buck A, ACS758; Buck B stands on a shelf on the tube wall). The tube's floor is the bulkhead (wet/dry divider); cables cross it through a slit TPU grommet. Below it, a wet cup holds the pump and fittings and drains through its floor. See [docs/09-printed-parts.md](09-printed-parts.md).
 
-- **Printed components** (CAD in `hardware/printed/`; nothing printed yet):
+- **Printed components** (OpenSCAD sources and STLs in `hardware/printed/`):
   - The stick: cap, tube, sled, cup, PRIME guard bezel and grommet drip skirt (ASA), plus TPU cap ring, grommet halves, PRIME boot, PRIME plunger, screw washers, battery pads, pump mat, shim strips, the trimmer, USB-C and USB-A plugs, gun port caps, key blank and gasket, and the power key (32 STLs in all with the four stick fit coupons)
   - Cell holders MID and TERM (original 5×2 offset design, 19.9 mm pitch)
   - Slide clamps ×3 (bypass restrictor and both channel shutoffs)
@@ -157,11 +153,10 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 ## System Constraints
 
-- **Deadline:** Hard completion by 2026-10-29
 - **Budget sensitivity:** Acknowledged; component substitutions preferred over premium solutions (e.g., cheap plastic check valve ~$1–3 instead of specialized $15+ part; printed umbilical bricks instead of cable glands; fish paper + electrical tape instead of Kapton + heat shrink)
 - **Component untestedness:** Donor toy guns sourced second-hand; pump flow and motor specs measured post-receipt only. Tolerances permissive to accommodate variance.
 - **Single consolidated order:** All purchased parts ordered at once from AliExpress (~2026-08-06) plus PCBWay controller order (timing critical for manufacturing; 3–5 days PCBWay production + shipping)
-- **Festival clearance:** Bubble solution (soap/detergent) is prohibited at some venues. System form factor must remain hydration-pack-like for security. Explicit venue approval required before event (the target festival approval pending).
+- **Festival clearance:** Bubble solution (soap/detergent) is prohibited at some venues. System form factor must remain hydration-pack-like for security. Explicit venue approval required before event (a festival approval pending).
 - **TSA/airline compliance:** 90 Wh battery remains under 100 Wh FAA threshold, permitting carry-on transport with protected terminals (no airline approval required). Spare packs and 2S6P or larger modules deferred (would exceed 100 Wh, requiring approval).
 - **Manufacturing constraints:** No access to production spot-welders on-site; cells pre-assembled with nickel-plated steel tabs + solder joints. 3D printers available (Creality K2 Plus 350³ mm, Bambu Lab A1 256³ mm); enclosures and sleds designed to fit.
 
@@ -169,7 +164,7 @@ Joey uses bubble guns at music festivals (multi-hour events such as a summer fes
 
 ## MVP Scope
 
-The minimum viable product completes and validates the core BubbleLink platform. Scheduled for 2026-10-29 deadline.
+The minimum viable product completes and validates the core BubbleLink platform.
 
 ### Includes
 
@@ -229,20 +224,20 @@ The platform prioritizes:
 
 ---
 
-## Open Items
+## Commissioning Checklist
 
-As of 2026-10-14 (current date):
+The measurements and checks that turn a fresh build into a tuned one:
 
-1. **PCB delivery and acceptance:** Confirm receipt of two assembled BubbleLink CTRL v1.2 boards from PCBWay (ETA Oct 15–18, tracking [tracking removed] and [tracking removed]). Verify board functionality before build begins.
+1. **PCB acceptance:** Run the bring-up procedure on each assembled BubbleLink CTRL v1.2 board before it goes into the sled.
 2. **Inline wattmeter test (high priority):** Measure exact Wh/L figure for one complete 118.4 mL canister firing with the existing three-head baseline gun at 2S 7.2–8.4 V. This will confirm whether 2.7–3.0 L or better is achievable.
 3. **Bladder outlet adapter sourcing:** Measure actual outlet hose ID and barb OD on the delivered 1 L UWWWMM hydration bladder. Buy or 3D-print one reducer adapting bladder hose to the 3.5×5.5 mm system tubing.
-4. **MAX LED backpack physical fit verification:** Measure the bag's interior (it's on hand; internal geometry is still unknown). Confirm the stick (about 99.6 × 77.8 × 220 mm) stands beside the 1 L bladder.
-5. **Donor gun selection:** Joey is picking up ~20 bubble guns this week to strip for heads. Pick 4 matched heads for the two dual-head guns and keep spares. Measure current draw and bubble output, and take the teardown measurements the gun/head mounts need.
+4. **MAX LED backpack physical fit verification:** Measure the bag's interior. Confirm the stick (about 99.6 × 77.8 × 220 mm) stands beside the 1 L bladder.
+5. **Donor gun selection:** Strip a batch of toy bubble guns for heads. Pick 4 matched heads for the two dual-head guns and keep spares. Measure current draw and bubble output, and take the teardown measurements the gun/head mounts need.
 6. **Recirculation restrictor calibration:** After system assembly, set the bypass slide clamp to the 0.2–0.5 psi target and wet-test that its self-locking ramp holds.
 7. **Printed parts:** Print the fit coupon, cell holders and slide clamps, then the stick and umbilical bricks. Wet-test the cap seal, and check charger and BMS temperatures on the first enclosed charge (charge with the cap off until then).
-8. **Field trial plan:** Establish a baseline performance run with the two dual-head guns in the completed 2S5P BubbleLink pack before the the target festival event (the existing three-head gun remains the performance reference). Measure runtime, solution consumption, pump on-time, and thermal behavior at the target duty cycle (~37% event usage).
+8. **Field trial plan:** Establish a baseline performance run with the two dual-head guns in the completed 2S5P BubbleLink pack before the first event (the existing three-head gun remains the performance reference). Measure runtime, solution consumption, pump on-time, and thermal behavior at the target duty cycle (~37% event usage).
 
 ---
 
 **Document revision:** 2026-10-14  
-**Authoritative source:** `bubblelink/docs/parts/ORDER_LEDGER.md` (what was actually purchased), BubbleLink CTRL v1.2 release package, and extraction notes from original ChatGPT threads.
+**Authoritative source:** [docs/bom.md](bom.md) and the BubbleLink CTRL v1.2 release package.

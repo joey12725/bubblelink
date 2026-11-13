@@ -106,8 +106,8 @@ The board operates in a system with components not soldered to the PCB. These mu
 
 ### ACS758 Hall-effect current sensor module
 
-From `docs/parts/ORDER_LEDGER.md`:
-- **MPN:** ACS758LCB-050B (AliExpress order 2026-08-06)
+From the [BOM](../bom.md):
+- **MPN:** ACS758LCB-050B 
 - **Rating:** ±50 A bidirectional, 5 V supply
 - **Sensitivity:** 40 mV/A nominal (model assumes 39.4–41.0 mV/A)
 - **Supply:** J2 pin 1 (+5V_LOGIC); return J2 pin 2 (GND)
@@ -116,8 +116,8 @@ From `docs/parts/ORDER_LEDGER.md`:
 
 ### GROTHEN G528 6 V peristaltic pump
 
-From `docs/parts/ORDER_LEDGER.md`:
-- **MPN:** GROTHEN G528 (AliExpress order 2026-08-06, order ref [order ref removed])
+From the [BOM](../bom.md):
+- **MPN:** GROTHEN G528 
 - **Specification:** 6 V nominal, 3 × 5 mm tube, 150 ml/min at rated voltage
 - **Electrical:** Single DC motor, brushed; requires external suppression at motor terminals (see `customer/MOTOR_HARNESS_SUPPRESSION.md`)
 - **Connection:** J3 (PUMP+, PUMP_SW_NEG) via twisted-pair harness with motor-end diode and capacitor
@@ -125,8 +125,8 @@ From `docs/parts/ORDER_LEDGER.md`:
 
 ### Buck converter (5 V USB output, external)
 
-From `docs/parts/ORDER_LEDGER.md`:
-- **MPN:** YxPC DC 6-20V to 5V USB Step-Down Module (AliExpress order 2026-08-06, order ref [order ref removed])
+From the [BOM](../bom.md):
+- **MPN:** YxPC DC 6-20V to 5V USB Step-Down Module 
 - **Quantity ordered:** 2 units (one in use, one spare)
 - **Purpose:** Powers the external ACS758 module and any additional logic rail if main 5 V supply is limited
 - **Specification caveat:** The listing provides no defensible current, tolerance, or ripple spec. PCB +5V_LOGIC ceiling is 5.25 V.
@@ -134,8 +134,8 @@ From `docs/parts/ORDER_LEDGER.md`:
 
 ### Circuit breaker (manual reset, system level)
 
-From `docs/parts/ORDER_LEDGER.md`:
-- **MPN:** YONGRUN Type B-30A (AliExpress order 2026-08-06, order ref [order ref removed])
+From the [BOM](../bom.md):
+- **MPN:** YONGRUN Type B-30A 
 - **Purpose:** Upstream protection for entire system; independent of board-level F1 (PTC)
 - **Activation:** Manual reset after trip; not automatic rearm
 
@@ -177,5 +177,4 @@ All 50 manufacturing QA checks pass (certification as of 2026-10-14, release run
 - **Fabrication and assembly:** `docs/07-pcb/fabrication-and-assembly.md`
 - **Bringup and acceptance test:** `docs/07-pcb/bringup-and-acceptance-test.md`
 - **Connector pinout:** `docs/07-pcb/connectors-and-pinout.md`
-- **Order ledger:** `docs/parts/ORDER_LEDGER.md`
 - **v1.2 PCBWay release package:** `hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/`

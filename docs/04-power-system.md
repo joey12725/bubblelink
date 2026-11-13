@@ -1,6 +1,6 @@
 # 04. Power System
 
-Everything electrical outside the PCB: battery, charging, protection, distribution, current sensing, and voltage regulation. See [docs/parts/ORDER_LEDGER.md](parts/ORDER_LEDGER.md) for purchased components and [docs/parts/listings/](parts/listings/) for detailed part specs.
+Everything electrical outside the PCB: battery, charging, protection, distribution, current sensing, and voltage regulation. See [the BOM](bom.md) for purchased components for detailed part specs.
 
 ## Table of Contents
 
@@ -218,7 +218,7 @@ Stands on edge in a 7 mm slot along the stick's back wall, next to the battery's
 - Connect input to 12 AWG main red wire (post-breaker)
 - Output feeds PCB power input (JST-XH J1, 2-pin) and G528 pump (+5V, −GND)
 
-**Alternative (if module fails during testing):** Pololu S13V30F5 buck converter (30 A rated, more stable but costs ~$8 vs. [price]). This can be swapped in without board redesign; module mounts external to PCB.
+**Alternative (if module fails during testing):** Pololu S13V30F5 buck converter (30 A rated, more stable but costs ~$8 vs.). This can be swapped in without board redesign; module mounts external to PCB.
 
 ### Buck B: LED Backpack Supply
 
@@ -312,7 +312,7 @@ Caveats:
 
 ### Measured Baseline (2S1P Test)
 
-**Test data:** One 2S1P Samsung 25R pair (18 Wh nominal), tested at the target festival event
+**Test data:** One 2S1P Samsung 25R pair (18 Wh nominal), measured over a full festival night
 - Event duration: ~75 minutes with heavy dancing; actual gun firing ≈28 minutes (37% duty)
 - Solution consumed: 473.6 mL in that 75-minute event period
 - Average power during event: ~26 W (including pump + gun + losses)
@@ -433,5 +433,5 @@ The old 2S1P test used hand-soldered connections that developed significant cont
 
 ---
 
-**Source:** Joey's bench measurements, component datasheets from [docs/parts/listings/](parts/listings/), and v1.2 design handoff. Wiring verified against assembled boards post-build; thermal testing on 2S5P baseline at 15 A sustained (target <50°C after 30 min).
+**Source:** Joey's bench measurements, component datasheets and seller specs, and v1.2 design handoff. Wiring verified against assembled boards post-build; thermal testing on 2S5P baseline at 15 A sustained (target <50°C after 30 min).
 

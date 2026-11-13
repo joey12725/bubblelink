@@ -4,7 +4,7 @@ Complete fabrication specifications for PCBWay, SMT assembly parameters, hand-so
 
 ## PCBWay fabrication parameters
 
-Order **[assembly order]**, issued 2026-09-09 (v1.2 replacement of v1.1). This is the final specification; use the complete v1.2 Gerber and drill set.
+Revision v1.2, issued 2026-09-09 (replaces v1.1). This is the final specification; use the complete v1.2 Gerber and drill set.
 
 ### Board specifications
 
@@ -317,4 +317,3 @@ bash rebuild.sh        # Apply ECO and export
 - **BOM and parts:** `docs/07-pcb/bom-and-parts.md`
 - **Bringup and acceptance test:** `docs/07-pcb/bringup-and-acceptance-test.md`
 - **Engineering change detail:** `hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/ENGINEERING_CHANGE_AND_REVIEW.md`
-- **PCBWay order history:** `docs/08-manufacturing/pcbway-order-history.md`

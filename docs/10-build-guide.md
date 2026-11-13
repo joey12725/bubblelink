@@ -1,6 +1,6 @@
 # BubbleLink Build Guide
 
-Complete step-by-step assembly procedure from parts-on-the-bench to festival-ready bubble-gun system. This guide covers incoming inspection, battery assembly, electrical harness construction, PCB and controller setup, fluid system assembly, donor gun integration, LED backpack assembly, and final testing. The entire build requires 25–40 hours of hands-on work over approximately **two weeks** (compression from the original four-week estimate due to the 2026-10-29 hard deadline). **Status as of 2026-10-14:** AliExpress parts on hand; PCBs shipped ETA **Oct 15–18**. Printed-part CAD is done (the upright "stick", see [09-printed-parts.md](09-printed-parts.md) and [hardware/printed/README.md](../hardware/printed/README.md)); nothing has been printed or test-fitted yet. Prep work (cell matching, 3D printing, harness prep) can start immediately. PCB assembly begins after board arrival. **Target completion: 2026-10-29** (the target festival 2026-10-30 to 31).
+Complete step-by-step assembly procedure from parts-on-the-bench to festival-ready bubble-gun system. This guide covers incoming inspection, battery assembly, electrical harness construction, PCB and controller setup, fluid system assembly, donor gun integration, LED backpack assembly, and final testing. The entire build takes 25–40 hours of hands-on work, about **two weeks** of evenings. Prep work (cell matching, 3D printing, harness prep) can start before the boards arrive.
 
 ## Quick Reference
 
@@ -14,44 +14,43 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
 - Narrow 2.5 mm zip ties
 - Electrical tape, electrical shrink tubing
 - 3D printer (Creality K2 Plus for the tall ASA parts, Bambu A1 for small parts and TPU), ASA and TPU filament (PETG also works for the older cell holders, clamps and bricks); see *Printing in ASA* in the [print guide](../hardware/printed/README.md)
-- Printed-part hardware: 6× M3 stainless socket-head screws from the HVAKHVA kit (2× M3×10 each with an M3 flat washer over its TPU washer; 4× M3×12 each with an M3 split lock washer) + 6 M3 nuts (4 in the bulkhead's hex pockets, 2 in the cap's slots) glued in, a 2.5 mm hex key long enough to reach about 46 mm up the cup columns (no anaerobic threadlocker near ASA; a drop of CA on the screw tip is safe), glue (CA/hot glue/neutral-cure silicone; acetone for ASA-to-ASA joints), clear hot glue or UV resin for the LED windows, scissors for the TPU shim strips, and a small screwdriver for the trimmers
+- Printed-part hardware: 6× M3 stainless socket-head screws from a stainless DIN 912 M3 assortment (2× M3×10 each with an M3 flat washer over its TPU washer; 4× M3×12 each with an M3 split lock washer) + 6 M3 nuts (4 in the bulkhead's hex pockets, 2 in the cap's slots) glued in, a 2.5 mm hex key long enough to reach about 46 mm up the cup columns (no anaerobic threadlocker near ASA; a drop of CA on the screw tip is safe), glue (CA/hot glue/neutral-cure silicone; acetone for ASA-to-ASA joints), clear hot glue or UV resin for the LED windows, scissors for the TPU shim strips, and a small screwdriver for the trimmers
 
-**Build order to 2026-10-29:**
-1. **Now:** check or buy the PCB THT parts (no purchase record). Get written the target festival approval. Bench-test Buck A (<5.25 V under load) and the pump (marked 6 V, <0.3 A at 5 V). Incoming inspection and cell matching.
+**Build order:**
+1. **Now:** buy the PCB THT parts and get written venue approval. Bench-test Buck A (<5.25 V under load) and the pump (marked 6 V, <0.3 A at 5 V). Incoming inspection and cell matching.
 2. **Print:** the fit coupon, cell holders and slide clamps, then the stick parts and umbilical bricks.
 3. **Build the battery.**
-4. **Boards arrive (est. Oct 15–18):** PCB THT soldering and bring-up.
+4. **Boards arrive:** PCB THT soldering and bring-up.
 5. **Tear down the guns** (pick 4 matched heads).
 6. **Electronics into the sled.**
 7. **Fluid and umbilicals.**
 8. **First fire and tuning.**
 9. **Bench gates** and system tests.
-10. **Done Oct 29.**
 
 ---
 
 ## 1. Incoming Inspection
 
-### Verify all AliExpress parts against ../parts/ORDER_LEDGER.md
+### Verify all purchased parts against the [BOM](bom.md)
 
 **Battery subsystem (critical variants):**
-1. **2S 40A BMS** (IC GOGOGO Store, [price])
+1. **2S 40A BMS** (IC GOGOGO Store)
    - Verify label reads **Li-ion 8.4V 40A**, NOT LiFePO₄ 3.2V
    - If unmarked, check voltage: should output ~8.4 V when fully charged 2S pack connected
    - Common-port design: B− (group 1 −), BM/B1 (group 1 +/ group 2 −), B+ (group 2 +), P− (load −), P+ (load +)
 
-2. **6V GROTHEN G528 pump** (GROTHEN Official Store, [price])
+2. **6V GROTHEN G528 pump** (GROTHEN Official Store)
    - Verify motor housing marked **6V** (NOT 12V; artwork on some units misleads)
    - Measure DC resistance of motor coil: should read ~10–15 Ω
    - Included tubing: **3 mm ID × 5 mm OD** (kept as pump connection reference)
    - Bench test: should draw **<0.3 A at 5 V**
    - Measured 2026-10-14: 2 × 1¾ × 1½ in at its thickest; it fits the cup's 52 × 46 mm pocket (measure your own before printing the cup)
 
-3. **2S 4A USB-C boost charger** (SZHJW Technology Store, [price])
+3. **2S 4A USB-C boost charger** (SZHJW Technology Store)
    - Verify input USB-C connector and output spade terminals
    - Test with a 5V supply: should output ~8.4 V when connected to 2S BMS P+/P− ports
 
-4. **5V USB buck converters** (YxPC Store, qty 2, [price] each)
+4. **5V USB buck converters** (YxPC Store, qty 2)
    - No datasheet: assume 6–20 V input, 5V adjustable output, ~1–2 A capacity
    - **CRITICAL:** before use, dial pot to exactly **5.0 V** and verify with multimeter
    - **Buck A** powers the controller PCB and pump motor (~5.0–5.1 V; PCB qualified input 4.75–5.25 V)
@@ -61,12 +60,12 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Buck A's output is soldered straight to the J1 lead; Buck B has no wiring on its output side (the backpack plugs into its own USB-A port through the tube wall)
 
 **Electrical subsystem (critical variants):**
-5. **ACS758LCB-050B current sensor** (Great IT Electronic, [price])
+5. **ACS758LCB-050B current sensor** (Great IT Electronic)
    - Verify label/silkscreen shows **050B** (±50A, 40 mV/A), NOT 100B
    - Module connector: should be JST or screw terminals; verify 5V, GND, signal pins
    - Measure output voltage at zero current: should read ~2.5V (typical resting point)
 
-6. **30A manual-reset circuit breaker** (YONGRUN Store, [price])
+6. **30A manual-reset circuit breaker** (YONGRUN Store)
    - Verify **Type B-30A** rating and 12–48 V DC compliance
    - Confirm terminal studs are **M6** (6 mm diameter) for ring-terminal fit
    - Measured 2026-10-14: 1⅝ in square plate, 4 in (102 mm) long, 1⅝ in thick (the listing's 72 × 48 × 44 mm was wrong), plate holes 1¼ in apart. Inline type: studs at both ends, red reset lever and red push-to-trip button on the square plate
@@ -77,50 +76,50 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
    - Confirm hole diameter matches M6 studs (6.0–6.5 mm)
 
 **Fluid subsystem (critical variants):**
-8. **1L water bladder** (UWWWMM Official Store, [price])
+8. **1L water bladder** (UWWWMM Official Store)
    - Verify **1L** capacity (not 2L unless intended)
    - Confirm included **detachable 101 cm hose** with bite-valve shutoff
    - Test hose end for ID/OD: should accept 4 mm hose-fitting connectors or require a reducer
 
-9. **4mm plastic check valve** (BigBigBear Tech Store, [price])
+9. **4mm plastic check valve** (BigBigBear Tech Store)
    - Verify **opening pressure 0.003 MPa** (0.435 psi) from manual
    - Arrow on valve body points toward inlet (pump inlet return); critical for orientation
    - Test by applying gentle air pressure from the inlet side; should barely open under thumb pressure
 
-10. **3.5 × 5.5 mm silicone tubing** (Shop1105214603, [price])
+10. **3.5 × 5.5 mm silicone tubing** (Shop1105214603)
     - Measure actual ID/OD; should match 3.5 × 5.5 mm nominal
     - Inspect for cracks, discoloration, or brittleness
 
-11. **Automotive hose-fitting assortment** (Shop1103411025, [price])
+11. **Automotive hose-fitting assortment** (Shop1103411025)
     - Identify **#68401** straight 1/8" unions and **#68409** 5/32" tees in compartment
     - Confirm black nylon material and barb sizes
     - Count the tees: the pack plumbing needs **three**, plus one per dual-head gun
 
 **Connectors & wiring (critical variants):**
-12. **XT60H battery connectors** (Shop911130012, [price])
+12. **XT60H battery connectors** (Shop911130012)
     - Confirm **XT60H** (upgraded version), NOT standard XT60
     - Count: should have 2 pairs (male + female per pair) minimum; confirm 10 pairs shipped
 
-13. **XT30U gun-channel connectors** (Xing Yiao Store, [price])
+13. **XT30U gun-channel connectors** (Xing Yiao Store)
     - Verify **XT30U** or **XT30** (NOT MR30)
     - Count pairs; intended qty 10 but "5 pairs plenty" per design note
 
-14. **12 AWG silicone wire** (AuHo DIY Store, [price])
+14. **12 AWG silicone wire** (AuHo DIY Store)
     - Verify gauge and color: **Black and Red, 3 m each** (or 5–10 m total)
     - Tinned copper, stranded; should be flexible
 
-15. **16 AWG silicone wire** (AuHo DIY Store, [price])
+15. **16 AWG silicone wire** (AuHo DIY Store)
     - Verify color and gauge: **Black and Red, 5 m each**
     - For gun-channel harnesses
 
-16. **550 paracord 4 mm, 15 m** (FFlyBG Store, [price])
+16. **550 paracord 4 mm, 15 m** (FFlyBG Store)
     - Load-bearing tether for umbilical support; black color
 
-17. **JST-XH 2.54 mm connector kit** (Daevkaema Global Tools, [price])
+17. **JST-XH 2.54 mm connector kit** (Daevkaema Global Tools)
     - Verify kit includes pre-crimped male/female pairs in multiple pin counts
     - Should have 2-pin, 3-pin, and 4-pin housings
 
-18. **Braided PET sleeving 10 mm, 5 m** (XIDA Electric Store, [price])
+18. **Braided PET sleeving 10 mm, 5 m** (XIDA Electric Store)
     - For strain relief on solder joints
 
 **PCB and controllers (critical components):**
@@ -131,22 +130,22 @@ Complete step-by-step assembly procedure from parts-on-the-bench to festival-rea
     - Confirm J4 and R22 are **DNP** (not populated)
     - Through-hole parts (RV1, RV2, LEDs, J1–J3, SW1, C1) user-installed. **There's no purchase record for them: check or buy them now**
 
-20. **Nickel-plated steel battery tabs** (AllThingsHome, qty 3 packs = 30 total, [price] each)
+20. **Nickel-plated steel battery tabs** (AllThingsHome, qty 3 packs = 30 total)
     - Verify **2.6 cm length, 0.15 mm thick minimum** by caliper
     - Count: should have 30 total (10 per pack)
 
-21. **Fish-paper insulation gaskets** (IC GOGOGO CHANGELIN, [price])
+21. **Fish-paper insulation gaskets** (IC GOGOGO CHANGELIN)
     - 18650 positive-terminal rings; qty ~10
 
 **Consumables & safety:**
-22. **JOYFY 32 oz bubble concentrate** (JOYFY US Store, [price])
+22. **JOYFY 32 oz bubble concentrate** (JOYFY US Store)
     - Verify bottle intact, label clear
     - Mix 1 part concentrate + 9–10 parts water per 1 L fill
 
-23. **Liquid Germall Plus preservative** (Shop1105380267, [price])
+23. **Liquid Germall Plus preservative** (Shop1105380267)
     - 100 g bottle; add ~1% to bubble solution for long-term storage
 
-24. **COB LED strip 5V 2 m ice-blue** (KISUFU Lighting, [price]) [OPTIONAL]
+24. **COB LED strip 5V 2 m ice-blue** (KISUFU Lighting) [OPTIONAL]
     - For Tracer cosplay side panel; NOT part of bubble system
 
 **Other measured parts (2026-10-14):** BMS 2½ × 1⅞ × ¼ in; ACS758 module 1½ × ~¾ × ⅛ in; USB-C charger 1½ in (plug direction) × 11/16 × ⅜ in, receptacle centred on the 17.5 mm short side (confirmed by Joey, 2026-10-15); voltmeter bezel about 1 5/16 in, body a hair over 1⅛ in, about 1 in deep or a bit more (the cap allows 30 mm). Voltmeter idle current: under 50 mA (the whole system idles at 50 mA with the LED backpack unplugged, 2026-10-27).
@@ -580,7 +579,7 @@ OUTLET TEE 2
 
 ### 7.1 Identify and prepare donor guns
 
-**the target festival plan:** a pair of dual-head guns (2 guns × 2 donor blower heads). Joey is picking up ~20 bubble guns this week: strip them, pick **4 matched heads**, and keep the spares. Record the teardown measurements; the gun/head mounts aren't designed yet and need them. Measured (2026-10-27): each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under 30 A); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27).
+**Reference build:** a pair of dual-head guns (2 guns × 2 donor blower heads). Strip a batch of toy bubble guns, pick **4 matched heads**, and keep the spares. Record the teardown measurements; the gun/head mounts aren't designed yet and need them. Measured (2026-10-27): each head firing adds ~1.39 A (1.51 A whole system with one head), so ~5.7 A with all 4 heads (~2.8 A per channel, well under 30 A); about 2 h of nonstop firing per charge (2:03 total over a 5 h day). Fluid use per head is not measured yet. Runtime table: [04-power-system.md](04-power-system.md#measured-system-current-joey-2026-10-27).
 
 **Earlier design note:** Four-AA 10-hole rocket-style gun
 - Compact mechanical head
@@ -920,7 +919,7 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 
 ---
 
-## 14. Pre-Event Checklist (Day 14–15, before 2026-10-29 deadline)
+## 14. Pre-Event Checklist
 
 **Final systems review before festival deployment:**
 
@@ -947,7 +946,6 @@ Everything except the bladder goes into the stick. Full part notes are in [hardw
 
 - **Total build time:** 25–40 hours hands-on
 - **Critical path:** PCB bring-up (6+ hours) + fluid system assembly (4+ hours) + donor gun integration (3+ hours)
-- **Estimated completion:** 2026-10-29 (see the build order at the top)
 - **Loaded weight:** 3.1–3.5 kg (with 1L fluid, festival configuration)
 - **Runtime:** 8–12 minutes continuous firing (1L solution at dual-gun operation)
 - **Estimated bubble output:** 500–1000 bubbles/minute per gun (subject to head design and solution quality)

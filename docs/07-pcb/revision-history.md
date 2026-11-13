@@ -6,7 +6,7 @@ This document records the release and revision status of the BubbleLink CTRL pri
 
 ## v1.1 Release (August 2026)
 
-**BubbleLink CTRL v1.1** was the initial design-ready release of the automatic pump controller, submitted to PCBWay for fabrication on **August 6, 2026** (Order [original PCB order]). The design is a dual-comparator architecture for gun-current detection and timed pump control, with brownout supervision and fail-safe logic ensuring the pump does not run if the controller loses power or the gun is unplugged.
+**BubbleLink CTRL v1.1** was the initial design-ready release of the automatic pump controller, submitted to PCBWay for fabrication on **August 6, 2026**. The design is a dual-comparator architecture for gun-current detection and timed pump control, with brownout supervision and fail-safe logic ensuring the pump does not run if the controller loses power or the gun is unplugged.
 
 v1.1 included:
 
@@ -99,16 +99,14 @@ v1.2 was subjected to automated structural release QA:
 
 ## Current Status: v1.2 is the Fabrication Release
 
-**v1.2 is the current and only authorized fabrication release.** The design was finalized on September 9, 2026; the replacement PCB order was submitted September 20, 2026, and supersedes v1.1 completely. As of October 14, 2 assembled boards and 3 bare boards are in transit from PCBWay (ETA October 15–18). The original v1.1 bare PCBs are held and will not be assembled.
+**v1.2 is the current and only authorized fabrication release.** The design was finalized on September 9, 2026; the replacement PCB order was submitted September 20, 2026, and supersedes v1.1 completely. The first run was 5 boards: 2 assembled by PCBWay and 3 bare spares. The v1.1 bare PCBs are scrap.
 
 ### Manufacturing order specifics
 
 | Aspect | Detail |
 |--------|--------|
-| **PCB order number** | [PCB order] (marked "replace [original PCB order]") |
-| **Assembly order number** | [assembly order] (reused from original, reduced from 5 to 2 assembled boards; same assembly group [order group]) |
 | **Quantity** | 5 boards fabricated; 2 assembled by PCBWay, 3 bare |
-| **Order status** | Fabricated, assembled, and dispatched 2026-10-08 to 11; in transit with delivery ETA October 15–18, 2026 |
+| **Order status** | Fabricated, assembled and shipped October 2026 |
 | **U1 component** | TI TLV1822QDRQ1 (SOIC-8, confirmed no substitutes) |
 | **Exact parts** | C6 (1210), C7 (1206), D1 (custom SMA), F1 (custom 1812 PTC), all critical; no distributor substitutions without written approval |
 | **Assembly notes** | C9 (100 nF) and R18 (100 kΩ) must be fitted; J4 and R22 DNP; R22 reserved for future hysteresis tuning |
@@ -142,6 +140,5 @@ v1.2 was subjected to automated structural release QA:
 - **Bill of materials:** [bom-and-parts.md](bom-and-parts.md)
 - **Fabrication and assembly (PCBWay and user THT):** [fabrication-and-assembly.md](fabrication-and-assembly.md)
 - **Bring-up and acceptance test:** [bringup-and-acceptance-test.md](bringup-and-acceptance-test.md)
-- **Manufacturing order and replacement history:** [../08-manufacturing/pcbway-order-history.md](../08-manufacturing/pcbway-order-history.md)
 - **Engineering disposition memo (U1 decision):** ../../hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/ENGINEERING_CHANGE_AND_REVIEW.md
 - **Design description (electrical):** ../../hardware/pcb/BubbleLink_CTRL_v1_2_PCBWay/customer/DESIGN_DESCRIPTION.md

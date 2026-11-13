@@ -2,9 +2,7 @@
 
 Parametric OpenSCAD sources are in `src/`; ready-to-slice STLs are in `stl/`. Rigid stick parts are **ASA** (see *Printing in ASA* below); the older cell holders, clamps and bricks can be ASA or PETG. The seals, the PRIME boot and plunger, and the cushions are TPU. Nothing needs supports.
 
-All STLs + this guide are also zipped at (link removed) (STLs split into `stl/ASA/` and `stl/TPU/`). Those zips hold only what's still to print (the coupons already printed and checked are left out). Just the two 18.65 cell holders + the battery build steps are at (link removed)
-
-The whole pack, apart from the bladder, is one upright **stick**: outside about **99.6 × 77.8 × 220 mm** (3.9 × 3.1 × 8.7 in) for the body including the cup and the PRIME guard bezel (the tube, cap and cup alone are 215 mm tall; the bezel adds about 5 mm on top). Across the two cap screw heads it is about **87 mm deep**: each screw stands 4.5 mm proud of the front or back wall (5.5 mm DIN 912 head, 3 mm tall, plus a 0.5 mm steel flat washer and a 1 mm TPU washer), at the very top of the walls, 5.2 mm below the rim. The tube is 98.8 mm wide, plus 0.8 mm for the raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. It stands beside the bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) plug into ports on the cup's outer wall, and nothing exits underneath: the stick stands on its floor. That makes it easy to move into a different bag. The drip hoods stand 2.5 mm off the outer wall, so the stick is **101.3 mm (4.0 in) wide across the hoods**, and plugged connectors stick out further. Every model is designed around the parts in `docs/parts/ORDER_LEDGER.md` and the BubbleLink CTRL v1.2 board on order.
+The whole pack, apart from the bladder, is one upright **stick**: outside about **99.6 × 77.8 × 220 mm** (3.9 × 3.1 × 8.7 in) for the body including the cup and the PRIME guard bezel (the tube, cap and cup alone are 215 mm tall; the bezel adds about 5 mm on top). Across the two cap screw heads it is about **87 mm deep**: each screw stands 4.5 mm proud of the front or back wall (5.5 mm DIN 912 head, 3 mm tall, plus a 0.5 mm steel flat washer and a 1 mm TPU washer), at the very top of the walls, 5.2 mm below the rim. The tube is 98.8 mm wide, plus 0.8 mm for the raised BubbleLink lettering on its right-hand wall; the cap is 98.8 mm wide. It stands beside the bladder in the bag. Two umbilicals (hose + XT30U cable + paracord each) plug into ports on the cup's outer wall, and nothing exits underneath: the stick stands on its floor. That makes it easy to move into a different bag. The drip hoods stand 2.5 mm off the outer wall, so the stick is **101.3 mm (4.0 in) wide across the hoods**, and plugged connectors stick out further. Every model is designed around the parts in the [BOM](../../docs/bom.md) and the BubbleLink CTRL v1.2 board.
 
 ```
    ┌──── cap ────┐   control head: voltmeter, USB-C (CHG), power key (KEY), LEDs, PRIME; PCB hangs under it
@@ -18,7 +16,7 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 
 **Renders:** `renders/` has 10 views: 1 every way in and out (the port map), 2 cap top, 3 and 4 cap-off cutaways (front, back), 5 cap underside, 6 cup interior, 7 bulkhead underside, 8 PRIME section, 9 gun power and hoses (`9_gun_power_and_paracord.png`: red is gun 1, orange gun 2, yellow paracord) and 10 gun port close-up (`10_gun_ports_closeup.png`).
 
-**Hardware** (all of it from the HVAKHVA 304 stainless DIN 912 hex socket-head kit: M3 × 6/8/10/12 screws, 130 M3 nuts, M3 flat and lock washers; none of the M4/M5/M6 parts are needed):
+**Hardware** (all of it from a 304 stainless DIN 912 hex socket-head assortment: M3 × 6/8/10/12 screws, 130 M3 nuts, M3 flat and lock washers; none of the M4/M5/M6 parts are needed):
 - **2× M3 × 10 socket head** (cap retention), each with an M3 **flat** washer on top of the TPU washer (part 34) under the head. The steel washer spreads the head load so the TPU isn't cut.
 - **4× M3 × 12 socket head** (cup), each with an M3 **split lock** washer under the head, as vibration protection for the jumping.
 - **6× M3 nuts:** 4 in hex pockets in the bulkhead floor, dropped in from the dry side, and 2 in slots in the cap's nut blocks, open on the underside. The nuts carry the threads (nothing self-taps into plastic; all clearance holes are 3.4 mm), so glue each one in.
@@ -46,7 +44,7 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 11 | `11_hose_adapter_8.5mm` | 1 | ASA or PETG | A1 or K2 (brim) | Straight barbed reducer: bladder drinking tube (8.5 mm barb) to the 3.5 × 5.5 mm IN pigtail (4.8 mm barb). Big barb down, 100% infill, zip-tie both ends. `_8.0mm` and `_9.0mm` are looser/tighter alternates; collar notches mark the size (1 = 8.0, 2 = 8.5, 3 = 9.0). 3MF copies carry explicit mm units. |
 | 20 | `20_stick_tube` | 1 | ASA | K2 Plus (159 mm tall) | Bulkhead on the bed. 99.6 mm wide with the raised lettering. |
 | 21 | `21_stick_cap` | 1 | ASA | K2 Plus | Plate on the bed |
-| 22 | `22_stick_sled` | 1 | ASA | K2 Plus | Base on the bed. **Check the breaker's lug clearance first** (below). The base has a notch at the front-right corner so it slides down past the Buck B shelf; **a sled printed before 2026-10-16 needs that corner cut off** (Joey used wire cutters). |
+| 22 | `22_stick_sled` | 1 | ASA | K2 Plus | Base on the bed. **Check the breaker's lug clearance first** (below). The base has a notch at the front-right corner so it slides down past the Buck B shelf; **a sled printed before 2026-10-16 needs that corner cut off** (wire cutters work). |
 | 23 | `23_stick_cup` | 1 | ASA | K2 Plus | Floor on the bed. **Measure the pump first.** |
 | 24 | `24_stick_prime_bezel` | 1 | ASA | A1 (brim, draft shield) | Guard ring around the PRIME boot; exported top-down |
 | 25 | `25_stick_grommet_skirt` | 1 | ASA | A1 (brim, draft shield) | Drip skirt under the bulkhead grommet; lip on the bed |
@@ -77,9 +75,7 @@ The whole pack, apart from the bladder, is one upright **stick**: outside about 
 | 71, 73 | `71_duo_cover_L`, `73_duo_cover_R` | 1 per gun | ASA (purple) | A1 or K2 Plus | Duo cover half. Outer face down. |
 | 74 | `74_duo_trigger` | 1 per gun | ASA (purple) | any | Duo trigger. Lies flat. |
 
-That is 32 STLs: 5 older parts (the brick file is now x2), 5 stick coupons (one optional), 7 rigid stick parts and 15 TPU parts (each file counts as one STL, whatever the copy count). On top of those: the three hose adapters (11), the two donor-head test parts (50-51), the ten gun-dock files (60-69), and the Duo files (70-74). `REF_blower_head.stl` is a reference model, not a print.
-
-The older wide-box design (`dry_core.scad`, `pump_module.scad`, `port_insert.scad`) is superseded and no longer built. **Don't print those.**
+The core set is 32 STLs: 5 older parts (the brick file is now x2), 5 stick coupons (one optional), 7 rigid stick parts and 15 TPU parts (each file counts as one STL, whatever the copy count). On top of those: the three hose adapters (11), the two donor-head test parts (50-51), the ten gun-dock files (60-69), and the Duo files (70-74). `REF_blower_head.stl` is a reference model, not a print.
 
 ## Gun dock
 
@@ -93,7 +89,7 @@ Every gun shell gets the same dock (`src/gun_dock.scad`), so any umbilical fits 
 
 ## Duo (compact two-head gun)
 
-`src/duo_gun.scad`, parts 70-74. Renders `renders/15_duo_gun_*.png` (rebuild with `python renders/duo_gun_views.py`). 3D parts viewer: (link removed) A small, rounded gun for two donor heads, made as a **left/right pair**. **Three printed pieces per gun, all purple, nothing else:** main half (with the grip and the umbilical dock built in), cover half, trigger.
+`src/duo_gun.scad`, parts 70-74. Renders `renders/15_duo_gun_*.png` (rebuild with `python renders/duo_gun_views.py`). A small, rounded gun for two donor heads, made as a **left/right pair**. **Three printed pieces per gun, all purple, nothing else:** main half (with the grip and the umbilical dock built in), cover half, trigger.
 
 - **Size:** body **88 long × 123.5 tall × 55.6 mm thick**; about 102 × 200 mm with the grip. The heads sit one above the other behind round windows, axes 57 mm apart, each turned 20° about its axis.
 - **Shell:** split on the centre plane through both head axes and **glued shut**. The **main half** (70/72) carries everything: the grip (solid, half the gun thick, flush with its face), the umbilical dock, the switch bulkhead, half the trigger housing and one pivot peg, the head sleeves with crush ribs, and the pegs. The **cover half** (71/73) is the other side, with the other pivot peg. The switch, its bores and the trigger slot sit on the seam plane, so both halves print outer face down with no supports. Two glue pads (plates that meet face to face, on posts fused to the walls) add area to the rim, and a 4 mm peg on each main-half pad drops into a hole in the cover's pad.
@@ -431,7 +427,7 @@ The rigid stick parts are ASA, not PETG. It is tougher in the heat (about 100 C 
 - `stick.scad` `part="assembly"` has placeholder blocks for the battery, breaker, PCB, voltmeter, charger, BMS zone, bucks/ACS zone and pump envelope.
   - Pairwise intersection checks, including the TPU parts in their installed positions, found no overlaps. The exceptions are intended: the heat-stake pins pass through the PCB holes, and the seal ring presses 0.25 mm into the tube wall.
   - With the measured sizes, the pump fits its pocket with 0.6–0.75 mm of side clearance and 12 mm above it.
-- Two independent reviews of the stick (2026-10-14, Claude and GPT-6 Astra) found real problems, now fixed:
+- Two independent design reviews of the stick (2026-10-14) found real problems, now fixed:
   - the PRIME plunger had no travel,
   - the seal ring overfilled its groove,
   - the cap screw holes bypassed the seal and left only 0.7 mm of wall,
@@ -440,9 +436,8 @@ The rigid stick parts are ASA, not PETG. It is tougher in the heat (about 100 C 
   - the TPU grommet had an unsupported flange,
   - the battery leads had no route between bays,
   - the pump V-blocks left 6 mm for the pump head.
-- I also took out a claim that the grommet vents a failing cell.
 - The PCB feature positions come from the KiCad source.
-- A final GPT-6 Astra verification pass (2026-10-14) confirmed the earlier fixes and caught one last collision: the USB-C charger stands upright (its 1½ in runs along the plug), so it would have hit the battery. The cap was raised 8 mm and the stick is now 215 mm tall. It also flagged the breaker caveat above.
+- A final verification pass (2026-10-14) confirmed the earlier fixes and caught one last collision: the USB-C charger stands upright (its 1½ in runs along the plug), so it would have hit the battery. The cap was raised 8 mm and the stick is now 215 mm tall. It also flagged the breaker caveat above.
 - **Jostle pass (2026-10-14):**
   - The bulkhead nut pockets opened on the cup side, so tightening the screws would have pulled the nuts out. Fixed: they now drop in from the dry side.
   - Added the paracord tie-offs (tether anchors), the grommet drip skirt, wall drains for lying on its side, the charger pocket, through-hole LED windows, and the guarded, hard-stopped PRIME button.
@@ -450,14 +445,13 @@ The rigid stick parts are ASA, not PETG. It is tougher in the heat (about 100 C 
   - All 17 STLs rebuilt watertight; the interference sweep is still clear.
 - **TPU-cushion pass, 2026-10-15:**
   - Foam is gone. Added parts 36 (battery pads), 37 (pump mat) and 38 (shim strips); the tube gained raised BubbleLink lettering on its right-hand wall (now 99.6 mm wide); the USB-C receptacle position was confirmed; rigid parts move from PETG to ASA.
-  - Two further independent reviews (Astra and Fable) led to: the compliant battery pad with snap beads, an 8-hole pump mat with drain grooves and cup corner drains and fence notches, a shim set in three thicknesses, charger crush ribs, battery y-stops on the sled, a stepped bevel on the tube lettering, and three stick fit coupons.
+  - Two further independent reviews led to: the compliant battery pad with snap beads, an 8-hole pump mat with drain grooves and cup corner drains and fence notches, a shim set in three thicknesses, charger crush ribs, battery y-stops on the sled, a stepped bevel on the tube lettering, and three stick fit coupons.
   - Round-2 reviews: flat end faces on both cell holders (reprint old ones); pad redesigned (3.8 mm floor, 0.6 mm compression, 70-140 N/mm); cap screw holes 0.7 mm lower (5.2 mm below the rim, 3.5 mm land); pump mat and cup corner drains moved 2 mm inward; print order now measures the real stack before the cap and pads.
   - Hardware and plugs pass: the kit's DIN 912 socket heads with flat washers (cap) and lock washers (cup, counterbore 0.8 mm deeper); TPU trimmer and USB-C plugs (39, 40) replace the tape; cup drains made identical on every wall; paracord tie-offs moved up and numbered; sled base now hugs the corner bosses; gun power routing wording fixed; render view 9 added.
-  - Lid and sled pass (2026-10-16): voltmeter hole 29.2 to 31.2 mm; charger pocket replaced by a thin slot (no crush ribs); optional cap coupon; sled corner notch for the Buck B shelf. Joey needs a new lid (part 21); the sled fix only matters for a reprint.
+  - Lid and sled pass (2026-10-16): voltmeter hole 29.2 to 31.2 mm; charger pocket replaced by a thin slot (no crush ribs); optional cap coupon; sled corner notch for the Buck B shelf. A lid printed before this pass needs reprinting (part 21); the sled fix only matters for a reprint.
   - Battery build pass (2026-10-16): `holder_lip` 2.0 to 0.8 mm (reprint both holders; block 113.0 × 40.68 × 67.45 mm); the block now sits 2.0 mm off the front wall and 3.55 mm off the back; pad centres at y 8.55 and 66.0 (the new cap, part 21, includes this); sled stop posts now 2 mm tall; soldering guidance added.
   - Coupon results (2026-10-15): `cell_bore` = 18.65 (holders 113.0 × 40.68 × 10 mm); nut pockets, XT30U well and XT60H key socket verified; hose hole 5.4 to 6.0 mm; USB-A window 14.0 × 6.6 mm, with Buck B moved from the sled to a shelf on the tube's front wall.
-  - Review pass (Astra): connector genders fixed (power always from a female; pack well female, umbilical pack end male, gun end female, gun input male); the key no longer fully disconnects the battery (key blank for storage); keepers for the key socket and XT30U wells; XT30U well 10.8 × 6.2 mm; key sleeve 17.0 × 9.8 × 22 mm; LED 5V window 13.2 × 5.7 mm with Buck B 0.5 mm from the wall; parts 43 and 44 added.
+  - Review pass: connector genders fixed (power always from a female; pack well female, umbilical pack end male, gun end female, gun input male); the key no longer fully disconnects the battery (key blank for storage); keepers for the key socket and XT30U wells; XT30U well 10.8 × 6.2 mm; key sleeve 17.0 × 9.8 × 22 mm; LED 5V window 13.2 × 5.7 mm with Buck B 0.5 mm from the wall; parts 43 and 44 added.
   - Ports pass: every way in or out is now a labelled port (CHG, KEY, LED 5V, gun 1 and 2, IN) and nothing exits underneath. The power key (part 26) replaces the XT60H loop, Buck B plugs straight into a USB-A window, gun ports sit on the cup's outer wall, and the pack-end brick is gone (`10_umbilical_brick_x2`). Added the ports coupon and parts 26, 41 and 42; the BMS slot got a 12 mm lip and a 25 mm fence.
   - All 32 STLs rebuilt watertight.
   - The M3 thread and nut stack-ups were re-checked against `stick.scad` (see *M3 hardware* below).
-- **None of these parts has been printed or test-fitted.**

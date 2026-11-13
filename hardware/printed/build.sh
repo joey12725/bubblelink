@@ -67,8 +67,6 @@ render 66_gun_dock_6head.stl         gun_dock.scad       -D 'part="dock"' -D n_o
 render 67_gun_dock_7head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=7
 render 68_gun_dock_8head.stl         gun_dock.scad       -D 'part="dock"' -D n_out=8
 render 69_dock_mount_plate.stl        gun_dock.scad       -D 'part="plate"'
-# Superseded by the stick, kept for reference (not built):
-#   dry_core.scad, pump_module.scad, port_insert.scad
 # Duo (2026-10-28): compact two-head gun, made as a left/right pair (R = mirror of L). All purple.
 # Per gun: main half (with the grip), cover half, trigger (74), dock 62.
 # print the two test pieces first: the trigger housing region of each half (switch fit, nut
