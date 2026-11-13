@@ -24,7 +24,7 @@ Everything is here: the controller PCB (KiCad, Gerbers, BOM, pick-and-place, ver
 - **Built for jumping.** The whole pack is one sealed upright "stick": dry tube on top, draining wet cup below, TPU seals and cushions, and nothing exits underneath.
 - **Measured runtime**: about 2 hours of nonstop firing with all four heads, about 8 hours with one, and over 100 hours idle.
 - **Verified before fabrication.** 50 automated release checks on the board files and a 20,000-sample Monte Carlo of the analog circuit, both re-runnable from this repo.
-- **56 printable parts**, all support-free, generated from parametric OpenSCAD.
+- **56 ready-to-slice STLs**, all watertight and designed to print without supports, generated from parametric OpenSCAD.
 
 ## How it works
 
